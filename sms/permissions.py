@@ -1,4 +1,4 @@
-from rest_framework import permissions, SAFE_METHODS
+from rest_framework import permissions
 
 # add custom permissions for the Student Management System
 # all users are able to GET
@@ -15,7 +15,7 @@ class IsSuperuserOrAuthenticatedReadOnly(permissions.BasePermission):
             return True
 
         elif request.user.is_authenticated and not request.user.is_superuser:
-            return request.method in SAFE_METHODS
+            return request.method in permissions.SAFE_METHODS
 
         else:
             return False
@@ -25,6 +25,6 @@ class IsSuperuserOrAuthenticatedReadOnly(permissions.BasePermission):
             return True
 
         elif request.user.is_authenticated and not request.user.is_superuser:
-            return request.method in SAFE_METHODS
+            return request.method in permissions.SAFE_METHODS
         else:
             return False

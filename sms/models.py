@@ -5,6 +5,7 @@ from django.contrib.postgres.fields import ArrayField
 from djmoney.models.fields import MoneyField
 from phonenumber_field.modelfields import PhoneNumberField
 
+from .managers import SchoolManager, ProgramManager, RotationManager, StudentManager
 
 # can be refactored, so we can easily add on new programs in the future
 PROGRAM_NAMES = (
@@ -34,8 +35,10 @@ class School(models.Model):
 
     year_founded = models.DateField()
 
+    objects = SchoolManager()
+
     def __str__(self):
-        return self.school_uuid
+        return str(self.school_uuid)
 
 
 class Program(models.Model):
@@ -50,8 +53,10 @@ class Program(models.Model):
     school = models.ForeignKey(School, on_delete=models.SET_NULL, null=True,
                                related_name='programs', related_query_name='program')
 
+    objects = ProgramManager()
+
     def __str__(self):
-        return self.program_uuid
+        return str(self.program_uuid)
 
 
 class Rotation(models.Model):
@@ -63,13 +68,15 @@ class Rotation(models.Model):
     program = models.ForeignKey(Program, on_delete=models.SET_NULL, null=True,
                                 related_name='rotations', related_query_name='rotation')
 
+    objects = RotationManager()
+
     # note this could be an issue
     @property
     def size(self):
         return Student.objects.filter(rotation__rotation_uuid__exact=self.rotation_uuid).count()
 
     def __str__(self):
-        return self.rotation_uuid
+        return str(self.rotation_uuid)
 
 
 class Student(models.Model):
@@ -120,9 +127,12 @@ class Student(models.Model):
     rotation = models.ForeignKey(Rotation, on_delete=models.SET_NULL,
                                  null=True, related_name='students', related_query_name='student')
 
+
+    objects = StudentManager()
+
     @property
     def full_name(self):
         return '%s_%s' % (self.first_name, self.last_name)
 
     def __str__(self):
-        return self.student_uuid
+        return str(self.student_uuid)

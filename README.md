@@ -90,6 +90,25 @@ _Note:_ If having trouble to install postgres db connector, try: `$ PATH="<postg
 
 ---
 
+### **Edit `core/settings/.env-template` file**
+
+1. Using your fav text editor to edit `/ST-SMS-Backend/core/settings/.env-template` file
+2. Rename the file to `.env` so it can be picked up by django
+
+_Note:_ To generate a new secret key: `$ python manage.py shell`
+
+```Python
+
+>>> from django.core.management.utils import get_random_secret_key  
+>>> a = get_random_secret_key()
+>>> a
+>>> a
+'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+>>> 
+```
+
+---
+
 ### **Migrate and add superuser; then start server (If starting with a blank Database)**
 
 1. `$ python manage.py makemigrations --dry-run`
