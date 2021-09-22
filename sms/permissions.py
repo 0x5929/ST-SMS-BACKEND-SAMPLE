@@ -14,16 +14,17 @@ class IsSuperuserOrAuthenticatedReadOnly(permissions.BasePermission):
         if request.user.is_authenticated and request.user.is_superuser:
             return True
 
-        if request.user.is_authenticated and not request.user.is_superuser:
+        elif request.user.is_authenticated and not request.user.is_superuser:
             return request.method in SAFE_METHODS
 
-        return False
+        else:
+            return False
 
     def has_object_permission(self, request, view, obj):
         if request.user.is_authenticated and request.user.is_superuser:
             return True
 
-        if request.user.is_authenticated and not request.user.is_superuser:
+        elif request.user.is_authenticated and not request.user.is_superuser:
             return request.method in SAFE_METHODS
-
-        return False
+        else:
+            return False
