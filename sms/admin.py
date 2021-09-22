@@ -70,7 +70,6 @@ class ModelAdminProgramConfig(ModelAdmin):
 
 
 class ModelAdminRotationConfig(ModelAdmin):
-
     readonly_fields = ('rotation_uuid',)
     search_fields = ('rotation_uuid', 'rotation_number',)
     list_filter = ('rotation_uuid', 'rotation_number',)

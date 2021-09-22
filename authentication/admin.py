@@ -4,7 +4,6 @@ from .models import Account
 
 
 class AccountAdminConfig(UserAdmin):
-
     search_fields = ('email', 'username', 'first_name',
                      'last_name', 'is_superuser')
     list_filter = ('email', 'username', 'first_name',
