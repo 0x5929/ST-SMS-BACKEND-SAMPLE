@@ -6,5 +6,5 @@ __pycache__/
 virtual-env/
 virtual-env/*
 
-# environment settings
+# Environment settings
 .env
