@@ -127,7 +127,6 @@ class Student(models.Model):
     rotation = models.ForeignKey(Rotation, on_delete=models.SET_NULL,
                                  null=True, related_name='students', related_query_name='student')
 
-
     objects = StudentManager()
 
     @property

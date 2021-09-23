@@ -27,7 +27,8 @@ class ReferenceObjDoesNotChangeOnUpdates:
 
 class NoSpecialCharactersAndCapitalizeString:
 
-    def __init__(self):
+    def __init__(self, fields):
+        self.fields = fields
         self.err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (, . #).'
         self.pattern = '[A-Za-z0-9,.#\s]{1,150}'
 
