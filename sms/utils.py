@@ -1,5 +1,8 @@
 import uuid
 
+from rest_framework.exceptions import ValidationError
+
+
 class DatabaseHelper():
 
     @staticmethod
@@ -39,5 +42,19 @@ class DatabaseHelper():
 
             # add rotation to the student object
             validated_data['rotation'] = rotation
-        
+
         return (instance, validated_data) if instance else validated_data
+
+
+class ExceptionHelper():
+
+    @staticmethod
+    def raise_verror(self, msg):
+        raise ValidationError(msg)
+
+
+class ValidationHelper():
+
+    @staticmethod
+    def capitalize_string(string):
+        return string.strip().capitalize()
