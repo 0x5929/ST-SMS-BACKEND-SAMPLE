@@ -51,10 +51,3 @@ class ExceptionHelper():
     @staticmethod
     def raise_verror(self, msg):
         raise ValidationError(msg)
-
-
-class ValidationHelper():
-
-    @staticmethod
-    def capitalize_string(string):
-        return string.strip().capitalize()

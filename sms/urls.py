@@ -7,7 +7,7 @@ router = DefaultRouter()
 
 router.register('schools', SchoolView, basename='schools')
 router.register('programs', ProgramView, basename='programs')
-router.register('rotations', ProgramView, basename='rotations')
+router.register('rotations', RotationView, basename='rotations')
 router.register('students', StudentView, basename='students')
 
 urlpatterns = router.urls

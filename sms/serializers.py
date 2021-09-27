@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .validators import ReferenceObjDoesNotChangeOnUpdates, NoSpecialCharactersAndCapitalizeString, StudentIDFormat
+from .validators import ReferenceObjDoesNotChangeOnUpdates,  StudentIDFormat, NoSpecialCharactersAndCapitalizeString, StrictPhoneNumberFormat
 from .models import School, Program, Rotation, Student
 
 
@@ -10,6 +10,18 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Student
+        validators = [
+            NoSpecialCharactersAndCapitalizeString(
+                fields=[
+                    'first_name',
+                    'last_name',
+                    'mailing_address',
+                    'third_party_payer_info',
+                    'place_of_employment',
+                    'employment_address',
+                    'position', ]),
+
+        ]
 
     def create(self, validated_data):
         return super(StudentSerializer, self).create(Student.objects.create_or_update_student(validated_data=validated_data))
@@ -72,18 +84,3 @@ class SchoolSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         return super(SchoolSerializer, self).update(*School.objects.create_or_update_school(validated_data=validated_data, instance=instance))
-
-
-# from rest_framework.validators import UniqueForYearValidator
-
-# class ExampleSerializer(serializers.Serializer):
-#     # ...
-#     class Meta:
-#         # Blog posts should have a slug that is unique for the current year.
-#         validators = [
-#             UniqueForYearValidator(
-#                 queryset=BlogPostItem.objects.all(),
-#                 field='slug',
-#                 date_field='published'
-#             )
-#         ]

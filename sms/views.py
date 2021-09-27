@@ -14,26 +14,30 @@ from .serializers import SchoolSerializer, ProgramSerializer, RotationSerializer
 class SchoolView(viewsets.ModelViewSet):
     queryset = School.objects.all()
     serializer_class = SchoolSerializer
-    permission_classes = [permissions.AllowAny |
-                          IsSuperuserOrAuthenticatedReadOnly]
+    permission_classes = [IsSuperuserOrAuthenticatedReadOnly]
 
 
 class ProgramView(viewsets.ModelViewSet):
     queryset = Program.objects.all()
     serializer_class = ProgramSerializer
-    permission_classes = [permissions.AllowAny |
-                          IsSuperuserOrAuthenticatedReadOnly]
+   # permission_classes = [permissions.AllowAny |
+    #                      IsSuperuserOrAuthenticatedReadOnly]
+#
+    permission_classes = [IsSuperuserOrAuthenticatedReadOnly]
 
 
 class RotationView(viewsets.ModelViewSet):
     queryset = Rotation.objects.all()
     serializer_class = RotationSerializer
-    permission_classes = [permissions.AllowAny |
-                          IsSuperuserOrAuthenticatedReadOnly]
+   # permission_classes = [permissions.AllowAny |
+    #                     IsSuperuserOrAuthenticatedReadOnly]
+#
+    permission_classes = [IsSuperuserOrAuthenticatedReadOnly]
 
 
 class StudentView(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = [permissions.AllowAny |
-                          IsSuperuserOrAuthenticatedReadOnly]
+    # permission_classes = [permissions.AllowAny |
+    #                     IsSuperuserOrAuthenticatedReadOnly]
+    permission_classes = [IsSuperuserOrAuthenticatedReadOnly]
