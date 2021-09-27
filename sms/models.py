@@ -4,7 +4,6 @@ from django.db import models
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib.postgres.fields import ArrayField
 from djmoney.models.fields import MoneyField
-from phonenumber_field.modelfields import PhoneNumberField
 
 from .managers import SchoolManager, ProgramManager, RotationManager, StudentManager
 
