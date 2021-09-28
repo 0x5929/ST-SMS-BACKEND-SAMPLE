@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .validators import CustomSMSValidator
+
+from .validators import SMSValidator
 from .models import School, Program, Rotation, Student
 
 
@@ -10,33 +11,36 @@ class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Student
-    
+
     def validate_student_id(self, value):
-        return CustomSMSValidator.student_id_format_checker(value)
+        return SMSValidator.student_id_format_checker(value)
 
     def validate_first_name(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_last_name(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_phone_number(self, value):
-        return CustomSMSValidator.phone_number_format_checker(value)
+        return SMSValidator.phone_number_format_checker(value)
 
     def validate_mailing_address(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_third_party_payer_info(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_place_of_employment(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_employment_address(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_position(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
+
+    def validate(self, data):
+        return SMSValidator.final_obj_validation(data)
 
     def create(self, validated_data):
         return super(StudentSerializer, self).create(Student.objects.create_or_update_student(validated_data=validated_data))
@@ -56,7 +60,7 @@ class RotationSerializer(serializers.ModelSerializer):
         depth = 1
 
     def validate_program(self, value):
-        return value if not self.instance else CustomSMSValidator.reference_does_not_change_on_updates(value, self.instance, 'program_uuid')
+        return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'program_uuid')
 
     def create(self, validated_data):
         return super(RotationSerializer, self).create(Rotation.objects.create_or_update_rotation(validated_data=validated_data))
@@ -76,7 +80,7 @@ class ProgramSerializer(serializers.ModelSerializer):
         depth = 2
 
     def validate_school(self, value):
-        return value if not self.instance else CustomSMSValidator.reference_does_not_change_on_updates(value, self.instance, 'school_uuid')
+        return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'school_uuid')
 
     def create(self, validated_data):
         return super(ProgramSerializer, self).create(Program.objects.create_or_update_program(validated_data=validated_data))
@@ -94,13 +98,13 @@ class SchoolSerializer(serializers.ModelSerializer):
         depth = 3
 
     def validate_school_name(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_school_code(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_school_address(self, value):
-        return CustomSMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def create(self, validated_data):
         return super(SchoolSerializer, self).create(School.objects.create_or_update_school(validated_data=validated_data))

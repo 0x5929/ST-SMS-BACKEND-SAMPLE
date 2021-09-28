@@ -16,14 +16,14 @@ class AccountAdminConfig(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'first_name', 'last_name', )}),
         ('Permissions', {
-         'fields': ('is_staff', 'is_active', 'is_superuser', )}),
+         'fields': ('is_staff', 'is_active', 'is_superuser')}),
         ('Personal', {'fields': ('phone_number', 'email',)}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'first_name', 'last_name', 'password1', 'password2', 'is_superuser')
+            'fields': ('email', 'username', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'is_superuser', )
         }
 
         ),

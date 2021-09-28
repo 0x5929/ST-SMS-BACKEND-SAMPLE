@@ -22,7 +22,6 @@ class CustomAccountManager(BaseUserManager):
 
     def create_user(self, email, username, first_name, last_name, password, **other_fields):
 
-        other_fields.setdefault('is_staff', True)
         if not email:
             raise ValueError('You must provide an email address')
         elif not username:
@@ -67,8 +66,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     phone_number = PhoneNumberField(null=True, blank=True)
 
-    is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
     objects = CustomAccountManager()

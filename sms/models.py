@@ -140,6 +140,7 @@ class Student(models.Model):
     total_charges_paid = MoneyField(
         max_digits=5, decimal_places=2, default_currency='USD')
 
+    paid = models.BooleanField(default=False)
     graduated = models.BooleanField(default=False)
     passed_first_exam = models.BooleanField(default=False)
     passed_second_or_third_exam = models.BooleanField(default=False)
@@ -170,11 +171,12 @@ class Student(models.Model):
         return str(self.rotation.program.school.school_name)
 
     def save(self, *args, **kwargs):
+        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
         data = self.data_format(STUDENT_RECORD_HEADERS)
 
         try:
             GoogleSheet.master_sheet_save(data=data)
-        except Exception as e:
+        except:
             msg = "Did not save the data in Master DB on Google Sheet, cancelling the DATA operation, please try again."
             raise ImproperlyConfigured(msg=msg, code='Canceled-due-to-GSC')
 

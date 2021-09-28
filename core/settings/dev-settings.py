@@ -41,11 +41,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'google_sheet_connector',
-    'sms',
     'authentication',
     'rest_framework',
     'rest_framework.authtoken',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,12 +52,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'phonenumber_field',
+
     'djmoney',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    'django_filters',
+    'sms',
+    'google_sheet_connector',
+
 ]
 
 MIDDLEWARE = [
@@ -167,7 +171,7 @@ AUTH_USER_MODEL = 'authentication.Account'
 AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
-    'core.auth.EmailOrUsernameBackend'
+    'core.auth.EmailOrUsernameBackend',
 ]
 
 # rest framework settings
@@ -192,12 +196,12 @@ JWT_AUTH_COOKIE = 'sms-auth'
 JWT_AUTH_REFRESH_COOKIE = 'sms-refresh-token'
 
 # email verification settings
-
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 LOGIN_URL = 'http://localhost:8000/auth/login'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
@@ -215,7 +219,8 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'authentication.serializers.LoginSerializer',
 }
-# cors settings, ie for react app
+
+# cors settings, ie for react apps
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ]
