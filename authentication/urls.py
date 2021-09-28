@@ -2,7 +2,9 @@ from django.urls import path, re_path, include
 from dj_rest_auth.registration.views import RegisterView, VerifyEmailView, ConfirmEmailView
 from dj_rest_auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetConfirmView
 
-app_name = 'auth'
+# setting app_name and namespace in core/urls.py will cause a ReverseMatch Exception,
+# django_rest_auth source needs to be altered to add a reverse match app name like so: auth:account_confirmation_email in order to work
+#app_name = 'auth'
 
 urlpatterns = [
 

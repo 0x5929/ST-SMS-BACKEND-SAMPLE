@@ -1,11 +1,11 @@
 class GoogleSheet:
 
-    def __init__(self):
-        pass
+    def __init__(self, school_name):
+        sheet_id = self.parse_sheet_id(school_name)
 
     @staticmethod
     def master_sheet_save(data):
-        school = data.get('school_name')
+        school = data.pop('school_name')
 
         # connect_google_api
         # lookup by name to determine if this is create or update
@@ -14,7 +14,7 @@ class GoogleSheet:
 
     @staticmethod
     def master_sheet_del(data):
-        school = data.get('school_name')
+        school = data.pop('school_name')
 
         pass
 
@@ -39,6 +39,9 @@ class GoogleSheet:
         pass
 
     # obj methods
+
+    def parse_sheet_id(self, school):
+        pass
 
     def create(self):
         pass
