@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 
+from django.apps import apps
 from django.core.validators import RegexValidator
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib.postgres.fields import ArrayField
@@ -149,13 +150,13 @@ class Student(models.Model):
     third_party_payer_info = models.CharField(max_length=10, blank=True)
 
     course_cost = MoneyField(
-        max_digits=5, decimal_places=2, default_currency='USD')
+        default=0, max_digits=10, decimal_places=2, default_currency='USD')
 
     total_charges_charged = MoneyField(
-        max_digits=5, decimal_places=2, default_currency='USD')
+        default=0, max_digits=10, decimal_places=2, default_currency='USD')
 
     total_charges_paid = MoneyField(
-        max_digits=5, decimal_places=2, default_currency='USD')
+        default=0, max_digits=10, decimal_places=2, default_currency='USD')
 
     paid = models.BooleanField(default=False)
     graduated = models.BooleanField(default=False)
@@ -167,7 +168,7 @@ class Student(models.Model):
     employment_address = models.CharField(max_length=150, blank=True)
     position = models.CharField(max_length=50, blank=True)
     starting_wage = MoneyField(
-        max_digits=5, decimal_places=2, default_currency='USD', blank=True)
+        max_digits=4, decimal_places=2, default_currency='USD', null=True, blank=True)
 
     hours_worked_weekly = models.CharField(
         max_length=1, choices=EMPLOYMENT_STATUS_CHOICES, blank=True)
@@ -193,6 +194,10 @@ class Student(models.Model):
         return str(self.rotation.program.school.school_name)
 
     def migrate_google(self, method):
+
+        if not apps.is_installed('google_sheet_connector'):
+            return
+
         data = DataHelper.data_conversion(
             self, STUDENT_RECORD_HEADERS)
 

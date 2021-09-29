@@ -43,11 +43,11 @@ class ModelAdminProgramConfig(ModelAdmin):
     search_fields = ('program_uuid', 'program_name',)
     list_filter = ('program_uuid', 'program_name',)
     ordering = ()
-    list_display = ('program_uuid', 'program_name',
+    list_display = ('school','program_uuid', 'program_name',
                     'approval_entities',)
 
     fieldsets = (
-        (None, {'fields': ('program_uuid', 'program_name',
+        (None, {'fields': ('school','program_uuid', 'program_name',
                            'approval_entities',)
                 }
          ),
@@ -57,7 +57,7 @@ class ModelAdminProgramConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('program_uuid', 'program_name',
+            'fields': ('school', 'program_uuid', 'program_name',
                        'approval_entities',)
         }
 
@@ -72,12 +72,12 @@ class ModelAdminProgramConfig(ModelAdmin):
 class ModelAdminRotationConfig(ModelAdmin):
     readonly_fields = ('rotation_uuid',)
     search_fields = ('rotation_uuid', 'rotation_number',)
-    list_filter = ('rotation_uuid', 'rotation_number',)
+    list_filter = ('program','rotation_uuid', 'rotation_number',)
     ordering = ('-rotation_number',)
     list_display = ('rotation_uuid', 'rotation_number',)
 
     fieldsets = (
-        (None, {'fields': ('rotation_uuid', 'rotation_number',)
+        (None, {'fields': ('program','rotation_uuid', 'rotation_number',)
                 }
          ),
 
@@ -86,7 +86,7 @@ class ModelAdminRotationConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('rotation_uuid', 'rotation_number',)
+            'fields': ('program','rotation_uuid', 'rotation_number',)
         }
 
         ),
@@ -98,7 +98,7 @@ class ModelAdminRotationConfig(ModelAdmin):
 
 
 class ModelAdminStudentConfig(ModelAdmin):
-    all_fields = ('student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
+    all_fields = ('rotation', 'student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
                   'email', 'mailing_address', 'course', 'start_date', 'completion_date',
                   'date_enrollment_agreement_signed', 'third_party_payer_info', 'course_cost',
                   'total_charges_charged', 'total_charges_paid', 'graduated', 'passed_first_exam',
@@ -109,7 +109,7 @@ class ModelAdminStudentConfig(ModelAdmin):
     search_fields = ('student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
                      'email', 'course', 'start_date', 'completion_date', 'third_party_payer_info',
                      'graduated', 'passed_first_exam', 'passed_second_or_third_exam', 'employed',)
-    list_filter = ('student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
+    list_filter = ('rotation','student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
                    'email', 'course', 'start_date', 'completion_date', 'third_party_payer_info',
                    'graduated', 'passed_first_exam', 'passed_second_or_third_exam', 'employed',)
     ordering = ('-start_date',)

@@ -31,22 +31,20 @@ class DataHelper:
 
     @staticmethod
     def bool_conversion(model, header):
-        # can i get rid of bool()? test in shell plz
-        return 'Y' if bool(getattr(model, header)) else ''
+        value = getattr(model, header)
+        return 'Y' if value else ''
 
     @staticmethod
-    def date_conversion(date_obj):
+    def date_conversion(model, header):
 
-        # convert date_obj into string google sheet can easily understand and
-        # return string
-        pass
+        date_obj = getattr(model, header)
+        return '%s/%s/%s' % (str(date_obj.day), str(date_obj.month), str(date_obj.year))
 
     @staticmethod
-    def money_conversion(money_obj):
+    def money_conversion(model, header):
 
-        # convert money_obj into string google sheet can easily understand and
-        # return string
-        pass
+        money_obj = getattr(model, header)
+        return '$%s' % str(money_obj.amount)
 
     # NOTE data keys are assigned by each item inside STUDENT_RECORD_HEADERS,
     # by logic, as long as we dont change and or mess with the way data_conversion and clean_data,
