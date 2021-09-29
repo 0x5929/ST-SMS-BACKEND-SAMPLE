@@ -151,10 +151,6 @@ class GoogleSheet:
             pass
 
     @classmethod
-    def parse_sheet_id(cls, school_name):
-        return cls.CONSTANTS.get('SPREADSHEET_ID').get(school_name)
-
-    @classmethod
     def init_google_sheet(cls, school_name, recurse_counter=None):
 
         recurse_counter = 1 if not recurse_counter else recurse_counter + 1
@@ -209,7 +205,11 @@ class GoogleSheet:
                 # therefore updating and creating data on spreadsheet in order as intended.
                 # simple solution, but hopefully scalable
 
-        # obj init and methods
+    @classmethod
+    def parse_sheet_id(cls, school_name):
+        return cls.CONSTANTS.get('SPREADSHEET_ID').get(school_name)
+
+    # obj init and methods
 
     def __init__(self, sheets_api, sheet_id):
         self.sheets_api = sheets_api
@@ -219,7 +219,7 @@ class GoogleSheet:
 
         recurse_counter = 1 if not recurse_counter else recurse_counter + 1
 
-        spread_sheet_Id = self.__class__.CONSTANTS.get('SPREADSHEET_ID')
+        spread_sheet_Id = self.sheet_id
         range_ = self.__class__.CONSTANTS.get('DATABASE_SHEET')
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'INSERT_ROWS'
@@ -252,7 +252,7 @@ class GoogleSheet:
 
         recurse_counter = 1 if not recurse_counter else recurse_counter + 1
 
-        spread_sheet_Id = self.__class__.CONSTANTS.get('SPREADSHEET_ID')
+        spread_sheet_Id = self.sheet_id
         range_ = "%s!A%s:Y%s" % \
             (self.__class__.CONSTANTS.get('DATABASE_SHEET'), row_num, row_num)
         value_input_option = "USER_ENTERED"
@@ -309,7 +309,7 @@ class GoogleSheet:
         }
 
         try:
-            self.sheets_api.batchUpdate(spreadsheetId=self.__class__.CONSTANTS.get('SPREADSHEET_ID'),
+            self.sheets_api.batchUpdate(spreadsheetId=self.sheet_id,
                                         body=del_request).execute()
 
             # refresh database
@@ -330,7 +330,7 @@ class GoogleSheet:
 
         recurse_counter = 1 if not recurse_counter else recurse_counter + 1
 
-        spread_sheet_Id = self.__class__.CONSTANTS.get('SPREADSHEET_ID')
+        spread_sheet_Id = self.sheet_id
         include_values_in_response = True
         response_value_render_option = "FORMATTED_VALUE"
         value_input_option = "USER_ENTERED"
@@ -367,7 +367,7 @@ class GoogleSheet:
                                             body=request_body).execute()
 
             # fetch matched result
-            query_result = self.sheets_api.values().get(spreadsheetId=spread_sheet_Id[1],
+            query_result = self.sheets_api.values().get(spreadsheetId=spread_sheet_Id,
                                                         range=results_fetch_range).execute()
 
             values = query_result.get('values', [])
@@ -390,7 +390,7 @@ class GoogleSheet:
         sort_request = self.__class__.CONSTANTS['REFRESH_REQUEST']
 
         try:
-            self.sheets_api.batchUpdate(spreadsheetId=self.__class__.CONSTANTS.get('SPREADSHEET_ID'),
+            self.sheets_api.batchUpdate(spreadsheetId=self.sheet_id,
                                         body=sort_request).execute()
 
         except Exception as e:
