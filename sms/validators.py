@@ -23,8 +23,8 @@ class SMSValidator:
 
     @staticmethod
     def phone_number_format_checker(value):
-        err_msg = 'Please follow the following example format for the phone number: "888-888-8888"'
-        pattern = '^[0-9]{3}-[0-9]{3}-[0-9]{4}$'
+        err_msg = 'Please follow the following example format for the phone number: "+1-888-888-8888"'
+        pattern = '^(\+[0-9]-)?[0-9]{3}-[0-9]{3}-[0-9]{4}$'
 
         return value if bool(re.match(pattern, value)) else ExceptionHelper.raise_verror(err_msg)
 

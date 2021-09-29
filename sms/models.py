@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 
+from django.core.validators import RegexValidator
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib.postgres.fields import ArrayField
 from djmoney.models.fields import MoneyField
@@ -17,6 +18,7 @@ PROGRAM_NAMES = (
     ('CNA', 'Certified Nurse Assistant'),
     ('HHA', 'Home Health Aide'),
     ('SG', 'Security Guard'),
+    ('CG', 'Caregiver'),
     ('ESOL', 'English to Speakers of Other Language'),
 )
 ENTITY_NAMES = (
@@ -134,7 +136,9 @@ class Student(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
-    phone_number = models.CharField(max_length=12)
+    phone_regex = RegexValidator(regex=r'^(\+\d-)?\d{3}-\d{3}-\d{4}$', message="Phone number must be entered in the format: '+1-888-888-8888'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+
     email = models.EmailField()
     mailing_address = models.CharField(max_length=200)
     course = models.CharField(max_length=4, choices=PROGRAM_NAMES)
