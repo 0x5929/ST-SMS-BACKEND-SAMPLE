@@ -8,7 +8,8 @@ from djmoney.models.fields import MoneyField
 from .managers import SchoolManager, ProgramManager, RotationManager, StudentManager
 
 
-from google_sheet_connector.utils import GoogleSheet
+from google_sheet_connector.google_sheets import GoogleSheet
+from google_sheet_connector.utils import DataHelper
 
 # global constants
 # can be refactored, so we can easily add on new programs in the future
@@ -188,7 +189,7 @@ class Student(models.Model):
         return str(self.rotation.program.school.school_name)
 
     def migrate_google(self, method):
-        data = GoogleSheet.data_conversion(
+        data = DataHelper.data_conversion(
             self, STUDENT_RECORD_HEADERS)
 
         try:
