@@ -84,3 +84,6 @@ class SMSFilter(django_filters.FilterSet):
 
     passed_second_or_third_exam = django_filters.BooleanFilter(
         field_name='passed_second_or_third_exam')
+
+    google_sheet_migrated = django_filters.BooleanFilter(
+        field_name='google_sheet_migrated')

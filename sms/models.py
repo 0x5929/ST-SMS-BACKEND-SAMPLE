@@ -27,12 +27,24 @@ EMPLOYMENT_STATUS_CHOICES = (
     ('F', 'Full time employee, more than 32 hours a week'),
     ('P', 'Part time employee, less than 32 hours a week'),
 )
-STUDENT_RECORD_HEADERS = [
+
+SHEET_MIGRATION_ISSUES = (
+    ('POST', 'Could not add new record to Google Sheet'),
+    ('PUT', 'Could not update existing record on Google Sheet'),
+    ('DEL', 'Could not delete existing record on Google Sheet'),
+
+)
+
+# NOTE: not every student property/field is saved to google, some is used internally by postgresql DB.
+# NOTE NOTE: this is the exact order of the database sheet columns from A to Y, if we add more columns in the future,
+# MAKE SURE we update this as well.
+STUDENT_RECORD_HEADERS = (
     'student_id',
-    'first_name',
-    'last_name',
     'full_name',
+    'last_name',
+    'first_name',
     'phone_number',
+    'email',
     'mailing_address',
     'course',
     'start_date',
@@ -54,7 +66,7 @@ STUDENT_RECORD_HEADERS = [
     'description_of_attempts_to_contact_student',
     'school_name',
 
-]
+)
 
 
 class School(models.Model):
@@ -157,6 +169,11 @@ class Student(models.Model):
 
     description_of_attempts_to_contact_student = models.TextField(blank=True)
 
+    google_sheet_migrated = models.BooleanField(default=False)
+
+    google_sheet_migration_issue = models.CharField(
+        max_length=4, choices=SHEET_MIGRATION_ISSUES,  blank=True)
+
     rotation = models.ForeignKey(Rotation, on_delete=models.SET_NULL,
                                  null=True, related_name='students', related_query_name='student')
 
@@ -170,41 +187,44 @@ class Student(models.Model):
     def school_name(self):
         return str(self.rotation.program.school.school_name)
 
-    def save(self, *args, **kwargs):
-        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
-        data = self.data_format(STUDENT_RECORD_HEADERS)
+    def migrate_google(self, method):
+        data = GoogleSheet.data_conversion(
+            self, STUDENT_RECORD_HEADERS)
 
         try:
-            GoogleSheet.master_sheet_save(data=data)
-        except:
-            msg = "Did not save the data in Master DB on Google Sheet, cancelling the DATA operation, please try again."
+            if method == 'DEL':
+                GoogleSheet.master_sheet_del(data=data)
+            else:
+                GoogleSheet.master_sheet_save(data=data)
+                self.google_sheet_migrated = True
+
+        except Exception as e:
+            self.google_sheet_migration_issue = method
+            msg = 'Did not save the data in Master DB on Google Sheet, cancelling the %s operation, please try again. Error: %s ' % \
+                (method, repr(e))
             raise ImproperlyConfigured(msg=msg, code='Canceled-due-to-GSC')
+
+    def save(self, *args, **kwargs):
+
+        self.paid = True if self.total_charges_charged < self.total_charges_paid else False
+
+        self.migrate_google('POST')
 
         return super(Student, self).save(*args, **kwargs)
 
-    def delete(self, *args, **kwargs):
-        data = self.data_format(STUDENT_RECORD_HEADERS)
+    def update(self, *args, **kwargs):
 
-        try:
-            GoogleSheet.master_sheet_del(data=data)
-        except Exception as e:
-            msg = "Did not delete the data in Master DB on Google Sheet, cancelling the DATA operation, please try again."
-            raise ImproperlyConfigured(msg=msg, code='Canceled-due-to-GSC')
+        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
+
+        self.migrate_google('PUT')
+
+        return super(Student, self).update(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+
+        self.migrate_google('DEL')
 
         return super(Student, self).delete(*args, **kwargs)
-
-    def data_format(self, STUDENT_RECORD_HEADERS):
-        data = {}
-        for header in STUDENT_RECORD_HEADERS:
-            if header == 'graduate' or \
-                    header == 'passed_first_exam' or \
-                    header == 'passed_second_or_third_exam' or \
-                    header == 'employed':
-
-                data[header] = "Y" if getattr(self, header) else ""
-            else:
-                data[header] = str(getattr(self, header))
-        return data
 
     def __str__(self):
         return str(self.student_uuid)
