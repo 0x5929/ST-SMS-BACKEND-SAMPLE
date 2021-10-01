@@ -22,6 +22,7 @@ class DataHelper:
                     header == 'total_charges_charged' or \
                     header == 'total_charges_paid' or \
                     header == 'starting_wage':
+
                 data[header] = cls.money_conversion(model, header)
 
             else:

@@ -7,6 +7,7 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
 from .utils import DataHelper
+from .data_operations import GoogleSheetDataOps
 
 
 class GoogleSheet:
@@ -17,96 +18,8 @@ class GoogleSheet:
 
         'SPREADSHEET_ID': {'Select Therapy Institute': '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U'},
 
-        # database sheet we want to append data
-        'DATABASE_SHEET': 'Sheet1',
-
-        # utilties sheet we need to match/query data
-        'MATCH_OPERATION_SHEET': 'Restful',
-
-        'MATCH_BY_COL':  {'Student ID': 'A'},
-
         # switch to True when importing csv from view
         'IMPORT': False,
-
-        # max recursive calls allowed
-        'MAX_RECURSE': 2,
-
-        # refresh sheet request object
-        'REFRESH_REQUEST': {
-
-            "requests": [{
-                "repeatCell": {
-
-                    # start index is inclusive, end index is exclusive
-                    # For Start Date | Completion Date | Date Enrollment Agreement Signed
-                    # Which is column 9,10,11
-                    "range": {
-                        "sheetId": 0,
-                        "startRowIndex": 1,
-                        "startColumnIndex": 8,
-                        "endColumnIndex": 11
-                    },
-
-                    "cell": {
-
-                        "userEnteredFormat": {
-
-                            "numberFormat": {
-
-                                "type": "DATE",
-                                        "pattern": "m/d/yy"
-                            }
-                        }
-                    },
-
-                    "fields": "userEnteredFormat.numberFormat"
-                }
-            }, {
-                "repeatCell": {
-
-                    # start index is inclusive, end index is exclusive
-                    # For Course Cost | Total Institutional Charges Charged | Total Institutional Charges Paid
-                    # Column 13, 14, 15
-                    "range": {
-                        "sheetId": 0,
-                        "startRowIndex": 1,
-                        "startColumnIndex": 12,
-                        "endColumnIndex": 15
-                    },
-
-                    "cell": {
-
-                        "userEnteredFormat": {
-
-                            "numberFormat": {
-
-                                "type": "CURRENCY",
-                                        "pattern": "$#,###"
-                            }
-                        }
-                    },
-
-                    "fields": "userEnteredFormat.numberFormat"
-                }
-            }, {
-                "sortRange": {
-
-                    "range": {
-                        "sheetId": 0,
-                        "startRowIndex": 1,
-                        "startColumnIndex": 0
-                    },
-                    "sortSpecs": [
-                        {
-                            "sortOrder"	: "ASCENDING",
-                            "dimensionIndex": 8
-                        }
-                    ]
-                }
-
-            }]
-        }
-
     }
 
     @classmethod
@@ -121,14 +34,14 @@ class GoogleSheet:
         insert_ready_data = DataHelper.finalize_data(data)
 
         # MATCH FIRST
-        # lookup by name to determine if this is create or update
-        update_row_num = gs_api.match(data.get('student_id'), cls.CONSTANTS.get(
-            'MATCH_BY_COL').get('Student ID'), cls.CONSTANTS.get('IMPORT'))
+        # lookup by ID to determine if this is create or update
+        update_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
+            'student_id'), cls.CONSTANTS.get('IMPORT'))
 
         if update_row_num:
-            return gs_api.update(update_row_num, insert_ready_data)
+            return gs_api.update(gs_api.sheet_id, gs_api.sheets_api, update_row_num, insert_ready_data)
         else:
-            return gs_api.create(insert_ready_data)
+            return gs_api.create(gs_api.sheet_id, gs_api.sheets_api, insert_ready_data)
 
         # create and update accordingly, or save(), dont forget to sort after with refresh
 
@@ -141,12 +54,12 @@ class GoogleSheet:
         # connect_google_api
         gs_api = cls.init_google_sheet(school)
 
-        # lookup by name to determine if this is create or update
-        del_row_num = gs_api.match(data.get('student_id'), cls.CONSTANTS.get(
-            'MATCH_BY_COL').get('Student ID'), cls.CONSTANTS.get('IMPORT'))
+        # lookup by ID
+        del_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
+            'student_id'), cls.CONSTANTS.get('IMPORT'))
 
         if del_row_num:
-            return gs_api.delete(del_row_num)
+            return gs_api.delete(gs_api.sheet_id, gs_api.sheets_api, del_row_num)
         else:
             pass
 
@@ -192,7 +105,11 @@ class GoogleSheet:
             # grab sheet ID, and other constants depending on school name
             return cls(
                 sheet=sheets_api,
-                sheet_id=sheet_id)
+                sheet_id=sheet_id,
+                create=GoogleSheetDataOps.create_record,
+                update=GoogleSheetDataOps.update_record,
+                delete=GoogleSheetDataOps.delete_record)
+
         except Exception as e:
             if recurse_counter and recurse_counter > cls.CONSTANTS.get('MAX_RECURSE'):
                 raise e
@@ -209,194 +126,12 @@ class GoogleSheet:
     def parse_sheet_id(cls, school_name):
         return cls.CONSTANTS.get('SPREADSHEET_ID').get(school_name)
 
-    # obj init and methods
+    # obj init and database operations from data_operations.py
 
-    def __init__(self, sheets_api, sheet_id):
+    def __init__(self, sheets_api, sheet_id, create, update, delete, match):
         self.sheets_api = sheets_api
         self.sheet_id = sheet_id
-
-    def create(self, data, recurse_counter=None):
-
-        recurse_counter = 1 if not recurse_counter else recurse_counter + 1
-
-        spread_sheet_Id = self.sheet_id
-        range_ = self.__class__.CONSTANTS.get('DATABASE_SHEET')
-        value_input_option = 'USER_ENTERED'
-        insert_data_option = 'INSERT_ROWS'
-        major_dimension = 'ROWS'
-
-        body = {
-            "majorDimension": major_dimension,
-            "range": range_,
-            "values": [data]
-        }
-
-        try:
-            # append
-            self.sheets_api.values().append(spreadsheetId=spread_sheet_Id,
-                                            range=range_,
-                                            valueInputOption=value_input_option,
-                                            insertDataOption=insert_data_option,
-                                            body=body).execute()
-
-            self.refresh_sheet()
-
-        except Exception as e:
-            if recurse_counter and recurse_counter > self.__class__.CONSTANTS.get('MAX_RECURSE'):
-                raise e
-            else:
-                time.sleep(100)
-                self.create(data, recurse_counter)
-
-    def update(self, row_num, row_to_update, recurse_counter):
-
-        recurse_counter = 1 if not recurse_counter else recurse_counter + 1
-
-        spread_sheet_Id = self.sheet_id
-        range_ = "%s!A%s:Y%s" % \
-            (self.__class__.CONSTANTS.get('DATABASE_SHEET'), row_num, row_num)
-        value_input_option = "USER_ENTERED"
-        include_values_in_response = True
-        response_value_render_option = "FORMATTED_VALUE"
-        major_dimension = "ROWS"
-
-        request_body = {
-            "majorDimension": major_dimension,
-            "range": range_,
-            "values": [row_to_update]
-
-        }
-
-        try:
-            # update row
-            res = self.sheets_api.values().update(spreadsheetId=spread_sheet_Id,
-                                                  range=range_,
-                                                  valueInputOption=value_input_option,
-                                                  includeValuesInResponse=include_values_in_response,
-                                                  responseValueRenderOption=response_value_render_option,
-                                                  body=request_body).execute()
-        except Exception as e:
-
-            if recurse_counter and recurse_counter > self.__class__.CONSTANTS.get('MAX_RECURSE'):
-                raise e
-            else:
-                time.sleep(100)
-                self.update(row_num, row_to_update, recurse_counter)
-
-    def delete(self, del_row_num, recurse_counter=None):
-
-        recurse_counter = 1 if not recurse_counter else recurse_counter + 1
-
-        dimension = "ROWS"
-        start_index = int(del_row_num) - 1
-        end_index = int(del_row_num)
-
-        del_request = {
-
-            "requests": [
-                {
-                    "deleteDimension": {
-                        "range": {
-                            "sheetId": 0,
-                            "dimension": dimension,
-                            "startIndex": start_index,
-                            "endIndex": end_index
-                        }
-                    }
-                }
-            ]
-
-        }
-
-        try:
-            self.sheets_api.batchUpdate(spreadsheetId=self.sheet_id,
-                                        body=del_request).execute()
-
-            # refresh database
-            self.refresh_sheet()
-
-        except Exception as e:
-            if recurse_counter and recurse_counter > self.__class__.CONSTANTS.get('MAX_RECURSE'):
-                raise e
-            else:
-                time.sleep(100)
-                self.delete(del_row_num, recurse_counter)
-
-    def match(self, student_id, match_col, import_, recurse_counter):
-
-        # if we are importing existing google sheet into database, we dont need to create nor update google sheet again
-        if import_:
-            return
-
-        recurse_counter = 1 if not recurse_counter else recurse_counter + 1
-
-        spread_sheet_Id = self.sheet_id
-        include_values_in_response = True
-        response_value_render_option = "FORMATTED_VALUE"
-        value_input_option = "USER_ENTERED"
-        update_range = "%s!A1" % self.__class__.CONSTANTS.get(
-            'MATCH_OPERATION_SHEET')
-        major_dimension = "ROWS"
-        results_fetch_range = "%s!A:Y" % self.__class__.CONSTANTS.get(
-            'MATCH_OPERATION_SHEET')
-
-        match_col = match_col
-
-        query = '=MATCH("%s", %s!%s:%s, 0)' % \
-            (self.__class__.CONSTANTS.get('DATABASE_SHEET'),
-             student_id, match_col, match_col)
-
-        request_body = {
-            "majorDimension": major_dimension,
-            "range": update_range,
-            "values": [
-                [
-                    query
-                ]
-            ]
-        }
-
-        try:
-
-            # send in the match
-            self.sheets_api.values().update(spreadsheetId=spread_sheet_Id,
-                                            range=update_range,
-                                            valueInputOption=value_input_option,
-                                            includeValuesInResponse=include_values_in_response,
-                                            responseValueRenderOption=response_value_render_option,
-                                            body=request_body).execute()
-
-            # fetch matched result
-            query_result = self.sheets_api.values().get(spreadsheetId=spread_sheet_Id,
-                                                        range=results_fetch_range).execute()
-
-            values = query_result.get('values', [])
-
-            return values[0][0] if values else None
-
-        except Exception as e:
-            if recurse_counter and recurse_counter > self.__class__.CONSTANTS.get('MAX_RECURSE'):
-                raise e
-            else:
-                time.sleep(20)
-                self.match(student_id, match_col, import_, recurse_counter)
-
-    def refresh_sheet(self, recurse_counter=None):
-        recurse_counter = 1 if not recurse_counter else recurse_counter + 1
-
-        # converts all date serial to be rendered as dates
-        # convert all currency to dollars, round up to the nearest dollor
-        # sorts by Course Start Date
-        sort_request = self.__class__.CONSTANTS['REFRESH_REQUEST']
-
-        try:
-            self.sheets_api.batchUpdate(spreadsheetId=self.sheet_id,
-                                        body=sort_request).execute()
-
-        except Exception as e:
-
-            if recurse_counter and recurse_counter > self.__class__.CONSTANTS.get('MAX_RECURSE'):
-                raise e
-            else:
-                time.sleep(100)
-                return self.refresh_database(recurse_counter)
+        self.create = create
+        self.update = update
+        self.delete = delete
+        self.match = match

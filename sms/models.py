@@ -86,7 +86,7 @@ class School(models.Model):
     objects = SchoolManager()
 
     def __str__(self):
-        return str(self.school_uuid)
+        return self.school_name
 
 
 class Program(models.Model):
@@ -104,7 +104,7 @@ class Program(models.Model):
     objects = ProgramManager()
 
     def __str__(self):
-        return str(self.program_uuid)
+        return self.program_name
 
 
 class Rotation(models.Model):
@@ -124,7 +124,7 @@ class Rotation(models.Model):
         return Student.objects.filter(rotation__rotation_uuid__exact=self.rotation_uuid).count()
 
     def __str__(self):
-        return str(self.rotation_uuid)
+        return self.rotation_uuid
 
 
 class Student(models.Model):
@@ -137,8 +137,10 @@ class Student(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
-    phone_regex = RegexValidator(regex=r'^(\+\d-)?\d{3}-\d{3}-\d{4}$', message="Phone number must be entered in the format: '+1-888-888-8888'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+    phone_regex = RegexValidator(
+        regex=r'^(\+\d-)?\d{3}-\d{3}-\d{4}$', message="Phone number must be entered in the format: '+1-888-888-8888'. Up to 15 digits allowed.")
+    phone_number = models.CharField(
+        validators=[phone_regex], max_length=15, blank=True)
 
     email = models.EmailField()
     mailing_address = models.CharField(max_length=200)
@@ -237,4 +239,4 @@ class Student(models.Model):
         return super(Student, self).delete(*args, **kwargs)
 
     def __str__(self):
-        return str(self.student_uuid)
+        return self.full_name

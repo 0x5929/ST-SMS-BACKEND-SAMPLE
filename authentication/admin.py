@@ -11,19 +11,19 @@ class AccountAdminConfig(UserAdmin):
     ordering = ('-date_joined',)
 
     list_display = ('email', 'username', 'first_name', 'last_name',
-                    'phone_number', 'is_active', 'is_staff', 'is_superuser')
+                    'phone_number', 'is_active', 'is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_superuser')
 
     fieldsets = (
         (None, {'fields': ('username', 'first_name', 'last_name', )}),
         ('Permissions', {
-         'fields': ('is_staff', 'is_active', 'is_superuser')}),
+         'fields': ('is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_active', 'is_superuser')}),
         ('Personal', {'fields': ('phone_number', 'email',)}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'is_superuser', )
+            'fields': ('email', 'username', 'first_name', 'last_name', 'password1', 'password2', 'is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_superuser', )
         }
 
         ),

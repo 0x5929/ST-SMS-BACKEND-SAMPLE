@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-
+from googleapiclient import model
 
 
 class CustomAccountManager(BaseUserManager):
@@ -64,9 +64,16 @@ class Account(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=150)
     date_joined = models.DateTimeField(auto_now_add=True)
 
-    phone_regex = RegexValidator(regex=r'^(\+\d-)?\d{3}-\d{3}-\d{4}$', message="Phone number must be entered in the format: '+1-888-888-8888'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=15, blank=True)
+    phone_regex = RegexValidator(
+        regex=r'^(\+\d-)?\d{3}-\d{3}-\d{4}$', message="Phone number must be entered in the format: '+1-888-888-8888'. Up to 15 digits allowed.")
+    phone_number = models.CharField(
+        validators=[phone_regex], max_length=15, blank=True)
 
+    is_office = models.BooleanField(default=False)
+    is_recruit = models.BooleanField(default=False)
+    is_instructor = models.BooleanField(default=False)
+
+    # django related fields
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
