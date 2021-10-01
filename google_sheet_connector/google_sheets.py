@@ -9,18 +9,10 @@ from google.oauth2.credentials import Credentials
 from .utils import DataHelper
 from .data_operations import GoogleSheetDataOps
 
+from core.settings.constants import SHEET_CONSTANTS
+
 
 class GoogleSheet:
-
-    CONSTANTS = {
-
-        'SCOPES': ['https://www.googleapis.com/auth/spreadsheets', ],
-
-        'SPREADSHEET_ID': {'Select Therapy Institute': '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U'},
-
-        # switch to True when importing csv from view
-        'IMPORT': False,
-    }
 
     @classmethod
     def master_sheet_save(cls, data):
@@ -36,7 +28,7 @@ class GoogleSheet:
         # MATCH FIRST
         # lookup by ID to determine if this is create or update
         update_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
-            'student_id'), cls.CONSTANTS.get('IMPORT'))
+            'student_id'), SHEET_CONSTANTS.get('IMPORT'))
 
         if update_row_num:
             return gs_api.update(gs_api.sheet_id, gs_api.sheets_api, update_row_num, insert_ready_data)
@@ -56,7 +48,7 @@ class GoogleSheet:
 
         # lookup by ID
         del_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
-            'student_id'), cls.CONSTANTS.get('IMPORT'))
+            'student_id'), SHEET_CONSTANTS.get('IMPORT'))
 
         if del_row_num:
             return gs_api.delete(gs_api.sheet_id, gs_api.sheets_api, del_row_num)
@@ -81,7 +73,7 @@ class GoogleSheet:
 
             if os.path.exists('token.json'):
                 creds = Credentials.from_authorized_user_file(
-                    'token.json', cls.CONSTANTS.get('SCOPES'))
+                    'token.json', SHEET_CONSTANTS.get('SCOPES'))
 
             # If there are no (valid) credentials available, let the user log in.
             if not creds or not creds.valid:
@@ -89,7 +81,7 @@ class GoogleSheet:
                     creds.refresh(Request())
                 else:
                     flow = InstalledAppFlow.from_client_secrets_file(
-                        'credentials.json', cls.CONSTANTS.get('SCOPES'))
+                        'credentials.json', SHEET_CONSTANTS.get('SCOPES'))
                     creds = flow.run_local_server(port=0)
                 # Save the credentials for the next run
                 with open('token.json', 'w') as token:
@@ -111,7 +103,7 @@ class GoogleSheet:
                 delete=GoogleSheetDataOps.delete_record)
 
         except Exception as e:
-            if recurse_counter and recurse_counter > cls.CONSTANTS.get('MAX_RECURSE'):
+            if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
                 time.sleep(20)
@@ -124,7 +116,7 @@ class GoogleSheet:
 
     @classmethod
     def parse_sheet_id(cls, school_name):
-        return cls.CONSTANTS.get('SPREADSHEET_ID').get(school_name)
+        return SHEET_CONSTANTS.get('SPREADSHEET_ID').get(school_name)
 
     # obj init and database operations from data_operations.py
 

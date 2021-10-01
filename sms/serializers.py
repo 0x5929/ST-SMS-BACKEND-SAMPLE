@@ -9,7 +9,7 @@ class StudentSerializer(serializers.ModelSerializer):
         queryset=Rotation.objects.all(), allow_null=False)
 
     class Meta:
-        fields = '__all__'
+        exclude = ('phone_regex', 'student_uuid',)
         model = Student
 
     def validate_student_id(self, value):
@@ -55,12 +55,12 @@ class RotationSerializer(serializers.ModelSerializer):
         queryset=Program.objects.all(), allow_null=False)
 
     class Meta:
-        fields = '__all__'
+        exclude = ('rotation_uuid',)
         model = Rotation
         depth = 1
 
     def validate_program(self, value):
-        return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'program_uuid')
+        return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'program')
 
     def create(self, validated_data):
         return super(RotationSerializer, self).create(Rotation.objects.create_or_update_rotation(validated_data=validated_data))
@@ -75,12 +75,12 @@ class ProgramSerializer(serializers.ModelSerializer):
         queryset=School.objects.all(), allow_null=False)
 
     class Meta:
-        fields = '__all__'
+        exclude = ('program_uuid',)
         model = Program
         depth = 2
 
     def validate_school(self, value):
-        return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'school_uuid')
+        return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'school')
 
     def create(self, validated_data):
         return super(ProgramSerializer, self).create(Program.objects.create_or_update_program(validated_data=validated_data))
@@ -93,7 +93,7 @@ class SchoolSerializer(serializers.ModelSerializer):
     programs = ProgramSerializer(many=True, read_only=True)
 
     class Meta:
-        fields = '__all__'
+        exclude = ('school_uuid,')
         model = School
         depth = 3
 

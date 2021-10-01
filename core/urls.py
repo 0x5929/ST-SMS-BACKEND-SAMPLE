@@ -6,7 +6,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authentication.urls')),
 
-    path('api/', include('sms.urls', namespace='sms')),
+    path('api/sms/', include('sms.urls', namespace='sms')),
+    path('api/cms/', include('cms.urls', namespace='cms')),
 
     path('gsc/', include('google_sheet_connector.urls', namespace='gsc')),
 ]

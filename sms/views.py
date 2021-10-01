@@ -8,29 +8,38 @@ from .serializers import SchoolSerializer, ProgramSerializer, RotationSerializer
 
 
 class SchoolView(viewsets.ModelViewSet):
-    queryset = School.objects.all()
     serializer_class = SchoolSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedOfficeUserToReadOnly]
 
+    def get_queryset(self):
+        return School.objects.get_query(self.request)
+
 
 class ProgramView(viewsets.ModelViewSet):
-    queryset = Program.objects.all()
     serializer_class = ProgramSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedOfficeUserToReadOnly]
 
+    def get_queryset(self):
+        return Program.objects.get_query(self.request)
+
 
 class RotationView(viewsets.ModelViewSet):
-    queryset = Rotation.objects.all()
     serializer_class = RotationSerializer
-    permission_classes = [IsAuthenticatedOfficeAdmin |
-                          IsAuthenticatedOfficeUserToReadOnly]
+    permission_classes = [
+        IsSuperuser | IsAuthenticatedOfficeAdmin | IsAuthenticatedOfficeUserToReadOnly]
+
+    def get_queryset(self):
+        return Rotation.objects.get_query(self.request)
 
 
 class StudentView(viewsets.ModelViewSet):
-    queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
-    permission_classes = [IsAuthenticatedOfficeAdmin |
-                          IsAuthenticatedOfficeUserToReadOnly]
+    permission_classes = [
+        IsSuperuser | IsAuthenticatedOfficeAdmin | IsAuthenticatedOfficeUserToReadOnly]
+
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = SMSFilter
+
+    def get_queryset(self):
+        return Student.objects.get_query(self.request)

@@ -4,6 +4,9 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from googleapiclient import model
 
 
+from core.settings.constants import SCHOOL_NAMES
+
+
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, email, username, first_name, last_name, password, **other_fields):
@@ -73,6 +76,8 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_recruit = models.BooleanField(default=False)
     is_instructor = models.BooleanField(default=False)
 
+    school_name = models.CharField(max_length=10, choices=SCHOOL_NAMES)
+
     # django related fields
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -82,6 +87,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+
+    def save(self, *args, **kwargs):
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.username

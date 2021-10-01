@@ -46,7 +46,7 @@ class DatabaseHelper():
         return (instance, validated_data) if instance else validated_data
 
 
-class ExceptionHelper():
+class ExceptionHandler():
 
     @staticmethod
     def raise_verror(self, msg):

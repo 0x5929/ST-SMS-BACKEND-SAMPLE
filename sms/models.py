@@ -9,75 +9,18 @@ from djmoney.models.fields import MoneyField
 
 from .managers import SchoolManager, ProgramManager, RotationManager, StudentManager
 
-
 from google_sheet_connector.google_sheets import GoogleSheet
 from google_sheet_connector.utils import DataHelper
 
-# global constants
-# can be refactored, so we can easily add on new programs in the future
-PROGRAM_NAMES = (
-    ('CNA', 'Certified Nurse Assistant'),
-    ('HHA', 'Home Health Aide'),
-    ('SG', 'Security Guard'),
-    ('CG', 'Caregiver'),
-    ('ESOL', 'English to Speakers of Other Language'),
-)
-ENTITY_NAMES = (
-    ('CDPH', 'California Department of Public Health'),
-    ('BPPE', 'Bureau of Postsecondary and for Private Education'),
-    ('BSIS', 'Bureau of Security and Investigative Services'),
-)
-EMPLOYMENT_STATUS_CHOICES = (
-    ('F', 'Full time employee, more than 32 hours a week'),
-    ('P', 'Part time employee, less than 32 hours a week'),
-)
-
-SHEET_MIGRATION_ISSUES = (
-    ('POST', 'Could not add new record to Google Sheet'),
-    ('PUT', 'Could not update existing record on Google Sheet'),
-    ('DEL', 'Could not delete existing record on Google Sheet'),
-
-)
-
-# NOTE: not every student property/field is saved to google, some is used internally by postgresql DB.
-# NOTE NOTE: this is the exact order of the database sheet columns from A to Y, if we add more columns in the future,
-# MAKE SURE we update this as well.
-STUDENT_RECORD_HEADERS = (
-    'student_id',
-    'full_name',
-    'last_name',
-    'first_name',
-    'phone_number',
-    'email',
-    'mailing_address',
-    'course',
-    'start_date',
-    'completion_date',
-    'date_enrollment_agreement_signed',
-    'third_party_payer_info',
-    'course_cost',
-    'total_charges_charged',
-    'total_charges_paid',
-    'graduated',
-    'passed_first_exam',
-    'passed_second_or_third_exam',
-    'employed',
-    'place_of_employment',
-    'employment_address',
-    'position',
-    'starting_wage',
-    'hours_worked_weekly',
-    'description_of_attempts_to_contact_student',
-    'school_name',
-
-)
+from core.settings.constants import SCHOOL_NAMES, PROGRAM_NAMES, ENTITY_NAMES, EMPLOYMENT_STATUS_CHOICES, SHEET_MIGRATION_ISSUES
 
 
 class School(models.Model):
     school_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
-    school_name = models.CharField(max_length=100)
+    school_name = models.CharField(max_length=10, choices=SCHOOL_NAMES)
+
     school_code = models.CharField(max_length=50)
     school_address = models.CharField(max_length=150)
 
@@ -152,13 +95,13 @@ class Student(models.Model):
     third_party_payer_info = models.CharField(max_length=10, blank=True)
 
     course_cost = MoneyField(
-        default=0, max_digits=10, decimal_places=2, default_currency='USD')
+        max_digits=10, decimal_places=2, default_currency='USD')
 
     total_charges_charged = MoneyField(
-        default=0, max_digits=10, decimal_places=2, default_currency='USD')
+        max_digits=10, decimal_places=2, default_currency='USD')
 
     total_charges_paid = MoneyField(
-        default=0, max_digits=10, decimal_places=2, default_currency='USD')
+        max_digits=10, decimal_places=2, default_currency='USD')
 
     paid = models.BooleanField(default=False)
     graduated = models.BooleanField(default=False)
@@ -189,7 +132,8 @@ class Student(models.Model):
 
     @property
     def full_name(self):
-        return '%s_%s' % (self.first_name.lower(), self.last_name.lower())
+        return f'{self.first_name.lower()}_{self.last_name.lower()}'
+        # return '%s_%s' % (self.first_name.lower(), self.last_name.lower())
 
     @property
     def school_name(self):
@@ -201,7 +145,7 @@ class Student(models.Model):
             return
 
         data = DataHelper.data_conversion(
-            self, STUDENT_RECORD_HEADERS)
+            self)
 
         try:
             if method == 'DEL':
@@ -212,8 +156,8 @@ class Student(models.Model):
 
         except Exception as e:
             self.google_sheet_migration_issue = method
-            msg = 'Did not save the data in Master DB on Google Sheet, cancelling the %s operation, please try again. Error: %s ' % \
-                (method, repr(e))
+            #msg = 'Did not save the data in Master DB on Google Sheet, cancelling the %s operation, please try again. Error: %s ' % (method, repr(e))
+            msg = f'Did not save the data in Master DB on Google Sheet, cancelling the {method} operation, please try again. Error: {repr(e)}'
             raise ImproperlyConfigured(msg=msg, code='Canceled-due-to-GSC')
 
     def save(self, *args, **kwargs):

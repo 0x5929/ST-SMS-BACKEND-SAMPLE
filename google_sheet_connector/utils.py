@@ -1,7 +1,10 @@
+from core.settings.constants import STUDENT_RECORD_HEADERS
+
+
 class DataHelper:
 
     @classmethod
-    def data_conversion(cls, model, STUDENT_RECORD_HEADERS):
+    def data_conversion(cls, model):
         data = {}
 
         for header in STUDENT_RECORD_HEADERS:
@@ -39,13 +42,15 @@ class DataHelper:
     def date_conversion(model, header):
 
         date_obj = getattr(model, header)
-        return '%s/%s/%s' % (str(date_obj.day), str(date_obj.month), str(date_obj.year))
+        return f'{str(date_obj.day)}/{str(date_obj.month)}/{str(date_obj.year)}'
+        # return '%s/%s/%s' % (str(date_obj.day), str(date_obj.month), str(date_obj.year))
 
     @staticmethod
     def money_conversion(model, header):
 
         money_obj = getattr(model, header)
-        return '$%s' % str(money_obj.amount)
+        return f'${str(money_obj.amount)}'
+        # return '$%s' % str(money_obj.amount)
 
     # NOTE data keys are assigned by each item inside STUDENT_RECORD_HEADERS,
     # by logic, as long as we dont change and or mess with the way data_conversion and clean_data,
