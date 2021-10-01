@@ -9,6 +9,8 @@ from rest_framework import permissions
 # to do actions on their own school's and their own client's objects (assigned to sales/recruit staff by emails).
 # superusers can do all
 
+#  NOTE: so in this app, is_staff and regular user have no difference in permissions, all can only see their own school's own client's (unless added to recruit_emails)
+
 
 class IsSuperuser(permissions.BasePermission):
     message = 'Sorry, you must be a superuser to perform this action.'

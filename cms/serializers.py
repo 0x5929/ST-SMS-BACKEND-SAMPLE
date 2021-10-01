@@ -26,7 +26,7 @@ class ClientSerializer(serializers.ModelSerializer):
     notes = NoteSerializer(many=True, read_only=True)
 
     class Meta:
-        exclude = ('phone_regex', 'client_uuid',)
+        exclude = ('client_uuid',)
         model = Client
 
     def validate_first_name(self, value):
