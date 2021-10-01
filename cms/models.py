@@ -46,7 +46,7 @@ class Client(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 
-class Note(models.model):
+class Note(models.Model):
     note_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 

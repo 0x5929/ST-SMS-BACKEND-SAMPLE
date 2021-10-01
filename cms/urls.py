@@ -9,3 +9,6 @@ router = DefaultRouter()
 
 router.register('clients', ClientView, basename='clients')
 router.register('notes', NoteView, basename='notes')
+
+
+urlpatterns = router.urls

@@ -61,8 +61,8 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'django_filters',
     'sms',
-    #   'cms',
-    #   'google_sheet_connector',
+    'cms',
+    'google_sheet_connector',
 
 ]
 

@@ -4,7 +4,7 @@ from .validators import CMSValidator
 from .models import Client, Note
 
 
-class NoteSerializer:
+class NoteSerializer(serializers.ModelSerializer):
     client = serializers.PrimaryKeyRelatedField(
         queryset=Client.objects.all(), allow_null=False)
 
