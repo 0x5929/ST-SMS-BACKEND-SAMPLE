@@ -41,7 +41,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'authentication',
     'rest_framework',
     'rest_framework.authtoken',
 
@@ -60,9 +59,12 @@ INSTALLED_APPS = [
     'dj_rest_auth',
     'dj_rest_auth.registration',
     'django_filters',
+
+    'authentication',
     'sms',
     'cms',
     'google_sheet_connector',
+    # 'gms',
 
 ]
 

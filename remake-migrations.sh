@@ -12,6 +12,7 @@ then
 	do
 		if [ -d "$app/migrations" ]
 		then
+            echo "Deleting $app/migrations folder"
 			rm -Ir "$app/migrations"
 		else
 			echo "$app/migrations does not exist"
@@ -21,6 +22,7 @@ then
 	# then remake migrations for each app
 	for app in "$@"
 	do
+        echo "Remaking migrations folder for: $app"
 		python manage.py makemigrations $app
 	done	
 fi
