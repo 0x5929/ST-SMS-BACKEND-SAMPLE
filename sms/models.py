@@ -170,7 +170,7 @@ class Student(models.Model):
 
     def update(self, *args, **kwargs):
 
-        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
+        self.paid = True if self.total_charges_charged < self.total_charges_paid else False
 
         self.migrate_google('PUT')
 

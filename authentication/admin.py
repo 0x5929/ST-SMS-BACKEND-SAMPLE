@@ -5,25 +5,25 @@ from .models import Account
 
 class AccountAdminConfig(UserAdmin):
     search_fields = ('email', 'username', 'first_name',
-                     'last_name', 'is_superuser')
+                     'last_name')
     list_filter = ('email', 'username', 'first_name',
-                   'last_name', 'is_superuser')
+                   'last_name')
     ordering = ('-date_joined',)
 
     list_display = ('email', 'username', 'first_name', 'last_name',
-                    'phone_number', 'is_active', 'is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_superuser')
+                    'phone_number', 'is_active', 'is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_admin', 'is_superuser')
 
     fieldsets = (
         (None, {'fields': ('username', 'first_name', 'last_name', )}),
         ('Permissions', {
-         'fields': ('is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_active', 'is_superuser')}),
+         'fields': ('programs', 'is_active', 'is_office', 'is_recruit', 'is_instructor', 'is_staff',  'is_admin', 'is_superuser')}),
         ('Personal', {'fields': ('phone_number', 'email',)}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'first_name', 'last_name', 'password1', 'password2', 'is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_superuser', )
+            'fields': ('email', 'username', 'first_name', 'last_name', 'password1', 'password2', 'programs', 'is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_admin', 'is_superuser', )
         }
 
         ),

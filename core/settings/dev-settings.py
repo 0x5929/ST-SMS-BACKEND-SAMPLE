@@ -41,9 +41,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # REST FRAMEWORK
     'rest_framework',
     'rest_framework.authtoken',
 
+    # DJANGO
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    # 3rd PARTY
     'djmoney',
     'allauth',
     'allauth.account',
@@ -60,11 +63,12 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'django_filters',
 
+    # PROJECT APPS
     'authentication',
     'sms',
     'cms',
     'google_sheet_connector',
-    # 'gms',
+    'gms',
 
 ]
 

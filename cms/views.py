@@ -1,15 +1,15 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from django_filters import rest_framework as filters
 
 from .models import Client, Note
+from .permissions import IsSuperuser, IsAuthenticatedAndRecruit
 from .serializers import ClientSerializer, NoteSerializer
-from .permissions import IsSuperuser
 from .filters import CMSClientFilter, CMSNoteFilter
 
 
 class ClientView(viewsets.ModelViewSet):
     serializer_class = ClientSerializer
-    permission_classes = [IsSuperuser | permissions.IsAuthenticated]
+    permission_classes = [IsSuperuser | IsAuthenticatedAndRecruit]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CMSClientFilter
 
@@ -19,7 +19,7 @@ class ClientView(viewsets.ModelViewSet):
 
 class NoteView(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
-    permission_classes = [IsSuperuser | permissions.IsAuthenticated]
+    permission_classes = [IsSuperuser | IsAuthenticatedAndRecruit]]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CMSNoteFilter
 

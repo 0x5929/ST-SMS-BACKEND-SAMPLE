@@ -1,1 +1,1 @@
-from cna import CNARotation, CNAStudent, CNATheoryRecord, CNAClinicalRecord
+from .cna import CNARotation, CNAStudent, CNATheoryRecord, CNAClinicalRecord

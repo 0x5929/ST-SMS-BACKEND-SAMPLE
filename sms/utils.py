@@ -3,14 +3,14 @@ import uuid
 from rest_framework.exceptions import ValidationError
 
 
-class DatabaseHelper():
+class DatabaseHandler():
 
     @staticmethod
     def create_or_update(validated_data, instance, model):
-        if 'School' == model.__name__:
+        if model.__name__ == 'School':
             # no nested relations need to be attached when creating, or updating
             pass
-        elif 'Program' == model.__name__:
+        elif model.__name__ == 'Program':
             # get school ID from request
             school_id = uuid.UUID(str(validated_data.get('school')))
 
@@ -21,7 +21,7 @@ class DatabaseHelper():
             # add school to the program object
             validated_data['school'] = school
 
-        elif 'Rotation' == model.__name__:
+        elif model.__name__ == 'Rotation':
             # get program ID from request
             program_id = uuid.UUID(str(validated_data.get('program')))
 
@@ -32,7 +32,7 @@ class DatabaseHelper():
             # add program to the rotation object
             validated_data['program'] = program
 
-        elif 'Student' == model.__name__:
+        elif model.__name__ == 'Student':
             # get rotation ID from request
             rotation_id = uuid.UUID(str(validated_data.get('rotation')))
 

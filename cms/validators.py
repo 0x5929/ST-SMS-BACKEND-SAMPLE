@@ -9,8 +9,13 @@ class CMSValidator:
     def reference_does_not_change_on_updates(value, instance, reference):
         err_msg = 'This field is immutable once set.'
 
+        if not instance:
+            return value
         # note we may need to convert into str(UUID) if this complains
-        return value if instance and str(getattr(instance, reference)) == str(value) else ExceptionHandler.raise_verror(err_msg)
+        if instance and str(getattr(instance, reference)) == str(value):
+            return value
+
+        ExceptionHandler.raise_verror(err_msg)
 
     @staticmethod
     def no_special_chars_and_captialize_string(value):
@@ -25,3 +30,12 @@ class CMSValidator:
         pattern = '^(\+[0-9]-)?[0-9]{3}-[0-9]{3}-[0-9]{4}$'
 
         return value if bool(re.match(pattern, value)) else ExceptionHandler.raise_verror(err_msg)
+
+    # validation used by Client model
+    @staticmethod
+    def ensure_same_school_name(data, request):
+        err_msg = 'You may only work on your own school\'s resource, please try changing the school name.'
+        request_user_school = request.user.school_name
+        school_name = data.get('school_name')
+
+        return data if request_user_school == school_name else ExceptionHandler.raise_verror(err_msg)

@@ -40,3 +40,6 @@ class ClientSerializer(serializers.ModelSerializer):
 
     def validate_city(self, value):
         return CMSValidator.no_special_chars_and_captialize_string(value)
+
+    def validate_school_name(self, data):
+        return CMSValidator.ensure_same_school_name(data, self.context.get('request'))

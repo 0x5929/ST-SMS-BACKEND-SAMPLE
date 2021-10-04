@@ -1,16 +1,17 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from googleapiclient import model
+from django.contrib.postgres.fields import ArrayField
 
 
-from core.settings.constants import SCHOOL_NAMES
+from core.settings.constants import SCHOOL_NAMES, PROGRAM_NAMES
 
 
 class CustomAccountManager(BaseUserManager):
 
     def create_superuser(self, email, username, first_name, last_name, password, **other_fields):
         other_fields.setdefault('is_staff', True)
+        other_fields.setdefault('is_admin', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
 
@@ -76,11 +77,15 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_recruit = models.BooleanField(default=False)
     is_instructor = models.BooleanField(default=False)
 
-    school_name = models.CharField(max_length=10, choices=SCHOOL_NAMES)
+    programs = ArrayField(models.CharField(
+        max_length=5, choices=PROGRAM_NAMES, blank=True), null=True)
+    school_name = models.CharField(
+        max_length=10, choices=SCHOOL_NAMES)
 
     # django related fields
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
     objects = CustomAccountManager()
