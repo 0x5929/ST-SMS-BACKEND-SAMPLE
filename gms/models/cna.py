@@ -2,13 +2,12 @@ import uuid
 
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.db.models.fields import related
 
 
-from .base import BaseRotation, BaseStudent
+from .base import BaseRotation, BaseStudent, BaseRecord
 from ..managers import CNARotationManager, CNAStudentManager, CNATheoryRecordManager, CNAClinicalRecordManager
 
-from core.settings.constants import CLINICAL_SITE_NAMES, CNA_INSTRUCTOR_TITLES, CNA_THEORY_TOPICS, CNA_CLINICAL_TOPICS
+from core.settings.constants import CLINICAL_SITE_NAMES, CNA_HHA_INSTRUCTOR_TITLES, CNA_THEORY_TOPICS, CNA_CLINICAL_TOPICS
 
 
 # NOTE Please remember to import the ModelClasses below on __init__.py file
@@ -19,7 +18,7 @@ class CNARotation(BaseRotation):
     rotation_num = models.PositiveIntegerField(unique=True)
 
     instructor_title = models.CharField(
-        max_length=50, choices=CNA_INSTRUCTOR_TITLES)
+        max_length=50, choices=CNA_HHA_INSTRUCTOR_TITLES)
 
     clinical_site = models.CharField(
         max_length=50, choices=CLINICAL_SITE_NAMES)
@@ -51,16 +50,14 @@ class CNAStudent(BaseStudent):
         return f'{full_name.capitalize()}'
 
 
-class CNATheoryRecord(models.Model):
+class CNATheoryRecord(BaseRecord):
     class Meta:
         app_label = 'gms'
 
     cna_theory_record_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
-    date = models.DateField()
     hours_spent = models.PositiveIntegerField()
-    completed = models.BooleanField(default=False)
     test_score = models.IntegerField(validators=[MinValueValidator(0),
                                                  MaxValueValidator(100)], blank=True, null=True)
 
@@ -78,15 +75,13 @@ class CNATheoryRecord(models.Model):
         return str(self.cna_theory_record_uuid)
 
 
-class CNAClinicalRecord(models.Model):
+class CNAClinicalRecord(BaseRecord):
     class Meta:
         app_label = 'gms'
 
     cna_clinical_record_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
-    date = models.DateField()
-    completed = models.BooleanField(default=False)
     comments = models.CharField(max_length=200, blank=True)
     performance_satisfied = models.BooleanField(default=True)
 

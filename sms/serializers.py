@@ -9,7 +9,7 @@ class StudentSerializer(serializers.ModelSerializer):
         queryset=Rotation.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('phone_regex', 'student_uuid',)
+        exclude = ('student_uuid',)
         model = Student
 
     def validate_student_id(self, value):

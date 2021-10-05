@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from ..validators import GMSCNAValidator
+from ..validators import GMSValidator
 from ..models import CNARotation, CNAStudent, CNATheoryRecord, CNAClinicalRecord
 
 
@@ -13,7 +13,10 @@ class CNATheoryRecordSerializer(serializers.ModelSerializer):
         model = CNATheoryRecord
 
     def validate_student(self, value):
-        return GMSCNAValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
+        return GMSValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
+
+    def validate(self, data):
+        return GMSValidator.no_duplicate_records(data, self.Meta.model.__name__)
 
     def create(self, validated_data):
         return super(CNATheoryRecordSerializer, self).create(CNATheoryRecord.objects.create_or_update(validated_data=validated_data))
@@ -31,7 +34,10 @@ class CNAClinicalRecordSerializer(serializers.ModelSerializer):
         model = CNAClinicalRecord
 
     def validate_student(self, value):
-        return GMSCNAValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
+        return GMSValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
+
+    def validate(self, data):
+        return GMSValidator.no_duplicate_records(data, self.Meta.model.__name__)
 
     def create(self, validated_data):
         return super(CNAClinicalRecordSerializer, self).create(CNAClinicalRecord.objects.create_or_update(validated_data=validated_data))
@@ -54,7 +60,7 @@ class CNAStudentSerializer(serializers.ModelSerializer):
         model = CNAStudent
 
     def validate(self, data):
-        return GMSCNAValidator.no_duplicate_students(data)
+        return GMSValidator.no_duplicate_students(data, self.Meta.model.__name__)
 
     def create(self, validated_data):
         return super(CNAStudentSerializer, self).create(CNAStudent.objects.create_or_update(validated_data=validated_data))
@@ -72,7 +78,7 @@ class CNARotationSerializer(serializers.ModelSerializer):
         model = CNARotation
 
     def validate(self, data):
-        data = GMSCNAValidator.date_checker(data)
-        return GMSCNAValidator.ensure_same_school_name(data, self.context.get('request'))
+        data = GMSValidator.date_checker(data)
+        return GMSValidator.ensure_same_school_name(data, self.context.get('request'))
 
     # NOTE no more nested create/update here since we are at the top level, and thus no create/update methods are overridden here

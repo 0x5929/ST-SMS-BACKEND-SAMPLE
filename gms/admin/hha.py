@@ -1,10 +1,8 @@
 
 from django.contrib.admin import ModelAdmin
 
-# Register your models here.
 
-
-class ModelAdminCNARotationConfig(ModelAdmin):
+class ModelAdminHHARotationConfig(ModelAdmin):
     readonly_fields = ('rotation_uuid',)
     search_fields = ('rotation_uuid', 'school_name',
                      'start_date', 'end_date', 'instructor_email',)
@@ -37,7 +35,7 @@ class ModelAdminCNARotationConfig(ModelAdmin):
     filter_horizontal = ()
 
 
-class ModelAdminCNAStudentConfig(ModelAdmin):
+class ModelAdminHHAStudentConfig(ModelAdmin):
     readonly_fields = ('student_uuid',)
     search_fields = ('student_uuid', 'first_name',
                      'last_name', 'makeup_student',)
@@ -70,19 +68,19 @@ class ModelAdminCNAStudentConfig(ModelAdmin):
     filter_horizontal = ()
 
 
-class ModelAdminCNATheoryRecordConfig(ModelAdmin):
-    readonly_fields = ('cna_theory_record_uuid',)
-    search_fields = ('cna_theory_record_uuid', 'date',
-                     'hours_spent', 'completed', 'test_score', 'topic')
-    list_filter = ('cna_theory_record_uuid', 'date',
-                   'hours_spent', 'completed', 'test_score', 'topic')
+class ModelAdminHHATheoryRecordConfig(ModelAdmin):
+    readonly_fields = ('hha_theory_record_uuid',)
+    search_fields = ('hha_theory_record_uuid', 'date',
+                     'completed', 'test_score', 'topic')
+    list_filter = ('hha_theory_record_uuid', 'date',
+                   'completed', 'test_score', 'topic')
     ordering = ('-date',)
-    list_display = ('cna_theory_record_uuid', 'date',
-                    'hours_spent', 'completed', 'test_score', 'topic')
+    list_display = ('hha_theory_record_uuid', 'date',
+                    'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic')
 
     fieldsets = (
-        (None, {'fields': ('cna_theory_record_uuid', 'date',
-                           'hours_spent', 'completed', 'test_score', 'topic')
+        (None, {'fields': ('hha_theory_record_uuid', 'date',
+                           'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic')
                 }
          ),
 
@@ -91,8 +89,8 @@ class ModelAdminCNATheoryRecordConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('cna_theory_record_uuid', 'date',
-                       'hours_spent', 'completed', 'test_score', 'topic')
+            'fields': ('hha_theory_record_uuid', 'date',
+                       'completed',  'hours_spent', 'start_time', 'end_time', 'test_score', 'topic')
         }
 
         ),
@@ -103,19 +101,19 @@ class ModelAdminCNATheoryRecordConfig(ModelAdmin):
     filter_horizontal = ()
 
 
-class ModelAdminCNAClinicalRecordConfig(ModelAdmin):
-    readonly_fields = ('cna_clinical_record_uuid',)
-    search_fields = ('cna_clinical_record_uuid', 'date',
+class ModelAdminHHAClinicalRecordConfig(ModelAdmin):
+    readonly_fields = ('hha_clinical_record_uuid',)
+    search_fields = ('hha_clinical_record_uuid', 'date',
                      'completed', 'performance_satisfied', 'topic')
-    list_filter = ('cna_clinical_record_uuid', 'date',
+    list_filter = ('hha_clinical_record_uuid', 'date',
                    'completed', 'performance_satisfied', 'topic')
     ordering = ('-date',)
-    list_display = ('cna_clinical_record_uuid', 'date',
-                    'completed', 'performance_satisfied', 'comments', 'topic')
+    list_display = ('hha_clinical_record_uuid', 'date',
+                    'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic')
 
     fieldsets = (
-        (None, {'fields': ('cna_clinical_record_uuid', 'date',
-                           'completed', 'performance_satisfied', 'comments', 'topic')
+        (None, {'fields': ('hha_clinical_record_uuid', 'date',
+                           'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic')
                 }
          ),
 
@@ -124,8 +122,8 @@ class ModelAdminCNAClinicalRecordConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('cna_clinical_record_uuid', 'date',
-                       'completed', 'performance_satisfied', 'comments', 'topic')
+            'fields': ('hha_clinical_record_uuid', 'date',
+                       'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic')
         }
 
         ),

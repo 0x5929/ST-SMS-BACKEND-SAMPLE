@@ -19,7 +19,7 @@ class ClientView(viewsets.ModelViewSet):
 
 class NoteView(viewsets.ModelViewSet):
     serializer_class = NoteSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedAndRecruit]]
+    permission_classes = [IsSuperuser | IsAuthenticatedAndRecruit]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CMSNoteFilter
 

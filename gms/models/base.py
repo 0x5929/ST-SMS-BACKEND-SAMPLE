@@ -36,3 +36,11 @@ class BaseStudent(models.Model):
 
     def __str__(self):
         return self.student_uuid
+
+
+class BaseRecord(models.Model):
+    class Meta:
+        app_label = 'gms'
+
+    date = models.DateField()
+    completed = models.BooleanField(default=False)

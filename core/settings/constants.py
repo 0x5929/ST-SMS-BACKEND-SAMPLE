@@ -46,7 +46,7 @@ CLINICAL_SITE_NAMES = (
     ('Sunnyview', 'Sunnyview Care Center'),
 )
 
-CNA_INSTRUCTOR_TITLES = (
+CNA_HHA_INSTRUCTOR_TITLES = (
     ('RN', 'Register Nurse'),
     ('LVN', 'Licensed Vocational Nurse'),
 )
@@ -662,3 +662,6 @@ CNA_CLINICAL_TOPICS = (
          ('Participates in resident care planning',
          'Participates in resident care planning'))),
 )
+
+HHA_THEORY_TOPICS = ()
+HHA_CLINICAL_TOPICS = ()

@@ -15,13 +15,6 @@ class IsSuperuser(permissions.BasePermission):
         return True if request.user.is_authenticated and request.user.is_superuser else False
 
 
-class IsAuthenticatedAndInstructor(permissions.BasePermission):
-    message = 'Please be sure to log in with an instructor account and try again.'
-
-    def has_permission(self, request, view):
-        return True if request.user.is_authenticated and request.user.is_instructor else False
-
-
 class IsAuthenticatedCNAInstructor(permissions.BasePermission):
     message = 'Please be sure to log in with a CNA intructor account and try again.'
 
@@ -32,6 +25,26 @@ class IsAuthenticatedCNAInstructor(permissions.BasePermission):
 
     def has_permission(self, request, view):
         program_name = self.get_cna_program_name()
+
+        if program_name:
+            if request.user.is_authenticated and \
+                    request.user.is_instructor and \
+                    program_name in request.user.programs:
+                return True
+
+        return False
+
+
+class IsAuthenticatedHHAInstructor(permissions.BasePermission):
+    message = 'Please be sure to log in with a CNA intructor account and try again.'
+
+    def get_hha_program_name(self):
+        for program in PROGRAM_NAMES:
+            if 'HHA' in program:
+                return 'HHA'
+
+    def has_permission(self, request, view):
+        program_name = self.get_hha_program_name()
 
         if program_name:
             if request.user.is_authenticated and \

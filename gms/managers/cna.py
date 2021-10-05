@@ -85,16 +85,16 @@ class CNAClinicalRecordManager(models.Manager):
 
     def get_query(self, request):
         if request.user.is_superuser:
-            return super(CNATheoryRecordManager, self).get_queryset().all()
+            return super(CNAClinicalRecordManager, self).get_queryset().all()
 
         elif request.user.is_admin:
-            return super(CNATheoryRecordManager, self).get_queryset().all()
+            return super(CNAClinicalRecordManager, self).get_queryset().all()
 
         elif request.use.is_staff:
-            return super(CNATheoryRecordManager, self).get_queryset().filter(
+            return super(CNAClinicalRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name)
         else:
-            return super(CNATheoryRecordManager, self).get_queryset().filter(
+            return super(CNAClinicalRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name,
                 student__rotation__instructor_email__exact=request.user.email)
 
