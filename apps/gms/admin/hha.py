@@ -43,11 +43,11 @@ class ModelAdminHHAStudentConfig(ModelAdmin):
                    'last_name', 'makeup_student',)
     ordering = ('-last_name',)
     list_display = ('student_uuid', 'first_name',
-                    'last_name', 'makeup_student',)
+                    'last_name', 'rotation',  'makeup_student',)
 
     fieldsets = (
         (None, {'fields': ('student_uuid', 'first_name',
-                           'last_name', 'makeup_student',)
+                           'last_name', 'rotation',  'makeup_student',)
                 }
          ),
 
@@ -57,7 +57,7 @@ class ModelAdminHHAStudentConfig(ModelAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('student_uuid', 'first_name',
-                       'last_name', 'makeup_student',)
+                       'last_name', 'rotation', 'makeup_student',)
         }
 
         ),
@@ -71,16 +71,16 @@ class ModelAdminHHAStudentConfig(ModelAdmin):
 class ModelAdminHHATheoryRecordConfig(ModelAdmin):
     readonly_fields = ('hha_theory_record_uuid',)
     search_fields = ('hha_theory_record_uuid', 'date',
-                     'completed', 'test_score', 'topic')
+                     'completed', 'test_score', 'topic', 'student')
     list_filter = ('hha_theory_record_uuid', 'date',
-                   'completed', 'test_score', 'topic')
+                   'completed', 'test_score', 'topic', 'student')
     ordering = ('-date',)
     list_display = ('hha_theory_record_uuid', 'date',
-                    'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic')
+                    'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic', 'student')
 
     fieldsets = (
         (None, {'fields': ('hha_theory_record_uuid', 'date',
-                           'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic')
+                           'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic', 'student')
                 }
          ),
 
@@ -90,7 +90,7 @@ class ModelAdminHHATheoryRecordConfig(ModelAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('hha_theory_record_uuid', 'date',
-                       'completed',  'hours_spent', 'start_time', 'end_time', 'test_score', 'topic')
+                       'completed',  'hours_spent', 'start_time', 'end_time', 'test_score', 'topic', 'student')
         }
 
         ),
@@ -104,16 +104,16 @@ class ModelAdminHHATheoryRecordConfig(ModelAdmin):
 class ModelAdminHHAClinicalRecordConfig(ModelAdmin):
     readonly_fields = ('hha_clinical_record_uuid',)
     search_fields = ('hha_clinical_record_uuid', 'date',
-                     'completed', 'performance_satisfied', 'topic')
+                     'completed', 'performance_satisfied', 'topic', 'student')
     list_filter = ('hha_clinical_record_uuid', 'date',
-                   'completed', 'performance_satisfied', 'topic')
+                   'completed', 'performance_satisfied', 'topic', 'student')
     ordering = ('-date',)
     list_display = ('hha_clinical_record_uuid', 'date',
-                    'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic')
+                    'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic', 'student')
 
     fieldsets = (
         (None, {'fields': ('hha_clinical_record_uuid', 'date',
-                           'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic')
+                           'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic', 'student')
                 }
          ),
 
@@ -123,7 +123,7 @@ class ModelAdminHHAClinicalRecordConfig(ModelAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('hha_clinical_record_uuid', 'date',
-                       'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic')
+                       'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic', 'student')
         }
 
         ),

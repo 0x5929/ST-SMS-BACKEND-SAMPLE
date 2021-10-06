@@ -40,7 +40,8 @@ class StudentSerializer(serializers.ModelSerializer):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate(self, data):
-        return SMSValidator.final_obj_validation(data)
+        date_verified_data = SMSValidator.date_validation(data)
+        return SMSValidator.ensure_program_name(date_verified_data)
 
     def create(self, validated_data):
         return super(StudentSerializer, self).create(Student.objects.create_or_update_student(validated_data=validated_data))
@@ -61,6 +62,9 @@ class RotationSerializer(serializers.ModelSerializer):
 
     def validate_program(self, value):
         return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'program')
+
+    def validate(self, data):
+        return SMSValidator.ensure_unique_rot(data)
 
     def create(self, validated_data):
         return super(RotationSerializer, self).create(Rotation.objects.create_or_update_rotation(validated_data=validated_data))

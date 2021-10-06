@@ -42,14 +42,14 @@ class ModelAdminCNAStudentConfig(ModelAdmin):
     search_fields = ('student_uuid', 'first_name',
                      'last_name', 'makeup_student',)
     list_filter = ('student_uuid', 'first_name',
-                   'last_name', 'makeup_student',)
+                   'last_name', 'rotation', 'makeup_student',)
     ordering = ('-last_name',)
     list_display = ('student_uuid', 'first_name',
-                    'last_name', 'makeup_student',)
+                    'last_name', 'rotation', 'makeup_student',)
 
     fieldsets = (
         (None, {'fields': ('student_uuid', 'first_name',
-                           'last_name', 'makeup_student',)
+                           'last_name', 'rotation', 'makeup_student',)
                 }
          ),
 
@@ -59,7 +59,7 @@ class ModelAdminCNAStudentConfig(ModelAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('student_uuid', 'first_name',
-                       'last_name', 'makeup_student',)
+                       'last_name', 'rotation', 'makeup_student',)
         }
 
         ),
@@ -73,16 +73,16 @@ class ModelAdminCNAStudentConfig(ModelAdmin):
 class ModelAdminCNATheoryRecordConfig(ModelAdmin):
     readonly_fields = ('cna_theory_record_uuid',)
     search_fields = ('cna_theory_record_uuid', 'date',
-                     'hours_spent', 'completed', 'test_score', 'topic')
+                     'hours_spent', 'completed', 'test_score', 'topic', 'student')
     list_filter = ('cna_theory_record_uuid', 'date',
-                   'hours_spent', 'completed', 'test_score', 'topic')
+                   'hours_spent', 'completed', 'test_score', 'topic', 'student')
     ordering = ('-date',)
     list_display = ('cna_theory_record_uuid', 'date',
-                    'hours_spent', 'completed', 'test_score', 'topic')
+                    'hours_spent', 'completed', 'test_score', 'topic', 'student')
 
     fieldsets = (
         (None, {'fields': ('cna_theory_record_uuid', 'date',
-                           'hours_spent', 'completed', 'test_score', 'topic')
+                           'hours_spent', 'completed', 'test_score', 'topic', 'student')
                 }
          ),
 
@@ -92,7 +92,7 @@ class ModelAdminCNATheoryRecordConfig(ModelAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('cna_theory_record_uuid', 'date',
-                       'hours_spent', 'completed', 'test_score', 'topic')
+                       'hours_spent', 'completed', 'test_score', 'topic', 'student')
         }
 
         ),
@@ -106,16 +106,16 @@ class ModelAdminCNATheoryRecordConfig(ModelAdmin):
 class ModelAdminCNAClinicalRecordConfig(ModelAdmin):
     readonly_fields = ('cna_clinical_record_uuid',)
     search_fields = ('cna_clinical_record_uuid', 'date',
-                     'completed', 'performance_satisfied', 'topic')
+                     'completed', 'performance_satisfied', 'topic', 'student')
     list_filter = ('cna_clinical_record_uuid', 'date',
-                   'completed', 'performance_satisfied', 'topic')
+                   'completed', 'performance_satisfied', 'topic', 'student')
     ordering = ('-date',)
     list_display = ('cna_clinical_record_uuid', 'date',
-                    'completed', 'performance_satisfied', 'comments', 'topic')
+                    'completed', 'performance_satisfied', 'comments', 'topic', 'student')
 
     fieldsets = (
         (None, {'fields': ('cna_clinical_record_uuid', 'date',
-                           'completed', 'performance_satisfied', 'comments', 'topic')
+                           'completed', 'performance_satisfied', 'comments', 'topic', 'student')
                 }
          ),
 
@@ -125,7 +125,7 @@ class ModelAdminCNAClinicalRecordConfig(ModelAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('cna_clinical_record_uuid', 'date',
-                       'completed', 'performance_satisfied', 'comments', 'topic')
+                       'completed', 'performance_satisfied', 'comments', 'topic', 'student')
         }
 
         ),

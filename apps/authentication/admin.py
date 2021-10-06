@@ -14,7 +14,7 @@ class AccountAdminConfig(UserAdmin):
                     'phone_number', 'is_active', 'is_office', 'is_recruit', 'is_instructor', 'is_staff', 'is_admin', 'is_superuser')
 
     fieldsets = (
-        (None, {'fields': ('username', 'first_name', 'last_name', )}),
+        (None, {'fields': ('username', 'first_name', 'last_name', 'password',)}),
         ('Permissions', {
          'fields': ('programs', 'is_active', 'is_office', 'is_recruit', 'is_instructor', 'is_staff',  'is_admin', 'is_superuser')}),
         ('Personal', {'fields': ('phone_number', 'email',)}),

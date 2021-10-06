@@ -16,7 +16,7 @@ class ModelAdminClientConfig(ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('first_name',
-                           'last_name', 'phone_number', 'email', 'city', 'success')
+                           'last_name', 'phone_number', 'email', 'city', 'recruit_emails', 'success')
                 }
          ),
 
@@ -26,7 +26,7 @@ class ModelAdminClientConfig(ModelAdmin):
         (None, {
             'classes': ('wide',),
             'fields': ('first_name',
-                       'last_name', 'phone_number', 'email', 'city', 'success')
+                       'last_name', 'phone_number', 'email', 'city', 'recruit_emails', 'success')
         }
 
         ),
@@ -39,16 +39,16 @@ class ModelAdminClientConfig(ModelAdmin):
 
 class ModelAdminNoteConfig(ModelAdmin):
     readonly_fields = ('note_uuid', 'date')
-    search_fields = ('note_uuid', 'date',
+    search_fields = ('client', 'note_uuid', 'date',
                      'product', 'content', )
-    list_filter = ('note_uuid', 'date',
+    list_filter = ('client', 'note_uuid', 'date',
                    'product', 'price', 'content', )
     ordering = ('-date',)
-    list_display = ('note_uuid', 'date',
+    list_display = ('client', 'note_uuid', 'date',
                     'product', 'price', 'content', )
 
     fieldsets = (
-        (None, {'fields': ('product', 'price', 'content', )
+        (None, {'fields': ('client', 'product', 'price', 'content', )
                 }
          ),
 
@@ -57,7 +57,7 @@ class ModelAdminNoteConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('product', 'price', 'content', )
+            'fields': ('client', 'product', 'price', 'content', )
         }
 
         ),

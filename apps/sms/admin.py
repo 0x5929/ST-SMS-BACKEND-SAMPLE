@@ -43,11 +43,11 @@ class ModelAdminProgramConfig(ModelAdmin):
     search_fields = ('program_uuid', 'program_name',)
     list_filter = ('program_uuid', 'program_name',)
     ordering = ()
-    list_display = ('school','program_uuid', 'program_name',
+    list_display = ('school', 'program_uuid', 'program_name',
                     'approval_entities',)
 
     fieldsets = (
-        (None, {'fields': ('school','program_uuid', 'program_name',
+        (None, {'fields': ('school', 'program_uuid', 'program_name',
                            'approval_entities',)
                 }
          ),
@@ -72,12 +72,12 @@ class ModelAdminProgramConfig(ModelAdmin):
 class ModelAdminRotationConfig(ModelAdmin):
     readonly_fields = ('rotation_uuid',)
     search_fields = ('rotation_uuid', 'rotation_number',)
-    list_filter = ('program','rotation_uuid', 'rotation_number',)
+    list_filter = ('program', 'rotation_uuid', 'rotation_number',)
     ordering = ('-rotation_number',)
     list_display = ('rotation_uuid', 'rotation_number',)
 
     fieldsets = (
-        (None, {'fields': ('program','rotation_uuid', 'rotation_number',)
+        (None, {'fields': ('program', 'rotation_uuid', 'rotation_number',)
                 }
          ),
 
@@ -86,7 +86,7 @@ class ModelAdminRotationConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('program','rotation_uuid', 'rotation_number',)
+            'fields': ('program', 'rotation_uuid', 'rotation_number',)
         }
 
         ),
@@ -103,15 +103,15 @@ class ModelAdminStudentConfig(ModelAdmin):
                   'date_enrollment_agreement_signed', 'third_party_payer_info', 'course_cost',
                   'total_charges_charged', 'total_charges_paid', 'graduated', 'passed_first_exam',
                   'passed_second_or_third_exam', 'employed', 'place_of_employment', 'employment_address',
-                  'position', 'starting_wage', 'hours_worked_weekly', 'description_of_attempts_to_contact_student',)
+                  'position', 'starting_wage', 'hours_worked_weekly', 'description_of_attempts_to_contact_student', 'paid',)
 
-    readonly_fields = ('student_uuid',)
+    readonly_fields = ('student_uuid', 'paid',)
     search_fields = ('student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
                      'email', 'course', 'start_date', 'completion_date', 'third_party_payer_info',
                      'graduated', 'passed_first_exam', 'passed_second_or_third_exam', 'employed',)
-    list_filter = ('rotation','student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
+    list_filter = ('rotation', 'student_uuid', 'student_id', 'first_name', 'last_name', 'phone_number',
                    'email', 'course', 'start_date', 'completion_date', 'third_party_payer_info',
-                   'graduated', 'passed_first_exam', 'passed_second_or_third_exam', 'employed',)
+                   'graduated', 'passed_first_exam', 'passed_second_or_third_exam', 'employed', 'paid',)
     ordering = ('-start_date',)
     list_display = all_fields
     fieldsets = (

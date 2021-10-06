@@ -78,7 +78,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_instructor = models.BooleanField(default=False)
 
     programs = ArrayField(models.CharField(
-        max_length=5, choices=PROGRAM_NAMES, blank=True), null=True)
+        max_length=5, choices=PROGRAM_NAMES, blank=True), blank=True, null=True)
     school_name = models.CharField(
         max_length=10, choices=SCHOOL_NAMES)
 

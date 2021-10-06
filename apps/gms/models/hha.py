@@ -13,6 +13,7 @@ from core.settings.constants import CNA_HHA_INSTRUCTOR_TITLES, CLINICAL_SITE_NAM
 class HHARotation(BaseRotation):
     class Meta:
         app_label = 'gms'
+        verbose_name = 'HHA Rotation'
 
     rotation_num = models.PositiveIntegerField(unique=True)
 
@@ -35,6 +36,7 @@ class HHARotation(BaseRotation):
 class HHAStudent(BaseStudent):
     class Meta:
         app_label = 'gms'
+        verbose_name = 'HHA Student'
 
     rotation = models.ForeignKey(
         HHARotation,
@@ -52,6 +54,7 @@ class HHAStudent(BaseStudent):
 class HHATheoryRecord(BaseRecord):
     class Meta:
         app_label = 'gms'
+        verbose_name = 'HHA Theory Record'
 
     hha_theory_record_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
@@ -81,6 +84,7 @@ class HHATheoryRecord(BaseRecord):
 class HHAClinicalRecord(BaseRecord):
     class Meta:
         app_label = 'gms'
+        verbose_name = 'HHA Clinical Record'
 
     hha_clinical_record_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)

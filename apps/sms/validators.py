@@ -1,4 +1,5 @@
 import re
+import uuid
 from .utils import ExceptionHandler
 
 """
@@ -43,8 +44,42 @@ class SMSValidator:
         return value if bool(re.match(pattern, value)) else ExceptionHandler.raise_verror(err_msg)
 
     @staticmethod
-    def final_obj_validation(data):
+    def date_validation(data):
         # validate start and end date logic
         err_msg = 'Please make sure program end date is after the program start date.'
 
         return data if data['start_date'] < data['completion_date'] else ExceptionHandler.raise_verror(err_msg)
+
+    @staticmethod
+    def ensure_unique_rot(data):
+        err_msg = 'This rotation number already exist for this program, please try again with a different rotation number.'
+
+        # grab program id from request data
+        program_id = uuid.UUID(str(data.get('program')))
+
+        # check if rotation's have one with the same number and program ID
+        from .models import Rotation
+        rot = Rotation.objects.filter(
+            program__program_uuid=program_id, rotation_number=data.get('rotation_number'))
+
+        # if there is a rotation already, raise error
+        if len(rot) > 0:
+            ExceptionHandler.raise_verror(err_msg)
+
+        return data
+
+    @staticmethod
+    def ensure_program_name(data):
+        err_msg = 'Your rotation\'s program name and your student course do not match.'
+
+        rot_id = data.get('rotation')
+
+        from .models import Rotation
+        rot = Rotation.objects.get(rotation_uuid__exact=rot_id)
+
+        program_name = rot.program.program_name
+
+        if data.get('course') != program_name:
+            ExceptionHandler.raise_verror(err_msg)
+
+        return data

@@ -1,7 +1,7 @@
 import uuid
 from django.db import models
 
-from django.apps import apps
+from django.conf import settings
 from django.core.validators import RegexValidator
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib.postgres.fields import ArrayField
@@ -67,7 +67,7 @@ class Rotation(models.Model):
         return Student.objects.filter(rotation__rotation_uuid__exact=self.rotation_uuid).count()
 
     def __str__(self):
-        return self.rotation_uuid
+        return f'{self.program} Rotation# {self.rotation_number}'
 
 
 class Student(models.Model):
@@ -141,11 +141,10 @@ class Student(models.Model):
 
     def migrate_google(self, method):
 
-        if not apps.is_installed('google_sheet_connector'):
+        if not settings.MIGRATE_GOOGLE_SHEET:
             return
 
-        data = DataHelper.data_conversion(
-            self)
+        data = DataHelper.data_conversion(self)
 
         try:
             if method == 'DEL':
@@ -162,7 +161,7 @@ class Student(models.Model):
 
     def save(self, *args, **kwargs):
 
-        self.paid = True if self.total_charges_charged < self.total_charges_paid else False
+        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
 
         self.migrate_google('POST')
 
@@ -170,7 +169,7 @@ class Student(models.Model):
 
     def update(self, *args, **kwargs):
 
-        self.paid = True if self.total_charges_charged < self.total_charges_paid else False
+        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
 
         self.migrate_google('PUT')
 

@@ -1,4 +1,5 @@
 import re
+import uuid
 
 from django.apps import apps
 from django.db.models.expressions import Value
@@ -25,14 +26,29 @@ class GMSValidator:
     def no_duplicate_records(data, model_name):
         err_msg = 'The record you are trying to add already exist in this rotation.'
 
-        # grab rotation ID:
-        current_rot_id = data.get('student').get(
-            'rotation').get('rotation_uuid')
+        # first, grab rotation ID:
+        # note the following may not work, thats why i only grabbed student id, to grab student from db, and evaluate its belonging rotation's uuid
+        # current_rot_id = uuid.UUID(str(data.get('student').get(
+        #    'rotation').get('rotation_uuid')))
 
-        # grab topic
+        # get current student obj
+        current_student_id = uuid.UUID(str(data.get('student')))
+        if 'CNA' in model_name:
+            StudentModel = apps.get_model('gms', 'CNAStudent')
+        elif 'HHA' in model_name:
+            StudentModel = apps.get_model('gms', 'HHAStudent')
+
+        current_student = StudentModel.objects.get(
+            student_id__exact=current_student_id)
+
+        # get current rotation ID:
+        current_rot_id = current_student.rotation.rotation_uuid
+
+        # second, grab topic
         current_topic = data.get('topic')
 
-        # check if record exist with rotation_id and record topic
+        # third, check if record exist with rotation_id and record topic
+        # apps.get_model is like import
         RecordModel = apps.get_model('gms', model_name)
 
         record = RecordModel.objects.filter(
@@ -50,7 +66,9 @@ class GMSValidator:
     def no_duplicate_students(data, model_name):
         err_msg = 'The student you are trying to add already exist in this rotation.'
 
-        current_rot_id = data.get('rotation').get('rotation_uuid')
+        current_rot_id = uuid.UUID(
+            str(data.get('rotation')))
+
         first_name = data.get('first_name')
         last_name = data.get('last_name')
 

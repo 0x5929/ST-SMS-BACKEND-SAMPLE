@@ -228,6 +228,10 @@ REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'authentication.serializers.LoginSerializer',
 }
 
+
+# Google Sheet Migration (SWITCH TO TRUE AFTER TESTING, AND IN PRODUCTION)
+MIGRATE_GOOGLE_SHEET = False
+
 # cors settings, ie for react apps
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'

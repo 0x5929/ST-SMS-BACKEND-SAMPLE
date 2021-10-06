@@ -64,4 +64,4 @@ class Note(models.Model):
     objects = NoteManager()
 
     def __str__(self):
-        return self.note_uuid
+        return str(self.note_uuid)
