@@ -2,17 +2,11 @@
 
 """
     app CONSTANTS for st-sms
-        (They are also in here bc some are shared across apps, hence encapsulated on a project lvl)
+        (They are also in here bc some are shared across apps, hence I encapsulated all of them on a project lvl)
 
-    SCHOOL_NAME: sms, authentication
-    PROGRAM_NAMES: sms, cms
-    ENTITY_NAMES: sms
-    EMPLOYMENT_STATUS_CHOICES: sms
-    SHEET_MIGRATION_ISSUES: sms
-    STUDENT_RECORD_HEADERS: sms, google_sheet_connector
-    SHEET_CONSTANTS: google_sheet_connector
 
-    NOTE: settings.py contains project CONSTANTS
+
+    NOTE: settings.py contains project related CONSTANTS
 
 """
 
@@ -663,5 +657,19 @@ CNA_CLINICAL_TOPICS = (
          'Participates in resident care planning'))),
 )
 
-HHA_THEORY_TOPICS = ()
-HHA_CLINICAL_TOPICS = ()
+HHA_THEORY_TOPICS = (('Introduction to Aide and Agency Role',
+                      'Introduction to Aide and Agency Role'),
+                     ('Interpretation of Medical and Social Needs of People Being Served',
+                      'Interpretation of Medical and Social Needs of People Being Served'),
+                     ('Personal Care Services',
+                      'Personal Care Services'),
+                     ('Nutrition',
+                      'Nutrition'),
+                     ('Cleaning and Care Tasks in the Home',
+                      'Cleaning and Care Tasks in the Home'))
+HHA_CLINICAL_TOPICS = (('Personal Care Service',
+                        'Personal Care Service'),
+                       ('Nutrition',
+                        'Nutrition'),
+                       ('Cleaning and Care Tasks in the Home',
+                        'Cleaning and Care Tasks in the Home'))

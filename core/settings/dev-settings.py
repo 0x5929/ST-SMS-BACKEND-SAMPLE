@@ -69,7 +69,6 @@ INSTALLED_APPS = [
     'authentication',
     'sms',
     'cms',
-    'google_sheet_connector',
     'gms',
 
 ]
@@ -89,7 +88,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'google_sheet_connector/templates')],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

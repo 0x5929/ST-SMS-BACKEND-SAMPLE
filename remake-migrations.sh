@@ -1,5 +1,7 @@
 #!/bin/bash
 
+APPS_DIR='apps'
+
 msg="You are about to delete apps [ $* ] and remake their associated migration files, are you sure?"
 
 read -p "$msg" -r
@@ -10,12 +12,12 @@ then
 	# first remove all app's migration folder
 	for app in "$@"
 	do
-		if [ -d "$app/migrations" ]
+		if [ -d "$APPS_DIR/$app/migrations" ]
 		then
-            echo "Deleting $app/migrations folder"
-			rm -Ir "$app/migrations"
+            echo "Deleting $APPS_DIR/$app/migrations folder"
+			rm -Ir "$APPS_DIR/$app/migrations"
 		else
-			echo "$app/migrations does not exist"
+			echo "$APPS_DIR/$app/migrations does not exist"
 		fi
 	done
 

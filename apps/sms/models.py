@@ -9,8 +9,8 @@ from djmoney.models.fields import MoneyField
 
 from .managers import SchoolManager, ProgramManager, RotationManager, StudentManager
 
-from google_sheet_connector.google_sheets import GoogleSheet
-from google_sheet_connector.utils import DataHelper
+from .google_sheets import GoogleSheet
+from .utils import DataHelper
 
 from core.settings.constants import SCHOOL_NAMES, PROGRAM_NAMES, ENTITY_NAMES, EMPLOYMENT_STATUS_CHOICES, SHEET_MIGRATION_ISSUES
 
