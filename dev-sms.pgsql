@@ -1074,6 +1074,7 @@ COPY public.account_emailaddress (id, email, verified, "primary", user_id) FROM 
 4	admin@st-inst.com	t	t	4
 5	christianm.lara@gmail.com	t	t	5
 6	ancamndza@gmail.com	t	t	6
+7	support@st-inst.com	t	t	7
 \.
 
 
@@ -1244,6 +1245,7 @@ COPY public.authentication_account (id, password, last_login, email, username, f
 6	pbkdf2_sha256$260000$YVVFSlvvZ6gAhi0C8lEn4t$b8b8VkMq9OeO63w9nwQjWHY60Fi2Q6cNzb0rkp287gQ=	\N	ancamndza@gmail.com	p.curby	Patricia	Curby	2021-10-06 12:27:45.03637-07		f	f	t	{CNA}		t	f	f	f
 2	pbkdf2_sha256$260000$nqcTn09JGkKsdvuD3dlGYL$ysxA9z2H6bJIiTezjRBl0uDzTqtL3LLjisxdj5b4Nxo=	2021-10-06 15:39:15.954303-07	recruit@st-inst.com	n.liang	Nan	Liang	2021-10-06 12:19:23.888886-07		t	t	f	{}		t	t	f	f
 1	pbkdf2_sha256$260000$e8ZPfgrXgn8uXs1XB8jphK$WaeXyUtMK78SwaN/Pd8BEiTEfuulzf4v8icDvxyd1Aw=	2021-10-06 15:39:47.105807-07	root@localhost	root	root	root	2021-10-06 12:17:36.413239-07		t	t	t	{CNA,HHA}		t	t	t	t
+7	pbkdf2_sha256$260000$Yj9BMCsccJre9WDmyo9NWh$G581lZg2T1fQ3S4/4c8GNTpt4uX2IBc6GsOq70LhlCg=	\N	support@st-inst.com	p.hu	Peiyi	Hu	2021-10-07 08:43:52.158473-07		t	f	f	{}		t	f	f	f
 \.
 
 
@@ -1328,6 +1330,8 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 32	2021-10-06 15:36:01.425808-07	5f6eec84-6e5d-46ba-93c6-c34e98c2530a	5f6eec84-6e5d-46ba-93c6-c34e98c2530a	1	[{"added": {}}]	31	1
 33	2021-10-06 15:37:50.192383-07	b7b559e8-035c-4329-91c7-8800115fc2e6	b7b559e8-035c-4329-91c7-8800115fc2e6	1	[{"added": {}}]	28	1
 34	2021-10-06 15:38:28.263788-07	08d594c5-2a3e-49ce-93d5-1551d4f86ebd	08d594c5-2a3e-49ce-93d5-1551d4f86ebd	1	[{"added": {}}]	29	1
+35	2021-10-07 08:43:52.161317-07	7	p.hu	1	[{"added": {}}]	14	1
+36	2021-10-07 08:44:09.499235-07	7	support@st-inst.com	1	[{"added": {}}]	9	1
 \.
 
 
@@ -1609,7 +1613,7 @@ COPY public.socialaccount_socialtoken (id, token, token_secret, expires_at, acco
 -- Name: account_emailaddress_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.account_emailaddress_id_seq', 6, true);
+SELECT pg_catalog.setval('public.account_emailaddress_id_seq', 7, true);
 
 
 --
@@ -1651,7 +1655,7 @@ SELECT pg_catalog.setval('public.authentication_account_groups_id_seq', 1, false
 -- Name: authentication_account_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.authentication_account_id_seq', 6, true);
+SELECT pg_catalog.setval('public.authentication_account_id_seq', 7, true);
 
 
 --
@@ -1665,7 +1669,7 @@ SELECT pg_catalog.setval('public.authentication_account_user_permissions_id_seq'
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 34, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 36, true);
 
 
 --

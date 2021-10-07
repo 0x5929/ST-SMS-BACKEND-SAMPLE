@@ -123,7 +123,7 @@ _Note:_ If encountered errors where library images not found. You may need to sy
 
 ### **Import existing database; check migrations and start server (if devdb.pgsql is available)**
 
-1. `$ psql -U postgres dev < dev-sms.pgsql `
+1. `$ psql -U postgres dev-sms < dev-sms.pgsql `
 2. `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
 3. `$ python manage.py runserver`
 
