@@ -1,0 +1,55 @@
+SMS Testing: 
+root (superuser) -> can GET POST PUT PATCH DELETE:
+					1. Students (of all schools)
+					2. Rotations (of all schools)
+					3. Programs (of all schools)
+					4. Schools (of all schools)
+						- add a new school, delete it, and then add it again for futher testing
+					
+k.ren (admin) -> can GET POST PUT PATCH DELETE:
+					1. Students (same school)
+					2. Rotations (same school)
+					3. Programs (same school)
+
+k.di (staff) -> can GET POST PUT PATCH DELETE: 
+					1. Students (same school)
+					2. Rotations (same school)
+					
+p.hu (reg) -> can only GET: 
+					1. Students (same school)
+					2. Rotations (same school)
+					3. Programs (same school)
+					4. Schools (same school)
+					
+
+CMS Testing: 
+root (superuser) -> can GET POST PUT PATCH DELETE: 
+					1. Clients (of all schools)
+					2. Notes (of all schools)
+
+k.di (staff) -> can GET POST PUT PATCH DELETE: 
+					1. Clients (same school)
+					2. Notes (same schools)
+
+p.hu (reg) -> can GET POST PUT PATCH DELETE: 
+					1. Clients  (same school, same ownership by email)
+					2. Notes (same school, same ownership by email)
+					
+GMS Testing: 
+k.ren -> can GET POST PUT PATCH DELETE: 
+					1. HHA/CNARotation (of all schools)
+					2. HHA/CNAStudent (of all schools)
+					3. HHA/CNATheoryRecord (of all schools)
+					4. HHA/CNAClinicalRecord (of all schools)
+					
+c.lara -> can GET POST PUT PATCH DELETE: 
+					1. HHA/CNARotation (of same school and ownship by email)
+					2. HHA/CNAStudent (of same school and ownship by email)
+					3. HHA/CNATheoryRecord (of same school and ownship by email)
+					4. HHA/CNAClinicalRecord (of same school and ownship by email)
+					
+p.curby -> can GET POST PUT PATCH DELETE: 
+					1. CNARotation (of same school and ownship by email)
+					2. CNAStudent (of same school and ownship by email)
+					3. CNATheoryRecord (of same school and ownship by email)
+					4. CNAClinicalRecord (of same school and ownship by email)

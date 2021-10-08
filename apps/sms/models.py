@@ -142,6 +142,8 @@ class Student(models.Model):
     def migrate_google(self, method):
 
         if not settings.MIGRATE_GOOGLE_SHEET:
+            self.google_sheet_migrated = False
+            self.google_sheet_migration_issue = method
             return
 
         data = DataHelper.data_conversion(self)
@@ -159,25 +161,31 @@ class Student(models.Model):
             msg = f'Did not save the data in Master DB on Google Sheet, cancelling the {method} operation, please try again. Error: {repr(e)}'
             raise ImproperlyConfigured(msg=msg, code='Canceled-due-to-GSC')
 
-    def save(self, *args, **kwargs):
-
+    def pre_hook(self, action):
+        # check student charges, if they paid up (technically not needed for delete)
         self.paid = True if self.total_charges_charged == self.total_charges_paid else False
 
-        self.migrate_google('POST')
+        # migrate to google (if disable in setting, this will have no side effect)
+        if action == 'save':
+            self.migrate_google('POST')
+        elif action == 'update':
+            self.migrate_google('PUT')
+        elif action == 'delete':
+            self.migrate_google('DEL')
+        return
+
+    def save(self, *args, **kwargs):
+        self.pre_hook('save')
 
         return super(Student, self).save(*args, **kwargs)
 
     def update(self, *args, **kwargs):
-
-        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
-
-        self.migrate_google('PUT')
+        self.pre_hook('update')
 
         return super(Student, self).update(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-
-        self.migrate_google('DEL')
+        self.pre_hook('delete')
 
         return super(Student, self).delete(*args, **kwargs)
 
