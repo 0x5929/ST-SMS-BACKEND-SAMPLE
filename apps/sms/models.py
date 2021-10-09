@@ -118,7 +118,8 @@ class Student(models.Model):
     hours_worked_weekly = models.CharField(
         max_length=1, choices=EMPLOYMENT_STATUS_CHOICES, blank=True)
 
-    description_of_attempts_to_contact_student = models.TextField(blank=False, default='Information provided by ST office contacting students via phone/text/email.')
+    description_of_attempts_to_contact_student = models.TextField(
+        blank=False, default='Information provided by ST office contacting students via phone/text/email.')
 
     google_sheet_migrated = models.BooleanField(default=False)
 
@@ -160,8 +161,6 @@ class Student(models.Model):
             #msg = 'Did not save the data in Master DB on Google Sheet, cancelling the %s operation, please try again. Error: %s ' % (method, repr(e))
             msg = f'Did not save the data in Master DB on Google Sheet, cancelling the {method} operation, please try again. Error: {repr(e)}'
             raise ImproperlyConfigured(msg=msg, code='Canceled-due-to-GSC')
-
-
 
     def pre_hook(self, action):
         # check student charges, if they paid up (technically not needed for delete)

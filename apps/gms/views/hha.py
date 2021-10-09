@@ -8,7 +8,7 @@ from ..filters import GMSHHARotationFilter, GMSHHAStudentFilter, GMSHHATheoryRec
 
 
 class HHARotationView(viewsets.ModelViewSet):
-    serializers = HHARotationSerializer
+    serializer_class = HHARotationSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHARotationFilter
@@ -18,7 +18,7 @@ class HHARotationView(viewsets.ModelViewSet):
 
 
 class HHAStudentView(viewsets.ModelViewSet):
-    serializers = HHAStudentSerializer
+    serializer_class = HHAStudentSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHAStudentFilter
@@ -28,7 +28,7 @@ class HHAStudentView(viewsets.ModelViewSet):
 
 
 class HHATheoryRecordView(viewsets.ModelViewSet):
-    serializers = HHATheoryRecordSerializer
+    serializer_class = HHATheoryRecordSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHATheoryRecordFilter
@@ -38,7 +38,7 @@ class HHATheoryRecordView(viewsets.ModelViewSet):
 
 
 class HHAClinicalRecordView(viewsets.ModelViewSet):
-    serializers = HHAClinicalRecordSerializer
+    serializer_class = HHAClinicalRecordSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHAClinicalRecordFilter

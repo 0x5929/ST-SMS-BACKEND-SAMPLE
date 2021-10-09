@@ -9,7 +9,7 @@ class StudentSerializer(serializers.ModelSerializer):
         queryset=Rotation.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('student_uuid',)
+        fields = '__all__'
         model = Student
 
     def validate_student_id(self, value):
@@ -56,7 +56,7 @@ class RotationSerializer(serializers.ModelSerializer):
         queryset=Program.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('rotation_uuid',)
+        fields = '__all__'
         model = Rotation
         depth = 1
 
@@ -79,7 +79,7 @@ class ProgramSerializer(serializers.ModelSerializer):
         queryset=School.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('program_uuid',)
+        fields = '__all__'
         model = Program
         depth = 2
 
@@ -97,7 +97,7 @@ class SchoolSerializer(serializers.ModelSerializer):
     programs = ProgramSerializer(many=True, read_only=True)
 
     class Meta:
-        exclude = ('school_uuid,')
+        fields = '__all__'
         model = School
         depth = 3
 

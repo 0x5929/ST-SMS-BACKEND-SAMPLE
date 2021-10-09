@@ -37,7 +37,8 @@ class HHAStudentManager(models.Manager):
 
     def create_or_update(self, validated_data, instance=None):
         # grab rotation ID from request
-        rotation_id = uuid.UUID(str(validated_data.get('rotation')))
+        rotation_id = uuid.UUID(
+            str(validated_data.get('rotation').rotation_uuid))
 
         # retrieve rotation from DB
         from ..models import HHARotation
@@ -67,7 +68,7 @@ class HHATheoryRecordManager(models.Manager):
 
     def create_or_update(self, validated_data, instance=None):
         # grab student ID from request
-        student_id = uuid.UUID(str(validated_data.get('student')))
+        student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
 
         # retrive student from DB
         from ..models import HHAStudent
@@ -97,7 +98,7 @@ class HHAClinicalRecordManager(models.Manager):
 
     def create_or_update(self, validated_data, instance=None):
         # grab student ID from request
-        student_id = uuid.UUID(str(validated_data.get('student')))
+        student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
 
         # retrive student from DB
         from ..models import HHAStudent

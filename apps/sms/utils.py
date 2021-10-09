@@ -13,7 +13,8 @@ class DatabaseHandler():
             pass
         elif model.__name__ == 'Program':
             # get school ID from request
-            school_id = uuid.UUID(str(validated_data.get('school')))
+            school_id = uuid.UUID(
+                str(validated_data.get('school').school_uuid))
 
             # retrieve said school from the DB using ID
             from .models import School
@@ -24,7 +25,9 @@ class DatabaseHandler():
 
         elif model.__name__ == 'Rotation':
             # get program ID from request
-            program_id = uuid.UUID(str(validated_data.get('program')))
+
+            program_id = uuid.UUID(
+                str(validated_data.get('program').program_uuid))
 
             # retrieve said program from the DB using ID
             from .models import Program
@@ -35,7 +38,8 @@ class DatabaseHandler():
 
         elif model.__name__ == 'Student':
             # get rotation ID from request
-            rotation_id = uuid.UUID(str(validated_data.get('rotation')))
+            rotation_id = uuid.UUID(
+                str(validated_data.get('rotation').rotation_uuid))
 
             # retrieve said rotation from the DB using ID
             from .models import Rotation

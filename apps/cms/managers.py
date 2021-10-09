@@ -44,7 +44,7 @@ class NoteManager(models.Manager):
 
     def create_or_update_note(self, validated_data, instance=None):
         # get client ID from request
-        client_id = uuid.UUID(str(validated_data.get('client')))
+        client_id = uuid.UUID(str(validated_data.get('client').client_uuid))
 
         # retrieve client from DB
         from .models import Client

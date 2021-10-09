@@ -38,7 +38,8 @@ class CNAStudentManager(models.Manager):
 
     def create_or_update(self, validated_data, instance=None):
         # grab rotation ID from request
-        rotation_id = uuid.UUID(str(validated_data.get('rotation')))
+        rotation_id = uuid.UUID(
+            str(validated_data.get('rotation').rotation_uuid))
 
         # retrieve rotation from DB
         from ..models import CNARotation
@@ -69,7 +70,7 @@ class CNATheoryRecordManager(models.Manager):
 
     def create_or_update(self, validated_data, instance=None):
         # grab student ID from request
-        student_id = uuid.UUID(str(validated_data.get('student')))
+        student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
 
         # retrive student from DB
         from ..models import CNAStudent
@@ -100,7 +101,7 @@ class CNAClinicalRecordManager(models.Manager):
 
     def create_or_update(self, validated_data, instance=None):
         # grab student ID from request
-        student_id = uuid.UUID(str(validated_data.get('student')))
+        student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
 
         # retrive student from DB
         from ..models import CNAStudent

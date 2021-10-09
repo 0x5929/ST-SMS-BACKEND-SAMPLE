@@ -8,7 +8,7 @@ from ..filters import GMSCNARotationFilter, GMSCNAStudentFilter, GMSCNATheoryRec
 
 
 class CNARotationView(viewsets.ModelViewSet):
-    serializers = CNARotationSerializer
+    serializer_class = CNARotationSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNARotationFilter
@@ -18,7 +18,7 @@ class CNARotationView(viewsets.ModelViewSet):
 
 
 class CNAStudentView(viewsets.ModelViewSet):
-    serializers = CNAStudentSerializer
+    serializer_class = CNAStudentSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNAStudentFilter
@@ -28,7 +28,7 @@ class CNAStudentView(viewsets.ModelViewSet):
 
 
 class CNATheoryRecordView(viewsets.ModelViewSet):
-    serializers = CNATheoryRecordSerializer
+    serializer_class = CNATheoryRecordSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNATheoryRecordFilter
@@ -38,7 +38,7 @@ class CNATheoryRecordView(viewsets.ModelViewSet):
 
 
 class CNAClinicalRecordView(viewsets.ModelViewSet):
-    serializers = CNAClinicalRecordSerializer
+    serializer_class = CNAClinicalRecordSerializer
     permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNAClinicalRecordFilter

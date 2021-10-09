@@ -80,7 +80,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     programs = ArrayField(models.CharField(
         max_length=5, choices=PROGRAM_NAMES, blank=True), blank=True, null=True)
     school_name = models.CharField(
-        max_length=10, choices=SCHOOL_NAMES)
+        max_length=10, choices=SCHOOL_NAMES, blank=True)
 
     # django related fields
     is_active = models.BooleanField(default=True)

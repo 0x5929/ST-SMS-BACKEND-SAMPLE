@@ -25,6 +25,7 @@ PROGRAM_NAMES = (
 )
 
 ENTITY_NAMES = (
+    ('AHA', 'American Heart Association'),
     ('CDPH', 'California Department of Public Health'),
     ('BPPE', 'Bureau of Postsecondary and for Private Education'),
     ('BSIS', 'Bureau of Security and Investigative Services'),

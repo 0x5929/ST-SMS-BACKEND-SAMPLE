@@ -32,7 +32,7 @@ class GMSValidator:
         #    'rotation').get('rotation_uuid')))
 
         # get current student obj
-        current_student_id = uuid.UUID(str(data.get('student')))
+        current_student_id = uuid.UUID(str(data.get('student').student_uuid))
         if 'CNA' in model_name:
             StudentModel = apps.get_model('gms', 'CNAStudent')
         elif 'HHA' in model_name:
@@ -67,7 +67,7 @@ class GMSValidator:
         err_msg = 'The student you are trying to add already exist in this rotation.'
 
         current_rot_id = uuid.UUID(
-            str(data.get('rotation')))
+            str(data.get('rotation').rotation_uuid))
 
         first_name = data.get('first_name')
         last_name = data.get('last_name')
