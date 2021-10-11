@@ -8,3 +8,9 @@ virtual-env/*
 
 # Environment settings
 .env
+
+
+# backup files
+backup-data.json
+dev-sms-backup.pgsql
+dev-sms.pgsql

@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from django_filters import rest_framework as filters
 
 from .filters import SMSFilter
-from .permissions import IsAuthenticatedOfficeUser, IsAuthenticatedOfficeStaff, IsAuthenticatedOfficeAdmin, IsAuthenticatedOfficeUserToReadOnly, IsSuperuser
+from .permissions import IsAuthenticatedOfficeUserToReadOnly, IsAuthenticatedOfficeUserButCannotDelete, IsAuthenticatedOfficeStaff, IsAuthenticatedOfficeAdmin, IsSuperuser
 from .models import School, Program, Rotation, Student
 from .serializers import SchoolSerializer, ProgramSerializer, RotationSerializer, StudentSerializer
 
@@ -38,7 +38,7 @@ class StudentView(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
 
     permission_classes = [
-        IsSuperuser | IsAuthenticatedOfficeAdmin | IsAuthenticatedOfficeStaff | IsAuthenticatedOfficeUser]
+        IsSuperuser | IsAuthenticatedOfficeAdmin | IsAuthenticatedOfficeStaff | IsAuthenticatedOfficeUserButCannotDelete]
 
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = SMSFilter

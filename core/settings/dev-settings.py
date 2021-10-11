@@ -65,6 +65,9 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'django_filters',
 
+    # TESTING APPS
+    'behave_django',
+
     # PROJECT APPS
     'authentication',
     'sms',
@@ -125,6 +128,9 @@ DATABASES = {
         'PORT': env('DATABASE_PORT'),
     }
 }
+
+# dev initial data:
+#FIXTURE_DIRS = [os.path.join(BASE_DIR, '../fixtures')]
 
 
 # Password validation

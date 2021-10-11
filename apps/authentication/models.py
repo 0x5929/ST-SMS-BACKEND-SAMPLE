@@ -17,6 +17,8 @@ class CustomAccountManager(BaseUserManager):
 
         if other_fields.get('is_staff') is not True:
             raise ValueError('Superuser must be assigned to is_staff=True.')
+        elif other_fields.get('is_admin') is not True:
+            raise ValueError('Superuser must be assigned to is_admin=True')
         elif other_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must be assigned to is_superuser=True')
         elif other_fields.get('is_active') is not True:

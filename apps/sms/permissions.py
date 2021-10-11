@@ -16,11 +16,11 @@ class IsAuthenticatedOfficeUserToReadOnly(permissions.BasePermission):
         return True if request.user.is_authenticated and request.user.is_office and request.method in permissions.SAFE_METHODS else False
 
 
-class IsAuthenticatedOfficeUser(permissions.BasePermission):
+class IsAuthenticatedOfficeUserButCannotDelete(permissions.BasePermission):
     message = 'Sorry, you must be an office user to perform this action.'
 
     def has_permission(self, request, view):
-        return True if request.user.is_authenticated and request.user.is_office else False
+        return True if request.user.is_authenticated and request.user.is_office and request.method != 'DELETE' else False
 
 
 class IsAuthenticatedOfficeStaff(permissions.BasePermission):

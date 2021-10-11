@@ -1,0 +1,29 @@
+[
+{
+    "model": "cms.client",
+    "pk": "1b6f00a6-dec7-4766-be71-2ce630eb2df5",
+    "fields": {
+        "first_name": "Testclient",
+        "last_name": "A",
+        "phone_number": "626-555-5455",
+        "initial_contact": "2021-10-06",
+        "email": "testclienta@email.com",
+        "city": "Rosemead",
+        "success": false,
+        "recruit_emails": "[\"recruit@st-inst.com\", \"selecttherapyinstitute@gmail.com\"]",
+        "school_name": ""
+    }
+},
+{
+    "model": "cms.note",
+    "pk": "d598af07-bbab-44f0-9ba2-94cd58f4ecdf",
+    "fields": {
+        "date": "2021-10-06",
+        "product": "CNA",
+        "price_currency": "USD",
+        "price": "2350.00",
+        "content": "Tried contacting.",
+        "client": "1b6f00a6-dec7-4766-be71-2ce630eb2df5"
+    }
+}
+]
