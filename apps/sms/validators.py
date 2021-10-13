@@ -72,7 +72,7 @@ class SMSValidator:
     def ensure_program_name(data):
         err_msg = 'Your rotation\'s program name and your student course do not match.'
 
-        rot_id = data.get('rotation')
+        rot_id = data.get('rotation').rotation_uuid
 
         from .models import Rotation
         rot = Rotation.objects.get(rotation_uuid__exact=rot_id)
@@ -80,6 +80,17 @@ class SMSValidator:
         program_name = rot.program.program_name
 
         if data.get('course') != program_name:
+            ExceptionHandler.raise_verror(err_msg)
+
+        return data
+
+    @staticmethod
+    def ensure_same_school(data, request):
+        err_msg = 'You are adding a student record for the wrong school\'s program rotation, please add to your own school\'s program rotation'
+
+        school_name = data.get('rotation').program.school.school_name
+
+        if school_name != request.user.school_name:
             ExceptionHandler.raise_verror(err_msg)
 
         return data

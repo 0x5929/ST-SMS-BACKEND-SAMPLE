@@ -41,7 +41,9 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         date_verified_data = SMSValidator.date_validation(data)
-        return SMSValidator.ensure_program_name(date_verified_data)
+        program_validated_data = SMSValidator.ensure_program_name(
+            date_verified_data)
+        return SMSValidator.ensure_same_school(program_validated_data, self.context.get('request'))
 
     def create(self, validated_data):
         return super(StudentSerializer, self).create(Student.objects.create_or_update_student(validated_data=validated_data))
