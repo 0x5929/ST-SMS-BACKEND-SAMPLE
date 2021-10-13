@@ -8,7 +8,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings.dev-settings'
 
 def django_ready(context, scenario):
     context.test.client = APIClient()
-    context.browser = webdriver.PhantomJS()
+    context.browser = webdriver.Chrome()
     context.browser.implicitly_wait(1)
     context.server_url = 'http://localhost:8000'
 
