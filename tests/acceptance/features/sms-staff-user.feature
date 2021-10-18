@@ -7,14 +7,14 @@ Feature: Student Management System as Staff User
 
     Scenario: staff office user requesting to read schools resource
         Given logged on as staff office user
-        When requesting GET to /api/sms/schools
+        When request GET to /api/sms/schools
         Then will receive JSON response of data
         But only for the same school as the staff office user
 
 
     Scenario: staff office user requesting to read programs resource
         Given logged on as staff office user
-        When requesting GET to /api/sms/programs
+        When request GET to /api/sms/programs
         Then will receive JSON response of data
         And server response status is OK 200
         But only for the same school as the staff office user
@@ -22,7 +22,7 @@ Feature: Student Management System as Staff User
 
     Scenario: staff office user requesting to read rotations resource
         Given logged on as staff office user
-        When requesting GET to /api/sms/rotations
+        When request GET to /api/sms/rotations
         Then will receive JSON response of data
         And server response status is OK 200
         But only for the same school as the staff office user
@@ -30,7 +30,7 @@ Feature: Student Management System as Staff User
 
     Scenario: staff office user requesting to read students resource
         Given logged on as staff office user
-        When requesting GET to /api/sms/students
+        When request GET to /api/sms/students
         Then will receive JSON response of data
         And server response status is OK 200
         But only for the same school as the staff office user
@@ -235,129 +235,135 @@ Feature: Student Management System as Staff User
 
     Scenario: staff user requesting to read /api/sms/schools
         Given logged on as staff user with is_office set to false
-        When request GET /api/sms/schools
+        When request GET to /api/sms/schools
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to read /api/sms/programs
         Given logged on as staff user with is_office set to false
-        When request GET /api/sms/programs
+        When request GET to /api/sms/programs
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to read /api/sms/rotations
         Given logged on as staff user with is_office set to false
-        When request GET /api/sms/rotations
+        When request GET to /api/sms/rotations
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
     Scenario: staff user requesting to read /api/sms/students
         Given logged on as staff user with is_office set to false
-        When request GET /api/sms/students
+        When request GET to /api/sms/students
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
     Scenario: staff user requesting to create /api/sms/schools
         Given logged on as staff user with is_office set to false
-        When request POST /api/sms/schools
+        When request POST to /api/sms/schools
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to create /api/sms/programs
         Given logged on as staff user with is_office set to false
-        When request POST /api/sms/programs
+        When request POST to /api/sms/programs
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to create /api/sms/rotations
         Given logged on as staff user with is_office set to false
-        When request POST /api/sms/rotations
+        When request POST to /api/sms/rotations
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
-    Scenario: staff user requesting to create /api/sms/students
+    Scenario: staff user requesting to create /api/sms/students of same school
         Given logged on as staff user with is_office set to false
-        When request POST /api/sms/students
+        When request POST to /api/sms/students of the same school
+        Then No data response will be sent from server
+        And server response status is Permission Denied 403
+
+    Scenario: staff user requesting to create /api/sms/students to a program rotation of another school
+        Given logged on as staff user with is_office set to false
+        When request POST to /api/sms/students to a program rotation of another school
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to fully update /api/sms/schools
         Given logged on as staff user with is_office set to false
-        When request PUT /api/sms/schools
+        When request PUT to /api/sms/schools/school_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to fully update  /api/sms/programs
         Given logged on as staff user with is_office set to false
-        When request PUT /api/sms/programs
+        When request PUT to /api/sms/programs/program_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to fully update  /api/sms/rotations
         Given logged on as staff user with is_office set to false
-        When request PUT /api/sms/rotations
+        When request PUT to /api/sms/rotations/rotation_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
     Scenario: staff user requesting to fully update  /api/sms/students
         Given logged on as staff user with is_office set to false
-        When request PUT /api/sms/students
+        When request PUT to /api/sms/students/student_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
     Scenario: staff user requesting to partially update /api/sms/schools
         Given logged on as staff user with is_office set to false
-        When request PATCH /api/sms/schools
+        When request PATCH to /api/sms/schools/school_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to partially update  /api/sms/programs
         Given logged on as staff user with is_office set to false
-        When request PATCH /api/sms/programs
+        When request PATCH to /api/sms/programs/program_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to partially update  /api/sms/rotations
         Given logged on as staff user with is_office set to false
-        When request PATCH /api/sms/rotations
+        When request PATCH to /api/sms/rotations/rotation_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
     Scenario: staff user requesting to partially update  /api/sms/students
         Given logged on as staff user with is_office set to false
-        When request PATCH /api/sms/students
+        When request PATCH to /api/sms/students/student_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
     Scenario: staff user requesting to delete /api/sms/schools
         Given logged on as staff user with is_office set to false
-        When request DELETE /api/sms/schools
+        When request DELETE to /api/sms/schools/school_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to delete /api/sms/programs
         Given logged on as staff user with is_office set to false
-        When request DELETE /api/sms/programs
+        When request DELETE to /api/sms/programs/program_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
     Scenario: staff user requesting to delete /api/sms/rotations
         Given logged on as staff user with is_office set to false
-        When request DELETE /api/sms/rotations
+        When request DELETE to /api/sms/rotations/rotation_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 
 
     Scenario: staff user requesting to delete /api/sms/students
         Given logged on as staff user with is_office set to false
-        When request DELETE /api/sms/students
+        When request DELETE to /api/sms/students/student_uuid
         Then No data response will be sent from server
         And server response status is Permission Denied 403
 

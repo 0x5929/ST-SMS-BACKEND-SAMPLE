@@ -78,5 +78,4 @@ class HHARotationSerializer(serializers.ModelSerializer):
         model = HHARotation
 
     def validate(self, data):
-        data = GMSValidator.date_checker(data)
-        return GMSValidator.ensure_same_school_name(data, self.context.get('request'))
+        return GMSValidator.final_rot_validation(data, self.context.get('request'), self.Meta.model.__name__, self.instance)

@@ -75,13 +75,13 @@ class GMSValidator:
         # check if the current rotation has a student with the same first and last name
         # checking for both CNAStudent and HHAStudent models
         StudentModel = apps.get_model('gms', model_name)
-        student = StudentModel.objects.filter(
+        student_exists = StudentModel.objects.filter(
             rotation__rotation_id__exact=current_rot_id,
             first_name__iexact=first_name,
-            last_name__iexact=last_name)
+            last_name__iexact=last_name).exists()
 
         # raise validationError, duplicate student in rotation
-        if len(student) > 0:
+        if student_exists:
             raise ValidationError(err_msg)
 
         return data
@@ -107,3 +107,33 @@ class GMSValidator:
             return data
         else:
             raise ValidationError(err_msg)
+
+    @staticmethod
+    def ensure_no_dup_rot(data, model_name, instance):
+        err_msg = 'You are adding/updating a rotation number that already exists, please try again.'
+
+        school_name = data.get('school_name')
+
+        RotationModel = apps.get_model('gms', model_name)
+
+        rot_exists = RotationModel.objects.filter(
+            school_name__exact=school_name, rotation_num__exact=data.get('rotation_num')).exists()
+
+        # if we are updating, then there should be exactly one rotation pulled from our request as per school_name and rotation number
+        # also that the rotation number did not change from original one, meaning we cannot update rot number once rotation is created!
+        if instance and rot_exists and data.get('rotation_num') == instance.get('rotation_num'):
+            return data
+
+        # if we are not updating, then there should be exactly 0 rotation, and we cannot duplicate rotations in the same school
+        elif not instance and not rot_exists:
+            return data
+        else:
+            raise ValidationError(err_msg)
+
+    @staticmethod
+    def final_rot_validation(data, request, model_name, instance):
+        data = GMSValidator.date_checker(data)
+        same_school_verified = GMSValidator.ensure_same_school_name(
+            data, request)
+
+        return GMSValidator.ensure_no_dup_rot(same_school_verified, model_name, instance)

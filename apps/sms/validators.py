@@ -59,11 +59,11 @@ class SMSValidator:
 
         # check if rotation's have one with the same number and program ID
         from .models import Rotation
-        rot = Rotation.objects.filter(
-            program__program_uuid=program_id, rotation_number=data.get('rotation_number'))
+        rot_exists = Rotation.objects.filter(
+            program__program_uuid=program_id, rotation_number=data.get('rotation_number')).exists()
 
         # if there is a rotation already, raise error
-        if len(rot) > 0:
+        if rot_exists:
             ExceptionHandler.raise_verror(err_msg)
 
         return data
@@ -94,3 +94,39 @@ class SMSValidator:
             ExceptionHandler.raise_verror(err_msg)
 
         return data
+
+    @staticmethod
+    def ensure_no_dup_student_id(data, instance):
+        err_msg = 'You are adding/updating a student ID that already exists, please try again.'
+
+        school_name = data.get('rotation').program.school.school_name
+
+        from .models import Student
+
+        student_exists = Student.objects.filter(
+            rotation__program__school__school_name__exact=school_name, student_id__exact=data.get('student_id')).exists()
+
+        # if updating we should have exactly one student record, and if we are not changing the student ID,
+        # then we can return data
+        if instance and student_exists and data.get('student_id') == instance.get('student_id'):
+            return data
+
+        # if we are creating and there is exactly 0 student record with the student ID, return data
+        elif not instance and not student_exists == 0:
+            return data
+
+        # all else, raise validation error
+        else:
+            ExceptionHandler.raise_verror(err_msg)
+
+    @staticmethod
+    def student_final_validation(data, request, instance):
+        date_verified_data = SMSValidator.date_validation(data)
+
+        program_validated_data = SMSValidator.ensure_program_name(
+            date_verified_data)
+
+        same_school_verified = SMSValidator.ensure_same_school(
+            program_validated_data, request)
+
+        return SMSValidator.ensure_no_dup_student_id(same_school_verified, instance)

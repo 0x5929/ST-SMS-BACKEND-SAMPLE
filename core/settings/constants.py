@@ -12,6 +12,8 @@
 
 SCHOOL_NAMES = (
     ('STI', 'Select Therapy Institute'),
+    ('ST2', 'Select Therapy Institute Location 2'),
+    ('ST3', 'Select Therapy Institute Location 3'),
 )
 
 PROGRAM_NAMES = (

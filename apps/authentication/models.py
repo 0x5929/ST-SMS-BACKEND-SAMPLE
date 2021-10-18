@@ -15,6 +15,11 @@ class CustomAccountManager(BaseUserManager):
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
 
+        # tehcnically these three arent necessary since program permissions work even if these three are set to false
+        other_fields.setdefault('is_office', True)
+        other_fields.setdefault('is_recruit', True)
+        other_fields.setdefault('is_instructor', True)
+
         if other_fields.get('is_staff') is not True:
             raise ValueError('Superuser must be assigned to is_staff=True.')
         elif other_fields.get('is_admin') is not True:

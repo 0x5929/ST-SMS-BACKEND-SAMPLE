@@ -6,16 +6,16 @@ from .models import Client, Note
 
 class ModelAdminClientConfig(ModelAdmin):
     readonly_fields = ('client_uuid', 'initial_contact')
-    search_fields = ('client_uuid', 'first_name',
+    search_fields = ('school_name', 'client_uuid', 'first_name',
                      'last_name', 'phone_number', 'email', 'city', 'success')
-    list_filter = ('client_uuid', 'first_name',
+    list_filter = ('school_name', 'client_uuid', 'first_name',
                    'last_name', 'phone_number', 'email', 'city', 'success')
     ordering = ('-initial_contact',)
-    list_display = ('client_uuid', 'first_name',
+    list_display = ('school_name', 'client_uuid', 'first_name',
                     'last_name', 'phone_number', 'email', 'city', 'success')
 
     fieldsets = (
-        (None, {'fields': ('first_name',
+        (None, {'fields': ('school_name', 'first_name',
                            'last_name', 'phone_number', 'email', 'city', 'recruit_emails', 'success')
                 }
          ),

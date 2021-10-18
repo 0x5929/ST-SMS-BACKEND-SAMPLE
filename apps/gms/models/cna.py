@@ -16,7 +16,7 @@ class CNARotation(BaseRotation):
         app_label = 'gms'
         verbose_name = 'CNA Rotation'
 
-    rotation_num = models.PositiveIntegerField(unique=True)
+    rotation_num = models.PositiveIntegerField()
 
     instructor_title = models.CharField(
         max_length=50, choices=CNA_HHA_INSTRUCTOR_TITLES)

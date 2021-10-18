@@ -47,7 +47,7 @@ class Program(models.Model):
     objects = ProgramManager()
 
     def __str__(self):
-        return self.program_name
+        return f'{self.school.school_name}: {self.program_name}'
 
 
 class Rotation(models.Model):
@@ -76,7 +76,7 @@ class Student(models.Model):
 
     # student ID follows the format: ###-MMDD-FL
     # ### -> rotation number, MMDD -> 2 digit months and dates, FL -> First/Last name initials
-    student_id = models.CharField(max_length=11, unique=True, null=False)
+    student_id = models.CharField(max_length=11, null=False)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
@@ -165,6 +165,11 @@ class Student(models.Model):
     def pre_hook(self, action):
         # check student charges, if they paid up (technically not needed for delete)
         self.paid = True if self.total_charges_charged == self.total_charges_paid else False
+
+        # check dates
+        self.date_enrollment_agreement_signed = self.start_date if \
+            self.date_enrollment_agreement_signed > self.start_date else \
+            self.date_enrollment_agreement_signed
 
         # migrate to google (if disable in setting, this will have no side effect)
         if action == 'save':
