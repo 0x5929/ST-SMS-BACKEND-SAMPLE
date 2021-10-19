@@ -1,4 +1,13 @@
 [{
+    "model": "account.emailaddress",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "email": "root@localhost",
+        "verified": true,
+        "primary": true
+    }
+},{
     "model": "sms.school",
     "pk": "0c805318-7706-405e-a66c-5936062617a5",
     "fields": {
