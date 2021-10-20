@@ -57,44 +57,7 @@
       "program": "de47da61-278f-4f67-8fbf-7e60de40e9d4"
     }
 },
-{
-    "model": "sms.student",
-    "pk": "90f120c5-1894-4afc-b204-a912172570a5",
-    "fields": {
-        "student_id": "01-1006-TA",
-        "first_name": "Test",
-        "last_name": "A",
-        "phone_number": "626-323-1414",
-        "email": "testa@email.com",
-        "mailing_address": "1020 S. Fake Ave, TestA, CA 91770",
-        "course": "CNA",
-        "start_date": "2021-10-06",
-        "completion_date": "2021-12-30",
-        "date_enrollment_agreement_signed": "2021-10-06",
-        "third_party_payer_info": "",
-        "course_cost_currency": "USD",
-        "course_cost": "2350.00",
-        "total_charges_charged_currency": "USD",
-        "total_charges_charged": "2350.00",
-        "total_charges_paid_currency": "USD",
-        "total_charges_paid": "2350.00",
-        "paid": true,
-        "graduated": false,
-        "passed_first_exam": false,
-        "passed_second_or_third_exam": false,
-        "employed": false,
-        "place_of_employment": "",
-        "employment_address": "",
-        "position": "",
-        "starting_wage_currency": "USD",
-        "starting_wage": null,
-        "hours_worked_weekly": "",
-        "description_of_attempts_to_contact_student": "",
-        "google_sheet_migrated": false,
-        "google_sheet_migration_issue": "",
-        "rotation": "fcd1f629-6449-4672-8dc8-4a2183cc70e9"
-    }
-},
+
 {
     "model": "sms.student",
     "pk": "db7d3163-7856-4b61-b242-65ef034c4bfe",
@@ -133,44 +96,7 @@
         "rotation": "4481466a-7bb3-4ccc-8a51-52f4a534dd4a"
     }
 },
-{
-    "model": "sms.student",
-    "pk": "7766c4a3-877c-4c23-b3e6-e7ab9ef43c97",
-    "fields": {
-      "student_id": "01-1019-TA",
-      "first_name": "Test",
-      "last_name": "A",
-      "phone_number": "626-323-1414",
-      "email": "testa@email.com",
-      "mailing_address": "1020 S. Fake STI2 Student Ave, TestA, CA 91770",
-      "course": "CNA",
-      "start_date": "2021-10-06",
-      "completion_date": "2021-12-30",
-      "date_enrollment_agreement_signed": "2021-10-06",
-      "third_party_payer_info": "",
-      "course_cost_currency": "USD",
-      "course_cost": "2586.00",
-      "total_charges_charged_currency": "USD",
-      "total_charges_charged": "2586.00",
-      "total_charges_paid_currency": "USD",
-      "total_charges_paid": "2586.00",
-      "paid": true,
-      "graduated": true,
-      "passed_first_exam": true,
-      "passed_second_or_third_exam": false,
-      "employed": false,
-      "place_of_employment": "",
-      "employment_address": "",
-      "position": "",
-      "starting_wage_currency": "USD",
-      "starting_wage": null,
-      "hours_worked_weekly": "",
-      "description_of_attempts_to_contact_student": "Information provided by ST office contacting students via phone/text/email.",
-      "google_sheet_migrated": false,
-      "google_sheet_migration_issue": "POST",
-      "rotation": "a6a1c1c3-df42-4783-9c20-49b94ad1d6ba"
-    }
-},
+
 {
     "model": "sms.student",
     "pk": "c7efabb4-890c-48bb-a5f9-854c899496c8",

@@ -6,14 +6,20 @@ PROGRAMS_API_URL = '/api/sms/programs/'
 ROTATIONS_API_URL = '/api/sms/rotations/'
 STUDENTS_API_URL = '/api/sms/students/'
 
-# NOTE: NEED TO CHANGE THE FOLLOWING
+# NOTE THE UUID CONTANTS NEEDS TO BE UPDATED IF TEST FIXTURES ARE UPDATED
+STUDENT_UUID_TO_TEST = 'db7d3163-7856-4b61-b242-65ef034c4bfe'
+SCHOOL_UUID_TO_TEST = '6bfad48c-ecc6-44ac-b53f-c94ccd240119'
+PROGRAM_UUID_TO_TEST = 'de47da61-278f-4f67-8fbf-7e60de40e9d4'
+ROTATION_UUID_TO_TEST = 'a6a1c1c3-df42-4783-9c20-49b94ad1d6ba'
+
 STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
+    "student_uuid": "7766c4a3-877c-4c23-b3e6-e7ab9ef43c97",
     "student_id": "01-1019-TA",
     "first_name": "Test",
     "last_name": "A",
     "phone_number": "626-323-1414",
     "email": "testa@email.com",
-    "mailing_address": "1020 S. Fake STI2 Student Ave, TestA, CA 91770",
+    "mailing_address": "1020 S. Fake STI2 Ave, TestA, CA 91770",
     "course": "CNA",
     "start_date": "2021-10-06",
     "completion_date": "2021-12-30",
@@ -43,6 +49,7 @@ STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
 }
 
 STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
+    "student_uuid": "90f120c5-1894-4afc-b204-a912172570a5",
     "student_id": "01-1006-TA",
     "first_name": "Test",
     "last_name": "A",
@@ -77,6 +84,23 @@ STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
     "rotation": "fcd1f629-6449-4672-8dc8-4a2183cc70e9"
 }
 
+SCHOOL_SAMPLE_POST_DATA = {
+    "school_name" : "ST3",
+    "school_code" : "27091742",
+    "year_founded" : "2011-09-13",
+    "school_address" : "2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770"
+}
+
+PROGRAM_SAMPLE_POST_DATA = {
+    "school" : "6bfad48c-ecc6-44ac-b53f-c94ccd240119",
+    "program_name": "SG",
+    "approval_entities": ["BSIS","BPPE"]
+}
+
+ROTATION_SAMPLE_POST_DATA = {
+    "program": "de47da61-278f-4f67-8fbf-7e60de40e9d4",
+    "rotation_number": 5
+}
 
 @when('request GET to /api/sms/schools')
 def request_GET_to_schools(context):
@@ -106,7 +130,7 @@ def request_GET_to_students(context):
 def request_POST_to_students_same_school(context):
     post_data = STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA
 
-    context.response = context.browser.post(
+    context.response = context.browser.request(
         'POST', f'{context.server_url}{STUDENTS_API_URL}', data=post_data)
 
 
@@ -114,83 +138,126 @@ def request_POST_to_students_same_school(context):
 def request_POST_to_students_diff_school(context):
     post_data = STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA
 
-    context.response = context.browser.post(
+    context.response = context.browser.request(
         'POST', f'{context.server_url}{STUDENTS_API_URL}', data=post_data)
 
 
 @when('request PUT to /api/sms/students/student_uuid')
 def request_PUT_to_student(context):
-    pass
+    put_data = STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA
+    put_data['last_name'] = 'C'
+
+    context.response = context.browser.request(
+        'PUT', f'{context.server_url}{STUDENTS_API_URL}{STUDENT_UUID_TO_TEST}/', data=put_data)
 
 
 @when('request PATCH to /api/sms/students/student_uuid')
 def request_PATCH_to_student(context):
-    pass
+    patch_data = {'last_name': 'D'}
+
+    context.response = context.browser.request(
+        'PATCH', f'{context.server_url}{STUDENTS_API_URL}{STUDENT_UUID_TO_TEST}/', data=patch_data)
 
 
 @when('request DELETE to /api/sms/students/student_uuid')
 def request_DELETE_to_student(context):
-    pass
+    context.response = context.browser.request(
+        'DELETE', f'{context.server_url}{STUDENTS_API_URL}{STUDENT_UUID_TO_TEST}/')
+
 
 
 @when('request POST to /api/sms/schools')
 def request_POST_to_schools(context):
-    pass
+    post_data = SCHOOL_SAMPLE_POST_DATA
+
+    context.response = context.browser.request(
+        'POST', f'{context.server_url}{SCHOOLS_API_URL}', data=post_data)
 
 
 @when('request PUT to /api/sms/schools/school_uuid')
 def request_PUT_to_school(context):
-    pass
+    put_data = SCHOOL_SAMPLE_POST_DATA
+    put_data['school_code'] = '27091743'
+
+    context.response = context.browser.request(
+        'PUT', f'{context.server_url}{SCHOOLS_API_URL}{SCHOOL_UUID_TO_TEST}/', data=put_data)
 
 
 @when('request PATCH to /api/sms/schools/school_uuid')
 def request_PATCH_to_school(context):
-    pass
+    patch_data = {"school_code": "27091744"}
+
+    context.response = context.browser.request(
+        'PATCH', f'{context.server_url}{SCHOOLS_API_URL}{SCHOOL_UUID_TO_TEST}/', data=patch_data)
 
 
 @when('request DELETE to /api/sms/schools/school_uuid')
 def request_DEL_to_school(context):
-    pass
+    context.response = context.browser.request(
+        'DELETE', f'{context.server_url}{SCHOOLS_API_URL}{SCHOOL_UUID_TO_TEST}/')
 
 
 @when('request POST to /api/sms/programs')
 def request_POST_to_programs(context):
-    pass
+    post_data = PROGRAM_SAMPLE_POST_DATA
+
+    context.response = context.browser.request(
+        'POST', f'{context.server_url}{PROGRAMS_API_URL}', data=post_data)
 
 
 @when('request PUT to /api/sms/programs/program_uuid')
 def request_PUT_to_program(context):
-    pass
+    put_data = PROGRAM_SAMPLE_POST_DATA
 
+    put_data['program_name'] = "HSFA"
+
+    context.response = context.browser.request(
+        'PUT', f'{context.server_url}{PROGRAMS_API_URL}{PROGRAM_UUID_TO_TEST}/', data=put_data)
 
 @when('request PATCH to /api/sms/programs/program_uuid')
 def request_PATCH_to_program(context):
-    pass
+    patch_data = {"program_name": "BLS"}
+
+    context.response = context.browser.request(
+        'PATCH', f'{context.server_url}{PROGRAMS_API_URL}{PROGRAM_UUID_TO_TEST}/', data=patch_data)
 
 
 @when('request DELETE to /api/sms/programs/program_uuid')
 def request_DEL_to_program(context):
-    pass
+    context.response = context.browser.request(
+        'DELETE', f'{context.server_url}{PROGRAMS_API_URL}{PROGRAM_UUID_TO_TEST}/')
 
 
 @when('request POST to /api/sms/rotations')
 def request_POST_to_rotations(context):
-    pass
+    post_data = ROTATION_SAMPLE_POST_DATA
+
+    context.response = context.browser.request(
+        'POST', f'{context.server_url}{ROTATIONS_API_URL}', data=post_data)
 
 
 @when('request PUT to /api/sms/rotations/rotation_uuid')
 def request_PUT_to_rotaiton(context):
-    pass
+    put_data = ROTATION_SAMPLE_POST_DATA
+    put_data['rotation_number'] = 6
+
+    context.response = context.browser.request(
+        'PUT', f'{context.server_url}{ROTATIONS_API_URL}{ROTATION_UUID_TO_TEST}/', data=put_data)
 
 
 @when('request PATCH to /api/sms/rotations/rotation_uuid')
 def request_PATCH_to_rotation(context):
-    pass
+    patch_data = {
+        "rotation_number" : 7
+    }
 
+    context.response = context.browser.request(
+        'PATCH', f'{context.server_url}{ROTATIONS_API_URL}{ROTATION_UUID_TO_TEST}/', data=patch_data)
 
 @when('request DELETE to /api/sms/rotations/rotation_uuid')
 def request_DEL_to_rotations(context):
-    pass
+    context.response = context.browser.request(
+        'DELETE', f'{context.server_url}{ROTATIONS_API_URL}{ROTATION_UUID_TO_TEST}/')
 
 
 @when('request GET to /api/sms/students with filters by school name')
