@@ -16,7 +16,7 @@ def django_ready(context, scenario):
 
 
 def before_all(context):
-    context.fixtures = ['all-initial-data.json']
+    context.fixtures = ['all-initial-data.json', 'initial-test-sms-data.json']
 
     UserTestHelper.create_user_fixtures()
 
