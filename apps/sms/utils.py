@@ -4,7 +4,7 @@ import uuid
 from rest_framework.exceptions import ValidationError
 
 
-class DatabaseHandler():
+class DatabaseHandler:
 
     @staticmethod
     def create_or_update(validated_data, instance, model):
@@ -110,8 +110,19 @@ class DataHelper:
         return [value for value in data.values()]
 
 
-class ExceptionHandler():
+class ExceptionHandler:
 
     @staticmethod
     def raise_verror(self, msg):
         raise ValidationError(msg)
+
+
+class FilterHandler:
+
+    @staticmethod
+    def is_valid_query_params(query_params):
+        for key in query_params.keys():
+            print(key)
+        # true returns all, false returns none
+        # return none when params are wrong
+        return True

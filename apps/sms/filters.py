@@ -6,8 +6,9 @@ from core.settings.constants import PROGRAM_NAMES
 
 
 class SMSFilter(django_filters.FilterSet):
-
+    strict = True
     # for any new filters, please add within fields and declare explicit below as well
+
     class Meta:
         model = Student
         fields = (

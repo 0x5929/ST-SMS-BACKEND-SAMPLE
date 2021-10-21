@@ -85,22 +85,23 @@ STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
 }
 
 SCHOOL_SAMPLE_POST_DATA = {
-    "school_name" : "ST3",
-    "school_code" : "27091742",
-    "year_founded" : "2011-09-13",
-    "school_address" : "2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770"
+    "school_name": "ST3",
+    "school_code": "27091742",
+    "year_founded": "2011-09-13",
+    "school_address": "2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770"
 }
 
 PROGRAM_SAMPLE_POST_DATA = {
-    "school" : "6bfad48c-ecc6-44ac-b53f-c94ccd240119",
+    "school": "6bfad48c-ecc6-44ac-b53f-c94ccd240119",
     "program_name": "SG",
-    "approval_entities": ["BSIS","BPPE"]
+    "approval_entities": ["BSIS", "BPPE"]
 }
 
 ROTATION_SAMPLE_POST_DATA = {
     "program": "de47da61-278f-4f67-8fbf-7e60de40e9d4",
     "rotation_number": 5
 }
+
 
 @when('request GET to /api/sms/schools')
 def request_GET_to_schools(context):
@@ -165,7 +166,6 @@ def request_DELETE_to_student(context):
         'DELETE', f'{context.server_url}{STUDENTS_API_URL}{STUDENT_UUID_TO_TEST}/')
 
 
-
 @when('request POST to /api/sms/schools')
 def request_POST_to_schools(context):
     post_data = SCHOOL_SAMPLE_POST_DATA
@@ -214,6 +214,7 @@ def request_PUT_to_program(context):
     context.response = context.browser.request(
         'PUT', f'{context.server_url}{PROGRAMS_API_URL}{PROGRAM_UUID_TO_TEST}/', data=put_data)
 
+
 @when('request PATCH to /api/sms/programs/program_uuid')
 def request_PATCH_to_program(context):
     patch_data = {"program_name": "BLS"}
@@ -248,11 +249,12 @@ def request_PUT_to_rotaiton(context):
 @when('request PATCH to /api/sms/rotations/rotation_uuid')
 def request_PATCH_to_rotation(context):
     patch_data = {
-        "rotation_number" : 7
+        "rotation_number": 7
     }
 
     context.response = context.browser.request(
         'PATCH', f'{context.server_url}{ROTATIONS_API_URL}{ROTATION_UUID_TO_TEST}/', data=patch_data)
+
 
 @when('request DELETE to /api/sms/rotations/rotation_uuid')
 def request_DEL_to_rotations(context):
@@ -262,52 +264,92 @@ def request_DEL_to_rotations(context):
 
 @when('request GET to /api/sms/students with filters by school name')
 def request_GET_by_school_name(context):
-    pass
+    school_name = 'STI'
+    parameter = f'?school={school_name}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by program name')
 def request_GET_by_program_name(context):
-    pass
+    program_name = 'HHA'
+    parameter = f'?program={program_name}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by rotation number')
 def request_GET_by_rot_num(context):
-    pass
+    rotation_num = 1
+    parameter = f'?rotation={rotation_num}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student first name')
 def request_GET_by_first_name(context):
-    pass
+    first_name = 'Test'
+    parameter = f'?first_name={first_name}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student last name')
 def request_GET_by_last_name(context):
-    pass
+    last_name = 'B'
+    parameter = f'?last_name={last_name}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student email')
 def request_GET_by_email(context):
-    pass
+    email = 'testb@email.com'
+    parameter = f'?email={email}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student phone number')
 def request_GET_by_phone(context):
-    pass
+    phone = '626-333-5544'
+    parameter = f'?phone={phone}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student ID')
 def request_GET_by_ID(context):
-    pass
+    id_ = '01-1019-TB'
+    parameter = f'?student_id={id_}'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student program start date')
 def request_GET_by_program_start(context):
-    pass
+    start_date = '2021-10-06'
+    parameter = f'?start_date=2021-10-06'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student program end date')
 def request_GET_by_program_end(context):
-    pass
+    completion_date = '2021-12-10'
+    parameter = f'?completion_date=2021-12-10'
+
+    context.response = context.browser.request(
+        'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
 
 
 @when('request GET to /api/sms/students with filters by student payment completions')
