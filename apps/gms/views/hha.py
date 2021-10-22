@@ -1,11 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, response
 from django_filters import rest_framework as filters
 
 from ..permissions import IsSuperuser, IsAuthenticatedHHAInstructor
 from ..models import HHARotation, HHAStudent, HHATheoryRecord, HHAClinicalRecord
 from ..serializers import HHARotationSerializer, HHAStudentSerializer, HHATheoryRecordSerializer, HHAClinicalRecordSerializer
 from ..filters import GMSHHARotationFilter, GMSHHAStudentFilter, GMSHHATheoryRecordFilter, GMSHHAClinicalRecordFilter
-
+from ..utils import FilterHandler
 
 class HHARotationView(viewsets.ModelViewSet):
     serializer_class = HHARotationSerializer
@@ -16,6 +16,11 @@ class HHARotationView(viewsets.ModelViewSet):
     def get_queryset(self):
         return HHARotation.objects.get_query(self.request)
 
+    # to ensure query parameters are done correctly
+    def list(self, request, *args, **kwargs):
+        if not FilterHandler.is_valid_query_params(request.query_params, GMSHHARotationFilter.Meta.fields):
+            return response.Response([])
+        return super(HHARotationView, self).list(request, *args, **kwargs)
 
 class HHAStudentView(viewsets.ModelViewSet):
     serializer_class = HHAStudentSerializer
@@ -26,6 +31,11 @@ class HHAStudentView(viewsets.ModelViewSet):
     def get_queryset(self):
         return HHAStudent.objects.get_query(self.request)
 
+    # to ensure query parameters are done correctly
+    def list(self, request, *args, **kwargs):
+        if not FilterHandler.is_valid_query_params(request.query_params, GMSHHAStudentFilter.Meta.fields):
+            return response.Response([])
+        return super(HHAStudentView, self).list(request, *args, **kwargs)
 
 class HHATheoryRecordView(viewsets.ModelViewSet):
     serializer_class = HHATheoryRecordSerializer
@@ -36,6 +46,11 @@ class HHATheoryRecordView(viewsets.ModelViewSet):
     def get_queryset(self):
         return HHATheoryRecord.objects.get_query(self.request)
 
+    # to ensure query parameters are done correctly
+    def list(self, request, *args, **kwargs):
+        if not FilterHandler.is_valid_query_params(request.query_params, GMSHHATheoryRecordFilter.Meta.fields):
+            return response.Response([])
+        return super(HHATheoryRecordView, self).list(request, *args, **kwargs)
 
 class HHAClinicalRecordView(viewsets.ModelViewSet):
     serializer_class = HHAClinicalRecordSerializer
@@ -45,3 +60,9 @@ class HHAClinicalRecordView(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return HHAClinicalRecord.objects.get_query(self.request)
+
+    # to ensure query parameters are done correctly
+    def list(self, request, *args, **kwargs):
+        if not FilterHandler.is_valid_query_params(request.query_params, GMSHHAClinicalRecordFilter.Meta.fields):
+            return response.Response([])
+        return super(HHAClinicalRecordView, self).list(request, *args, **kwargs)

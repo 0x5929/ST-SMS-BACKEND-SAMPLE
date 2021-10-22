@@ -47,7 +47,8 @@ class StudentView(viewsets.ModelViewSet):
     def get_queryset(self):
         return Student.objects.get_query(self.request)
 
+    # to ensure query parameters are done correctly
     def list(self, request, *args, **kwargs):
-        if not FilterHandler.is_valid_query_params(request.query_params):
+        if not FilterHandler.is_valid_query_params(request.query_params, SMSFilter.Meta.fields):
             return response.Response([])
         return super(StudentView, self).list(request, *args, **kwargs)
