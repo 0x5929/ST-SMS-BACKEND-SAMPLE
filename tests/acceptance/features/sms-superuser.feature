@@ -14,16 +14,11 @@ Feature: Student Management System as Superuser
         Given logged on as superuser
         When request GET to /api/sms/programs
         Then will receive JSON response of data
-        And server response status is OK 200
-
-
 
     Scenario: superuser requesting to read rotations resource
         Given logged on as superuser
         When request GET to /api/sms/rotations
         Then will receive JSON response of data
-
-
 
     Scenario: superuser requesting to read students resource
         Given logged on as superuser
@@ -50,7 +45,7 @@ Feature: Student Management System as Superuser
     Scenario: superuser requesting to partially edit a student resource
         Given logged on as superuser
         When request PATCH to /api/sms/students/student_uuid
-        Then database will edit the student record
+        Then database will partially edit the student record
 
     Scenario: superuser requesting to delete a student resource
         Given logged on as superuser
@@ -71,7 +66,7 @@ Feature: Student Management System as Superuser
     Scenario: superuser requesting to partially edit sms/schools resource
         Given logged on as superuser
         When request PATCH to /api/sms/schools/school_uuid
-        Then database will edit the school record
+        Then database will partially edit the school record
 
     Scenario: superuser requesting to delete sms/schools resource
         Given logged on as superuser
@@ -91,7 +86,7 @@ Feature: Student Management System as Superuser
     Scenario: superuser requesting to partially edit sms/programs resource
         Given logged on as superuser
         When request PATCH to /api/sms/programs/program_uuid
-        Then database will edit the program record
+        Then database will partially edit the program record
 
     Scenario: superuser requesting to delete sms/programs resource
         Given logged on as superuser
@@ -111,7 +106,7 @@ Feature: Student Management System as Superuser
     Scenario: superuser requesting to partially edit sms/rotations resource
         Given logged on as superuser
         When request PATCH to /api/sms/rotations/rotation_uuid
-        Then database will edit the rotation record
+        Then database will partially edit the rotation record
 
     Scenario: superuser requesting to delete sms/rotations resource
         Given logged on as superuser

@@ -10,28 +10,24 @@ Feature: Student Management System as Regular User
         Given logged on as regular office user
         When request GET to /api/sms/schools
         Then will receive JSON response of data
-        But only for the same school as the regular office user
 
 
     Scenario: regular office user requesting to read programs resource
         Given logged on as regular office user
         When request GET to /api/sms/programs
         Then will receive JSON response of data
-        But only for the same school as the regular office user
 
 
     Scenario: regular office user requesting to read rotations resource
         Given logged on as regular office user
         When request GET to /api/sms/rotations
         Then will receive JSON response of data
-        But only for the same school as the regular office user
 
 
     Scenario: regular office user requesting to read students resource
         Given logged on as regular office user
         When request GET to /api/sms/students
         Then will receive JSON response of data
-        But only for the same school as the regular office user
 
 
     Scenario: regular office user requesting to create a student resource of the same school program rotation
@@ -52,7 +48,7 @@ Feature: Student Management System as Regular User
     Scenario: regular office user requesting to partially edit a student resource
         Given logged on as regular office user
         When request PATCH to /api/sms/students/student_uuid
-        Then database will edit the student record
+        Then database will partially edit the student record
 
     Scenario: regular office user requesting to delete a student resource
         Given logged on as regular office user
@@ -133,81 +129,81 @@ Feature: Student Management System as Regular User
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by school name
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by program
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by program name
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by rotation
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by rotation number
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student first name
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student first name
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student last name
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student last name
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student email
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student email
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student phone
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student phone number
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student ID
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student ID
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student program start date
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student program start date
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student program end date
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student program end date
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
     Scenario: regular office user requesting to filter sms/students resource by student payment completions
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student payment completions
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
 
     Scenario: regular office user requesting to filter sms/students resource by student program completions
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student program completions
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
 
     Scenario: regular office user requesting to filter sms/students resource by student employment status
         Given logged on as regular office user
         When request GET to /api/sms/students with filters by student employment status
         Then the specific students data will be returned as JSON response
-        But only for the same school as the regular office user
+
 
 
     Scenario: regular user requesting to read /api/sms/schools
