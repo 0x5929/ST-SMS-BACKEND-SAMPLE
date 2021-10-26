@@ -1,7 +1,7 @@
-Feature: Student Management Multi School
+Feature: Student Management office users only
 
-    admin, staff and regular users can perform actions on resource objects that are from the same school as user
-    superuser can perform actions on all resource objects, for all schools
+    admin, staff, regular users must be labeled as an office worker to access sms resources
+    superuser not tested in this feature, can access all, but is tested in respective get/post/put/patch/del features
     
     Scenario: admin user requesting to read /api/sms/schools
         Given logged on as admin user with is_office set to false
