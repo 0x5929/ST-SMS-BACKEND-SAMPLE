@@ -114,7 +114,7 @@ class DataHelper:
 class ExceptionHandler:
 
     @staticmethod
-    def raise_verror(self, msg):
+    def raise_verror(msg):
         raise ValidationError(msg)
 
 

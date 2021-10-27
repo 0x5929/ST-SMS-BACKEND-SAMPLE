@@ -116,3 +116,18 @@ FILTER_PARAMS = {
     'graduated': 'True',
     'employed': 'False'
 }
+
+PUT_DATA = {
+    'student__last_name' : 'C',
+    'school__school_code' : '27091743',
+    'program__program_name' : 'HSFA',
+    'rotation__rotation_number' : 6 
+
+}
+
+PATCH_DATA = {
+    'student__last_name' : 'D',
+    'school__school_code' : '27091744',
+    'program__program_name' : 'BLS',
+    'rotation__rotation_number' : 7
+}

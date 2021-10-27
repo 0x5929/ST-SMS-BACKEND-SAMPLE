@@ -39,6 +39,9 @@ class StudentSerializer(serializers.ModelSerializer):
     def validate_position(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
+    def validate_description_of_attempts_to_contact_student(self, value):
+        return SMSValidator.no_special_chars_and_captialize_string(value)
+
     def validate(self, data):
         return SMSValidator.student_final_validation(data, self.context.get('request'), self.instance)
 

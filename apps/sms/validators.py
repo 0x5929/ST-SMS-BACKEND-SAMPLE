@@ -20,12 +20,15 @@ class SMSValidator:
         if instance and str(getattr(instance, reference)) == str(value):
             return value
 
+        # partial update
+        if 
+
         ExceptionHandler.raise_verror(err_msg)
 
     @staticmethod
     def no_special_chars_and_captialize_string(value):
         err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (, . #).'
-        pattern = '[A-Za-z0-9,.#\s]{1,150}'
+        pattern = '[A-Za-z0-9,.#\s]{0,150}'
 
         return value.strip().capitalize() if bool(re.match(pattern, value)) else ExceptionHandler.raise_verror(err_msg)
 
@@ -48,7 +51,7 @@ class SMSValidator:
         # validate start and end date logic
         err_msg = 'Please make sure program end date is after the program start date.'
 
-        return data if data['start_date'] < data['completion_date'] else ExceptionHandler.raise_verror(err_msg)
+        return data if data.get('start_date') < data.get('completion_date') else ExceptionHandler.raise_verror(err_msg)
 
     @staticmethod
     def ensure_unique_rot(data):
@@ -90,6 +93,9 @@ class SMSValidator:
 
         school_name = data.get('rotation').program.school.school_name
 
+        if request.user.is_superuser:
+            return data
+
         if school_name != request.user.school_name:
             ExceptionHandler.raise_verror(err_msg)
 
@@ -108,7 +114,7 @@ class SMSValidator:
 
         # if updating we should have exactly one student record, and if we are not changing the student ID,
         # then we can return data
-        if instance and student_exists and data.get('student_id') == instance.get('student_id'):
+        if instance and student_exists and data.get('student_id') == getattr(instance, 'student_id'):
             return data
 
         # if we are creating and there is exactly 0 student record with the student ID, return data

@@ -13,7 +13,9 @@ from .constants import (SCHOOLS_API_URL,\
                         SCHOOL_SAMPLE_POST_DATA,\
                         PROGRAM_SAMPLE_POST_DATA,\
                         ROTATION_SAMPLE_POST_DATA,\
-                        FILTER_PARAMS)
+                        FILTER_PARAMS,\
+                        PUT_DATA,\
+                        PATCH_DATA)
 
 
 
@@ -60,7 +62,7 @@ def request_POST_to_students_diff_school(context):
 @when('request PUT to /api/sms/students/student_uuid')
 def request_PUT_to_student(context):
     put_data = STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA
-    put_data['last_name'] = 'C'
+    put_data['last_name'] = PUT_DATA.get('student__last_name')
 
     context.response = context.browser.request(
         'PUT', f'{context.server_url}{STUDENTS_API_URL}{STUDENT_UUID_TO_TEST}/', data=put_data)
@@ -68,7 +70,7 @@ def request_PUT_to_student(context):
 
 @when('request PATCH to /api/sms/students/student_uuid')
 def request_PATCH_to_student(context):
-    patch_data = {'last_name': 'D'}
+    patch_data = {'last_name': PATCH_DATA.get('student__last_name')}
 
     context.response = context.browser.request(
         'PATCH', f'{context.server_url}{STUDENTS_API_URL}{STUDENT_UUID_TO_TEST}/', data=patch_data)
@@ -91,7 +93,7 @@ def request_POST_to_schools(context):
 @when('request PUT to /api/sms/schools/school_uuid')
 def request_PUT_to_school(context):
     put_data = SCHOOL_SAMPLE_POST_DATA
-    put_data['school_code'] = '27091743'
+    put_data['school_code'] = PUT_DATA.get('school__school_code')
 
     context.response = context.browser.request(
         'PUT', f'{context.server_url}{SCHOOLS_API_URL}{SCHOOL_UUID_TO_TEST}/', data=put_data)
@@ -99,7 +101,7 @@ def request_PUT_to_school(context):
 
 @when('request PATCH to /api/sms/schools/school_uuid')
 def request_PATCH_to_school(context):
-    patch_data = {"school_code": "27091744"}
+    patch_data = {'school_code': PATCH_DATA.get('school__school_code')}
 
     context.response = context.browser.request(
         'PATCH', f'{context.server_url}{SCHOOLS_API_URL}{SCHOOL_UUID_TO_TEST}/', data=patch_data)
@@ -123,7 +125,7 @@ def request_POST_to_programs(context):
 def request_PUT_to_program(context):
     put_data = PROGRAM_SAMPLE_POST_DATA
 
-    put_data['program_name'] = "HSFA"
+    put_data['program_name'] = PUT_DATA.get('program__program_name')
 
     context.response = context.browser.request(
         'PUT', f'{context.server_url}{PROGRAMS_API_URL}{PROGRAM_UUID_TO_TEST}/', data=put_data)
@@ -131,7 +133,7 @@ def request_PUT_to_program(context):
 
 @when('request PATCH to /api/sms/programs/program_uuid')
 def request_PATCH_to_program(context):
-    patch_data = {"program_name": "BLS"}
+    patch_data = {"program_name": PATCH_DATA.get('program__program_name')}
 
     context.response = context.browser.request(
         'PATCH', f'{context.server_url}{PROGRAMS_API_URL}{PROGRAM_UUID_TO_TEST}/', data=patch_data)
@@ -154,7 +156,7 @@ def request_POST_to_rotations(context):
 @when('request PUT to /api/sms/rotations/rotation_uuid')
 def request_PUT_to_rotaiton(context):
     put_data = ROTATION_SAMPLE_POST_DATA
-    put_data['rotation_number'] = 6
+    put_data['rotation_number'] = PUT_DATA.get('rotation__rotation_number')
 
     context.response = context.browser.request(
         'PUT', f'{context.server_url}{ROTATIONS_API_URL}{ROTATION_UUID_TO_TEST}/', data=put_data)
@@ -163,7 +165,7 @@ def request_PUT_to_rotaiton(context):
 @when('request PATCH to /api/sms/rotations/rotation_uuid')
 def request_PATCH_to_rotation(context):
     patch_data = {
-        "rotation_number": 7
+        "rotation_number": PATCH_DATA.get('rotation__rotation_number')
     }
 
     context.response = context.browser.request(

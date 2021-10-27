@@ -1,25 +1,45 @@
 from behave import then
+import json
 
+from .constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,\
+                        STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,\
+                        PUT_DATA,\
+                        PATCH_DATA)
 
 @then('will receive JSON response of data')
 def receive_JSON_data(context):
-    pass
+    response = context.response
+
+    no_json_res = []
+
+    # asserting that JSON response is not [] empty
+    context.test.assertJSONNotEqual(response, no_json_res)
 
 
 @then('database will create a student record')
 def database_create_student(context):
-    pass
+    response = json.load(context.response)
+    posted_student_id = STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA.get('student_id')
+
+    # assert 
+    context.test.assertEqual(response.get('student_id'), posted_student_id)
 
 
+# when posting to /api/sms/students/ with a rotation of a program that belongs to another school location
 @then('database will not create the student record')
 def database_will_not_create_student(context):
-    pass
+    response = json.load(context.response)
+
+    posted_student_id = STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA.get('student_id')
+
+    context.test.assertNotEqual(response.get('student_id'), posted_student_id)
 
 
 @then('database will edit the student record')
 def database_will_edit_student(context):
-    pass
+    response = json.load(context.response)
 
+    editted_last_name = PUT_DATA.get('student__last_name')
 
 @then('database will partially edit the student record')
 def database_will_partially_edit_student(context):
