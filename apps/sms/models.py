@@ -76,7 +76,7 @@ class Student(models.Model):
 
     # student ID follows the format: ###-MMDD-FL
     # ### -> rotation number, MMDD -> 2 digit months and dates, FL -> First/Last name initials
-    student_id = models.CharField(max_length=11, null=False)
+    student_id = models.CharField(max_length=11, null=False, unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 

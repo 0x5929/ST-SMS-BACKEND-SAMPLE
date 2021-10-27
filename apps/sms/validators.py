@@ -10,6 +10,27 @@ from .utils import ExceptionHandler
 
 class SMSValidator:
 
+
+    @classmethod
+    def student_final_validation(cls, serializer, data):
+        request = serializer.context.get('request')
+        #instance = serializer.instance
+        partial = serializer.partial
+
+        date_verified_data = cls.date_validation(data, partial)
+
+        program_validated_data = cls.ensure_program_name(
+            date_verified_data, partial)
+
+        return cls.ensure_same_school(program_validated_data, request, partial)
+
+        #return cls.ensure_no_dup_student_id(same_school_verified, instance, partial)
+
+    @classmethod
+    def rotation_final_validation(cls, serializer, data):
+        return cls.ensure_unique_rot(data, serializer.partial)
+
+
     @staticmethod
     def reference_does_not_change_on_updates(value, instance, reference):
         err_msg = 'This field is immutable once set.'
@@ -39,30 +60,49 @@ class SMSValidator:
 
     @staticmethod
     def student_id_format_checker(value):
-        err_msg = 'Please follow the following format for the student ID: "###-MMYY-FL"'
-        pattern = '^[0-9]{1,3}-[0-9]{4}-[A-Z]{2}$'
+        err_msg = 'Please follow the following format for the student ID: "RO-(CNA|HHA|SG|ESOL)-###-MMYY-FL"'
+        pattern = '^RO-(CNA|HHA|SG|ESOL)-[0-9]{1,3}-[0-9]{4}-[A-Z]{2}$'
 
         return value if re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
 
     @staticmethod
     def date_validation(data, partial=False):
         # validate start and end date logic
-        err_msg = 'Please make sure program end date is after the program start date.'
+        date_err_msg = 'Please make sure program end date is after the program start date.'
+        update_err_msg = 'Cannot update start date or completion date without the other.'
 
-        if partial and not data.get('start_date') or not data.get('completion_date'):
-            return data
+        if partial:
+            if not data.get('start_date') and not data.get('completion_date'):
+                return data
 
-        return data if data.get('start_date') < data.get('completion_date') else ExceptionHandler.raise_verror(err_msg)
+            elif not data.get('start_date') or not data.get('completion_date'):
+                return ExceptionHandler.raise_verror(update_err_msg)
 
-    @ staticmethod
-    def ensure_unique_rot(serializer, data):
+            elif data.get('start_date') and data.get('completion_date'):
+                pass
+        
+        return data if data.get('start_date') < data.get('completion_date') else ExceptionHandler.raise_verror(date_err_msg)
+
+
+
+
+    @staticmethod
+    def ensure_unique_rot(data, partial=False):
         err_msg = 'This rotation number already exist for this program, please try again with a different rotation number.'
+        update_err_msg = 'Cannot update rotation number without providing program.'
 
-        if serializer.partial and not data.get('program'):
-            return data
+        if partial:
+            if not data.get('program') and not data.get('rotation_number'):
+                return data
+
+            elif not data.get('program') or not data.get('rotation_number'):
+                return ExceptionHandler.raise_verror(update_err_msg)
+
+            elif data.get('program') and data.get('rotation_number'):
+                pass
+
 
         # grab program id from request data
-        #program_id = uuid.UUID(str(data.get('program')))
         program_id = data.get('program').program_uuid
 
         # check if rotation's have one with the same number and program ID
@@ -76,12 +116,22 @@ class SMSValidator:
 
         return data
 
-    @ staticmethod
+    @staticmethod
     def ensure_program_name(data, partial=False):
         err_msg = 'Your rotation\'s program name and your student course do not match.'
+        update_err_msg = 'Cannot update course name without providing rotation.'
 
-        if partial and not data.get('course'):
-            return data
+
+        if partial:
+            if not data.get('course') and not data.get('rotation'):
+                return data
+
+            elif not data.get('course') and not data.get('rotation'):
+                return ExceptionHandler.raise_verror(update_err_msg)
+
+            elif data.get('course') and data.get('rotation'):
+                pass
+
 
         rot_id = data.get('rotation').rotation_uuid
 
@@ -95,9 +145,10 @@ class SMSValidator:
 
         return data
 
-    @ staticmethod
+    @staticmethod
     def ensure_same_school(data, request, partial=False):
         err_msg = 'You are adding a student record for the wrong school\'s program rotation, please add to your own school\'s program rotation'
+
 
         if partial and not data.get('rotation'):
             return data
@@ -111,48 +162,42 @@ class SMSValidator:
 
         return data
 
-    @ staticmethod
-    def ensure_no_dup_student_id(data, instance, partial=False):
-        err_msg = 'You are adding/updating a student ID that already exists, please try again.'
 
-        if partial and not data.get('student_id'):
-            return data
-        elif partial and data.get('student_id'):
-            ExceptionHandler.raise_verror(
-                'Please use PUT when updating student id')
 
-        school_name = data.get('rotation').program.school.school_name
 
-        from .models import Student
+    # no need for this method since we are checking uniqueness at the database lvl, 
+    # also student id is given a longer format, to distinguish between schools and programs
+    # much lesser chance to duplicate any student IDs
+    # @staticmethod
+    # def ensure_no_dup_student_id(data, instance, partial=False):
+    #     err_msg = 'You are adding/updating a student ID that already exists, please try again.'
 
-        student_exists = Student.objects.filter(
-            rotation__program__school__school_name__exact=school_name, student_id__exact=data.get('student_id')).exists()
 
-        # if updating we should have exactly one student record, and if we are not changing the student ID,
-        # then we can return data
-        if instance and student_exists and data.get('student_id') == getattr(instance, 'student_id'):
-            return data
 
-        # if we are creating and there is exactly 0 student record with the student ID, return data
-        elif not instance and not student_exists == 0:
-            return data
 
-        # all else, raise validation error
-        else:
-            return ExceptionHandler.raise_verror(err_msg)
+    #     if partial and not data.get('student_id'):
+    #         return data
+    #     elif partial and data.get('student_id'):
+    #         ExceptionHandler.raise_verror(
+    #             'Please use PUT when updating student id')
 
-    @ staticmethod
-    def student_final_validation(serializer, data):
-        request = serializer.context.get('request')
-        instance = serializer.instance
-        partial = serializer.partial
+    #     school_name = data.get('rotation').program.school.school_name
 
-        date_verified_data = SMSValidator.date_validation(data, partial)
+    #     from .models import Student
 
-        program_validated_data = SMSValidator.ensure_program_name(
-            date_verified_data, partial)
+    #     student_exists = Student.objects.filter(
+    #         rotation__program__school__school_name__exact=school_name, student_id__exact=data.get('student_id')).exists()
 
-        same_school_verified = SMSValidator.ensure_same_school(
-            program_validated_data, request, partial)
+    #     # if updating we should have exactly one student record, and if we are not changing the student ID,
+    #     # then we can return data
+    #     if instance and student_exists and data.get('student_id') == getattr(instance, 'student_id'):
+    #         return data
 
-        return SMSValidator.ensure_no_dup_student_id(same_school_verified, instance, partial)
+    #     # if we are creating and there is exactly 0 student record with the student ID, return data
+    #     elif not instance and not student_exists == 0:
+    #         return data
+
+    #     # all else, raise validation error
+    #     else:
+    #         return ExceptionHandler.raise_verror(err_msg)
+

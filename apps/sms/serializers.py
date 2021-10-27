@@ -69,13 +69,13 @@ class RotationSerializer(serializers.ModelSerializer):
         return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'program')
 
     def validate(self, data):
-        return SMSValidator.ensure_unique_rot(self, data)
+        return SMSValidator.rotation_final_validation(self, data)
 
-    def create(self, validated_data):
-        return super(RotationSerializer, self).create(Rotation.objects.create_or_update_rotation(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(RotationSerializer, self).create(Rotation.objects.create_or_update_rotation(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(RotationSerializer, self).update(*Rotation.objects.create_or_update_rotation(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     return super(RotationSerializer, self).update(*Rotation.objects.create_or_update_rotation(validated_data=validated_data, instance=instance))
 
 
 class ProgramSerializer(serializers.ModelSerializer):
@@ -91,11 +91,11 @@ class ProgramSerializer(serializers.ModelSerializer):
     def validate_school(self, value):
         return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'school')
 
-    def create(self, validated_data):
-        return super(ProgramSerializer, self).create(Program.objects.create_or_update_program(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(ProgramSerializer, self).create(Program.objects.create_or_update_program(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(ProgramSerializer, self).update(*Program.objects.create_or_update_program(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     return super(ProgramSerializer, self).update(*Program.objects.create_or_update_program(validated_data=validated_data, instance=instance))
 
 
 class SchoolSerializer(serializers.ModelSerializer):
@@ -115,8 +115,8 @@ class SchoolSerializer(serializers.ModelSerializer):
     def validate_school_address(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
-    def create(self, validated_data):
-        return super(SchoolSerializer, self).create(School.objects.create_or_update_school(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(SchoolSerializer, self).create(School.objects.create_or_update_school(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(SchoolSerializer, self).update(*School.objects.create_or_update_school(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     return super(SchoolSerializer, self).update(*School.objects.create_or_update_school(validated_data=validated_data, instance=instance))

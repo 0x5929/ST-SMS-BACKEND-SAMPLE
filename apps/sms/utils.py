@@ -4,51 +4,55 @@ import uuid
 from rest_framework.exceptions import ValidationError
 
 
-class DatabaseHandler:
+# no need for the following either, we are only interested in read only nested repr anyways,
+# which is default by DRF, so no need to write extra code for nested writing operations
+# when we need to write, ie: POST/PUT/PATCH/DELETE we will call that specific endpoint, and not from a parent model
+# please do the same changes across cms and gms when the time comes to testing for those apps
+# class DatabaseHandler:
 
-    @staticmethod
-    def create_or_update(validated_data, instance, model):
-        if model.__name__ == 'School':
-            # no nested relations need to be attached when creating, or updating
-            pass
-        elif model.__name__ == 'Program':
-            # get school ID from request
-            school_id = validated_data.get('school').school_uuid
+#     @staticmethod
+#     def create_or_update(validated_data, instance, model):
+#         if model.__name__ == 'School':
+#             # no nested relations need to be attached when creating, or updating
+#             pass
+#         elif model.__name__ == 'Program':
+#             # get school ID from request
+#             school_id = validated_data.get('school').school_uuid
 
-            # retrieve said school from the DB using ID
-            from .models import School
-            school = School.objects.get(school_uuid__exact=school_id)
+#             # retrieve said school from the DB using ID
+#             from .models import School
+#             school = School.objects.get(school_uuid__exact=school_id)
 
-            # add school to the program object
-            validated_data['school'] = school
+#             # add school to the program object
+#             validated_data['school'] = school
 
-        elif model.__name__ == 'Rotation':
-            # get program ID from request
+#         elif model.__name__ == 'Rotation':
+#             # get program ID from request
 
-            program_id = validated_data.get('program').program_uuid
+#             program_id = validated_data.get('program').program_uuid
 
-            # retrieve said program from the DB using ID
-            from .models import Program
-            program = Program.objects.get(program_uuid__exact=program_id)
+#             # retrieve said program from the DB using ID
+#             from .models import Program
+#             program = Program.objects.get(program_uuid__exact=program_id)
 
-            # add program to the rotation object
-            validated_data['program'] = program
+#             # add program to the rotation object
+#             validated_data['program'] = program
 
-        elif model.__name__ == 'Student':
-            # get rotation ID from request
-            rotation_id = validated_data.get('rotation').rotation_uuid
+#         elif model.__name__ == 'Student':
+#             # get rotation ID from request
+#             rotation_id = validated_data.get('rotation').rotation_uuid
 
-            print('before: ', validated_data['rotation'])
-            # retrieve said rotation from the DB using ID
-            from .models import Rotation
-            rotation = Rotation.objects.get(rotation_uuid__exact=rotation_id)
+#             print('before: ', validated_data['rotation'])
+#             # retrieve said rotation from the DB using ID
+#             from .models import Rotation
+#             rotation = Rotation.objects.get(rotation_uuid__exact=rotation_id)
 
-            # add rotation to the student object
-            validated_data['rotation'] = rotation
+#             # add rotation to the student object
+#             validated_data['rotation'] = rotation
 
-            print('after: ', validated_data['rotation'])
+#             print('after: ', validated_data['rotation'])
 
-        return (instance, validated_data) if instance else validated_data
+#         return (instance, validated_data) if instance else validated_data
 
 
 class DataHelper:
@@ -112,11 +116,7 @@ class DataHelper:
 
 class ExceptionHandler:
 
-<<<<<<< HEAD
-    @staticmethod
-=======
     @ staticmethod
->>>>>>> 8426f818abdd4649cc09ae6f2d378e5189da801a
     def raise_verror(msg):
         raise ValidationError(msg)
 

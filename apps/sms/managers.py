@@ -1,11 +1,11 @@
 from django.db import models
 
-from .utils import DatabaseHandler
+#from .utils import DatabaseHandler
 
 
 class SchoolManager(models.Manager):
-    def create_or_update_school(self, validated_data, instance=None):
-        return DatabaseHandler.create_or_update(validated_data, instance, self.model)
+    # def create_or_update_school(self, validated_data, instance=None):
+    #     return DatabaseHandler.create_or_update(validated_data, instance, self.model)
 
     def get_query(self, request):
         if request.user.is_superuser:
@@ -15,8 +15,8 @@ class SchoolManager(models.Manager):
 
 
 class ProgramManager(models.Manager):
-    def create_or_update_program(self, validated_data, instance=None):
-        return DatabaseHandler.create_or_update(validated_data, instance, self.model)
+    # def create_or_update_program(self, validated_data, instance=None):
+    #     return DatabaseHandler.create_or_update(validated_data, instance, self.model)
 
     def get_query(self, request):
         if request.user.is_superuser:
@@ -26,8 +26,8 @@ class ProgramManager(models.Manager):
 
 
 class RotationManager(models.Manager):
-    def create_or_update_rotation(self, validated_data, instance=None):
-        return DatabaseHandler.create_or_update(validated_data, instance, self.model)
+    # def create_or_update_rotation(self, validated_data, instance=None):
+    #     return DatabaseHandler.create_or_update(validated_data, instance, self.model)
 
     def get_query(self, request):
         if request.user.is_superuser:
@@ -36,8 +36,8 @@ class RotationManager(models.Manager):
 
 
 class StudentManager(models.Manager):
-    def create_or_update_student(self, validated_data, instance=None):
-        return DatabaseHandler.create_or_update(validated_data, instance, self.model)
+    # def create_or_update_student(self, validated_data, instance=None):
+    #     return DatabaseHandler.create_or_update(validated_data, instance, self.model)
 
     def get_query(self, request):
         if request.user.is_superuser:
