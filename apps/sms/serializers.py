@@ -43,13 +43,16 @@ class StudentSerializer(serializers.ModelSerializer):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate(self, data):
-        return SMSValidator.student_final_validation(data, self.context.get('request'), self.instance)
+        return SMSValidator.student_final_validation(self, data)
 
-    def create(self, validated_data):
-        return super(StudentSerializer, self).create(Student.objects.create_or_update_student(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(StudentSerializer, self).create(Student.objects.create_or_update_student(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(StudentSerializer, self).update(*Student.objects.create_or_update_student(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     # when accounting for PATCH, no need to worry about nested updates
+    #     if self.partial:
+    #         return super(StudentSerializer, self).update(instance, validated_data)
+    #     return super(StudentSerializer, self).update(*Student.objects.create_or_update_student(validated_data=validated_data, instance=instance))
 
 
 class RotationSerializer(serializers.ModelSerializer):
@@ -66,7 +69,7 @@ class RotationSerializer(serializers.ModelSerializer):
         return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'program')
 
     def validate(self, data):
-        return SMSValidator.ensure_unique_rot(data)
+        return SMSValidator.ensure_unique_rot(self, data)
 
     def create(self, validated_data):
         return super(RotationSerializer, self).create(Rotation.objects.create_or_update_rotation(validated_data=validated_data))

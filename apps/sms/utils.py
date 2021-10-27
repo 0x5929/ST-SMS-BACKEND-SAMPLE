@@ -4,7 +4,6 @@ import uuid
 from rest_framework.exceptions import ValidationError
 
 
-
 class DatabaseHandler:
 
     @staticmethod
@@ -14,8 +13,7 @@ class DatabaseHandler:
             pass
         elif model.__name__ == 'Program':
             # get school ID from request
-            school_id = uuid.UUID(
-                str(validated_data.get('school').school_uuid))
+            school_id = validated_data.get('school').school_uuid
 
             # retrieve said school from the DB using ID
             from .models import School
@@ -27,8 +25,7 @@ class DatabaseHandler:
         elif model.__name__ == 'Rotation':
             # get program ID from request
 
-            program_id = uuid.UUID(
-                str(validated_data.get('program').program_uuid))
+            program_id = validated_data.get('program').program_uuid
 
             # retrieve said program from the DB using ID
             from .models import Program
@@ -39,9 +36,9 @@ class DatabaseHandler:
 
         elif model.__name__ == 'Student':
             # get rotation ID from request
-            rotation_id = uuid.UUID(
-                str(validated_data.get('rotation').rotation_uuid))
+            rotation_id = validated_data.get('rotation').rotation_uuid
 
+            print('before: ', validated_data['rotation'])
             # retrieve said rotation from the DB using ID
             from .models import Rotation
             rotation = Rotation.objects.get(rotation_uuid__exact=rotation_id)
@@ -49,12 +46,14 @@ class DatabaseHandler:
             # add rotation to the student object
             validated_data['rotation'] = rotation
 
+            print('after: ', validated_data['rotation'])
+
         return (instance, validated_data) if instance else validated_data
 
 
 class DataHelper:
 
-    @classmethod
+    @ classmethod
     def data_conversion(cls, model):
         data = {}
 
@@ -84,19 +83,19 @@ class DataHelper:
 
         return data
 
-    @staticmethod
+    @ staticmethod
     def bool_conversion(model, header):
         value = getattr(model, header)
         return 'Y' if value else ''
 
-    @staticmethod
+    @ staticmethod
     def date_conversion(model, header):
 
         date_obj = getattr(model, header)
         return f'{str(date_obj.day)}/{str(date_obj.month)}/{str(date_obj.year)}'
         # return '%s/%s/%s' % (str(date_obj.day), str(date_obj.month), str(date_obj.year))
 
-    @staticmethod
+    @ staticmethod
     def money_conversion(model, header):
 
         money_obj = getattr(model, header)
@@ -106,21 +105,25 @@ class DataHelper:
     # NOTE data keys are assigned by each item inside STUDENT_RECORD_HEADERS,
     # by logic, as long as we dont change and or mess with the way data_conversion and clean_data,
     # order of dict is preserved by assignment by 3.6!
-    @staticmethod
+    @ staticmethod
     def finalize_data(data):
         return [value for value in data.values()]
 
 
 class ExceptionHandler:
 
+<<<<<<< HEAD
     @staticmethod
+=======
+    @ staticmethod
+>>>>>>> 8426f818abdd4649cc09ae6f2d378e5189da801a
     def raise_verror(msg):
         raise ValidationError(msg)
 
 
 class FilterHandler:
 
-    @staticmethod
+    @ staticmethod
     def is_valid_query_params(query_params, fields):
         for key in query_params.keys():
             if key not in fields:

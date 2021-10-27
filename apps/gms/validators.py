@@ -32,14 +32,14 @@ class GMSValidator:
         #    'rotation').get('rotation_uuid')))
 
         # get current student obj
-        current_student_id = uuid.UUID(str(data.get('student').student_uuid))
+        current_student_uuid = data.get('student').student_uuid
         if 'CNA' in model_name:
             StudentModel = apps.get_model('gms', 'CNAStudent')
         elif 'HHA' in model_name:
             StudentModel = apps.get_model('gms', 'HHAStudent')
 
         current_student = StudentModel.objects.get(
-            student_id__exact=current_student_id)
+            student_uuid__exact=current_student_uuid)
 
         # get current rotation ID:
         current_rot_id = current_student.rotation.rotation_uuid
@@ -66,8 +66,7 @@ class GMSValidator:
     def no_duplicate_students(data, model_name):
         err_msg = 'The student you are trying to add already exist in this rotation.'
 
-        current_rot_id = uuid.UUID(
-            str(data.get('rotation').rotation_uuid))
+        current_rot_id = data.get('rotation').rotation_uuid
 
         first_name = data.get('first_name')
         last_name = data.get('last_name')
@@ -76,7 +75,7 @@ class GMSValidator:
         # checking for both CNAStudent and HHAStudent models
         StudentModel = apps.get_model('gms', model_name)
         student_exists = StudentModel.objects.filter(
-            rotation__rotation_id__exact=current_rot_id,
+            rotation__rotation_uuid__exact=current_rot_id,
             first_name__iexact=first_name,
             last_name__iexact=last_name).exists()
 
