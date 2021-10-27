@@ -119,7 +119,7 @@ class Student(models.Model):
         max_length=1, choices=EMPLOYMENT_STATUS_CHOICES, blank=True)
 
     description_of_attempts_to_contact_student = models.TextField(
-        blank=False, default='Information provided by ST office contacting students via phone/text/email.')
+        blank=True, default='Information provided by ST office contacting students via phone/text/email.')
 
     google_sheet_migrated = models.BooleanField(default=False)
 
