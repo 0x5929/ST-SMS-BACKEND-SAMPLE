@@ -1,3 +1,4 @@
+from functools import partial
 import re
 import uuid
 from .utils import ExceptionHandler
@@ -21,13 +22,25 @@ class SMSValidator:
         program_validated_data = cls.ensure_program_name(
             date_verified_data, partial)
 
-        return cls.ensure_same_school(program_validated_data, request, partial)
+        return cls.ensure_same_school(program_validated_data, request, 'student', partial)
 
         # return cls.ensure_no_dup_student_id(same_school_verified, instance, partial)
 
     @classmethod
     def rotation_final_validation(cls, serializer, data):
-        return cls.ensure_unique_rot(data, serializer.partial)
+        request = serializer.context.get('request')
+        partial = serializer.partial
+
+        same_school_verified = cls.ensure_same_school(data, request, 'rotation', partial)
+        return cls.ensure_unique_rot(same_school_verified, serializer.partial)
+
+
+    @classmethod
+    def program_final_validation(cls, serializer, data):
+        request = serializer.context.get('request')
+        partial = serializer.partial
+        
+        return cls.ensure_same_school(data, request, 'program', partial)
 
     @staticmethod
     def reference_does_not_change_on_updates(value, instance, reference):
@@ -137,13 +150,18 @@ class SMSValidator:
         return data
 
     @staticmethod
-    def ensure_same_school(data, request, partial=False):
+    def ensure_same_school(data, request, entry_pt, partial=False):
         err_msg = 'You are adding a student record for the wrong school\'s program rotation, please add to your own school\'s program rotation'
 
-        if partial and not data.get('rotation'):
+        if partial:
             return data
 
-        school_name = data.get('rotation').program.school.school_name
+        if entry_pt == 'student':
+            school_name = data.get('rotation').program.school.school_name
+        elif entry_pt == 'rotation':
+            school_name = data.get('program').school.school_name
+        elif entry_pt == 'program':
+            school_name = data.get('school').school_name
 
         if not request.user.is_superuser and school_name != request.user.school_name:
 

@@ -91,6 +91,9 @@ class ProgramSerializer(serializers.ModelSerializer):
     def validate_school(self, value):
         return value if not self.instance else SMSValidator.reference_does_not_change_on_updates(value, self.instance, 'school')
 
+    def validate(self, data):
+        return SMSValidator.program_final_validation(self, data)
+
     # def create(self, validated_data):
     #     return super(ProgramSerializer, self).create(Program.objects.create_or_update_program(validated_data=validated_data))
 
