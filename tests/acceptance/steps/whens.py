@@ -1,22 +1,21 @@
 from behave import when
 
-from .constants import (SCHOOLS_API_URL,\
-                        PROGRAMS_API_URL,\
-                        ROTATIONS_API_URL,\
-                        STUDENTS_API_URL,\
-                        STUDENT_UUID_TO_TEST,\
-                        SCHOOL_UUID_TO_TEST,\
-                        PROGRAM_UUID_TO_TEST,\
-                        ROTATION_UUID_TO_TEST,\
-                        STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,\
-                        STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,\
-                        SCHOOL_SAMPLE_POST_DATA,\
-                        PROGRAM_SAMPLE_POST_DATA,\
-                        ROTATION_SAMPLE_POST_DATA,\
-                        FILTER_PARAMS,\
-                        PUT_DATA,\
+from .constants import (SCHOOLS_API_URL,
+                        PROGRAMS_API_URL,
+                        ROTATIONS_API_URL,
+                        STUDENTS_API_URL,
+                        STUDENT_UUID_TO_TEST,
+                        SCHOOL_UUID_TO_TEST,
+                        PROGRAM_UUID_TO_TEST,
+                        ROTATION_UUID_TO_TEST,
+                        STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
+                        STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
+                        SCHOOL_SAMPLE_POST_DATA,
+                        PROGRAM_SAMPLE_POST_DATA,
+                        ROTATION_SAMPLE_POST_DATA,
+                        FILTER_PARAMS,
+                        PUT_DATA,
                         PATCH_DATA)
-
 
 
 @when('request GET to /api/sms/schools')
@@ -272,6 +271,7 @@ def request_GET_by_completion(context):
 
     context.response = context.browser.request(
         'GET', f'{context.server_url}{STUDENTS_API_URL}{parameter}')
+
 
 @when('request GET to /api/sms/students with filters by student employment status')
 def request_GET_by_employment(context):

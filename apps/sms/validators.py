@@ -10,7 +10,6 @@ from .utils import ExceptionHandler
 
 class SMSValidator:
 
-
     @classmethod
     def student_final_validation(cls, serializer, data):
         request = serializer.context.get('request')
@@ -24,12 +23,11 @@ class SMSValidator:
 
         return cls.ensure_same_school(program_validated_data, request, partial)
 
-        #return cls.ensure_no_dup_student_id(same_school_verified, instance, partial)
+        # return cls.ensure_no_dup_student_id(same_school_verified, instance, partial)
 
     @classmethod
     def rotation_final_validation(cls, serializer, data):
         return cls.ensure_unique_rot(data, serializer.partial)
-
 
     @staticmethod
     def reference_does_not_change_on_updates(value, instance, reference):
@@ -45,7 +43,6 @@ class SMSValidator:
 
     @staticmethod
     def no_special_chars_and_captialize_string(value):
-        print('hello world')
         err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (, . #).'
 
         pattern = '[A-Za-z0-9,.#\s]{1,150}'
@@ -80,11 +77,8 @@ class SMSValidator:
 
             elif data.get('start_date') and data.get('completion_date'):
                 pass
-        
+
         return data if data.get('start_date') < data.get('completion_date') else ExceptionHandler.raise_verror(date_err_msg)
-
-
-
 
     @staticmethod
     def ensure_unique_rot(data, partial=False):
@@ -100,7 +94,6 @@ class SMSValidator:
 
             elif data.get('program') and data.get('rotation_number'):
                 pass
-
 
         # grab program id from request data
         program_id = data.get('program').program_uuid
@@ -121,7 +114,6 @@ class SMSValidator:
         err_msg = 'Your rotation\'s program name and your student course do not match.'
         update_err_msg = 'Cannot update course name without providing rotation.'
 
-
         if partial:
             if not data.get('course') and not data.get('rotation'):
                 return data
@@ -131,7 +123,6 @@ class SMSValidator:
 
             elif data.get('course') and data.get('rotation'):
                 pass
-
 
         rot_id = data.get('rotation').rotation_uuid
 
@@ -149,12 +140,10 @@ class SMSValidator:
     def ensure_same_school(data, request, partial=False):
         err_msg = 'You are adding a student record for the wrong school\'s program rotation, please add to your own school\'s program rotation'
 
-
         if partial and not data.get('rotation'):
             return data
 
         school_name = data.get('rotation').program.school.school_name
-
 
         if not request.user.is_superuser and school_name != request.user.school_name:
 
@@ -162,18 +151,12 @@ class SMSValidator:
 
         return data
 
-
-
-
-    # no need for this method since we are checking uniqueness at the database lvl, 
+    # no need for this method since we are checking uniqueness at the database lvl,
     # also student id is given a longer format, to distinguish between schools and programs
     # much lesser chance to duplicate any student IDs
     # @staticmethod
     # def ensure_no_dup_student_id(data, instance, partial=False):
     #     err_msg = 'You are adding/updating a student ID that already exists, please try again.'
-
-
-
 
     #     if partial and not data.get('student_id'):
     #         return data
@@ -200,4 +183,3 @@ class SMSValidator:
     #     # all else, raise validation error
     #     else:
     #         return ExceptionHandler.raise_verror(err_msg)
-

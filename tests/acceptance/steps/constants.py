@@ -102,7 +102,7 @@ ROTATION_SAMPLE_POST_DATA = {
 }
 
 FILTER_PARAMS = {
-    'school_name' : 'STI',
+    'school_name': 'STI',
     'program_name': 'HHA',
     'rotation_num': 1,
     'first_name': 'Test',
@@ -118,16 +118,20 @@ FILTER_PARAMS = {
 }
 
 PUT_DATA = {
-    'student__last_name' : 'C',
-    'school__school_code' : '27091743',
-    'program__program_name' : 'HSFA',
-    'rotation__rotation_number' : 6 
+    'student__last_name': 'C',
+    'school__school_code': '27091743',
+    'program__program_name': 'HSFA',
+    'rotation__rotation_number': 6
 
 }
 
 PATCH_DATA = {
-    'student__last_name' : 'D',
-    'school__school_code' : '27091744',
-    'program__program_name' : 'BLS',
-    'rotation__rotation_number' : 7
+    'student__last_name': 'D',
+    'school__school_code': '27091744',
+    'program__program_name': 'BLS',
+    'rotation__rotation_number': 7
+}
+
+JSON_PERMISSION_DENIED_RES = {
+    'detail': 'You do not have permission to perform this action.'
 }

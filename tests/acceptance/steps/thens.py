@@ -1,10 +1,13 @@
 from behave import then
 import json
 
-from .constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,\
-                        STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,\
-                        PUT_DATA,\
+from .constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
+                        STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
+                        SCHOOL_SAMPLE_POST_DATA,
+                        JSON_PERMISSION_DENIED_RES,
+                        PUT_DATA,
                         PATCH_DATA)
+
 
 @then('will receive JSON response of data')
 def receive_JSON_data(context):
@@ -21,7 +24,7 @@ def database_create_student(context):
     response = json.load(context.response)
     posted_student_id = STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA.get('student_id')
 
-    # assert 
+    # assert
     context.test.assertEqual(response.get('student_id'), posted_student_id)
 
 
@@ -41,49 +44,76 @@ def database_will_edit_student(context):
 
     editted_last_name = PUT_DATA.get('student__last_name')
 
+    context.test.assertEqual(response.get('last_name'), editted_last_name)
+
+
 @then('database will partially edit the student record')
 def database_will_partially_edit_student(context):
-    pass
+    response = json.load(context.response)
+
+    editted_last_name = PATCH_DATA.get('student__last_name')
+
+    context.test.assertEqual(response.get('last_name'), editted_last_name)
 
 
 @then('database will not delete the student record')
 def database_will_not_delete_student(context):
-    pass
+    response = json.load(context.response)
+
+    context.test.assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
 
 @then('database will create the school record')
 def database_will_create_school(context):
-    pass
+    response = json.load(context.response)
+
+    posted_school_code = SCHOOL_SAMPLE_POST_DATA.get('school_code')
+
+    context.test.assertEqual(response.get('school_code'), posted_school_code)
 
 
 @then('database will edit the school record')
 def database_will_edit_school(context):
-    pass
+    response = json.load(context.response)
+
+    editted_school_code = PUT_DATA.get('school__school_code')
+
+    context.test.assertEqual(response.get('school_code'), editted_school_code)
 
 
 @then('database will partially edit the school record')
 def database_will_partially_edit_school(context):
-    pass
+    response = json.load(context.response)
+
+    editted_school_code = PATCH_DATA.get('school__school_code')
+
+    context.test.assertEqual(response.get('school_code'), editted_school_code)
 
 
 @then('database will delete the school record')
 def database_will_delete_school(context):
-    pass
+    context.test.assertEqual(context.response, None)
 
 
 @then('database will not create the school record')
 def database_will_not_create_school(context):
-    pass
+    response = json.load(context.response)
+
+    context.test.assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
 
 @then('database will not edit the school record')
 def database_will_not_edit_school(context):
-    pass
+    response = json.load(context.response)
+
+    context.test.assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
 
 @then('database will not delete the school record')
 def database_will_not_delete_school(context):
-    pass
+    response = json.load(context.response)
+
+    context.test.assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
 
 @then('database will create the program record')
