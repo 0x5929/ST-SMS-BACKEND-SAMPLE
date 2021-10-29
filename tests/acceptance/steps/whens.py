@@ -1,21 +1,21 @@
 from behave import when
 
-from .constants import (SCHOOLS_API_URL,
-                        PROGRAMS_API_URL,
-                        ROTATIONS_API_URL,
-                        STUDENTS_API_URL,
-                        STUDENT_UUID_TO_TEST,
-                        SCHOOL_UUID_TO_TEST,
-                        PROGRAM_UUID_TO_TEST,
-                        ROTATION_UUID_TO_TEST,
-                        STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
-                        STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
-                        SCHOOL_SAMPLE_POST_DATA,
-                        PROGRAM_SAMPLE_POST_DATA,
-                        ROTATION_SAMPLE_POST_DATA,
-                        FILTER_PARAMS,
-                        PUT_DATA,
-                        PATCH_DATA)
+from tests.acceptance.steps.constants import (SCHOOLS_API_URL,
+                                              PROGRAMS_API_URL,
+                                              ROTATIONS_API_URL,
+                                              STUDENTS_API_URL,
+                                              STUDENT_UUID_TO_TEST,
+                                              SCHOOL_UUID_TO_TEST,
+                                              PROGRAM_UUID_TO_TEST,
+                                              ROTATION_UUID_TO_TEST,
+                                              STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
+                                              STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
+                                              SCHOOL_SAMPLE_POST_DATA,
+                                              PROGRAM_SAMPLE_POST_DATA,
+                                              ROTATION_SAMPLE_POST_DATA,
+                                              FILTER_PARAMS,
+                                              PUT_DATA,
+                                              PATCH_DATA)
 
 
 @when('request GET to /api/sms/schools')

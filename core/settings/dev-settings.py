@@ -130,7 +130,7 @@ DATABASES = {
 }
 
 # dev initial data:
-#FIXTURE_DIRS = [os.path.join(BASE_DIR, '../fixtures')]
+FIXTURE_DIRS = [os.path.join(BASE_DIR, '../fixtures')]
 
 
 # Password validation

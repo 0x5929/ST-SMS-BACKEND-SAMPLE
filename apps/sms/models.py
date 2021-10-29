@@ -74,9 +74,9 @@ class Student(models.Model):
     student_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
-    # student ID follows the format: ###-MMDD-FL
+    # student ID follows the format: RO-(CNA|HHA|SG|ESOL)-###-MMDD-FL
     # ### -> rotation number, MMDD -> 2 digit months and dates, FL -> First/Last name initials
-    student_id = models.CharField(max_length=11, null=False, unique=True)
+    student_id = models.CharField(max_length=19, null=False, unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 

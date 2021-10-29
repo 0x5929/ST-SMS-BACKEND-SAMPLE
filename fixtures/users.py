@@ -34,7 +34,7 @@ class UserTestHelper:
             is_staff=True, is_admin=True, is_superuser=True)
 
         VerificationFactory(
-            pk=superuser.pk,
+            user=superuser,
             email=superuser.email
         )
 
@@ -48,7 +48,7 @@ class UserTestHelper:
             is_staff=False, is_admin=True)
 
         VerificationFactory(
-            pk=admin_user.pk,
+            user=admin_user,
             email=admin_user.email
         )
 
@@ -62,7 +62,7 @@ class UserTestHelper:
             is_staff=False, is_admin=True)
 
         VerificationFactory(
-            pk=admin_office_user.pk,
+            user=admin_office_user,
             email=admin_office_user.email
         )
 
@@ -76,7 +76,7 @@ class UserTestHelper:
             is_staff=False, is_admin=True)
 
         VerificationFactory(
-            pk=admin_recruit_user.pk,
+            user=admin_recruit_user,
             email=admin_recruit_user.email
         )
 
@@ -90,7 +90,7 @@ class UserTestHelper:
             is_staff=False, is_admin=True)
 
         VerificationFactory(
-            pk=admin_instructor_user.pk,
+            user=admin_instructor_user,
             email=admin_instructor_user.email
         )
 
