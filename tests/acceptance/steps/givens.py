@@ -20,14 +20,6 @@ def logged_on_as_reg_user_is_office_true(context):
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_REG_OFF_USER}@localhost', 'password': LOGIN_PW})
 
-    # # add server response access token as a cookie of browser
-    # context.browser.add_cookie(
-    #     {"name": "sms-auth", "value": auth_resp.data['access_token']})
-
-    # # making sure that browser's cookie and our authentication response token value are the same
-    # context.test.assertEqual(context.browser.get_cookie(
-    #     "sms-auth"), auth_resp.access_token)
-
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']
 
@@ -37,14 +29,6 @@ def logged_on_as_reg_user_is_office_false(context):
     # POST to login
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_REG_USER}@localhost', 'password': LOGIN_PW})
-
-    # # add server response access token as a cookie of browser
-    # context.browser.add_cookie(
-    #     {"name": "sms-auth", "value": auth_resp.access_token})
-
-    # # making sure that browser's cookie and our authentication response token value are the same
-    # context.test.assertEqual(context.browser.get_cookie(
-    #     "sms-auth"), auth_resp.access_token)
 
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']
@@ -56,14 +40,6 @@ def logged_on_as_staff_user_is_office_true(context):
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_STAFF_OFF_USER}@localhost', 'password': LOGIN_PW})
 
-    # add server response access token as a cookie of browser
-    # context.browser.add_cookie(
-    #     {"name": "sms-auth", "value": auth_resp.access_token})
-
-    # # making sure that browser's cookie and our authentication response token value are the same
-    # context.test.assertEqual(context.browser.get_cookie(
-    #     "sms-auth"), auth_resp.access_token)
-
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']
 
@@ -73,8 +49,6 @@ def logged_on_as_staff_user_is_office_false(context):
     # POST to login
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_STAFF_USER}@localhost', 'password': LOGIN_PW})
-
-    # add server response access token as a cookie of browser
 
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']
@@ -86,8 +60,6 @@ def logged_on_as_admin_user_is_office_true(context):
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_ADMIN_OFF_USER}@localhost', 'password': LOGIN_PW})
 
-    # add server response access token as a cookie of browser
-
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']
 
@@ -97,14 +69,6 @@ def logged_on_as_admin_user_is_office_false(context):
     # POST to login
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_ADMIN_USER}@localhost', 'password': LOGIN_PW})
-
-    # # add server response access token as a cookie of browser
-    # context.browser.add_cookie(
-    #     {"name": "sms-auth", "value": auth_resp.access_token})
-
-    # # making sure that browser's cookie and our authentication response token value are the same
-    # context.test.assertEqual(context.browser.get_cookie(
-    #     "sms-auth"), auth_resp.access_token)
 
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']

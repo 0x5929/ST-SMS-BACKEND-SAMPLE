@@ -33,10 +33,6 @@ def request_GET_to_programs(context):
     context.response = context.test.client.get(
         f'{PROGRAMS_API_URL}', headers=headers)
 
-    # import json
-    # print('GET PROGRAMS: ', json.dumps(
-    #     context.response.__dict__, indent=2, default=str))
-
 
 @when('request GET to /api/sms/rotations')
 def request_GET_to_rotations(context):
@@ -139,10 +135,6 @@ def request_DEL_to_school(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
-    # response = context.test.client.get(f'{SCHOOLS_API_URL}', headers=headers)
-    # import json
-    # print('BEFORE GET SCHOOL:', json.dumps(
-    #     response.__dict__, indent=2, default=str))
     context.response = context.test.client.delete(
         f'{SCHOOLS_API_URL}{SCHOOL_UUID_TO_TEST}/', headers=headers)
 

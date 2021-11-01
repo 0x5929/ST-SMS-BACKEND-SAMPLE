@@ -20,8 +20,6 @@ def receive_JSON_data(context):
 
     no_json_res = []
 
-    # asserting that JSON response is not [] empty
-    # print('24: ', json.dumps(context.response.__dict__, indent=2, default=str))
     context.test().assertJSONNotEqual(
         json.dumps(str(response)), json.dumps(no_json_res))
 
@@ -212,9 +210,6 @@ def database_will_partially_edit_rotation(context):
     context.test().assertEqual(response.get(
         'rotation_number'), editted_rotation_num)
 
-    # NOTE: rotation object only consists of rotation number and program.
-    # NOTE: since our SMS validator states that rotation number cannot be changed without supplying program. (to ensure unique rot number in that specific program)
-
 
 @ then('database will delete the rotation record')
 def database_will_delete_rotation(context):
@@ -248,8 +243,6 @@ def specific_student_JSON_data_response(context):
 
     filtered_student_lastname = FILTER_PARAMS.get('last_name')
 
-#    print('244', json.dumps(context.response.data, indent=2, default=str))
-    #context.test().assertEqual(len(response), 2)
     context.test().assertEqual(response[0].get('last_name'),
                                filtered_student_lastname)
 

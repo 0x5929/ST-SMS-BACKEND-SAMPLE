@@ -14,7 +14,7 @@ class SMSValidator:
     @classmethod
     def student_final_validation(cls, serializer, data):
         request = serializer.context.get('request')
-        #instance = serializer.instance
+
         partial = serializer.partial
 
         date_verified_data = cls.date_validation(data, partial)
@@ -23,8 +23,6 @@ class SMSValidator:
             date_verified_data, partial)
 
         return cls.ensure_same_school(program_validated_data, request, 'student', partial)
-
-        # return cls.ensure_no_dup_student_id(same_school_verified, instance, partial)
 
     @classmethod
     def rotation_final_validation(cls, serializer, data):
