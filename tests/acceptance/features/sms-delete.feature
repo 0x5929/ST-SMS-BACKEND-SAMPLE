@@ -4,7 +4,12 @@ Feature: Student Management DELETE access
     Admin user can deletet program, rotation, student resource for own school
     Staff user can delete rotation, student resource for own school
     Regular user cannot delete student resource for own school
-    
+
+    Scenario: requesting to auth login
+        Given no initial logon
+        When request GET to /auth/login/
+        Then server will respond with 405
+
     Scenario: superuser requesting to delete a student resource
         Given logged on as superuser
         When request DELETE to /api/sms/students/student_uuid

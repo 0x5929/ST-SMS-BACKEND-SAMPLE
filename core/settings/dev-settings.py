@@ -65,8 +65,6 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     'django_filters',
 
-    # TESTING APPS
-    'behave_django',
 
     # PROJECT APPS
     'authentication',
@@ -242,3 +240,5 @@ MIGRATE_GOOGLE_SHEET = False
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ]
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']

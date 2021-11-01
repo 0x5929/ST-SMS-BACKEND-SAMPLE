@@ -1,3 +1,7 @@
+
+# NOTE: PLEASE EDIT THIS FILE WITH CARE, THIS WILL BREAK ALL ACCEPTANCE/INTEGRATION TESTS RUN WITH BEHAVE
+
+
 # constants data for behave testing
 # change this if test-sms-initial-data.json changes
 SCHOOLS_API_URL = '/api/sms/schools/'
@@ -7,13 +11,13 @@ STUDENTS_API_URL = '/api/sms/students/'
 
 # NOTE THE UUID CONTANTS NEEDS TO BE UPDATED IF TEST FIXTURES ARE UPDATED
 STUDENT_UUID_TO_TEST = 'db7d3163-7856-4b61-b242-65ef034c4bfe'
-SCHOOL_UUID_TO_TEST = '6bfad48c-ecc6-44ac-b53f-c94ccd240119'
-PROGRAM_UUID_TO_TEST = 'de47da61-278f-4f67-8fbf-7e60de40e9d4'
-ROTATION_UUID_TO_TEST = 'a6a1c1c3-df42-4783-9c20-49b94ad1d6ba'
+SCHOOL_UUID_TO_TEST = '0c805318-7706-405e-a66c-5936062617a5'
+PROGRAM_UUID_TO_TEST = '67301e14-cd3d-493a-a2cf-84d8c490c0ef'
+ROTATION_UUID_TO_TEST = 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
 
 STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
-    'student_uuid': '7766c4a3-877c-4c23-b3e6-e7ab9ef43c97',
-    'student_id': '01-1019-TA',
+    #  'student_uuid': '7766c4a3-877c-4c23-b3e6-e7ab9ef43c97',
+    'student_id': 'AL-CNA-01-1019-TA',
     'first_name': 'Test',
     'last_name': 'A',
     'phone_number': '626-323-1414',
@@ -48,8 +52,8 @@ STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
 }
 
 STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
-    'student_uuid': '90f120c5-1894-4afc-b204-a912172570a5',
-    'student_id': '01-1006-TA',
+    #   'student_uuid': '90f120c5-1894-4afc-b204-a912172570a5',
+    'student_id': 'RO-CNA-01-1006-TA',
     'first_name': 'Test',
     'last_name': 'A',
     'phone_number': '626-323-1414',
@@ -91,16 +95,17 @@ SCHOOL_SAMPLE_POST_DATA = {
 }
 
 PROGRAM_SAMPLE_POST_DATA = {
-    'school': '6bfad48c-ecc6-44ac-b53f-c94ccd240119',
+    'school': '0c805318-7706-405e-a66c-5936062617a5',
     'program_name': 'SG',
     'approval_entities': ['BSIS', 'BPPE']
 }
 
 ROTATION_SAMPLE_POST_DATA = {
-    'program': 'de47da61-278f-4f67-8fbf-7e60de40e9d4',
+    'program': '67301e14-cd3d-493a-a2cf-84d8c490c0ef',
     'rotation_number': 5
 }
 
+# this is the STI HHA student, please change this if test fixture changes
 FILTER_PARAMS = {
     'school_name': 'STI',
     'program_name': 'HHA',
@@ -109,11 +114,11 @@ FILTER_PARAMS = {
     'last_name': 'B',
     'email': 'testb@email.com',
     'phone': '626-333-5544',
-    'id_': '01-1019-TB',
+    'id_': 'RO-HHA-01-1006-TB',
     'start_date': '2021-10-06',
     'completion_date': '2021-12-10',
-    'paid': 'True',
-    'graduated': 'True',
+    'paid': 'False',
+    'graduated': 'False',
     'employed': 'False'
 }
 
@@ -135,3 +140,25 @@ PATCH_DATA = {
 JSON_PERMISSION_DENIED_RES = {
     'detail': 'You do not have permission to perform this action.'
 }
+
+# JSON_OBJ_NOT_FOUND_RES = {
+#     'detail': 'Not found.'
+# }
+JSON_OBJ_NOT_FOUND_RES = None
+
+TEST_SUPERUSER = 'testsuper'
+
+TEST_ADMIN_USER = 'testadmin'
+TEST_ADMIN_OFF_USER = 'testofficeadmin'
+TEST_ADMIN_REC_USER = 'testrecruitadmin'
+TEST_ADMIN_INST_USER = 'testinstructoradmin'
+
+TEST_STAFF_USER = 'teststaff'
+TEST_STAFF_OFF_USER = 'testofficestaff'
+TEST_STAFF_REC_USER = 'testrecruitstaff'
+TEST_STAFF_INST_USER = 'testinstructorstaff'
+
+TEST_REG_USER = 'testuser'
+TEST_REG_OFF_USER = 'testofficeuser'
+TEST_REG_REC_USER = 'testrecruituser'
+TEST_REG_INST_USER = 'testinstructoruser'

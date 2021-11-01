@@ -1,4 +1,32 @@
 [{
+    "model": "sms.school",
+    "pk": "0c805318-7706-405e-a66c-5936062617a5",
+    "fields": {
+        "school_name": "STI",
+        "school_code": "27091740",
+        "school_address": "2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770",
+        "year_founded": "2009-03-05"
+    }
+},
+{
+    "model": "sms.program",
+    "pk": "0af7e2ff-1370-43fb-8bd8-6f4623ecc496",
+    "fields": {
+        "program_name": "HHA",
+        "approval_entities": "[\"CDPH\", \"BPPE\"]",
+        "school": "0c805318-7706-405e-a66c-5936062617a5"
+    }
+},
+{
+    "model": "sms.program",
+    "pk": "67301e14-cd3d-493a-a2cf-84d8c490c0ef",
+    "fields": {
+        "program_name": "CNA",
+        "approval_entities": "[\"CDPH\", \"BPPE\"]",
+        "school": "0c805318-7706-405e-a66c-5936062617a5"
+    }
+},
+{
   "model": "sms.school",
   "pk": "6bfad48c-ecc6-44ac-b53f-c94ccd240119",
   "fields": {

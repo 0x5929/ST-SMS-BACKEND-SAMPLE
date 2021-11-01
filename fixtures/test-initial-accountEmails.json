@@ -1,0 +1,158 @@
+[
+{
+  "model": "account.emailaddress",
+  "pk": 2,
+  "fields": {
+    "user": [
+      "testsuper@localhost"
+    ],
+    "email": "testsuper@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 3,
+  "fields": {
+    "user": [
+      "testadmin@localhost"
+    ],
+    "email": "testadmin@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 4,
+  "fields": {
+    "user": [
+      "testofficeadmin@localhost"
+    ],
+    "email": "testofficeadmin@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 5,
+  "fields": {
+    "user": [
+      "testrecruitadmin@localhost"
+    ],
+    "email": "testrecruitadmin@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 6,
+  "fields": {
+    "user": [
+      "testinstructoradmin@localhost"
+    ],
+    "email": "testinstructoradmin@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 7,
+  "fields": {
+    "user": [
+      "teststaff@localhost"
+    ],
+    "email": "teststaff@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 8,
+  "fields": {
+    "user": [
+      "testofficestaff@localhost"
+    ],
+    "email": "testofficestaff@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 9,
+  "fields": {
+    "user": [
+      "testrecruitstaff@localhost"
+    ],
+    "email": "testrecruitstaff@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 10,
+  "fields": {
+    "user": [
+      "testinstructorstaff@localhost"
+    ],
+    "email": "testinstructorstaff@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 11,
+  "fields": {
+    "user": [
+      "testuser@localhost"
+    ],
+    "email": "testuser@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 12,
+  "fields": {
+    "user": [
+      "testofficeuser@localhost"
+    ],
+    "email": "testofficeuser@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 13,
+  "fields": {
+    "user": [
+      "testrecruituser@localhost"
+    ],
+    "email": "testrecruituser@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 14,
+  "fields": {
+    "user": [
+      "testinstructoruser@localhost"
+    ],
+    "email": "testinstructoruser@localhost",
+    "verified": true,
+    "primary": true
+  }
+}
+]

@@ -31,15 +31,15 @@ class SMSValidator:
         request = serializer.context.get('request')
         partial = serializer.partial
 
-        same_school_verified = cls.ensure_same_school(data, request, 'rotation', partial)
-        return cls.ensure_unique_rot(same_school_verified, serializer.partial)
-
+        same_school_verified = cls.ensure_same_school(
+            data, request, 'rotation', partial)
+        return cls.ensure_unique_rot(same_school_verified, serializer.partial, serializer.instance)
 
     @classmethod
     def program_final_validation(cls, serializer, data):
         request = serializer.context.get('request')
         partial = serializer.partial
-        
+
         return cls.ensure_same_school(data, request, 'program', partial)
 
     @staticmethod
@@ -58,7 +58,7 @@ class SMSValidator:
     def no_special_chars_and_captialize_string(value):
         err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (, . #).'
 
-        pattern = '[A-Za-z0-9,.#\s]{1,150}'
+        pattern = '[A-Za-z0-9,.#\s]{0,150}'
         return value.strip().capitalize() if re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
 
     @staticmethod
@@ -71,7 +71,7 @@ class SMSValidator:
     @staticmethod
     def student_id_format_checker(value):
         err_msg = 'Please follow the following format for the student ID: "RO-(CNA|HHA|SG|ESOL)-###-MMYY-FL"'
-        pattern = '^RO-(CNA|HHA|SG|ESOL)-[0-9]{1,3}-[0-9]{4}-[A-Z]{2}$'
+        pattern = '^(RO|AL)-(CNA|HHA|SG|ESOL)-[0-9]{1,3}-[0-9]{4}-[A-Z]{2}$'
 
         return value if re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
 
@@ -94,27 +94,25 @@ class SMSValidator:
         return data if data.get('start_date') < data.get('completion_date') else ExceptionHandler.raise_verror(date_err_msg)
 
     @staticmethod
-    def ensure_unique_rot(data, partial=False):
+    def ensure_unique_rot(data, partial=False, instance=None):
         err_msg = 'This rotation number already exist for this program, please try again with a different rotation number.'
         update_err_msg = 'Cannot update rotation number without providing program.'
 
-        if partial:
-            if not data.get('program') and not data.get('rotation_number'):
-                return data
+        if instance and not partial:
+            # put
+            program_uuid = getattr(instance, 'program').program_uuid
 
-            elif not data.get('program') or not data.get('rotation_number'):
-                return ExceptionHandler.raise_verror(update_err_msg)
-
-            elif data.get('program') and data.get('rotation_number'):
-                pass
+        elif instance and partial:
+            program_uuid = getattr(instance, 'program').program_uuid
 
         # grab program id from request data
-        program_id = data.get('program').program_uuid
+        else:
+            program_uuid = data.get('program').program_uuid
 
         # check if rotation's have one with the same number and program ID
         from .models import Rotation
         rot_exists = Rotation.objects.filter(
-            program__program_uuid=program_id, rotation_number=data.get('rotation_number')).exists()
+            program__program_uuid=program_uuid, rotation_number=data.get('rotation_number')).exists()
 
         # if there is a rotation already, raise error
         if rot_exists:
@@ -168,36 +166,3 @@ class SMSValidator:
             ExceptionHandler.raise_verror(err_msg)
 
         return data
-
-    # no need for this method since we are checking uniqueness at the database lvl,
-    # also student id is given a longer format, to distinguish between schools and programs
-    # much lesser chance to duplicate any student IDs
-    # @staticmethod
-    # def ensure_no_dup_student_id(data, instance, partial=False):
-    #     err_msg = 'You are adding/updating a student ID that already exists, please try again.'
-
-    #     if partial and not data.get('student_id'):
-    #         return data
-    #     elif partial and data.get('student_id'):
-    #         ExceptionHandler.raise_verror(
-    #             'Please use PUT when updating student id')
-
-    #     school_name = data.get('rotation').program.school.school_name
-
-    #     from .models import Student
-
-    #     student_exists = Student.objects.filter(
-    #         rotation__program__school__school_name__exact=school_name, student_id__exact=data.get('student_id')).exists()
-
-    #     # if updating we should have exactly one student record, and if we are not changing the student ID,
-    #     # then we can return data
-    #     if instance and student_exists and data.get('student_id') == getattr(instance, 'student_id'):
-    #         return data
-
-    #     # if we are creating and there is exactly 0 student record with the student ID, return data
-    #     elif not instance and not student_exists == 0:
-    #         return data
-
-    #     # all else, raise validation error
-    #     else:
-    #         return ExceptionHandler.raise_verror(err_msg)

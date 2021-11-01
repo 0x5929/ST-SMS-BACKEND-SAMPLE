@@ -2,7 +2,7 @@ Feature: Student Management office users only
 
     admin, staff, regular users must be labeled as an office worker to access sms resources
     superuser not tested in this feature, can access all, but is tested in respective get/post/put/patch/del features
-    
+
     Scenario: admin user requesting to read /api/sms/schools
         Given logged on as admin user with is_office set to false
         When request GET to /api/sms/schools
@@ -86,7 +86,7 @@ Feature: Student Management office users only
 
     Scenario: admin user requesting to partially update  /api/sms/students
         Given logged on as admin user with is_office set to false
-        When request PATCH to /api/sms/students/students_uuid
+        When request PATCH to /api/sms/students/student_uuid
         Then No data response will be sent from server
 
 
@@ -222,7 +222,7 @@ Feature: Student Management office users only
         When request DELETE to /api/sms/students/student_uuid
         Then No data response will be sent from server
 
-   Scenario: regular user requesting to read /api/sms/schools
+    Scenario: regular user requesting to read /api/sms/schools
         Given logged on as regular user with is_office set to false
         When request GET to /api/sms/schools
         Then No data response will be sent from server
@@ -305,7 +305,7 @@ Feature: Student Management office users only
 
     Scenario: regular user requesting to partially update /api/sms/schools
         Given logged on as regular user with is_office set to false
-        When request PATCH to api/sms/schools/school_uuid
+        When request PATCH to /api/sms/schools/school_uuid
         Then No data response will be sent from server
 
 

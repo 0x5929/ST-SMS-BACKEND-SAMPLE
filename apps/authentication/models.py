@@ -101,8 +101,5 @@ class Account(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
-    def save(self, *args, **kwargs):
-        return super().save(*args, **kwargs)
-
     def __str__(self):
         return self.username
