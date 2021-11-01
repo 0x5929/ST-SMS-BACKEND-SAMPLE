@@ -1,11 +1,8 @@
-
-from behave import fixture, use_fixture
-import django
-from django.core.management import call_command
-from django.test.runner import DiscoverRunner
-from django.test.testcases import TestCase, LiveServerTestCase
-from rest_framework.test import APIClient
 import os
+import django
+from django.test.runner import DiscoverRunner
+from django.test.testcases import TestCase
+from rest_framework.test import APIClient
 
 # This is necessary for all installed apps to be recognized, for some reason.
 os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings.dev-settings'
@@ -26,7 +23,7 @@ def after_all(context):
 def before_scenario(context, scenario):
     context.test = TestCase
     context.test.fixtures = ['test-initial-users.json',
-                             'test-initial-accountEmails.json', 'initial-test-sms-data.json']
+                             'test-initial-accountEmails.json', 'test-initial-sms-data.json']
 
     context.test.setUpClass()
 
