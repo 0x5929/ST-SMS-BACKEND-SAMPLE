@@ -6,6 +6,11 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
+
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+
+
 from .utils import DataHelper
 from .data_operations import GoogleSheetDataOps
 
@@ -27,13 +32,19 @@ class GoogleSheet:
 
         # MATCH FIRST
         # lookup by ID to determine if this is create or update
-        update_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
-            'student_id'), SHEET_CONSTANTS.get('IMPORT'))
+        # update_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
+        #     'student_id'), SHEET_CONSTANTS.get('IMPORT'))
+
+        update_row_num = gs_api.match(gs_api.google_sheet_client, data.get(
+            'student_id'))
 
         if update_row_num:
-            return gs_api.update(gs_api.sheet_id, gs_api.sheets_api, update_row_num, insert_ready_data)
+            # return gs_api.update(gs_api.sheet_id, gs_api.sheets_api, update_row_num, insert_ready_data)
+            return gs_api.update(gs_api.google_sheet_client, update_row_num, insert_ready_data)
+
         else:
-            return gs_api.create(gs_api.sheet_id, gs_api.sheets_api, insert_ready_data)
+            # return gs_api.create(gs_api.sheet_id, gs_api.sheets_api, insert_ready_data)
+            return gs_api.update(gs_api.google_sheet_client, update_row_num, insert_ready_data)
 
         # create and update accordingly, or save(), dont forget to sort after with refresh
 
@@ -47,11 +58,16 @@ class GoogleSheet:
         gs_api = cls.init_google_sheet(school)
 
         # lookup by ID
-        del_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
-            'student_id'), SHEET_CONSTANTS.get('IMPORT'))
+        # del_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
+        #     'student_id'), SHEET_CONSTANTS.get('IMPORT'))
+
+        del_row_num = gs_api.match(gs_api.google_sheet_client, data.get(
+            'student_id'))
+
 
         if del_row_num:
-            return gs_api.delete(gs_api.sheet_id, gs_api.sheets_api, del_row_num)
+            # return gs_api.delete(gs_api.sheet_id, gs_api.sheets_api, del_row_num)
+            return gs_api.delete(gs_api.google_sheet_client, del_row_num)
         else:
             pass
 
@@ -64,43 +80,57 @@ class GoogleSheet:
 
         try:
 
-            # connect to google sheet
-            creds = None
 
-            # The file token.json stores the user's access and refresh tokens, and is
-            # created automatically when the authorization flow completes for the first
-            # time.
+            scope = SHEET_CONSTANTS.get('SCOPES')
+            creds = ServiceAccountCredentials.from_json_keyfile_name('st-sms-creds.json', scope)
 
-            if os.path.exists('token.json'):
-                creds = Credentials.from_authorized_user_file(
-                    'token.json', SHEET_CONSTANTS.get('SCOPES'))
+            google_sheet_client = gspread.authorize(creds)
 
-            # If there are no (valid) credentials available, let the user log in.
-            if not creds or not creds.valid:
-                if creds and creds.expired and creds.refresh_token:
-                    creds.refresh(Request())
-                else:
-                    flow = InstalledAppFlow.from_client_secrets_file(
-                        'credentials.json', SHEET_CONSTANTS.get('SCOPES'))
-                    creds = flow.run_local_server(port=0)
-                # Save the credentials for the next run
-                with open('token.json', 'w') as token:
-                    token.write(creds.to_json())
-
-            service = build('sheets', 'v4', credentials=creds)
-
-            # Call the Sheets API
-            sheets_api = service.spreadsheets()
-
-            sheet_id = cls.parse_sheet_id(school_name)
-
-            # grab sheet ID, and other constants depending on school name
             return cls(
-                sheet=sheets_api,
-                sheet_id=sheet_id,
+                google_sheet_client=google_sheet_client,
                 create=GoogleSheetDataOps.create_record,
                 update=GoogleSheetDataOps.update_record,
-                delete=GoogleSheetDataOps.delete_record)
+                delete=GoogleSheetDataOps.delete_record,
+                match=GoogleSheetDataOps.match_record)
+
+
+            # # connect to google sheet
+            # creds = None
+
+            # # The file token.json stores the user's access and refresh tokens, and is
+            # # created automatically when the authorization flow completes for the first
+            # # time.
+
+            # if os.path.exists('token.json'):
+            #     creds = Credentials.from_authorized_user_file(
+            #         'token.json', SHEET_CONSTANTS.get('SCOPES'))
+
+            # # If there are no (valid) credentials available, let the user log in.
+            # if not creds or not creds.valid:
+            #     if creds and creds.expired and creds.refresh_token:
+            #         creds.refresh(Request())
+            #     else:
+            #         flow = InstalledAppFlow.from_client_secrets_file(
+            #             'credentials.json', SHEET_CONSTANTS.get('SCOPES'))
+            #         creds = flow.run_local_server(port=0)
+            #     # Save the credentials for the next run
+            #     with open('token.json', 'w') as token:
+            #         token.write(creds.to_json())
+
+            # service = build('sheets', 'v4', credentials=creds)
+
+            # # Call the Sheets API
+            # sheets_api = service.spreadsheets()
+
+            # sheet_id = cls.parse_sheet_id(school_name)
+
+            # # grab sheet ID, and other constants depending on school name
+            # return cls(
+            #     sheet=sheets_api,
+            #     sheet_id=sheet_id,
+            #     create=GoogleSheetDataOps.create_record,
+            #     update=GoogleSheetDataOps.update_record,
+            #     delete=GoogleSheetDataOps.delete_record)
 
         except Exception as e:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
@@ -114,15 +144,23 @@ class GoogleSheet:
                 # therefore updating and creating data on spreadsheet in order as intended.
                 # simple solution, but hopefully scalable
 
-    @classmethod
-    def parse_sheet_id(cls, school_name):
-        return SHEET_CONSTANTS.get('SPREADSHEET_ID').get(school_name)
+    # @classmethod
+    # def parse_sheet_id(cls, school_name):
+    #     return SHEET_CONSTANTS.get('SPREADSHEET_ID').get(school_name)
 
     # obj init and database operations from data_operations.py
 
-    def __init__(self, sheets_api, sheet_id, create, update, delete, match):
-        self.sheets_api = sheets_api
-        self.sheet_id = sheet_id
+    # def __init__(self, sheets_api, sheet_id, create, update, delete, match):
+    #     self.sheets_api = sheets_api
+    #     self.sheet_id = sheet_id
+    #     self.create = create
+    #     self.update = update
+    #     self.delete = delete
+    #     self.match = match
+
+
+    def __init__(self, google_sheet_client, create, update, delete, match):
+        self.google_sheet_client = google_sheet_client
         self.create = create
         self.update = update
         self.delete = delete
