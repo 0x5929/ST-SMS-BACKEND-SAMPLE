@@ -90,10 +90,19 @@ SHEET_CONSTANTS = {
 
     'SCOPES': ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'],
 
-    'SPREADSHEET_ID': {'Select Therapy Institute': '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U'},
+    'SPREADSHEET_ID': {
+        'STI': {
+            'dev':  '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U',
+            'test': '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU',
+            'prod': '1lniXCNcKlzKqpVmPjRPiKPOly1prOODzaVM_f-UPWoM'
+        }
+    },
 
-    # switch to True when importing csv from view
-    'IMPORT': False,
+    # google sheet database sheet GID
+    'DATABASE_SHEET_ID': 0,
+
+    # google sheet database match sheet GID
+    'MATCH_OPERATION_SHEET_ID': 483625289,
 
     # master google sheet database sheet name
     'DATABASE_SHEET': 'Sheet1',

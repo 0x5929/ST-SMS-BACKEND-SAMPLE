@@ -242,3 +242,5 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+
+ENV = 'TEST' if 'test' in sys.argv or 'behave' in sys.argv else 'DEV'
