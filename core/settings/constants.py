@@ -88,7 +88,7 @@ STUDENT_RECORD_HEADERS = (
 
 SHEET_CONSTANTS = {
 
-    'SCOPES': ['https://www.googleapis.com/auth/spreadsheets', ],
+    'SCOPES': ['https://www.googleapis.com/auth/spreadsheets', 'https://www.googleapis.com/auth/drive'],
 
     'SPREADSHEET_ID': {'Select Therapy Institute': '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U'},
 

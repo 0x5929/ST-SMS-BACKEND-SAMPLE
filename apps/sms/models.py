@@ -160,7 +160,7 @@ class Student(models.Model):
             self.google_sheet_migration_issue = method
             #msg = 'Did not save the data in Master DB on Google Sheet, cancelling the %s operation, please try again. Error: %s ' % (method, repr(e))
             msg = f'Did not save the data in Master DB on Google Sheet, cancelling the {method} operation, please try again. Error: {repr(e)}'
-            raise ImproperlyConfigured(msg=msg, code='Canceled-due-to-GSC')
+            raise ImproperlyConfigured(msg)
 
     def pre_hook(self, action):
         # check student charges, if they paid up (technically not needed for delete)

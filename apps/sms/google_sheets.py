@@ -35,18 +35,22 @@ class GoogleSheet:
         # update_row_num = gs_api.match(gs_api.sheet_id, gs_api.sheets_api, data.get(
         #     'student_id'), SHEET_CONSTANTS.get('IMPORT'))
 
+        # print('google_sheet_client: ', gs_api.google_sheet_client)
         update_row_num = gs_api.match(gs_api.google_sheet_client, data.get(
             'student_id'))
 
         if update_row_num:
             # return gs_api.update(gs_api.sheet_id, gs_api.sheets_api, update_row_num, insert_ready_data)
-            return gs_api.update(gs_api.google_sheet_client, update_row_num, insert_ready_data)
+            gs_api.update(gs_api.google_sheet_client, update_row_num, insert_ready_data)
+            #gs_api.refresh(gs_api.google_sheet_client)
 
         else:
             # return gs_api.create(gs_api.sheet_id, gs_api.sheets_api, insert_ready_data)
-            return gs_api.update(gs_api.google_sheet_client, update_row_num, insert_ready_data)
-
+            gs_api.create(gs_api.google_sheet_client, insert_ready_data)
+            #gs_api.refresh(gs_api.google_sheet_client)
         # create and update accordingly, or save(), dont forget to sort after with refresh
+
+        return gs_api.refresh(gs_api.google_sheet_client)
 
     @classmethod
     def master_sheet_del(cls, data):
@@ -67,9 +71,13 @@ class GoogleSheet:
 
         if del_row_num:
             # return gs_api.delete(gs_api.sheet_id, gs_api.sheets_api, del_row_num)
-            return gs_api.delete(gs_api.google_sheet_client, del_row_num)
+            gs_api.delete(gs_api.google_sheet_client, del_row_num)
+            #gs_api.refresh(gs_api.google_sheet_client)
         else:
             pass
+
+        return gs_api.refresh(gs_api.google_sheet_client)
+
 
     @classmethod
     def init_google_sheet(cls, school_name, recurse_counter=None):
@@ -91,7 +99,8 @@ class GoogleSheet:
                 create=GoogleSheetDataOps.create_record,
                 update=GoogleSheetDataOps.update_record,
                 delete=GoogleSheetDataOps.delete_record,
-                match=GoogleSheetDataOps.match_record)
+                match=GoogleSheetDataOps.match_record,
+                refresh=GoogleSheetDataOps.refresh)
 
 
             # # connect to google sheet
@@ -159,9 +168,10 @@ class GoogleSheet:
     #     self.match = match
 
 
-    def __init__(self, google_sheet_client, create, update, delete, match):
+    def __init__(self, google_sheet_client, create, update, delete, match, refresh):
         self.google_sheet_client = google_sheet_client
         self.create = create
         self.update = update
         self.delete = delete
         self.match = match
+        self.refresh = refresh

@@ -1,3 +1,5 @@
+from os import stat
+import re
 from core.settings.constants import STUDENT_RECORD_HEADERS
 import uuid
 
@@ -62,7 +64,7 @@ class DataHelper:
         data = {}
 
         for header in STUDENT_RECORD_HEADERS:
-            if header == 'graduate' or \
+            if header == 'graduated' or \
                     header == 'passed_first_exam' or \
                     header == 'passed_second_or_third_exam' or \
                     header == 'employed':
@@ -82,10 +84,26 @@ class DataHelper:
 
                 data[header] = cls.money_conversion(model, header)
 
+            elif header == 'course':
+                data[header] = cls.course_conversion(model, header)
             else:
                 data[header] = str(getattr(model, header))
 
         return data
+
+    @staticmethod
+    def course_conversion(model, header):
+        value = getattr(model, header)
+
+        if value == 'CNA':
+            return 'Nurse Assistant'
+        elif value == 'HHA':
+            return 'Home Health Aide'
+        elif value == 'SG':
+            return 'Security Guard'
+        else:
+            return value
+        
 
     @ staticmethod
     def bool_conversion(model, header):
@@ -96,14 +114,14 @@ class DataHelper:
     def date_conversion(model, header):
 
         date_obj = getattr(model, header)
-        return f'{str(date_obj.day)}/{str(date_obj.month)}/{str(date_obj.year)}'
+        return f'{str(date_obj.month)}/{str(date_obj.day)}/{str(date_obj.year)}'
         # return '%s/%s/%s' % (str(date_obj.day), str(date_obj.month), str(date_obj.year))
 
     @ staticmethod
     def money_conversion(model, header):
 
         money_obj = getattr(model, header)
-        return f'${str(money_obj.amount)}'
+        return f'${str(money_obj.amount)}' if money_obj else ''
         # return '$%s' % str(money_obj.amount)
 
     # NOTE data keys are assigned by each item inside STUDENT_RECORD_HEADERS,

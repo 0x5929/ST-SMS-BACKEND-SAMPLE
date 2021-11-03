@@ -14,17 +14,17 @@ class GoogleSheetDataOps:
         recurse_counter = 1 if not recurse_counter else recurse_counter + 1
 
         #spread_sheet_Id = sheet_id
-        range_ = SHEET_CONSTANTS.get('DATABASE_SHEET')
+        # range_ = SHEET_CONSTANTS.get('DATABASE_SHEET')
         value_input_option = 'USER_ENTERED'
         insert_data_option = 'INSERT_ROWS'
-        major_dimension = 'ROWS'
+        # major_dimension = 'ROWS'
         values = [data]
 
-        body = {
-            "majorDimension": major_dimension,
-            "range": range_,
-            "values": [data]
-        }
+        # body = {
+        #     "majorDimension": major_dimension,
+        #     "range": range_,
+        #     "values": [data]
+        # }
 
         try:
             # this needs to be configurable for dev, test and production, perferrably in the parent class
@@ -41,7 +41,7 @@ class GoogleSheetDataOps:
             #                            body=body).execute()
 
             # GoogleSheetDataOps.refresh(sheet_id, sheets_api)
-            GoogleSheetDataOps.refresh(google_sheet_client)
+            #GoogleSheetDataOps.refresh(google_sheet_client)
 
         except Exception as e:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
@@ -61,32 +61,34 @@ class GoogleSheetDataOps:
         recurse_counter = 1 if not recurse_counter else recurse_counter + 1
 
         # spread_sheet_Id = sheet_id
-        range_ = f"{SHEET_CONSTANTS.get('DATABSE_SHEET')}!A{row_num}:Y{row_num}"
+        # range_ = f"{SHEET_CONSTANTS.get('DATABSE_SHEET')}!A{row_num}:Y{row_num}"
+        range_ = f"{SHEET_CONSTANTS.get('DATABASE_SHEET')}!A{row_num}:Y{row_num}"
 
         # keep in case needed for backwards compatibility
         # range_ = "%s!A%s:Y%s" % \
         #     (SHEET_CONSTANTS.get('DATABASE_SHEET'), row_num, row_num)
  
  
-        # value_input_option = "USER_ENTERED"
-        # include_values_in_response = True
-        # response_value_render_option = "FORMATTED_VALUE"
-        # major_dimension = "ROWS"
+        value_input_option = "USER_ENTERED"
+        include_values_in_response = True
+        response_value_render_option = "FORMATTED_VALUE"
+        major_dimension = "ROWS"
 
-        # request_body = {
-        #     "majorDimension": major_dimension,
-        #     "range": range_,
-        #     "values": [row_to_update]
+        request_body = {
+            "majorDimension": major_dimension,
+          #  "range": range_,
+            "values": [row_to_update]
 
-        # }
-
-        values = [row_to_update]
-
+        }
 
         try:
-            db_worksheet = google_sheet_client.open('test_DB').get_worksheet_by_id(0)
+            spreadsheet = google_sheet_client.open('test_DB')
 
-            db_worksheet.update(range_, values)
+            spreadsheet.values_update(range_, params={
+                'valueInputOption': value_input_option, 
+                'responseValueRenderOption': response_value_render_option, 
+                'includeValuesInResponse': include_values_in_response}, 
+                body=request_body)
 
             # update row
             # sheets_api.values().update(
@@ -99,7 +101,7 @@ class GoogleSheetDataOps:
             # refresh database
             
             # GoogleSheetDataOps.refresh(sheet_id, sheets_api)
-            GoogleSheetDataOps.refresh(google_sheet_client)
+            #GoogleSheetDataOps.refresh(google_sheet_client)
 
         except Exception as e:
 
@@ -154,7 +156,7 @@ class GoogleSheetDataOps:
 
             # refresh database
             # GoogleSheetDataOps.refresh(sheet_id, sheets_api)
-            GoogleSheetDataOps.refresh(google_sheet_client)
+            #GoogleSheetDataOps.refresh(google_sheet_client)
 
         except Exception as e:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
@@ -182,13 +184,16 @@ class GoogleSheetDataOps:
         #include_values_in_response = True
         #response_value_render_option = "FORMATTED_VALUE"
         #value_input_option = "USER_ENTERED"
-        update_range = f"{SHEET_CONSTANTS.get('MATCH_OPERATION_SHEET')}!A1"
+        # update_range = f"{SHEET_CONSTANTS.get('MATCH_OPERATION_SHEET')}!A1"
+
+        update_cell = 'A1'
         # update_range = "%s!A1" % SHEET_CONSTANTS.get(
         #     'MATCH_OPERATION_SHEET')
         #major_dimension = "ROWS"
         
         
-        results_fetch_range = f"{SHEET_CONSTANTS.get('MATCH_OPERATION_SHEET')}!A:Y"
+        # results_fetch_range = f"{SHEET_CONSTANTS.get('MATCH_OPERATION_SHEET')}!A:Y"
+        results_fetch_range = 'A:Y'
         # results_fetch_range = "%s!A:Y" % SHEET_CONSTANTS.get(
         #     'MATCH_OPERATION_SHEET')
 
@@ -213,9 +218,9 @@ class GoogleSheetDataOps:
         try:
 
 
-            db_worksheet = google_sheet_client.open('test_DB').get_worksheet_by_id(0)
+            db_worksheet = google_sheet_client.open('test_DB').get_worksheet_by_id(483625289)
 
-            db_worksheet.update(update_range, query, raw=False)
+            db_worksheet.update(update_cell, query, raw=False)
 
             # send in the match
             # sheets_api.values().update(
@@ -236,10 +241,9 @@ class GoogleSheetDataOps:
             # query_result = sheets_api.values().get(spreadsheetId=spread_sheet_Id,
             #                                        range=results_fetch_range).execute()
 
-            print('HELLO WORLD QUERY RESULT, NOT SURE WHAT TYPE IT IS: ', query_result)
-            values = query_result.get('values', [])
+            # query_result = [[result]]
+            return None if query_result[0][0] == '#N/A' else query_result[0][0]
 
-            return values[0][0] if values else None
 
         except Exception as e:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
@@ -250,7 +254,7 @@ class GoogleSheetDataOps:
                 #                          student_id, match_col, import_, recurse_counter)
 
                 GoogleSheetDataOps.match_record(google_sheet_client,
-                                         student_id, match_col, recurse_counter)
+                                         student_id, recurse_counter)
 
     # @staticmethod
     # def refresh(sheet_id, sheets_api, recurse_counter=None):
@@ -268,7 +272,7 @@ class GoogleSheetDataOps:
             
             spreadsheet = google_sheet_client.open('test_DB')
 
-            spreadsheet.batch_update(body=sort_request)
+            res = spreadsheet.batch_update(body=sort_request)
 
             # sheets_api.batchUpdate(spreadsheetId=sheet_id,
             #                        body=sort_request).execute()
