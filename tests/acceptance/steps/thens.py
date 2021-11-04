@@ -32,7 +32,10 @@ def database_create_student(context):
 
     # assert
     context.test().assertEqual(response.get('first_name'), posted_student_first_name)
-
+    
+    
+    # we need to test google sheet migration, and delete student!
+    
 
 # when posting to /api/sms/students/ with a rotation of a program that belongs to another school location
 @ then('database will not create the student record')
@@ -44,6 +47,8 @@ def database_will_not_create_student(context):
     context.test().assertNotEqual(response.get('student_id'), posted_student_id)
 
 
+
+
 @ then('database will edit the student record')
 def database_will_edit_student(context):
     response = context.response.data
@@ -52,6 +57,8 @@ def database_will_edit_student(context):
 
     context.test().assertEqual(response.get('last_name'), editted_last_name)
 
+    # we need to test google sheet migration, and delete student!
+    
 
 @ then('database will partially edit the student record')
 def database_will_partially_edit_student(context):

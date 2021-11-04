@@ -57,7 +57,8 @@ class GoogleSheet:
         del_row_num = gs_api.match(gs_api.worksheets, data.get(
             'student_id'))
 
-
+        print('THIS REALLY SHOULD DELETE: ', del_row_num)
+        time.sleep(20)
         if del_row_num:
             gs_api.delete(gs_api.spreadsheet, del_row_num)
         else:
