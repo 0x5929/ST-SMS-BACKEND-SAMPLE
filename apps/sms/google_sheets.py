@@ -1,5 +1,4 @@
 import time
-import os.path
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from googleapiclient.discovery import build
@@ -122,15 +121,15 @@ class GoogleSheet:
 
 
     def get_spreadsheet(self):
-        print('HELLO WORLD, ARE WE TESTING? ', self.env)
-        if self.env == 'TEST':
+
+        if self.env == 'DEV':
+            return self.google_sheet_client.open_by_key(SHEET_CONSTANTS.get('SPREADSHEET_ID').get(self.school_name).get('dev'))
+
+        elif self.env == 'TEST':
             return self.google_sheet_client.open_by_key(SHEET_CONSTANTS.get('SPREADSHEET_ID').get(self.school_name).get('test'))
 
         elif self.env == 'PROD':
             return self.google_sheet_client.open_by_key(SHEET_CONSTANTS.get('SPREADSHEET_ID').get(self.school_name).get('prod'))
-
-        elif self.env == 'DEV':
-            return self.google_sheet_client.open_by_key(SHEET_CONSTANTS.get('SPREADSHEET_ID').get(self.school_name).get('dev'))
         
         else:
             raise ImproperlyConfigured('INVALID SPREADSHEET ID')

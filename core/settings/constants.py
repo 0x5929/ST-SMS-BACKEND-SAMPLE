@@ -95,8 +95,16 @@ SHEET_CONSTANTS = {
             'dev':  '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U',
             'test': '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU',
             'prod': '1lniXCNcKlzKqpVmPjRPiKPOly1prOODzaVM_f-UPWoM'
+        },
+        
+        # second location, mainly for testing purpose, until there is an actual second school loc
+        'ST2': {
+            'dev':  '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U',
+            'test': '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU',
+            'prod': '1lniXCNcKlzKqpVmPjRPiKPOly1prOODzaVM_f-UPWoM'
         }
     },
+
 
     # google sheet database sheet GID
     'DATABASE_SHEET_ID': 0,

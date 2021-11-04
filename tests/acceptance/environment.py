@@ -6,7 +6,7 @@ from django.test.runner import DiscoverRunner
 
 
 def before_all(context):
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings.dev-settings'
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings.test'
     django.setup()
     context.test_runner = DiscoverRunner()
     context.test_runner.setup_test_environment()
