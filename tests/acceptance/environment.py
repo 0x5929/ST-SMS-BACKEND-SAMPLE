@@ -1,14 +1,12 @@
+
+from django.test.testcases import TestCase
 import os
 import django
 from django.test.runner import DiscoverRunner
-from django.test.testcases import TestCase
-from rest_framework.test import APIClient
-
-# This is necessary for all installed apps to be recognized, for some reason.
-os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings.dev-settings'
 
 
 def before_all(context):
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings.dev-settings'
     django.setup()
     context.test_runner = DiscoverRunner()
     context.test_runner.setup_test_environment()
@@ -21,12 +19,14 @@ def after_all(context):
 
 
 def before_scenario(context, scenario):
+
     context.test = TestCase
     context.test.fixtures = ['test-initial-users.json',
                              'test-initial-accountEmails.json', 'test-initial-sms-data.json']
 
     context.test.setUpClass()
 
+    from rest_framework.test import APIClient
     context.test.client = APIClient()
 
 
