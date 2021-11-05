@@ -1,13 +1,9 @@
 import time
+import gspread
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
 from core.settings.constants import SHEET_CONSTANTS
-
-import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 
@@ -36,7 +32,8 @@ class GoogleSheet:
             'student_id'))
 
         if update_row_num:
-            gs_api.update(gs_api.spreadsheet, update_row_num, insert_ready_data)
+            gs_api.update(gs_api.spreadsheet,
+                          update_row_num, insert_ready_data)
 
         else:
             gs_api.create(gs_api.worksheets, insert_ready_data)
@@ -54,8 +51,7 @@ class GoogleSheet:
         gs_api = cls.init_google_sheet(school)
 
         # lookup by ID
-        del_row_num = gs_api.match(gs_api.worksheets, data.get(
-            'student_id'))
+        del_row_num = gs_api.match(gs_api.worksheets, data.get('student_id'))
 
         if del_row_num:
             gs_api.delete(gs_api.spreadsheet, del_row_num)
@@ -63,7 +59,6 @@ class GoogleSheet:
             pass
 
         return gs_api.refresh(gs_api.spreadsheet)
-
 
     @classmethod
     def init_google_sheet(cls, school_name, recurse_counter=None):
@@ -76,7 +71,8 @@ class GoogleSheet:
 
             # # connect to google sheet
             scopes = SHEET_CONSTANTS.get('SCOPES')
-            creds = ServiceAccountCredentials.from_json_keyfile_name('st-sms-creds.json', scopes)
+            creds = ServiceAccountCredentials.from_json_keyfile_name(
+                'st-sms-creds.json', scopes)
 
             google_sheet_client = gspread.authorize(creds)
 
@@ -88,9 +84,6 @@ class GoogleSheet:
                 delete=GoogleSheetDataOps.delete_record,
                 match=GoogleSheetDataOps.match_record,
                 refresh=GoogleSheetDataOps.refresh)
-
-
-
 
         except Exception as e:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
@@ -104,9 +97,13 @@ class GoogleSheet:
                 # therefore updating and creating data on spreadsheet in order as intended.
                 # simple solution, but hopefully scalable
 
+    def __init__(self,
+                 google_sheet_client,
+                 school_name,
+                 create=None, update=None, delete=None, match=None, refresh=None):
 
-
-    def __init__(self, google_sheet_client, school_name, create, update, delete, match, refresh):
+        # in case we want to initiate a GoogleSheet obj and work directly with gspread api
+        # the data operation methods can be initialized wo
         self.google_sheet_client = google_sheet_client
         self.school_name = school_name
         self.create = create
@@ -118,21 +115,39 @@ class GoogleSheet:
         self.spreadsheet = self.get_spreadsheet()
         self.worksheets = self.get_worksheets()
 
-
     def get_spreadsheet(self):
 
         if self.env == 'DEV':
-            return self.google_sheet_client.open_by_key(SHEET_CONSTANTS.get('SPREADSHEET_ID').get(self.school_name).get('dev'))
+            return self.google_sheet_client.open_by_key(
+                SHEET_CONSTANTS.get(
+                    'SPREADSHEET_ID').get(
+                        self.school_name).get(
+                            'dev'))
 
         elif self.env == 'TEST':
-            return self.google_sheet_client.open_by_key(SHEET_CONSTANTS.get('SPREADSHEET_ID').get(self.school_name).get('test'))
+            return self.google_sheet_client.open_by_key(
+                SHEET_CONSTANTS.get(
+                    'SPREADSHEET_ID').get(
+                        self.school_name).get(
+                            'test'))
 
         elif self.env == 'PROD':
-            return self.google_sheet_client.open_by_key(SHEET_CONSTANTS.get('SPREADSHEET_ID').get(self.school_name).get('prod'))
-        
+            return self.google_sheet_client.open_by_key(
+                SHEET_CONSTANTS.get(
+                    'SPREADSHEET_ID').get(
+                        self.school_name).get(
+                            'prod'))
+
         else:
             raise ImproperlyConfigured('INVALID SPREADSHEET ID')
 
     def get_worksheets(self):
-        return {'db_worksheet' : self.spreadsheet.get_worksheet_by_id(SHEET_CONSTANTS.get('DATABASE_SHEET_ID')),
-                'match_worksheet': self.spreadsheet.get_worksheet_by_id(SHEET_CONSTANTS.get('MATCH_OPERATION_SHEET_ID'))}
+        return {
+
+            'db_worksheet': self.spreadsheet.get_worksheet_by_id(
+                SHEET_CONSTANTS.get(
+                    'DATABASE_SHEET_ID')),
+
+            'match_worksheet': self.spreadsheet.get_worksheet_by_id(
+                SHEET_CONSTANTS.get('MATCH_OPERATION_SHEET_ID'))
+        }

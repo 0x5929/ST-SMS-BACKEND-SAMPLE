@@ -64,7 +64,7 @@ def logged_on_as_admin_user_is_office_true(context):
     context.csrf_token = auth_resp.cookies['csrftoken']
 
 
-@ given('logged on as admin user with is_office set to false')
+@given('logged on as admin user with is_office set to false')
 def logged_on_as_admin_user_is_office_false(context):
     # POST to login
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {

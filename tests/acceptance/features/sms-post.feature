@@ -14,7 +14,7 @@ Feature: Student Management CREATE access
     Scenario: superuser requesting to create a student resource of a program rotation from different school
         Given logged on as superuser
         When request POST to /api/sms/students to a program rotation of another school
-        Then database will create the student record
+        Then database will create the student record of another school
 
 
     Scenario: superuser requesting to create sms/schools resource

@@ -87,6 +87,36 @@ STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
     'rotation': 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
 }
 
+
+GOOGLE_POST_DATA = [
+    'RO-HHA-01-1006-TB',
+    'test_b',
+    'B',
+    'Test',
+    '626-333-5544',
+    'testb@email.com',
+    '1300 N. Fake Ave, TestB, CA 91888',
+    'Home Health Aide',
+    '12/9/21',
+    '12/10/21',
+    '12/9/21',
+    '',
+    '$680',
+    '$680',
+    '$600',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+]
+
+# 		B							12/10/21	12/9/21			$680	$600
 SCHOOL_SAMPLE_POST_DATA = {
     'school_name': 'ST3',
     'school_code': '27091742',
@@ -115,7 +145,7 @@ FILTER_PARAMS = {
     'email': 'testb@email.com',
     'phone': '626-333-5544',
     'id_': 'RO-HHA-01-1006-TB',
-    'start_date': '2021-10-06',
+    'start_date': '2021-12-09',
     'completion_date': '2021-12-10',
     'paid': 'False',
     'graduated': 'False',

@@ -96,7 +96,7 @@ SHEET_CONSTANTS = {
             'test': '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU',
             'prod': '1lniXCNcKlzKqpVmPjRPiKPOly1prOODzaVM_f-UPWoM'
         },
-        
+
         # second location, mainly for testing purpose, until there is an actual second school loc
         'ST2': {
             'dev':  '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U',
@@ -180,6 +180,31 @@ SHEET_CONSTANTS = {
                 },
 
                 "fields": "userEnteredFormat.numberFormat"
+            }
+        }, {
+            "repeatCell": {
+
+                # start index is inclusive, end index is exclusive
+                # For Course Cost | Total Institutional Charges Charged | Total Institutional Charges Paid
+                # Column 13, 14, 15
+                "range": {
+                    "sheetId": 0,
+                    "startRowIndex": 1,
+                    "startColumnIndex": 0
+                },
+
+                "cell": {
+
+                    "userEnteredFormat": {
+
+                        "textFormat": {
+
+                            "bold": False
+                        }
+                    }
+                },
+
+                "fields": "userEnteredFormat.textFormat"
             }
         }, {
             "sortRange": {

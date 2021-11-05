@@ -175,10 +175,7 @@ def request_PATCH_to_program(context):
 def request_DEL_to_program(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
-    # import json
-    # get_res = context.test.client.get(f'{PROGRAMS_API_URL}', headers=headers)
-    # print('BEOFRE DEL PROG: ', json.dumps(
-    #     get_res.__dict__, indent=2, default=str))
+
     context.response = context.test.client.delete(
         f'{PROGRAMS_API_URL}{PROGRAM_UUID_TO_TEST}/', headers=headers)
 
@@ -220,10 +217,7 @@ def request_PATCH_to_rotation(context):
 def request_DEL_to_rotations(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
-    # import json
-    # get_res = context.test.client.get(f'{ROTATIONS_API_URL}', headers=headers)
-    # print('BEFORE DEL ROT: ', json.dumps(
-    #     get_res.__dict__, indent=2, default=str))
+
     context.response = context.test.client.delete(
         f'{ROTATIONS_API_URL}{ROTATION_UUID_TO_TEST}/', headers=headers)
 
