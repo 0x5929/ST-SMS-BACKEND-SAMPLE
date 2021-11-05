@@ -87,6 +87,41 @@ STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
     'rotation': 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
 }
 
+STUDENT_SAMPLE_PUT_DATA = {
+    'student_id': 'RO-HHA-01-1006-TB',
+    'first_name': 'Test',
+    'last_name': 'B',
+    'phone_number': '626-333-5544',
+    'email': 'testb@email.com',
+    'mailing_address': '1300 N. Fake Ave, TestB, CA 91888',
+    'course': 'HHA',
+    'start_date': '2021-12-09',
+    'completion_date': '2021-12-10',
+    'date_enrollment_agreement_signed': '2021-12-09',
+    'third_party_payer_info': '',
+    'course_cost_currency': 'USD',
+    'course_cost': '680.00',
+    'total_charges_charged_currency': 'USD',
+    'total_charges_charged': '680.00',
+    'total_charges_paid_currency': 'USD',
+    'total_charges_paid': '600.00',
+    'paid': False,
+    'graduated': False,
+    'passed_first_exam': False,
+    'passed_second_or_third_exam': False,
+    'employed': False,
+    'place_of_employment': '',
+    'employment_address': '',
+    'position': '',
+    'starting_wage_currency': 'USD',
+    'starting_wage': None,
+    'hours_worked_weekly': '',
+    'description_of_attempts_to_contact_student': '',
+    'google_sheet_migrated': False,
+    'google_sheet_migration_issue': '',
+    'rotation': '4481466a-7bb3-4ccc-8a51-52f4a534dd4a'
+
+}
 
 GOOGLE_POST_DATA = [
     'RO-HHA-01-1006-TB',

@@ -10,6 +10,7 @@ from tests.acceptance.steps.constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DA
                                               SCHOOL_SAMPLE_POST_DATA,
                                               PROGRAM_SAMPLE_POST_DATA,
                                               ROTATION_SAMPLE_POST_DATA,
+                                              STUDENT_SAMPLE_PUT_DATA,
                                               JSON_PERMISSION_DENIED_RES,
                                               JSON_OBJ_NOT_FOUND_RES,
                                               FILTER_PARAMS,
@@ -115,13 +116,13 @@ def database_will_not_create_student(context):
 def database_will_edit_student(context):
     response = context.response.data
 
-    editted_last_name = PUT_DATA.get('student__last_name')
+    editted_last_name = STUDENT_SAMPLE_PUT_DATA.get('last_name')
 
     context.test().assertEqual(response.get('last_name'), editted_last_name)
 
     # we need to test google sheet migration, and delete student!
     student_id = response.get('student_id')
-    google_sheet_del(context, student_id)
+    #google_sheet_del(context, student_id)
     # google_sheet_create(context, student_id)
 
 

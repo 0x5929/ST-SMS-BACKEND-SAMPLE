@@ -13,6 +13,7 @@ from tests.acceptance.steps.constants import (SCHOOLS_API_URL,
                                               SCHOOL_SAMPLE_POST_DATA,
                                               PROGRAM_SAMPLE_POST_DATA,
                                               ROTATION_SAMPLE_POST_DATA,
+                                              STUDENT_SAMPLE_PUT_DATA,
                                               FILTER_PARAMS,
                                               PUT_DATA,
                                               PATCH_DATA)
@@ -72,8 +73,7 @@ def request_POST_to_students_diff_school(context):
 
 @when('request PUT to /api/sms/students/student_uuid')
 def request_PUT_to_student(context):
-    put_data = STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA
-    put_data['last_name'] = PUT_DATA.get('student__last_name')
+    put_data = STUDENT_SAMPLE_PUT_DATA
 
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
