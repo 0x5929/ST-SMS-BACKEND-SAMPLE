@@ -16,7 +16,8 @@ from tests.acceptance.steps.constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DA
                                               FILTER_PARAMS,
                                               PUT_DATA,
                                               PATCH_DATA,
-                                              GOOGLE_POST_DATA)
+                                              GOOGLE_POST_DATA,
+                                              GOOGLE_EDIT_CHECK_DATA)
 
 
 def google_sheet_del(context, student_id):
@@ -47,8 +48,19 @@ def google_sheet_create(context, student_id):
     context.test().assertIsNotNone(matched_row_num)
 
 
-def google_sheet_check_edit(context, student_id, partial):
-    pass
+# dependent on what is passed to check, make sure [] lists are passed in
+def google_sheet_check_edit(context, student_id, data_to_check):
+    school_name = FILTER_PARAMS.get('school_name')
+    gs_api = GoogleSheet.init_google_sheet(school_name)
+
+    row = gs_api.match(gs_api.worksheets, student_id)
+    context.test().assertIsNotNone(row)
+    range_ = f'A{row}:Y{row}'
+
+    database_worksheet = gs_api.worksheets.get('db_worksheet')
+
+    values = database_worksheet.get(range_)
+    context.test().assertEqual(values, [data_to_check])
 
 
 @then('will receive JSON response of data')
@@ -122,8 +134,8 @@ def database_will_edit_student(context):
 
     # we need to test google sheet migration, and delete student!
     student_id = response.get('student_id')
-    #google_sheet_del(context, student_id)
-    # google_sheet_create(context, student_id)
+    google_sheet_check_edit(context, student_id,
+                            GOOGLE_EDIT_CHECK_DATA.get('PUT_DATA'))
 
 
 @then('database will partially edit the student record')
@@ -135,9 +147,9 @@ def database_will_partially_edit_student(context):
     context.test().assertEqual(response.get('last_name'), editted_last_name)
 
     # we need to test google sheet migration, and delete student!
-    # student_id = response.get('student_id')
-    # google_sheet_del(context, student_id)
-    # google_sheet_create(context, student_id)
+    student_id = response.get('student_id')
+    google_sheet_check_edit(context, student_id,
+                            GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'))
 
 
 @then('database will not delete the student record')

@@ -54,10 +54,10 @@ class SMSValidator:
 
     @staticmethod
     def no_special_chars_and_captialize_string(value):
-        err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (, . #).'
+        err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (.).'
+        pattern = '[^A-Za-z0-9,.\s]{1,150}'
 
-        pattern = '[A-Za-z0-9,.#\s]{0,150}'
-        return value.strip().capitalize() if re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
+        return value.strip().capitalize() if not re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
 
     @staticmethod
     def phone_number_format_checker(value):

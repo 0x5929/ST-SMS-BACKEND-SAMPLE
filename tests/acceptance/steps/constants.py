@@ -151,7 +151,47 @@ GOOGLE_POST_DATA = [
     '',
 ]
 
-# 		B							12/10/21	12/9/21			$680	$600
+GOOGLE_EDIT_CHECK_DATA = {
+    'PUT_DATA': [
+
+        'RO-HHA-01-1006-TB',
+        'test_b',
+        'B',
+        'Test',
+        '626-333-5544',
+        'testb@email.com',
+        '1300 N. Fake Ave, TestB, CA 91888',
+        'Home Health Aide',
+        '12/9/21',
+        '12/10/21',
+        '12/9/21',
+        '',
+        '$680',
+        '$680',
+        '$600',
+    ],
+
+    'PATCH_DATA': [
+
+        'RO-HHA-01-1006-TB',
+        'test_d',
+        'D',
+        'Test',
+        '626-333-5544',
+        'testb@email.com',
+        '1300 N. Fake Ave, TestB, CA 91888',
+        'Home Health Aide',
+        '12/9/21',
+        '12/10/21',
+        '12/9/21',
+        '',
+        '$680',
+        '$680',
+        '$600',
+    ],
+}
+
+
 SCHOOL_SAMPLE_POST_DATA = {
     'school_name': 'ST3',
     'school_code': '27091742',
@@ -188,7 +228,6 @@ FILTER_PARAMS = {
 }
 
 PUT_DATA = {
-    'student__last_name': 'C',
     'school__school_code': '27091743',
     'program__program_name': 'HSFA',
     'rotation__rotation_number': 6

@@ -24,22 +24,13 @@ class StudentSerializer(serializers.ModelSerializer):
     def validate_phone_number(self, value):
         return SMSValidator.phone_number_format_checker(value)
 
-    def validate_mailing_address(self, value):
-        return SMSValidator.no_special_chars_and_captialize_string(value)
-
     def validate_third_party_payer_info(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_place_of_employment(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
-    def validate_employment_address(self, value):
-        return SMSValidator.no_special_chars_and_captialize_string(value)
-
     def validate_position(self, value):
-        return SMSValidator.no_special_chars_and_captialize_string(value)
-
-    def validate_description_of_attempts_to_contact_student(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate(self, data):

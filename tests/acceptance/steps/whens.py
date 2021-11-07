@@ -74,7 +74,6 @@ def request_POST_to_students_diff_school(context):
 @when('request PUT to /api/sms/students/student_uuid')
 def request_PUT_to_student(context):
     put_data = STUDENT_SAMPLE_PUT_DATA
-
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.put(
