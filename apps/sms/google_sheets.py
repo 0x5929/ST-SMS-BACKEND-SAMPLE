@@ -61,7 +61,7 @@ class GoogleSheet:
         return gs_api.refresh(gs_api.spreadsheet)
 
     @classmethod
-    def init_google_sheet(cls, school_name, recurse_counter=None):
+    def init_google_sheet(cls, school_name=None, recurse_counter=None):
 
         recurse_counter = 1 if not recurse_counter else recurse_counter + 1
 
@@ -99,8 +99,12 @@ class GoogleSheet:
 
     def __init__(self,
                  google_sheet_client,
-                 school_name,
-                 create=None, update=None, delete=None, match=None, refresh=None):
+                 school_name=None,
+                 create=None,
+                 update=None,
+                 delete=None,
+                 match=None,
+                 refresh=None):
 
         # in case we want to initiate a GoogleSheet obj and work directly with gspread api
         # the data operation methods can be initialized wo
@@ -116,6 +120,9 @@ class GoogleSheet:
         self.worksheets = self.get_worksheets()
 
     def get_spreadsheet(self):
+
+        if not self.school_name:
+            return None
 
         if self.env == 'DEV':
             return self.google_sheet_client.open_by_key(
@@ -142,6 +149,10 @@ class GoogleSheet:
             raise ImproperlyConfigured('INVALID SPREADSHEET ID')
 
     def get_worksheets(self):
+
+        if not self.spreadsheet:
+            return None
+
         return {
 
             'db_worksheet': self.spreadsheet.get_worksheet_by_id(

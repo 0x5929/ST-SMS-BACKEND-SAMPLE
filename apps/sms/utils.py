@@ -95,3 +95,24 @@ class FilterHandler:
             if key not in fields:
                 return False
         return True
+
+
+class GoogleSheetDataDumpHanlder:
+
+    @staticmethod
+    def auth_and_get_sheet(GoogleSheet, spreadsheet_id, sheet_id):
+        gs_api = GoogleSheet.init_google_sheet().google_sheet_client.open_by_key(
+            spreadsheet_id)
+
+        return gs_api.get_worksheet_by_id(int(sheet_id))
+
+    @classmethod
+    def get_datadump_res(cls, sheet):
+        sheet_data = sheet.get_all_records(empty2zero=False, head=1)
+
+        print(sheet_data)
+
+        return sheet_data
+
+    def __init__(self):
+        pass
