@@ -1,8 +1,9 @@
-from os import stat
+from os import posix_fadvise, stat
 import re
 from core.settings.constants import STUDENT_RECORD_HEADERS
 import uuid
 
+from django.core.exceptions import ValidationError
 from rest_framework.exceptions import ValidationError
 
 
@@ -110,9 +111,118 @@ class GoogleSheetDataDumpHanlder:
     def get_datadump_res(cls, sheet):
         sheet_data = sheet.get_all_records(empty2zero=False, head=1)
 
-        print(sheet_data)
+        data_dump = cls(initial_data=sheet_data)
 
-        return sheet_data
+        return_data = data_dump.run()
 
-    def __init__(self):
+        return return_data
+
+    def __init__(self, initial_data):
+        self.initial_data = initial_data
+        self.data_dump = {}
+
+        # initial state of all uuids, so we can check for uniqueness
+        self.student_uuids = []
+        self.rotation_uuids = []
+        self.program_uuids = []
+        self.school_uuids = []
+
+    def run(self):
+
+        for sr in self.initial_data:
+            # each student record should go through
+            # cleaning
+            #
+            clean_data = self.validate(sr)
+            pass
+
+        return self.initial_data
+
+    def validate(self, record):
+        for header in record.keys():
+            record[header] = self.mapper(header)
+
+    def mapper(self, key):
+        if key == 'Student ID':
+            self.validate_student_id(self.initial_data[key])
+        elif key == 'Full Name':
+            self.validate_string(self.initial_data[key])
+        elif key == 'Last Name':
+            self.validate_string(self.initial_data[key])
+        elif key == 'First Name':
+            self.validate_string(self.initial_data[key])
+        elif key == 'Phone Number':
+            self.validate_phone(self.initial_data[key])
+        elif key == 'Email Address':
+            self.validate_email(self.initial_data[key])
+        elif key == 'Mailing Address':
+            self.validate_string(self.initial_data[key])
+        elif key == 'Course':
+            self.validate_course(self.initial_data[key])
+        elif key == 'Start Date':
+            self.validate_date(self.initial_data[key])
+        elif key == 'Completion Date':
+            self.validate_date(self.initial_data[key])
+        elif key == 'Date Enrollment Agreement Signed':
+            self.validate_date(self.initial_data[key])
+        elif key == 'Third-party payer identifying information':
+            self.validate_string(self.initial_data[key])
+        elif key == 'Course Cost':
+            self.validate_currency(self.initial_data[key])
+        elif key == 'Total Institutional Charges Charged':
+            self.validate_currency(self.initial_data[key])
+        elif key == 'Total Institutional Charges Paid':
+            self.validate_currency(self.initial_data[key])
+        elif key == 'Graduates':
+            self.validate_bool(self.initial_data[key])
+        elif key == 'Passed FIrst Exam Taken':
+            self.validate_bool(self.initial_data[key])
+        elif key == 'Passed Second or Third Exam Taken':
+            self.validate_bool(self.initial_data[key])
+        elif key == 'Employed':
+            self.validate_bool(self.initial_data[key])
+        elif key == 'Place of Employment':
+            self.validate_string(self.initial_data[key])
+        elif key == 'Employment Address':
+            self.validate_string(self.initial_data[key])
+        elif key == 'Position':
+            self.validate_string(self.initial_data[key])
+        elif key == 'Starting Wage':
+            self.validate_currency(self.initial_data[key])
+        elif key == 'Hours Worked per Week':
+            self.validate_hours_worked(self.initial_data[key])
+        elif key == 'Description of Attempts to Contact Students':
+            self.validate_string(self.initial_data[key])
+
+        else:
+            raise ValidationError(
+                'Incorrect google sheet header, not accounted for in data dump.')
+
+    # we will validate each and rekey the dictionary
+
+    def validate_student_id(self, key):
+        pass
+
+    def validate_string(self, key):
+        pass
+
+    def validate_phone(self, key):
+        pass
+
+    def validate_email(self, key):
+        pass
+
+    def validate_course(self, key):
+        pass
+
+    def validate_date(self, key):
+        pass
+
+    def validate_currency(self, key):
+        pass
+
+    def validate_bool(self, key):
+        pass
+
+    def validate_hours_worked(self, key):
         pass
