@@ -133,66 +133,67 @@ class GoogleSheetDataDumpHanlder:
             # each student record should go through
             # cleaning
             #
-            clean_data = self.validate(sr)
+            clean_data = self.validate_and_rekey(sr)
             pass
 
         return self.initial_data
 
-    def validate(self, record):
+    def validate_and_rekey(self, record):
         for header in record.keys():
             record[header] = self.mapper(header)
 
     def mapper(self, key):
         if key == 'Student ID':
-            self.validate_student_id(self.initial_data[key])
+            self.rekey(*self.validate_student_id(self.initial_data[key], key))
         elif key == 'Full Name':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'Last Name':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'First Name':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'Phone Number':
-            self.validate_phone(self.initial_data[key])
+            self.rekey(*self.validate_phone(self.initial_data[key], key))
         elif key == 'Email Address':
-            self.validate_email(self.initial_data[key])
+            self.rekey(*self.validate_email(self.initial_data[key], key))
         elif key == 'Mailing Address':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'Course':
-            self.validate_course(self.initial_data[key])
+            self.rekey(*self.validate_course(self.initial_data[key], key))
         elif key == 'Start Date':
-            self.validate_date(self.initial_data[key])
+            self.rekey(*self.validate_date(self.initial_data[key], key))
         elif key == 'Completion Date':
-            self.validate_date(self.initial_data[key])
+            self.rekey(*self.validate_date(self.initial_data[key], key))
         elif key == 'Date Enrollment Agreement Signed':
-            self.validate_date(self.initial_data[key])
+            self.rekey(*self.validate_date(self.initial_data[key], key))
         elif key == 'Third-party payer identifying information':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'Course Cost':
-            self.validate_currency(self.initial_data[key])
+            self.rekey(*self.validate_currency(self.initial_data[key], key))
         elif key == 'Total Institutional Charges Charged':
-            self.validate_currency(self.initial_data[key])
+            self.rekey(*self.validate_currency(self.initial_data[key], key))
         elif key == 'Total Institutional Charges Paid':
-            self.validate_currency(self.initial_data[key])
+            self.rekey(*self.validate_currency(self.initial_data[key], key))
         elif key == 'Graduates':
-            self.validate_bool(self.initial_data[key])
+            self.rekey(*self.validate_bool(self.initial_data[key], key))
         elif key == 'Passed FIrst Exam Taken':
-            self.validate_bool(self.initial_data[key])
+            self.rekey(*self.validate_bool(self.initial_data[key], key))
         elif key == 'Passed Second or Third Exam Taken':
-            self.validate_bool(self.initial_data[key])
+            self.rekey(*self.validate_bool(self.initial_data[key], key))
         elif key == 'Employed':
-            self.validate_bool(self.initial_data[key])
+            self.rekey(*self.validate_bool(self.initial_data[key], key))
         elif key == 'Place of Employment':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'Employment Address':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'Position':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
         elif key == 'Starting Wage':
-            self.validate_currency(self.initial_data[key])
+            self.rekey(*self.validate_currency(self.initial_data[key], key))
         elif key == 'Hours Worked per Week':
-            self.validate_hours_worked(self.initial_data[key])
+            self.rekey(
+                *self.validate_hours_worked(self.initial_data[key], key))
         elif key == 'Description of Attempts to Contact Students':
-            self.validate_string(self.initial_data[key])
+            self.rekey(*self.validate_string(self.initial_data[key], key))
 
         else:
             raise ValidationError(
@@ -200,29 +201,41 @@ class GoogleSheetDataDumpHanlder:
 
     # we will validate each and rekey the dictionary
 
-    def validate_student_id(self, key):
+    def validate_student_id(self, value, key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_string(self, key):
+    def validate_string(self, value, key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_phone(self, key):
+    def validate_phone(self, value,  key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_email(self, key):
+    def validate_email(self, value, key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_course(self, key):
+    def validate_course(self, value,  key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_date(self, key):
+    def validate_date(self, value, key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_currency(self, key):
+    def validate_currency(self, value, key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_bool(self, key):
+    def validate_bool(self, value, key):
         pass
+        # return (validated_value, old_key, new_key)
 
-    def validate_hours_worked(self, key):
+    def validate_hours_worked(self, value,  key):
+        pass
+        # return (validated_value, old_key, new_key)
+
+    def rekey(self, value, old_key, new_key):
         pass
