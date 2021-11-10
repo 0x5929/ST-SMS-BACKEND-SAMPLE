@@ -1,7 +1,9 @@
 import re
-from core.settings.constants import STUDENT_RECORD_HEADERS
+from core.settings.constants import STUDENT_RECORD_HEADERS, PROGRAM_NAMES
 
 from rest_framework.exceptions import ValidationError
+
+from .validators import SMSValidator
 
 
 class DataHelper:
@@ -201,14 +203,15 @@ class GoogleSheetDataDumpHanlder:
     def validate_student_id(self, value, key):
         old_key = key
         new_key = 'student_id'
-        pattern = '^(RO|AL)-(CNA|HHA|SG|ESOL)-[0-9]{1,3}-[0-9]{4}-[A-Z]{2}$'
-        err_msg = f'Incorrect format for Student ID in google sheet data dump: {value}'
+        err_msg = f'Invalid student ID format in google sheet data dump: {value}'
+        try:
+            validated_value = SMSValidator.student_id_format_checker(value)
+            return validated_value, old_key, new_key
 
-        if re.match(pattern, value):
-            return value, old_key, new_key
-        else:
+        except ValidationError:
             raise ValidationError(err_msg)
-        # return (validated_value, old_key, new_key)
+        except Exception as e:
+            raise ValidationError(e.__repr__)
 
     def validate_string(self, value, key):
         old_key = key
@@ -232,29 +235,64 @@ class GoogleSheetDataDumpHanlder:
         elif key == 'Description of Attempts to Contact Students':
             new_key = 'description_of_attempts_to_contact_student'
 
-        pattern = '[^A-Za-z0-9,.\s]'
         err_msg = f'String value contains suspicious characters in google sheet data dump: {value}'
 
-        if not re.match(pattern, value):
-            return value, old_key, new_key
-        else:
+        try:
+            validated_value = SMSValidator.no_special_chars_and_captialize_string(
+                value)
+            return validated_value, old_key, new_key
+
+        except ValidationError:
             raise ValidationError(err_msg)
-        # return (validated_value, old_key, new_key)
+        except Exception as e:
+            raise ValidationError(e.__repr__)
 
     def validate_phone(self, value,  key):
         old_key = key
         new_key = 'phone'
+        err_msg = f'Invalid phone number format in google sheet data dump: {value}'
 
+        try:
+            validated_value = SMSValidator.phone_number_format_checker(value)
+
+            return validated_value, old_key, new_key
+        except ValidationError:
+            raise ValidationError(err_msg)
+        except Exception as e:
+            raise ValidationError(e.__repr__)
 
         # return (validated_value, old_key, new_key)
 
     def validate_email(self, value, key):
-        pass
-        # return (validated_value, old_key, new_key)
+        old_key = key
+        new_key = 'email'
+        err_msg = f'Invalid email format in google sheet data dump: {value}'
+
+        try:
+            validated_value = SMSValidator.email_format_checker(value)
+
+            return validated_value, old_key, new_key
+        except ValidationError:
+            raise ValidationError(err_msg)
+        except Exception as e:
+            raise ValidationError(e.__repr__)
 
     def validate_course(self, value,  key):
-        pass
-        # return (validated_value, old_key, new_key)
+        old_key = key
+        new_key = 'course'
+        err_msg = f'Invalid course from google sheet data dump: {value}'
+
+        machine_indx = 0
+        human_readable_indx = 1
+
+        for course_sel in PROGRAM_NAMES:
+            if value.lower() in course_sel[machine_indx].lower() or \
+                    value.lower() in course_sel[human_readable_indx].lower():
+
+                validated_value = course_sel[machine_indx]
+                return validated_value, old_key, new_key
+
+        raise ValidationError(err_msg)
 
     def validate_date(self, value, key):
         pass

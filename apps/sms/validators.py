@@ -3,6 +3,8 @@ import re
 
 from rest_framework.exceptions import ValidationError
 
+from core.settings.constants import PROGRAM_NAMES
+
 """
     Note, these validators are called from the Serializer
 
@@ -55,7 +57,7 @@ class SMSValidator:
     @staticmethod
     def no_special_chars_and_captialize_string(value):
         err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (.).'
-        pattern = '[^A-Za-z0-9,.\s]'
+        pattern = '[^A-Za-z0-9,.\s]{1,150}'
 
         if not re.match(pattern, value):
             return value.strip().capitalize()
@@ -97,7 +99,7 @@ class SMSValidator:
 
             elif data.get('start_date') and data.get('completion_date'):
                 pass
-        
+
         if data.get('start_date') < data.get('completion_date'):
             return data
         else:
@@ -106,7 +108,7 @@ class SMSValidator:
     @staticmethod
     def ensure_unique_rot(data, partial=False, instance=None):
         err_msg = 'This rotation number already exist for this program, please try again with a different rotation number.'
-       
+
         if instance and not partial:
             # put
             program_uuid = getattr(instance, 'program').program_uuid
@@ -175,3 +177,14 @@ class SMSValidator:
             raise ValidationError(err_msg)
 
         return data
+
+    # used by .google_sheet
+
+    @staticmethod
+    def email_format_checker(value):
+        err_msg = 'Invalid looking email, please ensure you enter a valid email.'
+
+        if value.count('@') == 1 and value.count('.') > 1:
+            return value
+        else:
+            raise ValidationError(err_msg)
