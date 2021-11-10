@@ -1,9 +1,6 @@
-from os import posix_fadvise, stat
 import re
 from core.settings.constants import STUDENT_RECORD_HEADERS
-import uuid
 
-from django.core.exceptions import ValidationError
 from rest_framework.exceptions import ValidationError
 
 
@@ -81,11 +78,11 @@ class DataHelper:
         return [value for value in data.values()]
 
 
-class ExceptionHandler:
+# class ExceptionHandler:
 
-    @ staticmethod
-    def raise_verror(msg):
-        raise ValidationError(msg)
+#     @ staticmethod
+#     def raise_verror(msg):
+#         raise ValidationError(msg)
 
 
 class FilterHandler:
@@ -133,7 +130,7 @@ class GoogleSheetDataDumpHanlder:
             # each student record should go through
             # cleaning
             #
-            clean_data = self.validate_and_rekey(sr)
+            self.validate_and_rekey(sr)
             pass
 
         return self.initial_data
@@ -202,15 +199,53 @@ class GoogleSheetDataDumpHanlder:
     # we will validate each and rekey the dictionary
 
     def validate_student_id(self, value, key):
-        pass
+        old_key = key
+        new_key = 'student_id'
+        pattern = '^(RO|AL)-(CNA|HHA|SG|ESOL)-[0-9]{1,3}-[0-9]{4}-[A-Z]{2}$'
+        err_msg = f'Incorrect format for Student ID in google sheet data dump: {value}'
+
+        if re.match(pattern, value):
+            return value, old_key, new_key
+        else:
+            raise ValidationError(err_msg)
         # return (validated_value, old_key, new_key)
 
     def validate_string(self, value, key):
-        pass
+        old_key = key
+
+        if key == 'Full Name':
+            new_key = 'full_name'
+        elif key == 'Last Name':
+            new_key = 'last_name'
+        elif key == 'First Name':
+            new_key = 'first_name'
+        elif key == 'Mailing Address':
+            new_key = 'mailing_address'
+        elif key == 'Third-party payer identifying information':
+            new_key = 'third_party_payer_info'
+        elif key == 'Place of Employment':
+            new_key = 'place_of_employment'
+        elif key == 'Employment Address':
+            new_key = 'employment_address'
+        elif key == 'Position':
+            new_key = 'position'
+        elif key == 'Description of Attempts to Contact Students':
+            new_key = 'description_of_attempts_to_contact_student'
+
+        pattern = '[^A-Za-z0-9,.\s]'
+        err_msg = f'String value contains suspicious characters in google sheet data dump: {value}'
+
+        if not re.match(pattern, value):
+            return value, old_key, new_key
+        else:
+            raise ValidationError(err_msg)
         # return (validated_value, old_key, new_key)
 
     def validate_phone(self, value,  key):
-        pass
+        old_key = key
+        new_key = 'phone'
+
+
         # return (validated_value, old_key, new_key)
 
     def validate_email(self, value, key):

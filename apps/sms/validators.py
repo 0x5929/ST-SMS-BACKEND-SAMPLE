@@ -1,7 +1,7 @@
-from functools import partial
+from os import error
 import re
-import uuid
-from .utils import ExceptionHandler
+
+from rest_framework.exceptions import ValidationError
 
 """
     Note, these validators are called from the Serializer
@@ -50,28 +50,37 @@ class SMSValidator:
         if instance and str(getattr(instance, reference)) == str(value):
             return value
 
-        ExceptionHandler.raise_verror(err_msg)
+        raise ValidationError(err_msg)
 
     @staticmethod
     def no_special_chars_and_captialize_string(value):
         err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (.).'
-        pattern = '[^A-Za-z0-9,.\s]{1,150}'
+        pattern = '[^A-Za-z0-9,.\s]'
 
-        return value.strip().capitalize() if not re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
+        if not re.match(pattern, value):
+            return value.strip().capitalize()
+        else:
+            raise ValidationError(err_msg)
 
     @staticmethod
     def phone_number_format_checker(value):
         err_msg = 'Please follow the following example format for the phone number: "+1-888-888-8888"'
         pattern = '^(\+[0-9]-)?[0-9]{3}-[0-9]{3}-[0-9]{4}$'
 
-        return value if re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
+        if re.match(pattern, value):
+            return value
+        else:
+            raise ValidationError(err_msg)
 
     @staticmethod
     def student_id_format_checker(value):
         err_msg = 'Please follow the following format for the student ID: "RO-(CNA|HHA|SG|ESOL)-###-MMYY-FL"'
         pattern = '^(RO|AL)-(CNA|HHA|SG|ESOL)-[0-9]{1,3}-[0-9]{4}-[A-Z]{2}$'
 
-        return value if re.match(pattern, value) else ExceptionHandler.raise_verror(err_msg)
+        if re.match(pattern, value):
+            return value
+        else:
+            raise ValidationError(err_msg)
 
     @staticmethod
     def date_validation(data, partial=False):
@@ -84,18 +93,20 @@ class SMSValidator:
                 return data
 
             elif not data.get('start_date') or not data.get('completion_date'):
-                return ExceptionHandler.raise_verror(update_err_msg)
+                raise ValidationError(update_err_msg)
 
             elif data.get('start_date') and data.get('completion_date'):
                 pass
-
-        return data if data.get('start_date') < data.get('completion_date') else ExceptionHandler.raise_verror(date_err_msg)
+        
+        if data.get('start_date') < data.get('completion_date'):
+            return data
+        else:
+            raise ValidationError(date_err_msg)
 
     @staticmethod
     def ensure_unique_rot(data, partial=False, instance=None):
         err_msg = 'This rotation number already exist for this program, please try again with a different rotation number.'
-        update_err_msg = 'Cannot update rotation number without providing program.'
-
+       
         if instance and not partial:
             # put
             program_uuid = getattr(instance, 'program').program_uuid
@@ -114,7 +125,7 @@ class SMSValidator:
 
         # if there is a rotation already, raise error
         if rot_exists:
-            ExceptionHandler.raise_verror(err_msg)
+            raise ValidationError(err_msg)
 
         return data
 
@@ -128,7 +139,7 @@ class SMSValidator:
                 return data
 
             elif not data.get('course') and not data.get('rotation'):
-                return ExceptionHandler.raise_verror(update_err_msg)
+                raise ValidationError(update_err_msg)
 
             elif data.get('course') and data.get('rotation'):
                 pass
@@ -141,7 +152,7 @@ class SMSValidator:
         program_name = rot.program.program_name
 
         if data.get('course') != program_name:
-            ExceptionHandler.raise_verror(err_msg)
+            raise ValidationError(err_msg)
 
         return data
 
@@ -161,6 +172,6 @@ class SMSValidator:
 
         if not request.user.is_superuser and school_name != request.user.school_name:
 
-            ExceptionHandler.raise_verror(err_msg)
+            raise ValidationError(err_msg)
 
         return data

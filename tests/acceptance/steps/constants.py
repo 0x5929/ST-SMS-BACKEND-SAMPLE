@@ -119,7 +119,7 @@ STUDENT_SAMPLE_PUT_DATA = {
     'description_of_attempts_to_contact_student': '',
     'google_sheet_migrated': False,
     'google_sheet_migration_issue': '',
-    'rotation': '4481466a-7bb3-4ccc-8a51-52f4a534dd4a'
+    'rotation': '4481466a-7bb3-4ccc-8a51-52f4a534dd4a',
 
 }
 

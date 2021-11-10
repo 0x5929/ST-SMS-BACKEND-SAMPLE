@@ -31,7 +31,7 @@ class GoogleSheetDataOps:
                 raise e
             else:
                 time.sleep(100)
-                GoogleSheetDataOps.create_record(
+                return GoogleSheetDataOps.create_record(
                     worksheets, data, recurse_counter)
 
     @staticmethod
@@ -70,7 +70,7 @@ class GoogleSheetDataOps:
                 raise e
             else:
                 time.sleep(100)
-                GoogleSheetDataOps.update_record(spreadsheet, row_num, row_to_update, recurse_counter)
+                return GoogleSheetDataOps.update_record(spreadsheet, row_num, row_to_update, recurse_counter)
 
 
     @staticmethod
@@ -108,7 +108,7 @@ class GoogleSheetDataOps:
                 raise e
             else:
                 time.sleep(100)
-                GoogleSheetDataOps.delete_record(
+                return GoogleSheetDataOps.delete_record(
                     spreadsheet, del_row_num, recurse_counter)
 
 
@@ -146,7 +146,7 @@ class GoogleSheetDataOps:
                 raise e
             else:
                 time.sleep(20)
-                GoogleSheetDataOps.match_record(worksheets,
+                return GoogleSheetDataOps.match_record(worksheets,
                                          student_id, recurse_counter)
 
 
