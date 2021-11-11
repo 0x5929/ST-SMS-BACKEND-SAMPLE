@@ -1,4 +1,3 @@
-from os import error
 import re
 
 from rest_framework.exceptions import ValidationError
@@ -55,12 +54,14 @@ class SMSValidator:
         raise ValidationError(err_msg)
 
     @staticmethod
-    def no_special_chars_and_captialize_string(value):
+    def no_special_chars_and_captialize_string(value, capitalize=False):
         err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (.).'
         pattern = '[^A-Za-z0-9,.\s]{1,150}'
 
-        if not re.match(pattern, value):
+        if not re.match(pattern, value) and capitalize:
             return value.strip().capitalize()
+        elif not re.match(pattern, value) and not capitalize:
+            return value.strip()
         else:
             raise ValidationError(err_msg)
 
@@ -184,7 +185,7 @@ class SMSValidator:
     def email_format_checker(value):
         err_msg = 'Invalid looking email, please ensure you enter a valid email.'
 
-        if value.count('@') == 1 and value.count('.') > 1:
+        if value.count('@') == 1 and value.count('.') >= 1:
             return value
         else:
             raise ValidationError(err_msg)

@@ -81,16 +81,16 @@ class GoogleSheetDataDumpView(APIView):
                 sheet = GoogleSheetDataDumpHanlder.auth_and_get_sheet(
                     GoogleSheet, spreadsheet_id, sheet_id)
 
-                res_data = GoogleSheetDataDumpHanlder.get_datadump_res(sheet)
+                res_data = GoogleSheetDataDumpHanlder.get_datadump_res(sheet, school_name)
                 return Response(res_data, status=status.HTTP_200_OK)
             else:
                 err_data = {
-                    'msg': 'Invalid spreadsheet id (ssid) or sheet id (sid) or school name (school_name) in GET params.'}
+                    'error': 'Invalid spreadsheet id (ssid) or sheet id (sid) or school name (school_name) in GET params.'}
                 return Response(err_data, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
+            raise e
             err_data = {
-                'error':  repr(e),
-                'msg': 'Could not access spreadsheet by spreadsheet ID'}
+                'error':  repr(e)}
 
             return Response(err_data, status=status.HTTP_400_BAD_REQUEST)

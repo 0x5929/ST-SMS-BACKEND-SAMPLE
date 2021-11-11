@@ -16,18 +16,24 @@ class StudentSerializer(serializers.ModelSerializer):
         return SMSValidator.student_id_format_checker(value)
 
     def validate_first_name(self, value):
-        return SMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value, capitalize=True)
 
     def validate_last_name(self, value):
-        return SMSValidator.no_special_chars_and_captialize_string(value)
+        return SMSValidator.no_special_chars_and_captialize_string(value, capitalize=True)
 
     def validate_phone_number(self, value):
         return SMSValidator.phone_number_format_checker(value)
+
+    def validate_mailing_address(self, value):
+        return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_third_party_payer_info(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_place_of_employment(self, value):
+        return SMSValidator.no_special_chars_and_captialize_string(value)
+    
+    def validate_employment_address(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 
     def validate_position(self, value):
