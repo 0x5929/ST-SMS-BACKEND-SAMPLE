@@ -1,14 +1,14 @@
 import uuid
-from django.db import models
 
+from django.db import models
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.core.exceptions import ImproperlyConfigured
 from django.contrib.postgres.fields import ArrayField
+
 from djmoney.models.fields import MoneyField
 
 from .managers import SchoolManager, ProgramManager, RotationManager, StudentManager
-
 from .google_sheets import GoogleSheet
 from .utils import DataHelper
 
@@ -113,7 +113,7 @@ class Student(models.Model):
     employment_address = models.CharField(max_length=150, blank=True)
     position = models.CharField(max_length=50, blank=True)
     starting_wage = MoneyField(
-        max_digits=4, decimal_places=2, default_currency='USD', null=True, blank=True)
+        max_digits=10, decimal_places=2, default_currency='USD', null=True, blank=True)
 
     hours_worked_weekly = models.CharField(
         max_length=1, choices=EMPLOYMENT_STATUS_CHOICES, blank=True)

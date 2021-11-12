@@ -264,6 +264,7 @@ class GoogleSheetDataDumpHanlder:
                 new_key = 'mailing_address'
             elif old_key == 'Third-party payer identifying information':
                 new_key = 'third_party_payer_info'
+                value = value[:10]
             elif old_key == 'Place of Employment':
                 new_key = 'place_of_employment'
             elif old_key == 'Employment Address':
@@ -362,7 +363,9 @@ class GoogleSheetDataDumpHanlder:
         date_items = re.split('/', value, maxsplit=2)
 
         if len(date_items) == 3:
-            return value, new_key
+            date_items[1]
+            validated_value = f'20{date_items[2]}-{date_items[0]}-{date_items[1]}'
+            return validated_value, new_key
         else:
             raise ValidationError(err_msg)
 
