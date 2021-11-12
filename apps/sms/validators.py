@@ -55,8 +55,8 @@ class SMSValidator:
 
     @staticmethod
     def no_special_chars_and_captialize_string(value, capitalize=False):
-        err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (.).'
-        pattern = '[^A-Za-z0-9,.\s]{1,150}'
+        err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (.#*,. ).'
+        pattern = '[^A-Za-z0-9#*,.\s]{1,150}'
 
         if not re.match(pattern, value) and capitalize:
             return value.strip().capitalize()

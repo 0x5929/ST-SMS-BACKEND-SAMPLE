@@ -139,33 +139,41 @@ class GoogleSheetDataDumpHanlder:
             # add additional keys according to fixture
             self.validate_and_rekey(index, sr)
             rot_uuid = self.build_ref()
-            self.add_fixture_details()
+            self.finalize_each_record(rot_uuid)
             self.final_dump.append(self.each_data)
             self.each_data = {}
-            
+
         return self.final_dump
 
     def validate_and_rekey(self, index, record):
         for header in record.keys():
-            record[header] = self.mapper(index, header)
+            self.mapper(index, header)
 
     def mapper(self, index, key):
         if key == 'Student ID':
-            self.rekey(*self.validate_student_id(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_student_id(self.initial_data[index][key], key))
         elif key == 'Full Name':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'Last Name':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'First Name':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'Phone Number':
-            self.rekey(*self.validate_phone(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_phone(self.initial_data[index][key], key))
         elif key == 'Email Address':
-            self.rekey(*self.validate_email(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_email(self.initial_data[index][key], key))
         elif key == 'Mailing Address':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'Course':
-            self.rekey(*self.validate_course(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_course(self.initial_data[index][key], key))
         elif key == 'Start Date':
             self.rekey(*self.validate_date(self.initial_data[index][key], key))
         elif key == 'Completion Date':
@@ -173,13 +181,17 @@ class GoogleSheetDataDumpHanlder:
         elif key == 'Date Enrollment Agreement Signed':
             self.rekey(*self.validate_date(self.initial_data[index][key], key))
         elif key == 'Third-party payer identifying information':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'Course Cost':
-            self.rekey(*self.validate_currency(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_currency(self.initial_data[index][key], key))
         elif key == 'Total Institutional Charges Charged':
-            self.rekey(*self.validate_currency(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_currency(self.initial_data[index][key], key))
         elif key == 'Total Institutional Charges Paid':
-            self.rekey(*self.validate_currency(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_currency(self.initial_data[index][key], key))
         elif key == 'Graduates':
             self.rekey(*self.validate_bool(self.initial_data[index][key], key))
         elif key == 'Passed FIrst Exam Taken':
@@ -189,18 +201,22 @@ class GoogleSheetDataDumpHanlder:
         elif key == 'Employed':
             self.rekey(*self.validate_bool(self.initial_data[index][key], key))
         elif key == 'Place of Employment':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'Employment Address':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'Position':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
         elif key == 'Starting Wage':
             self.rekey(*self.validate_wage(self.initial_data[index][key], key))
         elif key == 'Hours Worked per Week':
             self.rekey(
                 *self.validate_hours_worked(self.initial_data[index][key], key))
         elif key == 'Description of Attempts to Contact Students':
-            self.rekey(*self.validate_string(self.initial_data[index][key], key))
+            self.rekey(
+                *self.validate_string(self.initial_data[index][key], key))
 
         else:
             raise ValidationError(
@@ -211,8 +227,10 @@ class GoogleSheetDataDumpHanlder:
     def validate_student_id(self, value, key):
         new_key = 'student_id'
         err_msg = f'Invalid student ID format in google sheet data dump: {value}'
+
         try:
-            validated_value = SMSValidator.student_id_format_checker(value)
+            validated_value = SMSValidator.student_id_format_checker(
+                value.replace(' ', ''))
             return validated_value,  new_key
 
         except ValidationError:
@@ -223,49 +241,54 @@ class GoogleSheetDataDumpHanlder:
     def validate_string(self, value, key):
         old_key = key
 
-        if old_key == 'Full Name':
-            new_key = 'full_name'
-        elif old_key == 'Last Name':
-            new_key = 'last_name'
-            validated_value = SMSValidator.no_special_chars_and_captialize_string(
-                value, capitalize=True)
-            return validated_value, new_key
-
-        elif old_key == 'First Name':            
-            new_key = 'first_name'
-            validated_value = SMSValidator.no_special_chars_and_captialize_string(
-                value, capitalize=True)
-            return validated_value, new_key
-
-        elif old_key == 'Mailing Address':
-            new_key = 'mailing_address'
-        elif old_key == 'Third-party payer identifying information':
-            new_key = 'third_party_payer_info'
-        elif old_key == 'Place of Employment':
-            new_key = 'place_of_employment'
-        elif old_key == 'Employment Address':
-            new_key = 'employment_address'
-        elif old_key == 'Position':
-            new_key = 'position'
-        elif old_key == 'Description of Attempts to Contact Students':
-            new_key = 'description_of_attempts_to_contact_student'
-
-        err_msg = f'String value contains suspicious characters in google sheet data dump: {key}:{value}'
+        if value == 'N/A' or value == 'n/a':
+            value = ''
 
         try:
+
+            if old_key == 'Full Name':
+                new_key = 'full_name'
+            elif old_key == 'Last Name':
+                new_key = 'last_name'
+                validated_value = SMSValidator.no_special_chars_and_captialize_string(
+                    value, capitalize=True)
+                return validated_value, new_key
+
+            elif old_key == 'First Name':
+                new_key = 'first_name'
+                validated_value = SMSValidator.no_special_chars_and_captialize_string(
+                    value, capitalize=True)
+                return validated_value, new_key
+
+            elif old_key == 'Mailing Address':
+                new_key = 'mailing_address'
+            elif old_key == 'Third-party payer identifying information':
+                new_key = 'third_party_payer_info'
+            elif old_key == 'Place of Employment':
+                new_key = 'place_of_employment'
+            elif old_key == 'Employment Address':
+                new_key = 'employment_address'
+            elif old_key == 'Position':
+                new_key = 'position'
+            elif old_key == 'Description of Attempts to Contact Students':
+                new_key = 'description_of_attempts_to_contact_student'
+
+            err_msg = f'String value contains suspicious characters in google sheet data dump: {key}:{value}'
+
             validated_value = SMSValidator.no_special_chars_and_captialize_string(
                 value)
+
             return validated_value, new_key
 
-        except ValidationError:
-            raise ValidationError(err_msg)
-        except Exception as e:
-            raise ValidationError(repr(e))
+        except:
+            return '', new_key
 
     def validate_phone(self, value,  key):
         new_key = 'phone_number'
         err_msg = f'Invalid phone number format in google sheet data dump: {value}'
 
+        if value == '' or value == 'N/A' or value == 'n/a':
+            return '', new_key
         try:
             validated_value = SMSValidator.phone_number_format_checker(value)
 
@@ -275,10 +298,12 @@ class GoogleSheetDataDumpHanlder:
         except Exception as e:
             raise ValidationError(repr(e))
 
-
     def validate_email(self, value, key):
         new_key = 'email'
         err_msg = f'Invalid email format in google sheet data dump: {value}'
+
+        if value == '' or value == 'N/A' or value == 'n/a':
+            return '', new_key
 
         try:
             validated_value = SMSValidator.email_format_checker(value)
@@ -293,21 +318,39 @@ class GoogleSheetDataDumpHanlder:
         new_key = 'course'
         err_msg = f'Invalid course from google sheet data dump: {value}'
 
-        machine_indx = 0
-        human_readable_indx = 1
+        if value in ['nurse', 'nurse assistant',
+                     'cna', 'caregiver', 'care']:
+            validated_value = 'CNA',
+        elif value in ['aide', 'home health aide', 'hha', 'home']:
+            validated_value = 'HHA'
+        elif value in ['guard', 'security guard', 'sg', 'security']:
+            validated_value = 'SG'
+        elif value in ['english', 'esol', 'esl', 'language']:
+            validated_value = 'ESOL'
 
-        for course_sel in PROGRAM_NAMES:
-            if value.lower() in course_sel[machine_indx].lower() or \
-                    value.lower() in course_sel[human_readable_indx].lower():
+        else:
+            validated_value = 'ESOL'
+        # machine_indx = 0
+        # human_readable_indx = 1
 
-                validated_value = course_sel[machine_indx]
-                return validated_value, new_key
+        # for course_sel in PROGRAM_NAMES:
+        #     if value.lower() in course_sel[machine_indx].lower() or \
+        #             value.lower() in course_sel[human_readable_indx].lower():
 
-        raise ValidationError(err_msg)
+        #         validated_value = course_sel[machine_indx]
+        #         return validated_value, new_key
+
+        # raise ValidationError(err_msg)
+
+        return validated_value, new_key
 
     def validate_date(self, value, key):
         old_key = key
         err_msg = f'Invalid date from google sheet data dump: {key}:{value}'
+
+        # hard code a date in case google sheet data is emtpy str
+        if value == '':
+            value = '01/01/14'
 
         if old_key == 'Start Date':
             new_key = 'start_date'
@@ -334,34 +377,35 @@ class GoogleSheetDataDumpHanlder:
             new_key = 'total_charges_paid'
 
         if not value:
-            return '', new_key
-        
+            return '0.00', new_key
+
         validated_value = value.replace('$', '').replace(',', '')
         try:
             float(validated_value)
         except ValueError:
-            validated_value = ''
+            validated_value = '0.00'
 
         return validated_value, new_key
-    
+
     def validate_wage(self, value, key):
         new_key = 'starting_wage'
 
-        if not value: 
+        if not value:
             return None, new_key
 
-        pattern = '[0-9]+\.?[0-9]*'
-        wage = [ float(dig) for dig in re.findall(pattern, value) ]
-        
+        try:
+            pattern = '[0-9]+\.?[0-9]*'
+            wage = [float(dig) for dig in re.findall(pattern, value)]
+        except:
+            return None, new_key
         if not wage:
             return None, new_key
 
         return str(wage[0]), new_key
 
-
     def validate_bool(self, value, key):
         old_key = key
-        
+
         if old_key == 'Graduates':
             new_key = 'graduated'
         elif old_key == 'Passed FIrst Exam Taken':
@@ -372,36 +416,38 @@ class GoogleSheetDataDumpHanlder:
             new_key = 'employed'
 
         if value.lower() == 'y' or \
-            value.lower() == 'yes':
+                value.lower() == 'yes':
 
             return True, new_key
         else:
             return False, new_key
 
-
     def validate_hours_worked(self, value,  key):
         new_key = 'hours_worked_weekly'
 
-        if 'more' in value.lower() or \
-           'over' in value.lower() or \
-           'least' in value.lower() or \
-           '40' in value.lower() or \
-           'full' in value.lower() or \
-            'f' in value.lower():   
-        
-            return 'F', new_key
+        try:
+            if 'more' in value.lower() or \
+                'over' in value.lower() or \
+                'least' in value.lower() or \
+                '40' in value.lower() or \
+                'full' in value.lower() or \
+                    'f' in value.lower():
 
-        elif 'less' in value.lower() or \
-             'under' in value.lower() or \
-             'part' in value.lower() or \
-             'p' in value.lower() or \
-              any(char.isdigit() for char in value):
-            
+                return 'F', new_key
+
+            elif 'less' in value.lower() or \
+                'under' in value.lower() or \
+                'part' in value.lower() or \
+                'p' in value.lower() or \
+                    any(char.isdigit() for char in value):
+
+                return 'P', new_key
+
+            else:
+                return 'P', new_key
+
+        except AttributeError:
             return 'P', new_key
-
-        else:
-            return '', new_key
-        # return (validated_value, old_key, new_key)
 
     def rekey(self, value, new_key):
         self.each_data[new_key] = value
@@ -411,13 +457,17 @@ class GoogleSheetDataDumpHanlder:
         pattern = '^(RO|AL)-(CNA|HHA|SG|ESOL)-([0-9]{1,3})-[0-9]{4}-[A-Z]{2}$'
         re_match = re.search(pattern, student_id)
 
-        school_name = re_match.group(1)
-        program_name = re_match.group(2)
-        rotation_num = int(re_match.group(3))
-
+        try:
+            school_name = re_match.group(1)
+            program_name = re_match.group(2)
+            rotation_num = int(re_match.group(3))
+        except:
+            raise ValidationError(f'bad student id: {student_id}')
         school_uuid = self.check_school_ref(school_name)
-        program_uuid = self.check_prog_ref(program_name, school_name, school_uuid)
-        rotation_uuid = self.check_rot_ref(rotation_num, program_name, school_name, program_uuid)
+        program_uuid = self.check_prog_ref(
+            program_name, school_name, school_uuid)
+        rotation_uuid = self.check_rot_ref(
+            rotation_num, program_name, school_name, program_uuid)
 
         return rotation_uuid
 
@@ -434,16 +484,17 @@ class GoogleSheetDataDumpHanlder:
                 if school == school_name:
                     return pk
 
-        school_exists = School.objects.filter(school_name__exact=school_name).exists()
+        school_exists = School.objects.filter(
+            school_name__exact=school_name).exists()
 
         if not school_exists:
             pk = self.get_pk(School)
-            
+
             school_dict = {
-                'model' :  'sms.school',
-                'pk' : pk,
+                'model':  'sms.school',
+                'pk': pk,
                 'fields': {
-                    
+
                     'school_name': self.school_name,
                     'school_code': 'place holder, please change me',
                     'school_address': 'place holder, please change me along with year_founded',
@@ -456,7 +507,7 @@ class GoogleSheetDataDumpHanlder:
             self.school_uuids.append((pk, school_name))
             self.final_dump.append(school_dict)
             return pk
-        
+
         return str(School.objects.get(school_name__exact=school_name).school_uuid)
 
     def check_prog_ref(self, program_name, school_name, school_uuid):
@@ -469,17 +520,17 @@ class GoogleSheetDataDumpHanlder:
 
         program_exists = Program.objects.filter(
             school__school_uuid__exact=school_uuid, program_name__exact=program_name).exists()
-        
+
         if not program_exists:
             pk = self.get_pk(Program)
 
             program_dict = {
-                'model' : 'sms.program',
-                'pk'    : pk,
+                'model': 'sms.program',
+                'pk': pk,
                 'fields': {
                     'program_name': program_name,
                     'approval_entities': ['BPPE'],
-                    'school' : school_uuid
+                    'school': school_uuid
                 }
             }
 
@@ -492,55 +543,126 @@ class GoogleSheetDataDumpHanlder:
     def check_rot_ref(self, rot_num, program_name, school_name, program_uuid):
         Rotation = apps.get_model('sms', 'Rotation')
 
-
         if self.rotation_uuids:
             for pk, rot, program, school in self.rotation_uuids:
                 if school == school_name and program == program_name and rot == rot_num:
                     return pk
 
-        rotation_exists = Rotation.objects.filter(program__program_uuid__exact=program_uuid, rotation_number__exact=rot_num).exists()
+        rotation_exists = Rotation.objects.filter(
+            program__program_uuid__exact=program_uuid, rotation_number__exact=rot_num).exists()
 
         if not rotation_exists:
             pk = self.get_pk(Rotation)
 
             rotation_dict = {
                 'model': 'sms.rotation',
-                'pk' : pk,
-                'fields' : {
-                    'rotation_number' : rot_num,
+                'pk': pk,
+                'fields': {
+                    'rotation_number': rot_num,
                     'program': program_uuid
                 }
             }
 
-            self.rotation_uuids.append((pk, rot_num, program_name, school_name))
+            self.rotation_uuids.append(
+                (pk, rot_num, program_name, school_name))
             self.final_dump.append(rotation_dict)
             return pk
 
         return str(Rotation.objects.get(
-            program__program_uuid=program_uuid, rotation_number__exact=rot_num).rotation_uuid) 
+            program__program_uuid=program_uuid, rotation_number__exact=rot_num).rotation_uuid)
 
     def get_pk(self, Model):
 
         pk = str(uuid.uuid4())
 
         if Model.objects.filter(pk__exact=pk).exists() or \
-            not self.ensure_unique(pk, Model.__name__):
+                not self.ensure_unique(pk, Model.__name__):
             return self.get_pk(Model)
         else:
             return pk
 
-    def add_fixture_details(self):
-        pass
-
     def ensure_unique(self, uuid_, model_name):
+
         if model_name == 'School':
-            return True if not uuid_ in self.school_uuids else False
+
+            if not self.school_uuids:
+                return True
+
+            for pk, school_name in self.school_uuids:
+                if pk == uuid_:
+                    return False
+                else:
+                    return True
 
         elif model_name == 'Program':
-            return True if not uuid_ in self.program_uuids else False
+
+            if not self.program_uuids:
+                return True
+
+            for pk, program_name, school_name in self.program_uuids:
+                if pk == uuid_:
+
+                    return False
+                else:
+                    return True
 
         elif model_name == 'Rotation':
-            return True if not uuid_ in self.rotation_uuids else False
+
+            if not self.rotation_uuids:
+                return True
+
+            for pk, rotation_num, program_name, school_name in self.rotation_uuids:
+                if pk == uuid_:
+                    return False
+                else:
+                    return True
 
         elif model_name == 'Student':
             return True if not uuid_ in self.student_uuids else False
+
+    def finalize_each_record(self, rot_uuid):
+        Student = apps.get_model('sms', 'Student')
+
+        pk = self.get_pk(Student)
+
+        # add model, pk and fields
+        final_sr_data_dict = {
+            'model': 'sms.student',
+            'pk': pk,
+            'fields': self.each_data
+        }
+
+        # del full_name key
+        del final_sr_data_dict['fields']['full_name']
+
+        # set all currency
+        for currency in [
+                'course_cost_currency',
+                'total_charges_charged_currency',
+                'total_charges_paid_currency',
+                'starting_wage_currency']:
+
+            final_sr_data_dict['fields'][currency] = 'USD'
+
+        # paid
+        if float(final_sr_data_dict['fields']['total_charges_paid']) >= \
+                float(final_sr_data_dict['fields']['total_charges_charged']):
+            final_sr_data_dict['fields']['paid'] = True
+
+        else:
+            final_sr_data_dict['fields']['paid'] = False
+
+            # google_sheet_migrated
+        final_sr_data_dict['fields']['google_sheet_migrated'] = True
+
+        # google_sheet_migration_issue
+        final_sr_data_dict['fields']['google_sheet_migration_issue'] = ''
+
+        # rotation
+        final_sr_data_dict['fields']['rotation'] = rot_uuid
+
+        # PUSH TO STUDENT UUID
+        self.student_uuids.append(pk)
+
+        # this is the final side effect
+        self.each_data = final_sr_data_dict

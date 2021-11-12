@@ -164,7 +164,7 @@ class Student(models.Model):
 
     def pre_hook(self, action):
         # check student charges, if they paid up (technically not needed for delete)
-        self.paid = True if self.total_charges_charged == self.total_charges_paid else False
+        self.paid = True if self.total_charges_charged <= self.total_charges_paid else False
 
         # check dates
         self.date_enrollment_agreement_signed = self.start_date if \
