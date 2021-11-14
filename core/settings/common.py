@@ -1,4 +1,5 @@
-import sys, os
+import sys
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -148,3 +149,20 @@ REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'authentication.serializers.LoginSerializer',
 }
 
+
+# SHARED APP CONSTANT SETTINGS:
+SCHOOL_NAMES = (
+    ('STI', 'Select Therapy Institute'),
+    ('ST2', 'Select Therapy Institute Location 2'),
+    ('ST3', 'Select Therapy Institute Location 3'),
+)
+
+PROGRAM_NAMES = (
+    ('CNA', 'Certified Nurse Assistant'),
+    ('HHA', 'Home Health Aide'),
+    ('SG', 'Security Guard'),
+    ('CG', 'Caregiver'),
+    ('ESOL', 'English to Speakers of Other Language'),
+    ('BLS', 'Basic Life Support'),
+    ('HSFA', 'Heartsaver First Aid'),
+)

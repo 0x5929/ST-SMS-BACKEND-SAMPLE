@@ -1,3 +1,4 @@
+from django.conf import settings
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -7,11 +8,11 @@ from .filters import SMSFilter
 from .permissions import IsAuthenticatedOfficeUserToReadOnly, IsAuthenticatedOfficeUserButCannotDelete, IsAuthenticatedOfficeStaff, IsAuthenticatedOfficeAdmin, IsSuperuser
 from .models import School, Program, Rotation, Student
 from .serializers import SchoolSerializer, ProgramSerializer, RotationSerializer, StudentSerializer
-from .utils import FilterHandler, GoogleSheetDataDumpHanlder
+from .utils import FilterHandler
+from .google_sheets import ExportHandler
 
-from .google_sheets import GoogleSheet
 
-from core.settings.constants import SCHOOL_NAMES
+SCHOOL_NAMES = getattr(settings, 'SCHOOL_NAMES')
 
 
 class SchoolView(viewsets.ModelViewSet):
@@ -78,10 +79,16 @@ class GoogleSheetDataDumpView(APIView):
         try:
             if spreadsheet_id and sheet_id and school_name not in SCHOOL_NAMES:
 
-                sheet = GoogleSheetDataDumpHanlder.auth_and_get_sheet(
-                    GoogleSheet, spreadsheet_id, sheet_id)
+                # sheet = GoogleSheetDataDumpHanlder.auth_and_get_sheet(
+                #     GoogleSheet, spreadsheet_id, sheet_id)
 
-                res_data = GoogleSheetDataDumpHanlder.get_datadump_res(sheet, school_name)
+                # res_data = GoogleSheetDataDumpHanlder.get_datadump_res(
+                #     sheet, school_name)
+                sheet = ExportHandler.auth_and_get_sheet(
+                    spreadsheet_id, sheet_id)
+
+                res_data = ExportHandler.get_datadump_res(
+                    sheet, school_name)
                 return Response(res_data, status=status.HTTP_200_OK)
             else:
                 err_data = {

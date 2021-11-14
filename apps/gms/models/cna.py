@@ -7,7 +7,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from .base import BaseRotation, BaseStudent, BaseRecord
 from ..managers import CNARotationManager, CNAStudentManager, CNATheoryRecordManager, CNAClinicalRecordManager
 
-from core.settings.constants import CLINICAL_SITE_NAMES, CNA_HHA_INSTRUCTOR_TITLES, CNA_THEORY_TOPICS, CNA_CLINICAL_TOPICS
+from ..constants import CLINICAL_SITE_NAMES, CNA_HHA_INSTRUCTOR_TITLES, CNA_THEORY_TOPICS, CNA_CLINICAL_TOPICS
 
 
 # NOTE Please remember to import the ModelClasses below on __init__.py file

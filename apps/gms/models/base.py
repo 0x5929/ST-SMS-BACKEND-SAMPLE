@@ -1,7 +1,10 @@
 import uuid
 from django.db import models
 
-from core.settings.constants import SCHOOL_NAMES
+
+from django.conf import settings
+
+SCHOOL_NAMES = getattr(settings, 'SCHOOL_NAMES')
 
 
 class BaseRotation(models.Model):

@@ -1,6 +1,10 @@
 from rest_framework import permissions
 
-from core.settings.constants import PROGRAM_NAMES
+# from core.settings.constants import PROGRAM_NAMES
+
+from django.conf import settings
+
+PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 
 # ONLY is_istructor = True users can access, then do the following:
 # SUPERUSERS: can do everything

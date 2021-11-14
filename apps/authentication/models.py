@@ -4,7 +4,10 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 from django.contrib.postgres.fields import ArrayField
 
 
-from core.settings.constants import SCHOOL_NAMES, PROGRAM_NAMES
+from django.conf import settings
+
+SCHOOL_NAMES = getattr(settings, 'SCHOOL_NAMES')
+PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 
 
 class CustomAccountManager(BaseUserManager):

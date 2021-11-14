@@ -1,8 +1,7 @@
 import re
 
 from rest_framework.exceptions import ValidationError
-
-from core.settings.constants import PROGRAM_NAMES
+from django.apps import apps
 
 """
     Note, these validators are called from the Serializer
@@ -56,7 +55,7 @@ class SMSValidator:
     @staticmethod
     def no_special_chars_and_captialize_string(value, capitalize=False):
         err_msg = 'Only limited special characters are allowed, please only enter alphanumeric characters and (.#*,. ).'
-        pattern = '[^A-Za-z0-9#*,.\s]{1,150}'
+        pattern = '[^A-Za-z0-9#*,.\s-]{1,150}'
 
         if not re.match(pattern, value) and capitalize:
             return value.strip().capitalize()
@@ -122,7 +121,7 @@ class SMSValidator:
             program_uuid = data.get('program').program_uuid
 
         # check if rotation's have one with the same number and program ID
-        from .models import Rotation
+        Rotation = apps.get_model('sms', 'Rotation')
         rot_exists = Rotation.objects.filter(
             program__program_uuid=program_uuid, rotation_number=data.get('rotation_number')).exists()
 

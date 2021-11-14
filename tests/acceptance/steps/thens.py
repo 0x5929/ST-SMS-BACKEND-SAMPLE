@@ -4,7 +4,7 @@ import json
 from behave import then
 
 from apps.sms.google_sheets import GoogleSheet
-from core.settings.constants import STUDENT_RECORD_HEADERS
+from apps.sms.constants import STUDENT_RECORD_HEADERS
 from tests.acceptance.steps.constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                                               STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
                                               SCHOOL_SAMPLE_POST_DATA,

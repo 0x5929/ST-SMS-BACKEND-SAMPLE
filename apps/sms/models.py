@@ -10,9 +10,12 @@ from djmoney.models.fields import MoneyField
 
 from .managers import SchoolManager, ProgramManager, RotationManager, StudentManager
 from .google_sheets import GoogleSheet
-from .utils import DataHelper
+from .utils import DataHandler
 
-from core.settings.constants import SCHOOL_NAMES, PROGRAM_NAMES, ENTITY_NAMES, EMPLOYMENT_STATUS_CHOICES, SHEET_MIGRATION_ISSUES
+from .constants import ENTITY_NAMES, EMPLOYMENT_STATUS_CHOICES, SHEET_MIGRATION_ISSUES
+
+SCHOOL_NAMES = getattr(settings, 'SCHOOL_NAMES')
+PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 
 
 class School(models.Model):
@@ -134,7 +137,6 @@ class Student(models.Model):
     @property
     def full_name(self):
         return f'{self.first_name.lower()}_{self.last_name.lower()}'
-        # return '%s_%s' % (self.first_name.lower(), self.last_name.lower())
 
     @property
     def school_name(self):
@@ -142,12 +144,12 @@ class Student(models.Model):
 
     def migrate_google(self, method):
 
-        if not settings.MIGRATE_GOOGLE_SHEET:
+        if not getattr(settings, 'MIGRATE_GOOGLE_SHEET'):
             self.google_sheet_migrated = False
             self.google_sheet_migration_issue = method
             return
 
-        data = DataHelper.data_conversion(self)
+        data = DataHandler.data_conversion(self)
 
         try:
             if method == 'DEL':

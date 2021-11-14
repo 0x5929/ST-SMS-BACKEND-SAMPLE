@@ -1,8 +1,10 @@
 import django_filters
 
+from django.conf import settings
+
 from .models import Student
 
-from core.settings.constants import PROGRAM_NAMES
+PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 
 
 class SMSFilter(django_filters.FilterSet):

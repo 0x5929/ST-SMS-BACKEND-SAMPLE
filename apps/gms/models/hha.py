@@ -6,10 +6,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from .base import BaseRotation, BaseStudent, BaseRecord
 from ..managers import HHARotationManager, HHAStudentManager, HHATheoryRecordManager, HHAClinicalRecordManager
 
-from core.settings.constants import CNA_HHA_INSTRUCTOR_TITLES, CLINICAL_SITE_NAMES, HHA_THEORY_TOPICS, HHA_CLINICAL_TOPICS
-
+from ..constants import CNA_HHA_INSTRUCTOR_TITLES, CLINICAL_SITE_NAMES, HHA_THEORY_TOPICS, HHA_CLINICAL_TOPICS
 
 # NOTE Please remember to import the ModelClasses below on __init__.py file
+
+
 class HHARotation(BaseRotation):
     class Meta:
         app_label = 'gms'
