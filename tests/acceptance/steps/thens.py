@@ -17,7 +17,9 @@ from tests.acceptance.steps.constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DA
                                               PUT_DATA,
                                               PATCH_DATA,
                                               GOOGLE_POST_DATA,
-                                              GOOGLE_EDIT_CHECK_DATA)
+                                              GOOGLE_EDIT_CHECK_DATA,
+                                              TEST_DATADUMP_SUCCESS_DATA,
+                                              JSON_SUPERUSER_ONLY_RES)
 
 
 def google_sheet_del(context, student_id):
@@ -356,5 +358,35 @@ def server_responds_405(context):
 
 
 @then('server response status is OK 200')
-def server_response_20(context):
+def server_response_200(context):
     context.test().assertEqual(context.response.status_code, 200)
+
+
+@then('server response status is bad request 400')
+def server_response_400(context):
+    context.test().assertEqual(context.response.status_code, 400)
+
+
+@then('server response status is forbidden 403')
+def server_response_403(context):
+    context.test().assertEqual(context.response.status_code, 403)
+
+
+@then('will receive student data in json datadump')
+def server_response_with_datadump_json(context):
+    response_data = context.response.data
+
+    # NOTE: if fixture change on google sheet (test db sheet), this test WILL fail, change the proper assert values to pass
+    for dict_ in response_data:
+        if dict_.get('model') == 'sms.rotation':
+            context.test().assertEqual(dict_.get('fields').get('rotation_number'), 1)
+
+        elif dict_.get('model') == 'sms.student':
+            context.test().assertEqual(dict_.get('fields').get('student_id'), 'RO-HHA-01-1006-TB')
+
+
+@then('will receive superuser only message')
+def server_response_with_superuser_only(context):
+    response = context.response.data
+
+    context.test().assertEqual(response, JSON_SUPERUSER_ONLY_RES)

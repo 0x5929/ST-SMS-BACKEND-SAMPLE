@@ -16,7 +16,12 @@ from tests.acceptance.steps.constants import (SCHOOLS_API_URL,
                                               STUDENT_SAMPLE_PUT_DATA,
                                               FILTER_PARAMS,
                                               PUT_DATA,
-                                              PATCH_DATA)
+                                              PATCH_DATA,
+                                              DATADUMP_API_URL,
+                                              TEST_SPREADSHEET_ID,
+                                              TEST_SHEET_ID,
+                                              TEST_SCHOOL_NAME,
+                                              TEST_DATADUMP_DUMMY_DATA)
 
 
 @when('request GET to /api/sms/schools')
@@ -355,3 +360,64 @@ def request_GET_by_employment(context):
 @when('request GET to /auth/login/')
 def request_login_by_GET(context):
     context.response = context.test.client.get('/auth/login/')
+
+
+@when('request GET to /api/sms/google_sheet_datadump/?ssid=<>&sid=<>&school_name=<>')
+def request_for_datadump_with_params(context):
+    spread_sheet_id = TEST_SPREADSHEET_ID
+    sheet_id = TEST_SHEET_ID
+    school_name = TEST_SCHOOL_NAME
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{DATADUMP_API_URL}?ssid={spread_sheet_id}&sid={sheet_id}&school_name={school_name}', headers=headers)
+
+
+@when('request GET to /api/sms/google_sheet_datadump/')
+def request_for_datadump_wo_params(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{DATADUMP_API_URL}', headers=headers)
+
+
+@when('request POST to /api/sms/google_sheet_datadump/')
+def request_POST_to_datadump(context):
+    post_data = TEST_DATADUMP_DUMMY_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{DATADUMP_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request PUT to /api/sms/google_sheet_datadump/')
+def request_PUT_to_datadump(context):
+    put_data = TEST_DATADUMP_DUMMY_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.put(
+        f'{DATADUMP_API_URL}', put_data, format='json', headers=headers)
+
+
+@when('request PATCH to /api/sms/google_sheet_datadump/')
+def request_PATCH_to_datadump(context):
+    patch_data = TEST_DATADUMP_DUMMY_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{DATADUMP_API_URL}', patch_data, format='json', headers=headers)
+
+
+@when('request DELETE to /api/sms/google_sheet_datadump/')
+def request_DELETE_to_datadump(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.delete(
+        f'{DATADUMP_API_URL}', headers=headers)

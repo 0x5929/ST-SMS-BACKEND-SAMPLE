@@ -245,6 +245,10 @@ JSON_PERMISSION_DENIED_RES = {
     'detail': 'You do not have permission to perform this action.'
 }
 
+JSON_SUPERUSER_ONLY_RES = {
+    'detail': 'Sorry, you must be a superuser to perform this action.'
+}
+
 # JSON_OBJ_NOT_FOUND_RES = {
 #     'detail': 'Not found.'
 # }
@@ -266,3 +270,64 @@ TEST_REG_USER = 'testuser'
 TEST_REG_OFF_USER = 'testofficeuser'
 TEST_REG_REC_USER = 'testrecruituser'
 TEST_REG_INST_USER = 'testinstructoruser'
+
+
+DATADUMP_API_URL = '/api/sms/google_sheet_datadump/'
+TEST_SPREADSHEET_ID = '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU'
+TEST_SHEET_ID = '0'
+TEST_SCHOOL_NAME = 'STI'
+
+TEST_DATADUMP_DUMMY_DATA = {
+    'ssid': TEST_SPREADSHEET_ID,
+    'sid': TEST_SHEET_ID,
+    'school_name': TEST_SCHOOL_NAME
+}
+
+TEST_DATADUMP_SUCCESS_DATA = [
+    {
+        "model": "sms.rotation",
+        "pk": "dea04e7e-0d4b-4f43-a315-253d7d61d572",
+        "fields": {
+            "rotation_number": 1,
+            "program": "0af7e2ff-1370-43fb-8bd8-6f4623ecc496"
+        }
+    },
+    {
+        "model": "sms.student",
+        "pk": "12a1b5a2-aa7a-4882-a482-0d0cbcf980d7",
+        "fields": {
+            "student_id": "RO-HHA-01-1006-TB",
+            "last_name": "B",
+            "first_name": "Test",
+            "phone_number": "626-333-5544",
+            "email": "testb@email.com",
+            "mailing_address": "1300 N. Fake Ave, TestB, CA 91888",
+            "course": "HHA",
+            "start_date": "2021-12-9",
+            "completion_date": "2021-12-10",
+            "date_enrollment_agreement_signed": "2021-12-9",
+            "third_party_payer_info": "",
+            "course_cost": "680",
+            "total_charges_charged": "680",
+            "total_charges_paid": "600",
+            "graduated": False,
+            "passed_first_exam": False,
+            "passed_second_or_third_exam": False,
+            "employed": False,
+            "place_of_employment": "",
+            "employment_address": "",
+            "position": "",
+            "starting_wage": None,
+            "hours_worked_weekly": "P",
+            "description_of_attempts_to_contact_student": "",
+            "course_cost_currency": "USD",
+            "total_charges_charged_currency": "USD",
+            "total_charges_paid_currency": "USD",
+            "starting_wage_currency": "USD",
+            "paid": False,
+            "google_sheet_migrated": True,
+            "google_sheet_migration_issue": "",
+            "rotation": "dea04e7e-0d4b-4f43-a315-253d7d61d572"
+        }
+    }
+]
