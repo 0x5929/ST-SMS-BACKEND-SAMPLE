@@ -144,10 +144,12 @@ class Student(models.Model):
 
     def migrate_google(self, method):
 
-        if not getattr(settings, 'MIGRATE_GOOGLE_SHEET'):
-            self.google_sheet_migrated = False
-            self.google_sheet_migration_issue = method
-            return
+        if hasattr(settings, 'NIGRATE_GOOGLE_SHEET'):
+            if not getattr(settings, 'MIGRATE_GOOGLE_SHEET'):
+                self.google_sheet_migrated = False
+                self.google_sheet_migration_issue = method
+
+                return True
 
         data = DataHandler.data_conversion(self)
 
@@ -158,11 +160,16 @@ class Student(models.Model):
                 GoogleSheet.master_sheet_save(data=data)
                 self.google_sheet_migrated = True
 
+            return True
+
         except Exception as e:
+            self.google_sheet_migrated = False
             self.google_sheet_migration_issue = method
             #msg = 'Did not save the data in Master DB on Google Sheet, cancelling the %s operation, please try again. Error: %s ' % (method, repr(e))
-            msg = f'Did not save the data in Master DB on Google Sheet, cancelling the {method} operation, please try again. Error: {repr(e)}'
-            raise ImproperlyConfigured(msg)
+            # msg = f'Did not save the data in Master DB on Google Sheet, cancelling the {method} operation, please try again. Error: {repr(e)}'
+            # raise ImproperlyConfigured(msg)
+
+            return False
 
     def pre_hook(self, action):
         # check student charges, if they paid up (technically not needed for delete)
@@ -175,27 +182,24 @@ class Student(models.Model):
 
         # migrate to google (if disable in setting, this will have no side effect)
         if action == 'save':
-            self.migrate_google('POST')
+            return self.migrate_google('POST')
         elif action == 'update':
-            self.migrate_google('PUT')
+            return self.migrate_google('PUT')
         elif action == 'delete':
-            self.migrate_google('DEL')
-        return
+            return self.migrate_google('DEL')
+        return False
 
     def save(self, *args, **kwargs):
-        self.pre_hook('save')
-
-        return super(Student, self).save(*args, **kwargs)
+        if self.pre_hook('save'):
+            return super(Student, self).save(*args, **kwargs)
 
     def update(self, *args, **kwargs):
-        self.pre_hook('update')
-
-        return super(Student, self).update(*args, **kwargs)
+        if self.pre_hook('update'):
+            return super(Student, self).update(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
-        self.pre_hook('delete')
-
-        return super(Student, self).delete(*args, **kwargs)
+        if self.pre_hook('delete'):
+            return super(Student, self).delete(*args, **kwargs)
 
     def __str__(self):
         return self.full_name
