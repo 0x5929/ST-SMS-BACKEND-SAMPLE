@@ -296,8 +296,8 @@ class ExportHandler:
             raise ValidationError(
                 f'Incorrect google sheet header, not accounted for in data dump: [{key}]:{self.initial_data[index][key]}')
 
-    def rekey(self, value, new_key):
-        self.each_data[new_key] = value
+    def rekey(self, validated_value, new_key):
+        self.each_data[new_key] = validated_value
 
     def build_ref(self):
         student_id = self.each_data['student_id']

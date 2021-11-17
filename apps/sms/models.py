@@ -70,7 +70,7 @@ class Rotation(models.Model):
         return Student.objects.filter(rotation__rotation_uuid__exact=self.rotation_uuid).count()
 
     def __str__(self):
-        return f'{self.program} Rotation# {self.rotation_number}'
+        return f'{self.program} Rotation# {str(self.rotation_number)}'
 
 
 class Student(models.Model):

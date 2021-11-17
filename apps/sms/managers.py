@@ -1,7 +1,5 @@
 from django.db import models
 
-#from .utils import DatabaseHandler
-
 
 class SchoolManager(models.Manager):
 

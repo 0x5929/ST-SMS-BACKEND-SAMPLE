@@ -139,9 +139,10 @@ class DataHandler:
 
         except:
 
-            # note we are note raising errors,
+            # note we are not raising errors,
             # if there is an error
-            # return empty value, keeping it simple
+            # return empty value, a little unforgiven but,
+            # keeping it simple
             return '', new_key
 
     @staticmethod
@@ -151,6 +152,9 @@ class DataHandler:
 
         if value == '' or value == 'N/A' or value == 'n/a':
             return '', new_key
+
+        # we care about phone numbers, if it is in an incorrect format, raise error
+        # and have admin check
         try:
             validated_value = SMSValidator.phone_number_format_checker(value)
 
@@ -168,6 +172,8 @@ class DataHandler:
         if value == '' or value == 'N/A' or value == 'n/a':
             return '', new_key
 
+        # we care about emails, if it is in an incorrect format, raise error
+        # and have admin check
         try:
             validated_value = SMSValidator.email_format_checker(value)
 
@@ -219,6 +225,9 @@ class DataHandler:
             validated_value = f'20{date_items[2]}-{date_items[0]}-{date_items[1]}'
             return validated_value, new_key
         else:
+
+            # we care about dates, if it is in an incorrect format, raise error
+            # and have admin check
             raise ValidationError(err_msg)
 
     @staticmethod
@@ -236,6 +245,9 @@ class DataHandler:
             return '0.00', new_key
 
         validated_value = value.replace('$', '').replace(',', '')
+
+        # we dont care much about money insert atm, if it is in an incorrect format, return 0
+        # this should never happen though
         try:
             float(validated_value)
         except ValueError:
@@ -311,7 +323,7 @@ class DataHandler:
 
 class FilterHandler:
 
-    @ staticmethod
+    @staticmethod
     def is_valid_query_params(query_params, fields):
         for key in query_params.keys():
             if key not in fields:
