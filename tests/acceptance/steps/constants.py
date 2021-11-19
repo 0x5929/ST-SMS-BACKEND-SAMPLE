@@ -21,6 +21,9 @@ PROGRAM_STR = 'STI: CNA'
 ROTATION_STR = 'STI: CNA Rotation# 1'
 STUDENT_STR = 'test_b'
 
+# taken from the rotation of ROTATION_UUID_TO_TEST fixture, which contains 0 students
+TEST_ROTATION_SIZE = 0
+
 STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
     #  'student_uuid': '7766c4a3-877c-4c23-b3e6-e7ab9ef43c97',
     'student_id': 'AL-CNA-01-1019-TA',

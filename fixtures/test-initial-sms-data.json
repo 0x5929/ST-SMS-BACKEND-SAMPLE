@@ -129,7 +129,7 @@
     "model": "sms.student",
     "pk": "c7efabb4-890c-48bb-a5f9-854c899496c8",
     "fields": {
-      "student_id": "RO-HHA-01-1019-TB",
+      "student_id": "AL-HHA-01-1019-TB",
       "first_name": "Test",
       "last_name": "B",
       "phone_number": "626-333-5544",
