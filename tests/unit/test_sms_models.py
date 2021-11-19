@@ -1,5 +1,3 @@
-
-from django.db.models.base import Model
 import pytest
 from datetime import date, timedelta
 from tests.acceptance.steps.constants import (SCHOOL_UUID_TO_TEST,
@@ -216,15 +214,6 @@ class TestSMSModelAttrExtraLogic:
         with pytest.raises(Exception):
             get_student_obj.save()
 
-    def test_student_update_exception(self, get_student_obj, monkeypatch):
-
-        def mockreturn_exception(method):
-            raise Exception
-
-        monkeypatch.setattr(get_student_obj, 'pre_hook', mockreturn_exception)
-
-        with pytest.raises(Exception):
-            get_student_obj.update()
 
     def test_student_delete_exception(self, get_student_obj, monkeypatch):
 
@@ -264,23 +253,3 @@ class TestSMSModelAttrExtraLogic:
         get_student_obj.delete()
 
         mocked_super.assert_called_once()
-
-    # def test_student_update_ensure_super(self, get_student_obj, monkeypatch):
-
-    #     def mockreturn_exception(method):
-    #         raise Exception
-
-    #     monkeypatch.setattr(get_student_obj, 'pre_hook', mockreturn_exception)
-
-    #     with pytest.raises(Exception):
-    #         get_student_obj.update()
-
-    # def test_student_delete_ensure_super(self, get_student_obj, monkeypatch):
-
-    #     def mockreturn_exception(method):
-    #         raise Exception
-
-    #     monkeypatch.setattr(get_student_obj, 'pre_hook', mockreturn_exception)
-
-    #     with pytest.raises(Exception):
-    #         get_student_obj.delete()
