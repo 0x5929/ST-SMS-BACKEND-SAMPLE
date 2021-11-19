@@ -144,8 +144,9 @@ class Student(models.Model):
 
     def migrate_google(self, method):
 
-        if hasattr(settings, 'NIGRATE_GOOGLE_SHEET'):
-            if not getattr(settings, 'MIGRATE_GOOGLE_SHEET'):
+        if not hasattr(settings, 'MIGRATE_GOOGLE_SHEET') or \
+            hasattr(settings, 'MIGRATE_GOOGLE_SHEET') and \
+            not getattr(settings, 'MIGRATE_GOOGLE_SHEET'):
                 self.google_sheet_migrated = False
                 self.google_sheet_migration_issue = method
 
@@ -162,23 +163,24 @@ class Student(models.Model):
 
             return True
 
-        except Exception as e:
+        except Exception:
             self.google_sheet_migrated = False
             self.google_sheet_migration_issue = method
-            #msg = 'Did not save the data in Master DB on Google Sheet, cancelling the %s operation, please try again. Error: %s ' % (method, repr(e))
-            # msg = f'Did not save the data in Master DB on Google Sheet, cancelling the {method} operation, please try again. Error: {repr(e)}'
-            # raise ImproperlyConfigured(msg)
 
             return False
 
-    def pre_hook(self, action):
+    def payment_and_date_attr_logic(self):
         # check student charges, if they paid up (technically not needed for delete)
         self.paid = True if self.total_charges_charged <= self.total_charges_paid else False
 
         # check dates
         self.date_enrollment_agreement_signed = self.start_date if \
-            self.date_enrollment_agreement_signed > self.start_date else \
-            self.date_enrollment_agreement_signed
+        self.date_enrollment_agreement_signed > self.start_date else \
+        self.date_enrollment_agreement_signed
+
+
+    def pre_hook(self, action):
+        self.payment_and_date_attr_logic()
 
         # migrate to google (if disable in setting, this will have no side effect)
         if action == 'save':
@@ -192,14 +194,17 @@ class Student(models.Model):
     def save(self, *args, **kwargs):
         if self.pre_hook('save'):
             return super(Student, self).save(*args, **kwargs)
+        raise ImproperlyConfigured('Did not save the data in Master DB on Google Sheet, cancelling the save operation, please try again.')
 
     def update(self, *args, **kwargs):
         if self.pre_hook('update'):
             return super(Student, self).update(*args, **kwargs)
+        raise ImproperlyConfigured('Did not save the data in Master DB on Google Sheet, cancelling the update operation, please try again.')
 
     def delete(self, *args, **kwargs):
         if self.pre_hook('delete'):
             return super(Student, self).delete(*args, **kwargs)
+        raise ImproperlyConfigured('Did not save the data in Master DB on Google Sheet, cancelling the delete operation, please try again.')
 
     def __str__(self):
         return self.full_name
