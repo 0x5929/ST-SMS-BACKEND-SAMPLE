@@ -25,7 +25,7 @@ class GoogleSheetDataOps:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
-                time.sleep(100)
+                time.sleep(SHEET_CONSTANTS.get('MAX_DATAOP_WAIT'))
                 return GoogleSheetDataOps.create_record(
                     worksheets, data, recurse_counter)
 
@@ -63,7 +63,7 @@ class GoogleSheetDataOps:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
-                time.sleep(100)
+                time.sleep(SHEET_CONSTANTS.get('MAX_DATAOP_WAIT'))
                 return GoogleSheetDataOps.update_record(spreadsheet, row_num, row_to_update, recurse_counter)
 
     @staticmethod
@@ -100,7 +100,7 @@ class GoogleSheetDataOps:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
-                time.sleep(100)
+                time.sleep(SHEET_CONSTANTS.get('MAX_DATAOP_WAIT'))
                 return GoogleSheetDataOps.delete_record(
                     spreadsheet, del_row_num, recurse_counter)
 
@@ -154,5 +154,5 @@ class GoogleSheetDataOps:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
-                time.sleep(100)
+                time.sleep(SHEET_CONSTANTS.get('MAX_DATAOP_WAIT'))
                 return GoogleSheetDataOps.refresh_database(spreadsheet, recurse_counter)

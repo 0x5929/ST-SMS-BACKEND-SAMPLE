@@ -87,6 +87,12 @@ SHEET_CONSTANTS = {
     # max recursive calls allowed
     'MAX_RECURSE': 2,
 
+    # max waiting between google sheet init errors
+    'MAX_INIT_WAIT': 20,
+
+    # max waiting between google sheet data op errors
+    'MAX_DATAOP_WAIT': 100,
+
     # refresh sheet request object
     'REFRESH_REQUEST': {
 

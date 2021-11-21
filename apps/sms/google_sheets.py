@@ -89,7 +89,7 @@ class GoogleSheet:
             if recurse_counter and recurse_counter > SHEET_CONSTANTS.get('MAX_RECURSE'):
                 raise e
             else:
-                time.sleep(20)
+                time.sleep(SHEET_CONSTANTS.get('MAX_INIT_WAIT'))
                 return cls.init_google_sheet(
                     school_name, recurse_counter)
                 # note that STUDENT_RECORD_HEADERS is a list with exact order of the header
