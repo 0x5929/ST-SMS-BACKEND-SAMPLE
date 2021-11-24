@@ -79,24 +79,19 @@ class GoogleSheetDataDumpView(APIView):
         try:
             if spreadsheet_id and sheet_id and school_name not in SCHOOL_NAMES:
 
-                # sheet = GoogleSheetDataDumpHanlder.auth_and_get_sheet(
-                #     GoogleSheet, spreadsheet_id, sheet_id)
-
-                # res_data = GoogleSheetDataDumpHanlder.get_datadump_res(
-                #     sheet, school_name)
                 sheet = ExportHandler.auth_and_get_sheet(
                     spreadsheet_id, sheet_id)
 
-                res_data = ExportHandler.get_datadump_res(
+                data_dump = ExportHandler.run(
                     sheet, school_name)
-                return Response(res_data, status=status.HTTP_200_OK)
+                    
+                return Response(data_dump.get_data(), status=status.HTTP_200_OK)
             else:
                 err_data = {
                     'error': 'Invalid spreadsheet id (ssid) or sheet id (sid) or school name (school_name) in GET params.'}
                 return Response(err_data, status=status.HTTP_400_BAD_REQUEST)
 
         except Exception as e:
-            raise e
             err_data = {
                 'error':  repr(e)}
 

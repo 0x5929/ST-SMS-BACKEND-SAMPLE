@@ -174,14 +174,11 @@ class ExportHandler:
         return gs_api.get_worksheet_by_id(int(sheet_id))
 
     @classmethod
-    def get_datadump_res(cls, sheet, school_name):
+    def run(cls, sheet, school_name):
         sheet_data = sheet.get_all_records(empty2zero=False, head=1)
 
-        data_dump = cls(initial_data=sheet_data, school_name=school_name)
+        return cls(initial_data=sheet_data, school_name=school_name)
 
-        return_data = data_dump.run()
-
-        return return_data
 
     def __init__(self, initial_data, school_name):
         self.initial_data = initial_data
@@ -195,7 +192,7 @@ class ExportHandler:
         self.program_uuids = []
         self.school_uuids = []
 
-    def run(self):
+    def get_data(self):
 
         # note we can also do a check at the end, to remove null/None values if student exists
         # but since we are exporting and importing to an empty DB, this shouldnt matter

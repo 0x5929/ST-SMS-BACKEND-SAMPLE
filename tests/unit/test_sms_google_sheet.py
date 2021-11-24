@@ -1,17 +1,22 @@
+import json
 import pytest
 import gspread
 
 from random import randrange
 from oauth2client.service_account import ServiceAccountCredentials
+from apps.sms.google_sheets import ExportHandler
 
 from sms.google_sheets import GoogleSheet
 from sms.models import Student
 from sms.utils import DataHandler
 from sms.constants import SHEET_CONSTANTS
 
-from tests.acceptance.steps.constants import STUDENT_UUID_TO_TEST
+from tests.acceptance.steps.constants import (STUDENT_UUID_TO_TEST, 
+                                                TEST_SPREADSHEET_ID, 
+                                                TEST_DB_SHEET_ID, 
+                                                TEST_SCHOOL_NAME)
 
-pytestmark = pytest.mark.django_db
+# pytestmark = pytest.mark.django_db
 
 
 class TestGoogleSheet:
@@ -193,10 +198,106 @@ class TestGoogleSheet:
             assert get_gs_api.worksheets.get(
                 key).id == get_gs_api.get_worksheets().get(key).id
 
-# class TestExportHandler:
-#     """
-#     Unit tests for ExportHandler Class
+class TestExportHandler:
+    """
+    Unit tests for ExportHandler Class
 
-#     """
+    """
     
+    @pytest.fixture
+    def get_worksheet(self):
+        gs_api = GoogleSheet.init_google_sheet().google_sheet_client.open_by_key(
+            SHEET_CONSTANTS.get(
+                'SPREADSHEET_ID').get(
+                    TEST_SCHOOL_NAME).get(
+                        'test'))
+
+        return gs_api.get_worksheet_by_id(SHEET_CONSTANTS.get('DATABASE_SHEET_ID'))
     
+    @pytest.fixture
+    def get_sheet_data(self, get_worksheet):
+        return get_worksheet.get_all_records(empty2zero=False, head=1)
+
+    @pytest.fixture
+    def get_export_handler_obj(self, get_sheet_data):
+        return ExportHandler(get_sheet_data, TEST_SCHOOL_NAME)
+
+
+    def test_auth_and_get_sheet(self, get_worksheet):
+        test_worksheet = ExportHandler.auth_and_get_sheet(TEST_SPREADSHEET_ID, TEST_DB_SHEET_ID)
+
+        assert test_worksheet.id == get_worksheet.id
+
+
+    def test_run(self, get_worksheet, get_export_handler_obj):
+        # assert that run will produce the same object type as creating an obj straight from constructor
+        assert type(ExportHandler.run(get_worksheet, TEST_SCHOOL_NAME)) == type(get_export_handler_obj)
+
+    def test_ExportHandler_init(self, get_export_handler_obj):
+        if hasattr(get_export_handler_obj, 'initial_data') and \
+           hasattr(get_export_handler_obj, 'school_name') and \
+           hasattr(get_export_handler_obj, 'each_data') and \
+           hasattr(get_export_handler_obj, 'final_dump') and \
+           hasattr(get_export_handler_obj, 'student_uuids') and \
+           hasattr(get_export_handler_obj, 'rotation_uuids') and \
+           hasattr(get_export_handler_obj, 'program_uuids') and \
+           hasattr(get_export_handler_obj, 'school_uuids'):
+           
+           assert True
+        else: 
+            assert False
+
+    def test_get_data(self, get_export_handler_obj, mocker, monkeypatch):
+        mocked_validate_and_rekey = mocker.patch.object(get_export_handler_obj, 'validate_and_rekey')
+        mocked_build_ref = mocker.patch.object(get_export_handler_obj, 'build_ref')
+        mocked_finalize_each_record = mocker.patch.object(get_export_handler_obj, 'finalize_each_record')
+        
+        final_data = get_export_handler_obj.get_data()
+
+        mocked_validate_and_rekey.assert_called_once()
+        mocked_build_ref.assert_called_once()
+        mocked_finalize_each_record.assert_called_once()
+
+        # the returned data must be in an iterable and is in dictionary, for json conversion
+        for data in final_data:
+            if not isinstance(data, dict) and not self.jsonable(data):
+                assert False
+
+    def jsonable(self, data):
+
+        try: 
+            json.loads(json.dumps(data))
+            return True
+        except: 
+            return False
+
+
+    def test_validate_and_rekey(self):
+        assert False
+
+    def test_mapper(self):
+        assert False
+
+    def test_rekey(self):
+        assert False
+
+    def test_build_ref(self):
+        assert False
+
+    def test_check_school_ref(self):
+        assert False
+
+    def test_check_prog_ref(self):
+        assert False
+
+    def test_check_rot_ref(self):
+        assert False
+
+    def test_get_pk(self):
+        assert False
+
+    def test_ensure_unique(self):
+        assert False
+
+    def test_finalize_each_record(self):
+        assert False

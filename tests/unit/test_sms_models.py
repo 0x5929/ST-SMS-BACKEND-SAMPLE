@@ -14,7 +14,7 @@ from tests.acceptance.steps.constants import (SCHOOL_UUID_TO_TEST,
 from sms.models import School, Program, Rotation, Student
 from sms.google_sheets import GoogleSheet
 
-pytestmark = pytest.mark.django_db
+# pytestmark = pytest.mark.django_db
 
 
 class TestSMSModelStr:
