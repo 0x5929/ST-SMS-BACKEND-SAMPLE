@@ -80,7 +80,6 @@ class DataHandler:
 
     @staticmethod
     def validate_student_id(value):
-        print('hello world from validate_student_id, value: ', value)
         new_key = 'student_id'
         err_msg = f'Invalid student ID format in google sheet data dump: {value}'
 
