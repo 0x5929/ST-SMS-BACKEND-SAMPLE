@@ -179,7 +179,6 @@ class ExportHandler:
 
         return cls(initial_data=sheet_data, school_name=school_name)
 
-
     def __init__(self, initial_data, school_name):
         self.initial_data = initial_data
         self.school_name = school_name
@@ -202,8 +201,10 @@ class ExportHandler:
             # add additional keys according to fixture
             self.validate_and_rekey(index, sr)
             rot_uuid = self.build_ref()
-            self.finalize_each_record(rot_uuid)
-            self.final_dump.append(self.each_data)
+            # self.finalize_each_record(rot_uuid)
+            # self.final_dump.append(self.each_data)
+            final_data = self.finalize_each_record(rot_uuid)
+            self.final_dump.append(final_data)
             self.each_data = {}
 
         return self.final_dump
@@ -291,12 +292,18 @@ class ExportHandler:
 
         else:
             raise ValidationError(
-                f'Incorrect google sheet header, not accounted for in data dump: [{key}]:{self.initial_data[index][key]}')
+                f'Incorrect google sheet header, not accounted for in data dump: [{key}]')
 
     def rekey(self, validated_value, new_key):
         self.each_data[new_key] = validated_value
 
     def build_ref(self):
+        """
+        Reads self.each_data['student_id'] and 
+        Builds references from school level model downwards,
+        finally returns rotation uuid for student's reference 
+
+        """
         student_id = self.each_data['student_id']
         pattern = '^(RO|AL)-(CNA|HHA|SG|ESOL)-([0-9]{1,3})-[0-9]{4}-[A-Z]{2}$'
         re_match = re.search(pattern, student_id)
@@ -415,7 +422,7 @@ class ExportHandler:
             return pk
 
         return str(Rotation.objects.get(
-            program__program_uuid=program_uuid, rotation_number__exact=rot_num).rotation_uuid)
+            program__program_uuid__exact=program_uuid, rotation_number__exact=rot_num).rotation_uuid)
 
     def get_pk(self, Model):
 
@@ -512,4 +519,5 @@ class ExportHandler:
         self.student_uuids.append(pk)
 
         # this is the final side effect
-        self.each_data = final_sr_data_dict
+        # self.each_data = final_sr_data_dict
+        return final_sr_data_dict

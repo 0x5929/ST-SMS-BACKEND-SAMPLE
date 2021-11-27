@@ -344,3 +344,40 @@ TEST_DATADUMP_SUCCESS_DATA = [
 TEST_SPREADSHEET_ID = '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU'
 TEST_DB_SHEET_ID = '0'
 TEST_SCHOOL_NAME = 'STI'
+TEST_RECORD = {
+    'test_key_1': 'test_value_1'
+}
+TEST_RECORD_HEADER = 'test_key_1'
+TEST_INDEX = 0
+
+# NOTE: this is dependent on headers and their validation defined in sms.google_sheets.ExportHandler
+TEST_HEADERS_AND_VALIDATIONS = {
+    'Student ID': 'validate_student_id',
+    'Full Name': 'validate_string',
+    'Last Name': 'validate_string',
+    'First Name': 'validate_string',
+    'Phone Number': 'validate_phone',
+    'Email Address': 'validate_email',
+    'Mailing Address': 'validate_string',
+    'Course': 'validate_course',
+    'Start Date': 'validate_date',
+    'Completion Date': 'validate_date',
+    'Date Enrollment Agreement Signed': 'validate_date',
+    'Third-party payer identifying information': 'validate_string',
+    'Course Cost': 'validate_currency',
+    'Total Institutional Charges Charged': 'validate_currency',
+    'Total Institutional Charges Paid': 'validate_currency',
+    'Graduates': 'validate_bool',
+    'Passed FIrst Exam Taken': 'validate_bool',
+    'Passed Second or Third Exam Taken': 'validate_bool',
+    'Employed': 'validate_bool',
+    'Place of Employment': 'validate_string',
+    'Employment Address': 'validate_string',
+    'Position': 'validate_string',
+    'Starting Wage': 'validate_wage',
+    'Hours Worked per Week': 'validate_hours_worked',
+    'Description of Attempts to Contact Students': 'validate_string'
+}
+
+TEST_STUDENT_ID = 'RO-CNA-01-0101-JD'
+TEST_ROTATION_UUID = 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
