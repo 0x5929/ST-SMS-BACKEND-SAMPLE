@@ -12,6 +12,7 @@ from django.core.exceptions import ValidationError
 from sms.google_sheets import GoogleSheet, ExportHandler
 from sms.models import School, Program, Rotation, Student
 from sms.utils import DataHandler
+from sms.data_operations import GoogleSheetDataOps
 from sms.constants import SHEET_CONSTANTS
 
 from tests.acceptance.steps.constants import (STUDENT_UUID_TO_TEST,
@@ -26,7 +27,8 @@ from tests.acceptance.steps.constants import (STUDENT_UUID_TO_TEST,
                                               TEST_INDEX,
                                               TEST_HEADERS_AND_VALIDATIONS,
                                               TEST_STUDENT_ID,
-                                              TEST_ROTATION_UUID)
+                                              TEST_ROTATION_UUID,
+                                              TEST_ROW_NUM)
 
 # pytestmark = pytest.mark.django_db
 
@@ -671,3 +673,113 @@ class TestExportHandler:
 
             if result.get('fields').get(currency) != 'USD':
                 assert False
+
+
+@pytest.mark.current
+class TestGoogleSheetDataOps:
+
+    @pytest.fixture
+    def get_student_obj(self):
+        return Student.objects.get(student_uuid__exact=STUDENT_UUID_TO_TEST)
+
+    @pytest.fixture
+    def get_data(self, get_student_obj):
+        return DataHandler.data_conversion(get_student_obj)
+
+    @pytest.fixture
+    def get_gs_api(self, get_data):
+        return GoogleSheet.init_google_sheet(get_data.get('school_name'))
+
+    @pytest.fixture
+    def get_spreadsheet(self, get_gs_api):
+        return get_gs_api.spreadsheet
+
+    @pytest.fixture
+    def get_worksheets(self, get_gs_api):
+        return get_gs_api.worksheets
+    
+    @pytest.fixture
+    def test_settings_setup(self, monkeypatch):
+        monkeypatch.setitem(SHEET_CONSTANTS, 'MAX_RECURSE', 0)
+        monkeypatch.setitem(SHEET_CONSTANTS, 'MAX_DATAOP_WAIT', 0)
+
+    def test_create_record_success(self, get_data, get_worksheets, mocker):
+        mocked_append_rows = mocker.patch.object(get_worksheets.get('db_worksheet'), 'append_rows')
+        GoogleSheetDataOps.create_record(get_worksheets, get_data)
+
+        mocked_append_rows.assert_called_once()
+
+    def test_create_record_failure(self, get_data, get_worksheets, test_settings_setup, monkeypatch):
+        def return_raiseexception():
+            raise Exception
+ 
+        monkeypatch.setattr(get_worksheets.get('db_worksheet'), 'append_rows', return_raiseexception)
+
+        with pytest.raises(Exception):
+            GoogleSheetDataOps.create_record(get_worksheets, get_data)
+
+    def test_update_record_success(self, get_data, get_spreadsheet, mocker):
+        mocked_values_update = mocker.patch.object(get_spreadsheet, 'values_update')
+        GoogleSheetDataOps.update_record(get_spreadsheet, TEST_ROW_NUM, get_data)
+
+        mocked_values_update.assert_called_once()
+
+    def test_update_record_failure(self, get_data, get_spreadsheet, test_settings_setup, monkeypatch):
+        def return_raiseexception():
+            raise Exception
+
+        monkeypatch.setattr(get_spreadsheet, 'values_update', return_raiseexception)
+
+        with pytest.raises(Exception):
+            GoogleSheetDataOps.update_record(get_spreadsheet, TEST_ROW_NUM, get_data)
+
+    def test_delete_record_success(self, get_spreadsheet, mocker):
+        mocked_values_delete = mocker.patch.object(get_spreadsheet, 'batch_update')
+        GoogleSheetDataOps.delete_record(get_spreadsheet, TEST_ROW_NUM)
+
+        mocked_values_delete.assert_called_once()
+
+    def test_delete_record_failure(self, get_spreadsheet, test_settings_setup, monkeypatch):
+        def return_raiseexception():
+            raise Exception
+
+        monkeypatch.setattr(get_spreadsheet, 'batch_update', return_raiseexception)
+
+        with pytest.raises(Exception):
+            GoogleSheetDataOps.delete_record(get_spreadsheet, TEST_ROW_NUM)
+
+    def test_match_record_success(self, get_worksheets, mocker):
+        mocked_update = mocker.patch.object(get_worksheets.get('match_worksheet'), 'update')
+        mocked_get = mocker.patch.object(get_worksheets.get('match_worksheet'), 'get')
+
+        GoogleSheetDataOps.match_record(get_worksheets, TEST_STUDENT_ID)
+
+        mocked_update.assert_called_once()
+        mocked_get.assert_called_once()
+
+    def test_match_record_failure(self, get_worksheets, test_settings_setup, monkeypatch):
+        def return_raiseexception():
+            raise Exception
+
+        monkeypatch.setattr(get_worksheets.get('match_worksheet'), 'update', return_raiseexception)
+        monkeypatch.setattr(get_worksheets.get('match_worksheet'), 'get', return_raiseexception)
+        
+        with pytest.raises(Exception):
+            GoogleSheetDataOps.match_record(get_worksheets, TEST_STUDENT_ID)
+
+
+    def test_refresh_success(self, get_spreadsheet, mocker):
+        mocked_values_delete = mocker.patch.object(get_spreadsheet, 'batch_update')
+        GoogleSheetDataOps.refresh(get_spreadsheet)
+
+        mocked_values_delete.assert_called_once()
+
+    
+    def test_refresh_failure(self, get_spreadsheet, monkeypatch):
+        def return_raiseexception():
+            raise Exception
+
+        monkeypatch.setattr(get_spreadsheet, 'batch_update', return_raiseexception)
+
+        with pytest.raises(Exception):
+            GoogleSheetDataOps.refresh(get_spreadsheet)

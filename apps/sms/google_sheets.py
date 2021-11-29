@@ -197,14 +197,20 @@ class ExportHandler:
         # but since we are exporting and importing to an empty DB, this shouldnt matter
         for index, sr in enumerate(self.initial_data):
             # each student record should go through
+
             # cleaning and rekey the headers for the validated values
-            # add additional keys according to fixture
             self.validate_and_rekey(index, sr)
+
+            # build references for database
             rot_uuid = self.build_ref()
-            # self.finalize_each_record(rot_uuid)
-            # self.final_dump.append(self.each_data)
+
+            # finalize each record according to fixture
             final_data = self.finalize_each_record(rot_uuid)
+
+            # append to data dump 
             self.final_dump.append(final_data)
+
+            # reinitialize each_data dict, which is used in rekey
             self.each_data = {}
 
         return self.final_dump
