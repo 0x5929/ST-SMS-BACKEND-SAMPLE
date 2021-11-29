@@ -185,6 +185,7 @@ class DataHandler:
 
     @staticmethod
     def validate_course(value):
+        err_msg = f'Invalid course in google sheet data dump: {value}'
         new_key = 'course'
 
         if value.lower() in ['nurse', 'nurse assistant',
@@ -197,8 +198,8 @@ class DataHandler:
         elif value.lower() in ['english', 'esol', 'esl', 'language']:
             validated_value = 'ESOL'
 
-        # else:
-        #     validated_value = 'ESOL'
+        else:
+            raise ValidationError(err_msg)
 
         return validated_value, new_key
 

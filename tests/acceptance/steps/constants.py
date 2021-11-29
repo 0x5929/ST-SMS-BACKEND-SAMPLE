@@ -381,3 +381,19 @@ TEST_HEADERS_AND_VALIDATIONS = {
 
 TEST_STUDENT_ID = 'RO-CNA-01-0101-JD'
 TEST_ROTATION_UUID = 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
+TEST_DICT_DATA = {
+    'first_value': 0,
+    'second_value': 1,
+    'third_value': 2,
+    'fourth_value': 3,
+    'fifth_value': 4,
+    'sixth_value': 5
+}
+TEST_QUERY_PARAMS_SUCCESS = {
+    'first_name': 'John',
+    'last_name': 'Doe'
+
+}
+TEST_QUERY_PARAMS_FAILURE = {
+    '__INCORRECT_PARAM_NAME__': '__RANDOM_STRING__'
+}

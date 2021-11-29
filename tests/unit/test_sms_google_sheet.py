@@ -31,6 +31,7 @@ from tests.acceptance.steps.constants import (STUDENT_UUID_TO_TEST,
 # pytestmark = pytest.mark.django_db
 
 
+@pytest.mark.google
 class TestGoogleSheet:
     """
     Unit tests for Google Sheet Class
@@ -211,6 +212,7 @@ class TestGoogleSheet:
                 key).id == get_gs_api.get_worksheets().get(key).id
 
 
+@pytest.mark.google
 class TestExportHandler:
     """
     Unit tests for ExportHandler Class

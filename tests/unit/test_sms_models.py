@@ -17,6 +17,7 @@ from sms.google_sheets import GoogleSheet
 # pytestmark = pytest.mark.django_db
 
 
+@pytest.mark.sms
 class TestSMSModelStr:
 
     """
@@ -47,6 +48,7 @@ class TestSMSModelStr:
         assert str(student) == STUDENT_STR
 
 
+@pytest.mark.sms
 class TestSMSModelAttrRequirement:
     """
     Testing Mininum Attribute Requirements for each SMS models
@@ -126,6 +128,7 @@ class TestSMSModelAttrRequirement:
             assert False
 
 
+@pytest.mark.sms
 class TestSMSModelAttrExtraLogic:
     """
     Testing additional model methods
@@ -213,7 +216,6 @@ class TestSMSModelAttrExtraLogic:
 
         with pytest.raises(Exception):
             get_student_obj.save()
-
 
     def test_student_delete_exception(self, get_student_obj, monkeypatch):
 
