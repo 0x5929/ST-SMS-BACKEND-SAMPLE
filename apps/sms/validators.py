@@ -46,11 +46,11 @@ class SMSValidator:
 
         if not instance:
             return value
-        
+
         if reference == 'program' and str(getattr(instance, reference).program_uuid) == str(value):
-                return value
+            return value
         elif reference == 'school' and str(getattr(instance, reference).school_uuid) == str(value):
-                return value      
+            return value
         else:
             raise ValidationError(err_msg)
 
@@ -155,7 +155,7 @@ class SMSValidator:
 
         rot_id = data.get('rotation').rotation_uuid
 
-        from .models import Rotation
+        Rotation = apps.get_model('sms', 'Rotation')
         rot = Rotation.objects.get(rotation_uuid__exact=rot_id)
 
         program_name = rot.program.program_name
