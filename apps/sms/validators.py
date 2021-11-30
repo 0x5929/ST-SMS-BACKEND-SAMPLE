@@ -46,11 +46,13 @@ class SMSValidator:
 
         if not instance:
             return value
-        # note we may need to convert into str(UUID) if this complains
-        if instance and str(getattr(instance, reference)) == str(value):
-            return value
-
-        raise ValidationError(err_msg)
+        
+        if reference == 'program' and str(getattr(instance, reference).program_uuid) == str(value):
+                return value
+        elif reference == 'school' and str(getattr(instance, reference).school_uuid) == str(value):
+                return value      
+        else:
+            raise ValidationError(err_msg)
 
     @staticmethod
     def no_special_chars_and_captialize_string(value, capitalize=False):
@@ -100,10 +102,15 @@ class SMSValidator:
             elif data.get('start_date') and data.get('completion_date'):
                 pass
 
-        if data.get('start_date') < data.get('completion_date'):
-            return data
+        if data.get('start_date') and data.get('completion_date'):
+
+            if data.get('start_date') < data.get('completion_date'):
+                return data
+            else:
+                raise ValidationError(date_err_msg)
         else:
-            raise ValidationError(date_err_msg)
+            # meaning either one of the dates are None
+            return data
 
     @staticmethod
     def ensure_unique_rot(data, partial=False, instance=None):

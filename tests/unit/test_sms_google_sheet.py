@@ -675,7 +675,7 @@ class TestExportHandler:
                 assert False
 
 
-@pytest.mark.current
+@pytest.mark.google
 class TestGoogleSheetDataOps:
 
     @pytest.fixture
