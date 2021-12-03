@@ -21,7 +21,7 @@ class Request:
         self.user = User(superuser=superuser)
 
 
-@pytest.mark.current
+
 class TestSMSValidator:
 
     @pytest.fixture
