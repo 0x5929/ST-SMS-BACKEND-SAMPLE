@@ -47,11 +47,14 @@ class SMSValidator:
         if not instance:
             return value
 
-        if reference == 'program' and str(getattr(instance, reference).program_uuid) == str(value):
+        if reference == 'program' and str(getattr(instance, reference).program_uuid) == str(value.program_uuid):
             return value
-        elif reference == 'school' and str(getattr(instance, reference).school_uuid) == str(value):
+        elif reference == 'school' and str(getattr(instance, reference).school_uuid) == str(value.school_uuid):
             return value
         else:
+            # print('validation error: ', value, reference, instance)
+            # print('validation error: getattr', str(
+            #     getattr(instance, reference).school_uuid))
             raise ValidationError(err_msg)
 
     @staticmethod

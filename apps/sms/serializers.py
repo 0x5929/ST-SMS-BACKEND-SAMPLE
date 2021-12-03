@@ -32,7 +32,7 @@ class StudentSerializer(serializers.ModelSerializer):
 
     def validate_place_of_employment(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
-    
+
     def validate_employment_address(self, value):
         return SMSValidator.no_special_chars_and_captialize_string(value)
 

@@ -21,7 +21,7 @@ class Request:
         self.user = User(superuser=superuser)
 
 
-
+@pytest.mark.sms
 class TestSMSValidator:
 
     @pytest.fixture
@@ -115,10 +115,10 @@ class TestSMSValidator:
     def test_reference_does_not_change_on_updates_success(self, get_rot_obj):
         instance = get_rot_obj
         reference = 'program'
-        value = instance.program.program_uuid
+        value = instance.program
 
         assert SMSValidator.reference_does_not_change_on_updates(
-            value, instance, reference) == get_rot_obj.program.program_uuid
+            value, instance, reference).program_uuid == get_rot_obj.program.program_uuid
 
     def test_reference_does_not_change_on_updates_failure(self, get_rot_obj):
         instance = get_rot_obj

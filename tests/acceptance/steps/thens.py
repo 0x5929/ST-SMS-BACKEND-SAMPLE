@@ -240,6 +240,7 @@ def database_will_edit_program(context):
 
     editted_program_name = PUT_DATA.get('program__program_name')
 
+    # print('response: ', response)
     context.test().assertEqual(response.get('program_name'), editted_program_name)
 
 

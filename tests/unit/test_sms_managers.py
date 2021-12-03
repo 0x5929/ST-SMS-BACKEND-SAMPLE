@@ -1,11 +1,13 @@
 import pytest
+from django.db import models
 
 from sms.managers import SchoolManager, ProgramManager, RotationManager, StudentManager
+
 
 class User:
     def __init__(self, superuser=False):
         self.is_superuser = superuser
-        self.school_name = None
+        self.school_name = 'STI'
 
 
 class Request:
@@ -13,63 +15,117 @@ class Request:
         self.user = User(superuser=superuser)
 
 
-class GetSchoolQuerySet:
-    def filter(self, school_name__exact):
-        pass
+@pytest.mark.sms
+class TestSMSManagers:
 
-    def all(self):
-        pass
+    @pytest.fixture
+    def get_request_obj(self):
+        return Request(superuser=False)
 
-class GetProgramQuerySet:
-    def filter(self, school__school_name__exact):
-        pass
+    @pytest.fixture
+    def get_request_super_obj(self):
+        return Request(superuser=True)
 
-    def all(self):
-        pass
+    def test_school_get_query_reg_user(self, get_request_obj, monkeypatch):
+        class GetSchoolQuerySet:
+            def filter(self, school_name__exact):
+                return '__SCHOOL_FILTER__'
 
-class GetRotationQuerySet:
-    def filter(self, program__school__school_name__exact):
-        pass
+        def get_school_qs(self):
+            return GetSchoolQuerySet()
 
-    def all(self):
-        pass
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_school_qs)
 
-class GetStudentQuerySet:
-    def filter(self, rotation__program__school__school_name__exact):
-        pass
+        assert SchoolManager().get_query(get_request_obj) == '__SCHOOL_FILTER__'
 
-    def all(self):
-        pass
+    def test_school_get_query_super_user(self, get_request_super_obj, monkeypatch):
+        class GetSchoolQuerySet:
+            def all(self):
+                return '__SCHOOL_ALL__'
 
+        def get_school_qs(self):
+            return GetSchoolQuerySet()
 
-@pytest.fixture(scope='class')
-def get_request_obj():
-    return Request(superuser=False)
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_school_qs)
 
-@pytest.fixture(scope='class')
-def get_request_super_obj():
-    return Request(superuser=True)
+        assert SchoolManager().get_query(get_request_super_obj) == '__SCHOOL_ALL__'
 
-@pytest.fixture(scope='class')
-def get_queryset_obj(mocker):
-    pass 
+    def test_prog_get_query_reg_user(self, get_request_obj, monkeypatch):
+        class GetProgramQuerySet:
+            def filter(self, school__school_name__exact):
+                return '__PROGRAM_FILTER__'
 
-@pytest.mark.current
-@pytest.mark.usefixtures('get_request_obj', 'get_request_super_obj')
-class TestSchoolManager:
-    def test_get_query_reg_user(self, get_request_obj, mocker):
-        mocked_super = mocker.patch('django.db.models.Manager.get_queryset')
-    def test_get_query_super_user(self, get_request_super_obj):
-        pass
+        def get_prog_qs(self):
+            return GetProgramQuerySet()
 
-class TestProgramManager:
-    def test_get_query(self):
-        pass
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_prog_qs)
 
-class TestRotationManager:
-    def test_get_query(self):
-        pass
+        assert ProgramManager().get_query(get_request_obj) == '__PROGRAM_FILTER__'
 
-class TestStudentManager:
-    def test_get_query(self):
-        pass
+    def test_prog_get_query_super_user(self, get_request_super_obj, monkeypatch):
+        class GetProgramQuerySet:
+            def all(self):
+                return '__PROGRAM_ALL__'
+
+        def get_prog_qs(self):
+            return GetProgramQuerySet()
+
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_prog_qs)
+
+        assert ProgramManager().get_query(get_request_super_obj) == '__PROGRAM_ALL__'
+
+    def test_rot_get_query_reg_user(self, get_request_obj, monkeypatch):
+        class GetRotationQuerySet:
+            def filter(self, program__school__school_name__exact):
+                return '__ROTATION_FILTER__'
+
+        def get_rot_qs(self):
+            return GetRotationQuerySet()
+
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_rot_qs)
+
+        assert RotationManager().get_query(get_request_obj) == '__ROTATION_FILTER__'
+
+    def test_rot_get_query_super_user(self, get_request_super_obj, monkeypatch):
+        class GetRotationQuerySet:
+            def all(self):
+                return '__ROTATION_ALL__'
+
+        def get_rot_qs(self):
+            return GetRotationQuerySet()
+
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_rot_qs)
+
+        assert RotationManager().get_query(get_request_super_obj) == '__ROTATION_ALL__'
+
+    def test_student_get_query_reg_user(self, get_request_obj, monkeypatch):
+        class GetStudentQuerySet:
+            def filter(self, rotation__program__school__school_name__exact):
+                return '__STUDENT_FILTER__'
+
+        def get_student_qs(self):
+            return GetStudentQuerySet()
+
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_student_qs)
+
+        assert StudentManager().get_query(get_request_obj) == '__STUDENT_FILTER__'
+
+    def test_student_get_query_super_user(self, get_request_super_obj, monkeypatch):
+        class GetStudentQuerySet:
+            def all(sel):
+                return '__STUDENT_ALL__'
+
+        def get_student_qs(self):
+            return GetStudentQuerySet()
+
+        monkeypatch.setattr(models.Manager, 'get_queryset',
+                            get_student_qs)
+
+        assert StudentManager().get_query(get_request_super_obj) == '__STUDENT_ALL__'
