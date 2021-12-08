@@ -15,22 +15,38 @@ from sms.utils import DataHandler
 from sms.data_operations import GoogleSheetDataOps
 from sms.constants import SHEET_CONSTANTS
 
-from tests.acceptance.steps.constants import (STUDENT_UUID_TO_TEST,
-                                              SCHOOL_UUID_TO_TEST,
-                                              PROGRAM_UUID_TO_TEST,
-                                              ROTATION_UUID_TO_TEST,
-                                              TEST_SPREADSHEET_ID,
-                                              TEST_DB_SHEET_ID,
-                                              TEST_SCHOOL_NAME,
-                                              TEST_RECORD,
-                                              TEST_RECORD_HEADER,
-                                              TEST_INDEX,
-                                              TEST_HEADERS_AND_VALIDATIONS,
-                                              TEST_STUDENT_ID,
-                                              TEST_ROTATION_UUID,
-                                              TEST_ROW_NUM)
 
-# pytestmark = pytest.mark.django_db
+from .sms_constants import (STUDENT_UUID_TO_TEST,
+                            SCHOOL_UUID_TO_TEST,
+                            PROGRAM_UUID_TO_TEST,
+                            ROTATION_UUID_TO_TEST,
+                            FILTER_PARAMS,
+                            TEST_SPREADSHEET_ID,
+                            TEST_DB_SHEET_ID,
+                            TEST_SCHOOL_NAME,
+                            TEST_RECORD,
+                            TEST_RECORD_HEADER,
+                            TEST_INDEX,
+                            TEST_HEADERS_AND_VALIDATIONS,
+                            TEST_STUDENT_ID,
+                            TEST_ROW_NUM,
+                            TEST_SCHOOL_NAME_AND_INTERNAL_NAME,
+                            TEST_SUCCESS_RETURN,
+                            TEST_KEY,
+                            TEST_VALUE,
+                            TEST_NON_MATCH_SID,
+                            TEST_SCHOOL_UUID,
+                            TEST_PROGRAM_UUID,
+                            TEST_ROTATION_UUID,
+                            TEST_STUDENT_UUID,
+                            TEST_PK,
+                            TEST_PROGRAM_NAME,
+                            TEST_ROT_NUM,
+                            TEST_CHARGES_PAID,
+                            TEST_CHARGES_CHARGED)
+
+
+
 
 
 @pytest.mark.google
@@ -214,48 +230,52 @@ class TestGoogleSheet:
                 key).id == get_gs_api.get_worksheets().get(key).id
 
 
+
+
+def getting_worksheet():
+
+    try:
+        gs_api = GoogleSheet.init_google_sheet().google_sheet_client.open_by_key(
+            SHEET_CONSTANTS.get(
+                'SPREADSHEET_ID').get(
+                    TEST_SCHOOL_NAME).get(
+                        'test'))
+        worksheet = gs_api.get_worksheet_by_id(
+            SHEET_CONSTANTS.get('DATABASE_SHEET_ID'))
+    except:
+        time.sleep(120)
+        return getting_worksheet()
+
+    return worksheet
+
+@pytest.fixture(scope='class')
+def get_worksheet():
+    return getting_worksheet()
+
+def getting_sheet_data(worksheet):
+
+    try:
+        sheet_data = worksheet.get_all_records(
+            empty2zero=False, head=1)
+
+    except:
+        time.sleep(120)
+        return getting_sheet_data(worksheet)
+    return sheet_data
+
+@pytest.fixture(scope='class')
+def get_sheet_data(get_worksheet):
+
+    return getting_sheet_data(get_worksheet)
+
+@pytest.mark.current
 @pytest.mark.google
+@pytest.mark.usefixtures('get_sheet_data', 'get_worksheet')
 class TestExportHandler:
     """
     Unit tests for ExportHandler Class
 
     """
-
-    def getting_worksheet(self):
-
-        try:
-            gs_api = GoogleSheet.init_google_sheet().google_sheet_client.open_by_key(
-                SHEET_CONSTANTS.get(
-                    'SPREADSHEET_ID').get(
-                        TEST_SCHOOL_NAME).get(
-                            'test'))
-            worksheet = gs_api.get_worksheet_by_id(
-                SHEET_CONSTANTS.get('DATABASE_SHEET_ID'))
-        except:
-            time.sleep(120)
-            return self.getting_worksheet()
-
-        return worksheet
-
-    @pytest.fixture
-    def get_worksheet(self):
-        return self.getting_worksheet()
-
-    def getting_sheet_data(self, worksheet):
-
-        try:
-            sheet_data = worksheet.get_all_records(
-                empty2zero=False, head=1)
-
-        except:
-            time.sleep(120)
-            return self.getting_sheet_data(worksheet)
-        return sheet_data
-
-    @pytest.fixture
-    def get_sheet_data(self, get_worksheet):
-
-        return self.getting_sheet_data(get_worksheet)
 
     @pytest.fixture
     def get_export_handler_obj(self, get_sheet_data):
@@ -268,10 +288,10 @@ class TestExportHandler:
 
     @pytest.fixture
     def get_converted_school_name(self, get_school_name):
-        if get_school_name == 'RO':
-            return 'STI'
-        elif get_school_name == 'AL':
-            return 'ST2'
+        for gs_name, internal_name in TEST_SCHOOL_NAME_AND_INTERNAL_NAME:
+            if get_school_name == gs_name:
+                return internal_name
+
 
     @pytest.fixture
     def get_prog_name(self):
@@ -314,7 +334,7 @@ class TestExportHandler:
         mocked_build_ref = mocker.patch.object(
             get_export_handler_obj, 'build_ref')
         mocked_finalize_each_record = mocker.patch.object(
-            get_export_handler_obj, 'finalize_each_record', return_value='__SUCCESS_RETURN__')
+            get_export_handler_obj, 'finalize_each_record', return_value=TEST_SUCCESS_RETURN)
 
         final_data = get_export_handler_obj.get_data()
 
@@ -324,7 +344,7 @@ class TestExportHandler:
 
         # the returned data must be in an iterable and is in dictionary, for json conversion
         for data in final_data:
-            if data != '__SUCCESS_RETURN__':
+            if data != TEST_SUCCESS_RETURN:
                 assert False
 
     def jsonable(self, data):
@@ -369,9 +389,9 @@ class TestExportHandler:
 
     def test_rekey(self, get_export_handler_obj):
 
-        get_export_handler_obj.rekey('test value', 'test key')
+        get_export_handler_obj.rekey(TEST_VALUE, TEST_KEY)
 
-        assert get_export_handler_obj.each_data.get('test key') == 'test value'
+        assert get_export_handler_obj.each_data.get(TEST_KEY) == TEST_VALUE
 
     def test_build_ref_success(self, get_export_handler_obj, mocker, monkeypatch):
         mocked_check_school_ref = mocker.patch.object(
@@ -381,7 +401,7 @@ class TestExportHandler:
             get_export_handler_obj, 'check_prog_ref')
 
         mocked_check_rot_ref = mocker.patch.object(
-            get_export_handler_obj, 'check_rot_ref', return_value=TEST_ROTATION_UUID)
+            get_export_handler_obj, 'check_rot_ref', return_value=ROTATION_UUID_TO_TEST)
 
         monkeypatch.setitem(get_export_handler_obj.each_data,
                             'student_id', TEST_STUDENT_ID)
@@ -392,7 +412,7 @@ class TestExportHandler:
         mocked_check_prog_ref.assert_called_once()
         mocked_check_rot_ref.assert_called_once()
 
-        assert result == TEST_ROTATION_UUID
+        assert result == ROTATION_UUID_TO_TEST
 
     def test_buid_ref_failure(self, get_export_handler_obj, mocker, monkeypatch):
         mocked_check_school_ref = mocker.patch.object(
@@ -402,10 +422,10 @@ class TestExportHandler:
             get_export_handler_obj, 'check_prog_ref')
 
         mocked_check_rot_ref = mocker.patch.object(
-            get_export_handler_obj, 'check_rot_ref', return_value=TEST_ROTATION_UUID)
+            get_export_handler_obj, 'check_rot_ref', return_value=ROTATION_UUID_TO_TEST)
 
         monkeypatch.setitem(get_export_handler_obj.each_data,
-                            'student_id', 'a none matching student id')
+                            'student_id', TEST_NON_MATCH_SID)
 
         with pytest.raises(ValidationError):
             get_export_handler_obj.build_ref()
@@ -427,14 +447,14 @@ class TestExportHandler:
 
         class SchoolQuery:
             def __init__(self):
-                self.school_uuid = 'test school uuid'
+                self.school_uuid = TEST_SCHOOL_UUID
 
         monkeypatch.setattr(School.objects, 'filter', does_exist)
         monkeypatch.setattr(School.objects, 'get', found_school)
         monkeypatch.setattr(get_export_handler_obj, 'school_uuids', [])
 
         assert get_export_handler_obj.check_school_ref(
-            get_school_name) == 'test school uuid'
+            get_school_name) == TEST_SCHOOL_UUID
 
     def test_check_school_ref_wo_school_uuids_school_doesnt_exist(self, get_export_handler_obj, get_school_name, mocker, monkeypatch):
         def doesnt_exist(school_name__exact):
@@ -447,7 +467,7 @@ class TestExportHandler:
         monkeypatch.setattr(School.objects, 'filter', doesnt_exist)
         monkeypatch.setattr(get_export_handler_obj, 'school_uuids', [])
         mocked_get_pk = mocker.patch.object(
-            get_export_handler_obj, 'get_pk', return_value='test school pk')
+            get_export_handler_obj, 'get_pk', return_value=TEST_SCHOOL_UUID)
 
         pk = get_export_handler_obj.check_school_ref(
             get_school_name)
@@ -456,14 +476,14 @@ class TestExportHandler:
 
         assert get_export_handler_obj.school_uuids != []
         assert get_export_handler_obj.final_dump != []
-        assert pk == 'test school pk'
+        assert pk == TEST_SCHOOL_UUID
 
     def test_check_school_ref_with_school_uuids(self, get_export_handler_obj, get_school_name, get_converted_school_name, monkeypatch):
         monkeypatch.setattr(get_export_handler_obj, 'school_uuids', [
-                            ('test school pk', get_converted_school_name)])
+                            (TEST_SCHOOL_UUID, get_converted_school_name)])
 
         assert get_export_handler_obj.check_school_ref(
-            get_school_name) == 'test school pk'
+            get_school_name) == TEST_SCHOOL_UUID
 
     def test_check_prog_ref_wo_prog_uuids_prog_exists(self, get_export_handler_obj, get_school_name, get_prog_name, monkeypatch):
         def does_exist(school__school_uuid__exact, program_name__exact):
@@ -478,7 +498,7 @@ class TestExportHandler:
 
         class SchoolQuery:
             def __init__(self):
-                self.program_uuid = 'test program uuid'
+                self.program_uuid = TEST_PROGRAM_UUID
 
         monkeypatch.setattr(Program.objects, 'filter', does_exist)
         monkeypatch.setattr(Program.objects, 'get', found_program)
@@ -487,7 +507,7 @@ class TestExportHandler:
         assert get_export_handler_obj.check_prog_ref(
             get_school_name,
             get_prog_name,
-            'test school uuid') == 'test program uuid'
+            TEST_PROGRAM_UUID) == TEST_PROGRAM_UUID
 
     def test_check_prog_ref_wo_prog_uuids_prog_doesnt_exists(self, get_export_handler_obj, get_school_name, get_prog_name, monkeypatch, mocker):
         def doesnt_exist(school__school_uuid__exact, program_name__exact):
@@ -500,25 +520,25 @@ class TestExportHandler:
         monkeypatch.setattr(Program.objects, 'filter', doesnt_exist)
         monkeypatch.setattr(get_export_handler_obj, 'program_uuids', [])
         mocked_get_pk = mocker.patch.object(
-            get_export_handler_obj, 'get_pk', return_value='test program pk')
+            get_export_handler_obj, 'get_pk', return_value=TEST_PROGRAM_UUID)
 
         pk = get_export_handler_obj.check_prog_ref(
             get_prog_name,
             get_school_name,
-            'test school uuid')
+            TEST_SCHOOL_UUID)
 
         mocked_get_pk.assert_called_once()
 
         assert get_export_handler_obj.program_uuids != []
         assert get_export_handler_obj.final_dump != []
-        assert pk == 'test program pk'
+        assert pk == TEST_PROGRAM_UUID
 
     def test_check_prog_ref_with_prog_uuids(self, get_export_handler_obj, get_school_name, get_prog_name, monkeypatch):
         monkeypatch.setattr(get_export_handler_obj, 'program_uuids', [(
-                            'test program pk', get_prog_name, get_school_name)])
+                            TEST_PROGRAM_UUID, get_prog_name, get_school_name)])
 
         assert get_export_handler_obj.check_prog_ref(
-            get_prog_name, get_school_name, 'test school uuid') == 'test program pk'
+            get_prog_name, get_school_name, TEST_SCHOOL_UUID) == TEST_PROGRAM_UUID
 
     def test_check_rot_ref_wo_rot_uuids_rot_exists(self, get_export_handler_obj, get_school_name, get_prog_name,  get_rot_num, monkeypatch):
         def does_exist(program__program_uuid__exact, rotation_number__exact):
@@ -533,7 +553,7 @@ class TestExportHandler:
 
         class RotationQuery:
             def __init__(self):
-                self.rotation_uuid = 'test rotation uuid'
+                self.rotation_uuid = TEST_ROTATION_UUID
 
         monkeypatch.setattr(Rotation.objects, 'filter', does_exist)
         monkeypatch.setattr(Rotation.objects, 'get', found_rot)
@@ -543,7 +563,7 @@ class TestExportHandler:
             get_rot_num,
             get_prog_name,
             get_school_name,
-            'test program uuid') == 'test rotation uuid'
+            TEST_PROGRAM_UUID) == TEST_ROTATION_UUID
 
     def test_check_rot_ref_wo_rot_uuids_rot_doesnt_exist(self,  get_export_handler_obj, get_school_name, get_prog_name, get_rot_num, mocker, monkeypatch):
         def doesnt_exist(program__program_uuid__exact, rotation_number__exact):
@@ -557,26 +577,26 @@ class TestExportHandler:
         monkeypatch.setattr(get_export_handler_obj, 'rotation_uuids', [])
 
         mocked_get_pk = mocker.patch.object(
-            get_export_handler_obj, 'get_pk', return_value='test rotation pk')
+            get_export_handler_obj, 'get_pk', return_value=TEST_ROTATION_UUID)
 
         pk = get_export_handler_obj.check_rot_ref(
             get_rot_num,
             get_prog_name,
             get_school_name,
-            'test program uuid')
+            TEST_PROGRAM_UUID)
 
         mocked_get_pk.assert_called_once()
 
         assert get_export_handler_obj.rotation_uuids != []
         assert get_export_handler_obj.final_dump != []
-        assert pk == 'test rotation pk'
+        assert pk == TEST_ROTATION_UUID
 
     def test_check_rot_ref_with_rot_uuids(self, get_export_handler_obj, get_school_name, get_prog_name, get_rot_num, monkeypatch):
         monkeypatch.setattr(get_export_handler_obj, 'rotation_uuids', [(
-                            'test rotation pk', get_rot_num, get_prog_name, get_school_name)])
+                            TEST_ROTATION_UUID, get_rot_num, get_prog_name, get_school_name)])
 
         assert get_export_handler_obj.check_rot_ref(
-            get_rot_num, get_prog_name, get_school_name, 'test program uuid') == 'test rotation pk'
+            get_rot_num, get_prog_name, get_school_name, TEST_PROGRAM_UUID) == TEST_ROTATION_UUID
 
     def test_get_pk(self, get_export_handler_obj, mocker):
         def doesnt_exist(pk__exact):
@@ -587,7 +607,7 @@ class TestExportHandler:
                 return False
 
         mocked_filter = mocker.patch(
-            'sms.models.Student.objects.filter', return_value=doesnt_exist('test pk'))
+            'sms.models.Student.objects.filter', return_value=doesnt_exist(TEST_PK))
 
         mocked_ensure_unique = mocker.patch.object(
             get_export_handler_obj, 'ensure_unique')
@@ -604,21 +624,21 @@ class TestExportHandler:
         monkeypatch.setattr(get_export_handler_obj, 'student_uuids', [])
 
         assert get_export_handler_obj.ensure_unique(
-            'test uuid', 'Student') == True
+            TEST_PK, 'Student') == True
         assert get_export_handler_obj.ensure_unique(
-            'test uuid', 'Rotation') == True
+            TEST_PK, 'Rotation') == True
         assert get_export_handler_obj.ensure_unique(
-            'test uuid', 'Program') == True
+            TEST_PK, 'Program') == True
         assert get_export_handler_obj.ensure_unique(
-            'test uuid', 'School') == True
+            TEST_PK, 'School') == True
 
     def test_ensure_unique_matching(self, get_export_handler_obj, monkeypatch):
         monkeypatch.setattr(get_export_handler_obj,
-                            'school_uuids', [(SCHOOL_UUID_TO_TEST, 'test school name')])
+                            'school_uuids', [(SCHOOL_UUID_TO_TEST, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'program_uuids', [(PROGRAM_UUID_TO_TEST, 'test program name', 'test school name')])
+                            'program_uuids', [(PROGRAM_UUID_TO_TEST, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'rotation_uuids', [(ROTATION_UUID_TO_TEST, 'test rot num', 'test program name', 'test school name')])
+                            'rotation_uuids', [(ROTATION_UUID_TO_TEST, TEST_ROT_NUM, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
                             'student_uuids', [STUDENT_UUID_TO_TEST])
 
@@ -633,13 +653,13 @@ class TestExportHandler:
 
     def test_ensure_unique_nonmatching(self, get_export_handler_obj, monkeypatch):
         monkeypatch.setattr(get_export_handler_obj,
-                            'school_uuids', [('test school uuid', 'test school name')])
+                            'school_uuids', [(SCHOOL_UUID_TO_TEST, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'program_uuids', [('test program uuid', 'test program name', 'test school name')])
+                            'program_uuids', [(PROGRAM_UUID_TO_TEST, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'rotation_uuids', [('test rotation uuid', 'test rot num', 'test program name', 'test school name')])
+                            'rotation_uuids', [(ROTATION_UUID_TO_TEST, TEST_ROT_NUM, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'student_uuids', ['test student uuid'])
+                            'student_uuids', [TEST_STUDENT_UUID])
 
         assert get_export_handler_obj.ensure_unique(
             'test uuid', 'Student') == True
@@ -652,15 +672,15 @@ class TestExportHandler:
 
     def test_finalize_each_record(self, get_export_handler_obj, monkeypatch):
         monkeypatch.setitem(get_export_handler_obj.each_data,
-                            'total_charges_paid', '1.00')
+                            'total_charges_paid', TEST_CHARGES_PAID)
         monkeypatch.setitem(get_export_handler_obj.each_data,
-                            'total_charges_charged', '1.00')
+                            'total_charges_charged', TEST_CHARGES_CHARGED)
         monkeypatch.setitem(get_export_handler_obj.each_data,
-                            'full_name', 'test_full_name')
+                            'full_name', FILTER_PARAMS.get('full_name'))
         result = get_export_handler_obj.finalize_each_record(
-            TEST_ROTATION_UUID)
+            ROTATION_UUID_TO_TEST)
 
-        assert result.get('fields').get('rotation') == TEST_ROTATION_UUID
+        assert result.get('fields').get('rotation') == ROTATION_UUID_TO_TEST
         assert result.get('fields').get('google_sheet_migrated') == True
         assert result.get('fields').get('google_sheet_migration_issue') == ''
         assert result.get('fields').get('paid') == True
@@ -675,7 +695,14 @@ class TestExportHandler:
                 assert False
 
 
+
+@pytest.fixture(scope='class')
+def get_gs_api():
+    return GoogleSheet.init_google_sheet(TEST_SCHOOL_NAME)
+
+
 @pytest.mark.google
+@pytest.mark.usefixtures('get_gs_api')
 class TestGoogleSheetDataOps:
 
     @pytest.fixture
@@ -686,9 +713,10 @@ class TestGoogleSheetDataOps:
     def get_data(self, get_student_obj):
         return DataHandler.data_conversion(get_student_obj)
 
-    @pytest.fixture
-    def get_gs_api(self, get_data):
-        return GoogleSheet.init_google_sheet(get_data.get('school_name'))
+    # if get_gs_api gives us trouble due to not being rolled back after each test, comment out the class scope and uncomment below
+    # @pytest.fixture
+    # def get_gs_api(self, get_data):
+    #     return GoogleSheet.init_google_sheet(get_data.get('school_name'))
 
     @pytest.fixture
     def get_spreadsheet(self, get_gs_api):
@@ -775,7 +803,7 @@ class TestGoogleSheetDataOps:
         mocked_values_delete.assert_called_once()
 
     
-    def test_refresh_failure(self, get_spreadsheet, monkeypatch):
+    def test_refresh_failure(self, get_spreadsheet, test_settings_setup, monkeypatch):
         def return_raiseexception():
             raise Exception
 

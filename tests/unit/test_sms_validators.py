@@ -1,5 +1,3 @@
-
-from functools import partial
 import pytest
 import datetime
 
@@ -7,8 +5,19 @@ from sms.models import Student, Rotation, Program, School
 from sms.validators import SMSValidator
 from sms.serializers import StudentSerializer, RotationSerializer, ProgramSerializer
 
-from tests.acceptance.steps.constants import PROGRAM_UUID_TO_TEST
-
+from .sms_constants import (TEST_PROGRAM_UUID, 
+                            TEST_NOCAP_MATCHING_STR, 
+                            TEST_CAP_MATCHING_STR, 
+                            TEST_MATCHING_PHONE_NO, 
+                            TEST_NON_MATCHING_PHONE, 
+                            TEST_MATCHING_STUDENT_ID,
+                            TEST_NON_MATCHING_STUDENT_ID, 
+                            TEST_NON_MATCHING_STR, 
+                            TEST_PROGRAM_NAME, 
+                            TEST_SCHOOL_NAME,
+                            TEST_DIFF_SCHOOL_NAME,
+                            TEST_DIFF_PROG_NAME,
+                            TEST_NON_MATCHING_EMAILS)
 
 class User:
     def __init__(self, superuser=False):
@@ -123,57 +132,47 @@ class TestSMSValidator:
     def test_reference_does_not_change_on_updates_failure(self, get_rot_obj):
         instance = get_rot_obj
         reference = 'program'
-        value = '__TEST_PROGRAM_UUID__'
+        value = TEST_PROGRAM_UUID
 
         with pytest.raises(Exception):
             SMSValidator.reference_does_not_change_on_updates(
                 value, instance, reference)
 
     def test_no_special_chars_and_captialize_string_success(self):
-        matching_str = 'matching string'
+        matching_str = TEST_NOCAP_MATCHING_STR
 
         assert SMSValidator.no_special_chars_and_captialize_string(
-            matching_str, capitalize=True) == 'Matching string'
+            matching_str, capitalize=True) == TEST_CAP_MATCHING_STR
 
         assert SMSValidator.no_special_chars_and_captialize_string(
-            matching_str) == 'matching string'
+            matching_str) == TEST_NOCAP_MATCHING_STR
 
     def test_no_special_chars_and_captialize_string_failure(self):
-        non_matching_strings = ['_', '\\', '/', '\'', '"', '?', '!', '@',
-                                '$', '%', '^', '&', '(', ')', '[', ']', '{', '}', '>', '<']
 
         with pytest.raises(Exception):
-            for string in non_matching_strings:
+            for string in TEST_NON_MATCHING_STR:
                 SMSValidator.no_special_chars_and_captialize_string(
                     string)
 
     def test_phone_number_format_checker_success(self):
-        matching_phone_num = '123-456-7890'
+        matching_phone_num = TEST_MATCHING_PHONE_NO
 
         assert SMSValidator.phone_number_format_checker(
             matching_phone_num) == matching_phone_num
 
     def test_phone_number_format_checker_failure(self):
-        non_matching_phone = ['1234567890', '1234567890', '12345678',
-                              '(123)456789', '123-456-789', '123-456-78901', '123.456.7890']
-
         with pytest.raises(Exception):
-            for phone_num in non_matching_phone:
+            for phone_num in TEST_NON_MATCHING_PHONE:
                 SMSValidator.phone_number_format_checker(phone_num)
 
     def test_student_id_format_checker_success(self):
-        matching_ids = ['RO-CNA-01-0101-JD', 'AL-CNA-01-0101-JD',
-                        'RO-HHA-01-0101-JD', 'RO-SG-100-0101-JD']
 
-        for id_ in matching_ids:
+        for id_ in TEST_MATCHING_STUDENT_ID:
             assert SMSValidator.student_id_format_checker(id_) == id_
 
     def test_student_id_format_checker_failure(self):
-        non_matching_ids = ['01-0101-JD', 'CNA-01-0101-JD',
-                            'RA-CNA-01-0101-JD', 'RO-RAND-01-0101-JD']
-
         with pytest.raises(Exception):
-            for id_ in non_matching_ids:
+            for id_ in TEST_NON_MATCHING_STUDENT_ID:
                 SMSValidator.student_id_format_checker(id_)
 
     def test_date_validation_success(self):
@@ -233,11 +232,11 @@ class TestSMSValidator:
             get_rot_reference) == get_rot_reference
 
     def test_ensure_program_name_success(self, get_rot_obj, monkeypatch):
-        course_name = 'TEST_COURSE'
+        course_name = TEST_PROGRAM_NAME
         test_data = {'course': course_name, 'rotation': get_rot_obj}
 
         def output_matching_res(rotation_uuid__exact):
-            get_rot_obj.program.program_name = 'TEST_COURSE'
+            get_rot_obj.program.program_name = TEST_PROGRAM_NAME
             return get_rot_obj
 
         monkeypatch.setattr(Rotation.objects, 'get', output_matching_res)
@@ -245,11 +244,11 @@ class TestSMSValidator:
         assert SMSValidator.ensure_program_name({}, partial=True) == {}
 
     def test_ensure_program_name_failure(self, get_rot_obj, monkeypatch):
-        course_name = 'TEST_COURSE'
+        course_name = TEST_PROGRAM_NAME
         test_data = {'course': course_name, 'rotation': get_rot_obj}
 
         def output_non_match_res(rotation_uuid__exact):
-            get_rot_obj.program.program_name = 'NONE_MATCHING_COURSE'
+            get_rot_obj.program.program_name = TEST_DIFF_PROG_NAME
             return get_rot_obj
 
         monkeypatch.setattr(Rotation.objects, 'get', output_non_match_res)
@@ -263,22 +262,22 @@ class TestSMSValidator:
 
     def test_ensure_same_school_success(self, get_school_obj, get_prog_obj, get_rot_obj, get_request_obj, get_request_super_obj):
 
-        get_rot_obj.program.school.school_name = 'SAME_SCHOOL_NAME'
-        get_request_obj.user.school_name = 'SAME_SCHOOL_NAME'
+        get_rot_obj.program.school.school_name = TEST_SCHOOL_NAME
+        get_request_obj.user.school_name = TEST_SCHOOL_NAME
         data = {
             'rotation': get_rot_obj
         }
         assert SMSValidator.ensure_same_school(
             data, get_request_obj, entry_pt='student') == data
 
-        get_prog_obj.school.school_name = 'SAME_SCHOOL_NAME'
+        get_prog_obj.school.school_name = TEST_SCHOOL_NAME
         data = {
             'program': get_prog_obj
         }
         assert SMSValidator.ensure_same_school(
             data, get_request_obj, entry_pt='rotation') == data
 
-        get_school_obj.school_name = 'SAME_SCHOOL_NAME'
+        get_school_obj.school_name = TEST_SCHOOL_NAME
         data = {
             'school': get_school_obj
         }
@@ -292,8 +291,8 @@ class TestSMSValidator:
     def test_ensure_same_school_failure(self, get_school_obj, get_prog_obj, get_rot_obj, get_request_obj, get_request_super_obj):
 
         with pytest.raises(Exception):
-            get_rot_obj.program.school.school_name = 'SAME_SCHOOL_NAME'
-            get_request_obj.user.school_name = 'DIFF_SCHOOL_NAME'
+            get_rot_obj.program.school.school_name = TEST_SCHOOL_NAME
+            get_request_obj.user.school_name = TEST_DIFF_SCHOOL_NAME
             data = {
                 'rotation': get_rot_obj
             }
@@ -301,14 +300,14 @@ class TestSMSValidator:
             assert SMSValidator.ensure_same_school(
                 data, get_request_obj, entry_pt='student')
 
-            get_prog_obj.school.school_name = 'SAME_SCHOOL_NAME'
+            get_prog_obj.school.school_name = TEST_SCHOOL_NAME
             data = {
                 'program': get_prog_obj
             }
             assert SMSValidator.ensure_same_school(
                 data, get_request_obj, entry_pt='rotation')
 
-            get_school_obj.school_name = 'SAME_SCHOOL_NAME'
+            get_school_obj.school_name = TEST_SCHOOL_NAME
             data = {
                 'school': get_school_obj
             }
@@ -325,9 +324,8 @@ class TestSMSValidator:
             min_matching_email) == min_matching_email
 
     def test_email_format_checker_failure(self):
-        non_matching_emails = ['123456798@', '123456789.', 'asdf com']
 
         with pytest.raises(Exception):
-            for email in non_matching_emails:
+            for email in TEST_NON_MATCHING_EMAILS:
                 SMSValidator.email_format_checker(
                     email)

@@ -1,20 +1,23 @@
 import pytest
 from datetime import date, timedelta
-from tests.acceptance.steps.constants import (SCHOOL_UUID_TO_TEST,
-                                              SCHOOL_STR,
-                                              PROGRAM_UUID_TO_TEST,
-                                              PROGRAM_STR,
-                                              ROTATION_UUID_TO_TEST,
-                                              ROTATION_STR,
-                                              STUDENT_UUID_TO_TEST,
-                                              STUDENT_STR,
-                                              FILTER_PARAMS,
-                                              TEST_ROTATION_SIZE)
 
 from sms.models import School, Program, Rotation, Student
 from sms.google_sheets import GoogleSheet
 
-# pytestmark = pytest.mark.django_db
+
+from .sms_constants import (SCHOOL_UUID_TO_TEST,
+                            SCHOOL_STR,
+                            PROGRAM_UUID_TO_TEST,
+                            PROGRAM_STR,
+                            ROTATION_UUID_TO_TEST,
+                            ROTATION_STR,
+                            STUDENT_UUID_TO_TEST,
+                            STUDENT_STR,
+                            FILTER_PARAMS,
+                            TEST_ROTATION_SIZE,
+                            TEST_UNPAID_CHARGES_PAID,
+                            TEST_UNPAID_CHARGES_CHARGED)
+
 
 
 @pytest.mark.sms
@@ -195,8 +198,8 @@ class TestSMSModelAttrExtraLogic:
         assert get_student_obj.migrate_google('POST/PUT/PATCH') == False
 
     def test_student_payment_and_date_attr_logic(self, get_student_obj):
-        get_student_obj.total_charges_charged = '100.00'
-        get_student_obj.total_charges_paid = '99.99'
+        get_student_obj.total_charges_charged = TEST_UNPAID_CHARGES_CHARGED
+        get_student_obj.total_charges_paid = TEST_UNPAID_CHARGES_PAID
 
         get_student_obj.date_enrollment_agreement_signed = date.today().strftime('%Y-%m-%d')
         get_student_obj.start_date = (

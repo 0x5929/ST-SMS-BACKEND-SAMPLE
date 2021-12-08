@@ -1,11 +1,8 @@
 
 # NOTE CHANGE THE FOLLOWING SETTINGS FOR PRODUCTION WHEN WE GET THERE
 from .common import *
-
-from pathlib import Path
-
 import environ
-import os
+
 
 env = environ.Env()
 

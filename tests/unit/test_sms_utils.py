@@ -6,9 +6,17 @@ from sms.models import Student
 from sms.validators import SMSValidator
 from sms.filters import SMSFilter
 
-from tests.acceptance.steps.constants import TEST_DICT_DATA, TEST_QUERY_PARAMS_SUCCESS, TEST_QUERY_PARAMS_FAILURE
-
-
+from .sms_constants import (TEST_DICT_DATA, 
+                            TEST_KEY, 
+                            TEST_QUERY_PARAMS_SUCCESS, 
+                            TEST_QUERY_PARAMS_FAILURE, 
+                            TEST_SUCCESS_RETURN,
+                            TEST_VALUE, 
+                            TEST_INVALID_COURSE,
+                            TEST_INVALID_NUMBER,
+                            TEST_INVALID_BOOL,
+                            TEST_RANDOM_STRING)
+                            
 @pytest.mark.sms
 class TestDataHandler:
     """
@@ -162,12 +170,12 @@ class TestDataHandler:
 
     def test_validate_student_id_success(self, mocker):
         mocked_SMSValidator_check = mocker.patch(
-            'sms.validators.SMSValidator.student_id_format_checker', return_value='__SUCCESS_RETURN__')
+            'sms.validators.SMSValidator.student_id_format_checker', return_value=TEST_SUCCESS_RETURN)
 
         value, new_key = DataHandler.validate_student_id('test student id')
 
         mocked_SMSValidator_check.assert_called_once()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'student_id'
 
     def test_validate_student_id_failure(self, monkeypatch):
@@ -182,69 +190,69 @@ class TestDataHandler:
 
     def test_validate_string_success(self, mocker):
         mocked_SMSValidator_check = mocker.patch(
-            'sms.validators.SMSValidator.no_special_chars_and_captialize_string', return_value='__SUCCESS_RETURN__')
+            'sms.validators.SMSValidator.no_special_chars_and_captialize_string', return_value=TEST_SUCCESS_RETURN)
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Full Name')
+            TEST_VALUE, 'Full Name')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'full_name'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Last Name')
+            TEST_VALUE, 'Last Name')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'last_name'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'First Name')
+            TEST_VALUE, 'First Name')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'first_name'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Mailing Address')
+            TEST_VALUE, 'Mailing Address')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'mailing_address'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Third-party payer identifying information')
+            TEST_VALUE, 'Third-party payer identifying information')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'third_party_payer_info'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Place of Employment')
+            TEST_VALUE, 'Place of Employment')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'place_of_employment'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Employment Address')
+            TEST_VALUE, 'Employment Address')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'employment_address'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Position')
+            TEST_VALUE, 'Position')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'position'
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Description of Attempts to Contact Students')
+            TEST_VALUE, 'Description of Attempts to Contact Students')
 
         mocked_SMSValidator_check.assert_called()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'description_of_attempts_to_contact_student'
 
     def test_validate_string_failure(self, monkeypatch):
@@ -255,18 +263,18 @@ class TestDataHandler:
             SMSValidator, 'no_special_chars_and_captialize_string', return_exception)
 
         value, new_key = DataHandler.validate_string(
-            '__TEST_VALUE__', 'Description of Attempts to Contact Students')
+            TEST_VALUE, 'Description of Attempts to Contact Students')
 
         assert value == ''
 
     def test_validate_phone_success(self, mocker):
         mocked_SMSValidator_check = mocker.patch(
-            'sms.validators.SMSValidator.phone_number_format_checker', return_value='__SUCCESS_RETURN__')
+            'sms.validators.SMSValidator.phone_number_format_checker', return_value=TEST_SUCCESS_RETURN)
 
-        value, new_key = DataHandler.validate_phone('__TEST_VALUE__')
+        value, new_key = DataHandler.validate_phone(TEST_VALUE)
 
         mocked_SMSValidator_check.assert_called_once()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'phone_number'
 
     def test_validate_phone_none(self):
@@ -290,16 +298,16 @@ class TestDataHandler:
             SMSValidator, 'phone_number_format_checker', return_exception)
 
         with pytest.raises(Exception):
-            DataHandler.validate_phone('__TEST_VALUE__')
+            DataHandler.validate_phone(TEST_VALUE)
 
     def test_validate_email_success(self, mocker):
         mocked_SMSValidator_check = mocker.patch(
-            'sms.validators.SMSValidator.email_format_checker', return_value='__SUCCESS_RETURN__')
+            'sms.validators.SMSValidator.email_format_checker', return_value=TEST_SUCCESS_RETURN)
 
-        value, new_key = DataHandler.validate_email('__TEST_VALUE__')
+        value, new_key = DataHandler.validate_email(TEST_VALUE)
 
         mocked_SMSValidator_check.assert_called_once()
-        assert value == '__SUCCESS_RETURN__'
+        assert value == TEST_SUCCESS_RETURN
         assert new_key == 'email'
 
     def test_validate_email_none(self):
@@ -323,7 +331,7 @@ class TestDataHandler:
             SMSValidator, 'email_format_checker', return_exception)
 
         with pytest.raises(Exception):
-            DataHandler.validate_email('__TEST_VALUE__')
+            DataHandler.validate_email(TEST_VALUE)
 
     def test_validate_course_success(self):
         assert DataHandler.validate_course('cna') == ('CNA', 'course')
@@ -368,7 +376,7 @@ class TestDataHandler:
 
     def test_validate_course_failure(self):
         with pytest.raises(Exception):
-            DataHandler.validate_course('__INVALID_COURSE__')
+            DataHandler.validate_course(TEST_INVALID_COURSE)
 
     def test_validate_date_success(self):
         assert DataHandler.validate_date(
@@ -388,7 +396,7 @@ class TestDataHandler:
 
     def test_validate_date_failure(self):
         with pytest.raises(Exception):
-            DataHandler.validate_date('01/01', 'test key')
+            DataHandler.validate_date('01/01', TEST_KEY)
 
     def test_validate_currency_success(self):
         assert DataHandler.validate_currency(
@@ -407,11 +415,11 @@ class TestDataHandler:
             '', 'Total Institutional Charges Paid') == ('0.00', 'total_charges_paid')
 
         assert DataHandler.validate_currency(
-            'not a number', 'Course Cost') == ('0.00', 'course_cost')
+            TEST_INVALID_NUMBER, 'Course Cost') == ('0.00', 'course_cost')
         assert DataHandler.validate_currency(
-            'not a number', 'Total Institutional Charges Charged') == ('0.00', 'total_charges_charged')
+            TEST_INVALID_NUMBER, 'Total Institutional Charges Charged') == ('0.00', 'total_charges_charged')
         assert DataHandler.validate_currency(
-            'not a number', 'Total Institutional Charges Paid') == ('0.00', 'total_charges_paid')
+            TEST_INVALID_NUMBER, 'Total Institutional Charges Paid') == ('0.00', 'total_charges_paid')
 
     def test_validate_bool_success(self):
         assert DataHandler.validate_bool(
@@ -433,22 +441,22 @@ class TestDataHandler:
 
     def test_validate_bool_failure(self):
         assert DataHandler.validate_bool(
-            'NOT A CORRECT VALUE', 'Graduates') == (False, 'graduated')
+            TEST_INVALID_BOOL, 'Graduates') == (False, 'graduated')
         assert DataHandler.validate_bool(
-            'NOT A CORRECT VALUE', 'Passed FIrst Exam Taken') == (False, 'passed_first_exam')
+            TEST_INVALID_BOOL, 'Passed FIrst Exam Taken') == (False, 'passed_first_exam')
         assert DataHandler.validate_bool('NOT A CORRECT VALUE', 'Passed Second or Third Exam Taken') == (
             False, 'passed_second_or_third_exam')
         assert DataHandler.validate_bool(
-            'NOT A CORRECT VALUE', 'Employed') == (False, 'employed')
+            TEST_INVALID_BOOL, 'Employed') == (False, 'employed')
 
         assert DataHandler.validate_bool(
-            'NOT A CORRECT VALUE', 'Graduates') == (False, 'graduated')
+            TEST_INVALID_BOOL, 'Graduates') == (False, 'graduated')
         assert DataHandler.validate_bool(
-            'NOT A CORRECT VALUE', 'Passed FIrst Exam Taken') == (False, 'passed_first_exam')
-        assert DataHandler.validate_bool('NOT A CORRECT VALUE', 'Passed Second or Third Exam Taken') == (
+            TEST_INVALID_BOOL, 'Passed FIrst Exam Taken') == (False, 'passed_first_exam')
+        assert DataHandler.validate_bool(TEST_INVALID_BOOL, 'Passed Second or Third Exam Taken') == (
             False, 'passed_second_or_third_exam')
         assert DataHandler.validate_bool(
-            'NOT A CORRECT VALUE', 'Employed') == (False, 'employed')
+            TEST_INVALID_BOOL, 'Employed') == (False, 'employed')
 
     def test_validate_hours_worked_fulltime(self):
         assert DataHandler.validate_hours_worked(
@@ -476,7 +484,7 @@ class TestDataHandler:
 
     def test_validate_hours_worked_failure(self):
         assert DataHandler.validate_hours_worked(
-            '__RANDOM_STRING__') == ('P', 'hours_worked_weekly')
+            TEST_RANDOM_STRING) == ('P', 'hours_worked_weekly')
 
 
 @pytest.mark.sms

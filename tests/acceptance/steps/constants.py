@@ -1,31 +1,17 @@
 
+from tests.common_constants import *
+
+
 # NOTE: PLEASE EDIT THIS FILE WITH CARE, THIS WILL BREAK ALL ACCEPTANCE/INTEGRATION TESTS RUN WITH BEHAVE
 
 
-# constants data for behave testing
-# change this if test-sms-initial-data.json changes
 SCHOOLS_API_URL = '/api/sms/schools/'
 PROGRAMS_API_URL = '/api/sms/programs/'
 ROTATIONS_API_URL = '/api/sms/rotations/'
 STUDENTS_API_URL = '/api/sms/students/'
 
-# NOTE THE UUID CONTANTS NEEDS TO BE UPDATED IF TEST FIXTURES ARE UPDATED
-STUDENT_UUID_TO_TEST = 'db7d3163-7856-4b61-b242-65ef034c4bfe'
-SCHOOL_UUID_TO_TEST = '0c805318-7706-405e-a66c-5936062617a5'
-PROGRAM_UUID_TO_TEST = '67301e14-cd3d-493a-a2cf-84d8c490c0ef'
-ROTATION_UUID_TO_TEST = 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
-
-# UPDATE THIS IF TEST FIXTURES ARE CHANGED
-SCHOOL_STR = 'STI'
-PROGRAM_STR = 'STI: CNA'
-ROTATION_STR = 'STI: CNA Rotation# 1'
-STUDENT_STR = 'test_b'
-
-# taken from the rotation of ROTATION_UUID_TO_TEST fixture, which contains 0 students
-TEST_ROTATION_SIZE = 0
 
 STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
-    #  'student_uuid': '7766c4a3-877c-4c23-b3e6-e7ab9ef43c97',
     'student_id': 'AL-CNA-01-1019-TA',
     'first_name': 'Test',
     'last_name': 'A',
@@ -61,7 +47,6 @@ STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
 }
 
 STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
-    #   'student_uuid': '90f120c5-1894-4afc-b204-a912172570a5',
     'student_id': 'RO-CNA-01-1006-TA',
     'first_name': 'Test',
     'last_name': 'A',
@@ -219,22 +204,7 @@ ROTATION_SAMPLE_POST_DATA = {
     'rotation_number': 5
 }
 
-# this is the STI HHA student, please change this if test fixture changes
-FILTER_PARAMS = {
-    'school_name': 'STI',
-    'program_name': 'HHA',
-    'rotation_num': 1,
-    'first_name': 'Test',
-    'last_name': 'B',
-    'email': 'testb@email.com',
-    'phone': '626-333-5544',
-    'id_': 'RO-HHA-01-1006-TB',
-    'start_date': '2021-12-09',
-    'completion_date': '2021-12-10',
-    'paid': 'False',
-    'graduated': 'False',
-    'employed': 'False'
-}
+
 
 PUT_DATA = {
     'school__school_code': '27091743',
@@ -257,10 +227,6 @@ JSON_PERMISSION_DENIED_RES = {
 JSON_SUPERUSER_ONLY_RES = {
     'detail': 'Sorry, you must be a superuser to perform this action.'
 }
-
-# JSON_OBJ_NOT_FOUND_RES = {
-#     'detail': 'Not found.'
-# }
 JSON_OBJ_NOT_FOUND_RES = None
 
 TEST_SUPERUSER = 'testsuper'
@@ -341,60 +307,3 @@ TEST_DATADUMP_SUCCESS_DATA = [
     }
 ]
 
-TEST_SPREADSHEET_ID = '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU'
-TEST_DB_SHEET_ID = '0'
-TEST_SCHOOL_NAME = 'STI'
-TEST_RECORD = {
-    'test_key_1': 'test_value_1'
-}
-TEST_RECORD_HEADER = 'test_key_1'
-TEST_INDEX = 0
-
-# NOTE: this is dependent on headers and their validation defined in sms.google_sheets.ExportHandler
-TEST_HEADERS_AND_VALIDATIONS = {
-    'Student ID': 'validate_student_id',
-    'Full Name': 'validate_string',
-    'Last Name': 'validate_string',
-    'First Name': 'validate_string',
-    'Phone Number': 'validate_phone',
-    'Email Address': 'validate_email',
-    'Mailing Address': 'validate_string',
-    'Course': 'validate_course',
-    'Start Date': 'validate_date',
-    'Completion Date': 'validate_date',
-    'Date Enrollment Agreement Signed': 'validate_date',
-    'Third-party payer identifying information': 'validate_string',
-    'Course Cost': 'validate_currency',
-    'Total Institutional Charges Charged': 'validate_currency',
-    'Total Institutional Charges Paid': 'validate_currency',
-    'Graduates': 'validate_bool',
-    'Passed FIrst Exam Taken': 'validate_bool',
-    'Passed Second or Third Exam Taken': 'validate_bool',
-    'Employed': 'validate_bool',
-    'Place of Employment': 'validate_string',
-    'Employment Address': 'validate_string',
-    'Position': 'validate_string',
-    'Starting Wage': 'validate_wage',
-    'Hours Worked per Week': 'validate_hours_worked',
-    'Description of Attempts to Contact Students': 'validate_string'
-}
-
-TEST_STUDENT_ID = 'RO-CNA-01-0101-JD'
-TEST_ROTATION_UUID = 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
-TEST_DICT_DATA = {
-    'first_value': 0,
-    'second_value': 1,
-    'third_value': 2,
-    'fourth_value': 3,
-    'fifth_value': 4,
-    'sixth_value': 5
-}
-TEST_QUERY_PARAMS_SUCCESS = {
-    'first_name': 'John',
-    'last_name': 'Doe'
-
-}
-TEST_QUERY_PARAMS_FAILURE = {
-    '__INCORRECT_PARAM_NAME__': '__RANDOM_STRING__'
-}
-TEST_ROW_NUM = '1'
