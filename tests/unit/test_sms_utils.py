@@ -15,7 +15,15 @@ from .sms_constants import (TEST_DICT_DATA,
                             TEST_INVALID_COURSE,
                             TEST_INVALID_NUMBER,
                             TEST_INVALID_BOOL,
-                            TEST_RANDOM_STRING)
+                            TEST_RANDOM_STRING,
+                            TEST_EMPTY_DATE,
+                            TEST_INPUT_DATE,
+                            TEST_INPUT_CURRENCY,
+                            TEST_INPUT_EMPTY_CURRENCY,
+                            TEST_Y,
+                            TEST_YES,
+                            TEST_FULLTIME_STR,
+                            TEST_PARTTIME_STR)
                             
 @pytest.mark.sms
 class TestDataHandler:
@@ -380,18 +388,18 @@ class TestDataHandler:
 
     def test_validate_date_success(self):
         assert DataHandler.validate_date(
-            '01/01/14', 'Start Date') == ('2014-01-01', 'start_date')
+            TEST_INPUT_DATE, 'Start Date') == ('2014-01-01', 'start_date')
         assert DataHandler.validate_date(
-            '01/01/14', 'Completion Date') == ('2014-01-01', 'completion_date')
-        assert DataHandler.validate_date('01/01/14', 'Date Enrollment Agreement Signed') == (
+            TEST_INPUT_DATE, 'Completion Date') == ('2014-01-01', 'completion_date')
+        assert DataHandler.validate_date(TEST_INPUT_DATE, 'Date Enrollment Agreement Signed') == (
             '2014-01-01', 'date_enrollment_agreement_signed')
 
     def test_validate_date_none(self):
         assert DataHandler.validate_date(
-            '', 'Start Date') == ('2014-01-01', 'start_date')
-        assert DataHandler.validate_date('', 'Completion Date') == (
+            TEST_EMPTY_DATE, 'Start Date') == ('2014-01-01', 'start_date')
+        assert DataHandler.validate_date(TEST_EMPTY_DATE, 'Completion Date') == (
             '2014-01-01', 'completion_date')
-        assert DataHandler.validate_date('', 'Date Enrollment Agreement Signed') == (
+        assert DataHandler.validate_date(TEST_EMPTY_DATE, 'Date Enrollment Agreement Signed') == (
             '2014-01-01', 'date_enrollment_agreement_signed')
 
     def test_validate_date_failure(self):
@@ -400,19 +408,19 @@ class TestDataHandler:
 
     def test_validate_currency_success(self):
         assert DataHandler.validate_currency(
-            '$1,000.00', 'Course Cost') == ('1000.00', 'course_cost')
+            TEST_INPUT_CURRENCY, 'Course Cost') == ('1000.00', 'course_cost')
         assert DataHandler.validate_currency(
-            '$1,000.00', 'Total Institutional Charges Charged') == ('1000.00', 'total_charges_charged')
+            TEST_INPUT_CURRENCY, 'Total Institutional Charges Charged') == ('1000.00', 'total_charges_charged')
         assert DataHandler.validate_currency(
-            '$1,000.00', 'Total Institutional Charges Paid') == ('1000.00', 'total_charges_paid')
+            TEST_INPUT_CURRENCY, 'Total Institutional Charges Paid') == ('1000.00', 'total_charges_paid')
 
     def test_validate_currency_failure(self):
         assert DataHandler.validate_currency(
-            '', 'Course Cost') == ('0.00', 'course_cost')
+           TEST_INPUT_EMPTY_CURRENCY, 'Course Cost') == ('0.00', 'course_cost')
         assert DataHandler.validate_currency(
-            '', 'Total Institutional Charges Charged') == ('0.00', 'total_charges_charged')
+            TEST_INPUT_EMPTY_CURRENCY, 'Total Institutional Charges Charged') == ('0.00', 'total_charges_charged')
         assert DataHandler.validate_currency(
-            '', 'Total Institutional Charges Paid') == ('0.00', 'total_charges_paid')
+            TEST_INPUT_EMPTY_CURRENCY, 'Total Institutional Charges Paid') == ('0.00', 'total_charges_paid')
 
         assert DataHandler.validate_currency(
             TEST_INVALID_NUMBER, 'Course Cost') == ('0.00', 'course_cost')
@@ -423,21 +431,21 @@ class TestDataHandler:
 
     def test_validate_bool_success(self):
         assert DataHandler.validate_bool(
-            'Y', 'Graduates') == (True, 'graduated')
+            TEST_Y, 'Graduates') == (True, 'graduated')
         assert DataHandler.validate_bool(
-            'Y', 'Passed FIrst Exam Taken') == (True, 'passed_first_exam')
-        assert DataHandler.validate_bool('Y', 'Passed Second or Third Exam Taken') == (
+            TEST_Y, 'Passed FIrst Exam Taken') == (True, 'passed_first_exam')
+        assert DataHandler.validate_bool(TEST_Y, 'Passed Second or Third Exam Taken') == (
             True, 'passed_second_or_third_exam')
-        assert DataHandler.validate_bool('Y', 'Employed') == (True, 'employed')
+        assert DataHandler.validate_bool(TEST_Y, 'Employed') == (True, 'employed')
 
         assert DataHandler.validate_bool(
-            'YES', 'Graduates') == (True, 'graduated')
+            TEST_YES, 'Graduates') == (True, 'graduated')
         assert DataHandler.validate_bool(
-            'YES', 'Passed FIrst Exam Taken') == (True, 'passed_first_exam')
-        assert DataHandler.validate_bool('YES', 'Passed Second or Third Exam Taken') == (
+            TEST_YES, 'Passed FIrst Exam Taken') == (True, 'passed_first_exam')
+        assert DataHandler.validate_bool(TEST_YES, 'Passed Second or Third Exam Taken') == (
             True, 'passed_second_or_third_exam')
         assert DataHandler.validate_bool(
-            'YES', 'Employed') == (True, 'employed')
+            TEST_YES, 'Employed') == (True, 'employed')
 
     def test_validate_bool_failure(self):
         assert DataHandler.validate_bool(
@@ -460,27 +468,27 @@ class TestDataHandler:
 
     def test_validate_hours_worked_fulltime(self):
         assert DataHandler.validate_hours_worked(
-            'MORE THAN 32') == ('F', 'hours_worked_weekly')
+            TEST_FULLTIME_STR[0]) == ('F', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            'OVER 32 HOURS') == ('F', 'hours_worked_weekly')
+            TEST_FULLTIME_STR[1]) == ('F', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            'AT LEAST 32 HOURS') == ('F', 'hours_worked_weekly')
+            TEST_FULLTIME_STR[2]) == ('F', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            '40/WEEK') == ('F', 'hours_worked_weekly')
+            TEST_FULLTIME_STR[3]) == ('F', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            'F') == ('F', 'hours_worked_weekly')
+            TEST_FULLTIME_STR[4]) == ('F', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            'FULLTIME') == ('F', 'hours_worked_weekly')
+            TEST_FULLTIME_STR[5]) == ('F', 'hours_worked_weekly')
 
     def test_validate_hours_worked_parttime(self):
         assert DataHandler.validate_hours_worked(
-            'LESS THAN 32') == ('P', 'hours_worked_weekly')
+            TEST_PARTTIME_STR[0]) == ('P', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            'UNDER 32 HOURS') == ('P', 'hours_worked_weekly')
+            TEST_PARTTIME_STR[1]) == ('P', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            'P') == ('P', 'hours_worked_weekly')
+            TEST_PARTTIME_STR[2]) == ('P', 'hours_worked_weekly')
         assert DataHandler.validate_hours_worked(
-            'PARTTIME') == ('P', 'hours_worked_weekly')
+            TEST_PARTTIME_STR[3]) == ('P', 'hours_worked_weekly')
 
     def test_validate_hours_worked_failure(self):
         assert DataHandler.validate_hours_worked(
