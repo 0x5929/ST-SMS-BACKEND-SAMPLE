@@ -1,7 +1,7 @@
 
 Feature: Student Management READ access
     
-    All users have read access to all sms resources
+    All office users have read access to all sms resources
 
 
     Scenario: superuser requesting to read schools resource

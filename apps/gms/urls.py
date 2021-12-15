@@ -19,7 +19,7 @@ router.register('cnaRotations', CNARotationView, basename='cnaRotations')
 router.register('cnaStudents', CNAStudentView, basename='cnaStudents')
 router.register('cnaTheoryRecords', CNATheoryRecordView,
                 basename='cnaTheoryRecords')
-router.register('cnaClinicalRecord', CNAClinicalRecordView,
+router.register('cnaClinicalRecords', CNAClinicalRecordView,
                 basename='cnaClinicalRecords')
 
 
