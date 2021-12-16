@@ -2,7 +2,7 @@ from behave import given
 
 from .constants import (GMS_CNA_ROTATIONS_API_URL,
                         GMS_HHA_ROTATIONS_API_URL,
-                        GMS_CNA_STUDENTS_API_UR,
+                        GMS_CNA_STUDENTS_API_URL,
                         GMS_HHA_STUDENTS_API_URL,
                         GMS_CNA_THEORY_RECORDS_API_URL,
                         GMS_HHA_THEORY_RECORDS_API_URL,
@@ -23,7 +23,7 @@ def request_GET_cnaStudents(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_CNA_STUDENTS_API_UR}', headers=headers)
+        f'{GMS_CNA_STUDENTS_API_URL}', headers=headers)
 
 
 @given('request GET to /api/gms/cnaTheoryRecords')

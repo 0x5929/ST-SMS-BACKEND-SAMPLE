@@ -10,14 +10,6 @@ PROGRAMS_API_URL = '/api/sms/programs/'
 ROTATIONS_API_URL = '/api/sms/rotations/'
 STUDENTS_API_URL = '/api/sms/students/'
 
-GMS_CNA_ROTATIONS_API_URL = '/api/gms/cnaRotations/'
-GMS_HHA_ROTATIONS_API_URL = '/api/gms/hhaRotations/'
-GMS_CNA_STUDENTS_API_URL = '/api/gms/cnaStudents/'
-GMS_HHA_STUDENTS_API_URL = '/api/gms/hhaStudents/'
-GMS_CNA_THEORY_RECORDS_API_URL = '/api/gms/cnaTheoryRecords/'
-GMS_HHA_THEORY_RECORDS_API_URL = '/api/gms/hhaTheoryRecords/'
-GMS_CNA_CLINICAL_RECORDS_API_URL = '/api/gms/cnaClinicalRecords/'
-GMS_HHA_CLINICAL_RECORDS_API_URL = '/apoi/gms/hhaClinicalRecords/'
 
 STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
     'student_id': 'AL-CNA-01-1019-TA',
@@ -314,3 +306,15 @@ TEST_DATADUMP_SUCCESS_DATA = [
         }
     }
 ]
+
+
+GMS_CNA_ROTATIONS_API_URL = '/api/gms/cnaRotations/'
+GMS_HHA_ROTATIONS_API_URL = '/api/gms/hhaRotations/'
+GMS_CNA_STUDENTS_API_URL = '/api/gms/cnaStudents/'
+GMS_HHA_STUDENTS_API_URL = '/api/gms/hhaStudents/'
+GMS_CNA_THEORY_RECORDS_API_URL = '/api/gms/cnaTheoryRecords/'
+GMS_HHA_THEORY_RECORDS_API_URL = '/api/gms/hhaTheoryRecords/'
+GMS_CNA_CLINICAL_RECORDS_API_URL = '/api/gms/cnaClinicalRecords/'
+GMS_HHA_CLINICAL_RECORDS_API_URL = '/api/gms/hhaClinicalRecords/'
+
+GMS_CNA_ROTATION_POST_SAMPLE_DATA = {}
