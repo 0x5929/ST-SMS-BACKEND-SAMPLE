@@ -10,6 +10,14 @@ PROGRAMS_API_URL = '/api/sms/programs/'
 ROTATIONS_API_URL = '/api/sms/rotations/'
 STUDENTS_API_URL = '/api/sms/students/'
 
+GMS_CNA_ROTATIONS_API_URL = '/api/gms/cnaRotations/'
+GMS_HHA_ROTATIONS_API_URL = '/api/gms/hhaRotations/'
+GMS_CNA_STUDENTS_API_URL = '/api/gms/cnaStudents/'
+GMS_HHA_STUDENTS_API_URL = '/api/gms/hhaStudents/'
+GMS_CNA_THEORY_RECORDS_API_URL = '/api/gms/cnaTheoryRecords/'
+GMS_HHA_THEORY_RECORDS_API_URL = '/api/gms/hhaTheoryRecords/'
+GMS_CNA_CLINICAL_RECORDS_API_URL = '/api/gms/cnaClinicalRecords/'
+GMS_HHA_CLINICAL_RECORDS_API_URL = '/apoi/gms/hhaClinicalRecords/'
 
 STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
     'student_id': 'AL-CNA-01-1019-TA',
@@ -205,7 +213,6 @@ ROTATION_SAMPLE_POST_DATA = {
 }
 
 
-
 PUT_DATA = {
     'school__school_code': '27091743',
     'program__program_name': 'HSFA',
@@ -244,7 +251,8 @@ TEST_STAFF_INST_USER = 'testinstructorstaff'
 TEST_REG_USER = 'testuser'
 TEST_REG_OFF_USER = 'testofficeuser'
 TEST_REG_REC_USER = 'testrecruituser'
-TEST_REG_INST_USER = 'testinstructoruser'
+TEST_REG_INST_CNA_USER = 'testcnainstructoruser'
+TEST_REG_INST_HHA_USER = 'testhhainstructoruser'
 
 
 DATADUMP_API_URL = '/api/sms/google_sheet_datadump/'
@@ -306,4 +314,3 @@ TEST_DATADUMP_SUCCESS_DATA = [
         }
     }
 ]
-

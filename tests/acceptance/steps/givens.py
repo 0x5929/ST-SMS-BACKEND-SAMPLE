@@ -1,12 +1,12 @@
 from behave import given
 
-from constants import (TEST_SUPERUSER,
-                       TEST_ADMIN_USER,
-                       TEST_ADMIN_OFF_USER,
-                       TEST_STAFF_USER,
-                       TEST_STAFF_OFF_USER,
-                       TEST_REG_USER,
-                       TEST_REG_OFF_USER)
+from .constants import (TEST_SUPERUSER,
+                        TEST_ADMIN_USER,
+                        TEST_ADMIN_OFF_USER,
+                        TEST_STAFF_USER,
+                        TEST_STAFF_OFF_USER,
+                        TEST_REG_USER,
+                        TEST_REG_OFF_USER)
 
 LOGIN_PATH = '/auth/login/'
 LOGIN_PW = 'ye_rui_hu_xiao'
