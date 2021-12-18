@@ -18,7 +18,6 @@ from tests.acceptance.steps.constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DA
                                               PATCH_DATA,
                                               GOOGLE_POST_DATA,
                                               GOOGLE_EDIT_CHECK_DATA,
-                                              TEST_DATADUMP_SUCCESS_DATA,
                                               JSON_SUPERUSER_ONLY_RES)
 
 
