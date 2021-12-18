@@ -329,23 +329,23 @@ GMS_CNA_ROTATION_POST_SAMPLE_DATA = {
 
 GMS_CNA_ROTATION_PUT_SAMPLE_DATA = {
     'school_name': 'STI',
-    'start_date': '2021-09-13',
+    'start_date': '2021-09-14',
     'end_date': '2021-10-13',
     'instructor_email': 'test@email.com',
-    'rotation_num': 2,
+    'rotation_num': 1,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
 }
 
 GMS_CNA_ROTATION_PATCH_SAMPLE_DATA = {
-    'rotation_num': 3
+    'start_date': '2021-09-15'
 }
 
 GMS_HHA_ROTATION_POST_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-13',
     'end_date': '2021-09-13',
-    'instructor_email' : 'test@email.com',
+    'instructor_email': 'test@email.com',
     'rotation_num': 1,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
@@ -353,59 +353,59 @@ GMS_HHA_ROTATION_POST_SAMPLE_DATA = {
 
 GMS_HHA_ROTATION_PUT_SAMPLE_DATA = {
     'school_name': 'STI',
-    'start_date': '2021-09-13',
+    'start_date': '2021-09-14',
     'end_date': '2021-09-13',
-    'instructor_email' : 'test@email.com',
-    'rotation_num': 2,
+    'instructor_email': 'test@email.com',
+    'rotation_num': 1,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
 }
 
 GMS_HHA_ROTATION_PATCH_SAMPLE_DATA = {
-    'rotation_num': 3
+    'start_date': '2021-09-15'
 }
 
 GMS_CNA_STUDENT_POST_SAMPLE_DATA = {
     'rotation': 'fdc7898d-80f0-4a48-9617-d205b1486066',
-    'first_name': 'Test',
-    'last_name': 'A',
+    'first_name': 'TestA',
+    'last_name': 'Alpha',
     'makeup_student': False
 }
 
 GMS_CNA_STUDENT_PUT_SAMPLE_DATA = {
     'rotation': 'fdc7898d-80f0-4a48-9617-d205b1486066',
-    'first_name': 'Test',
-    'last_name': 'B',
+    'first_name': 'TestA',
+    'last_name': 'Beta',
     'makeup_student': False
 }
 
 GMS_CNA_STUDENT_PATCH_SAMPLE_DATA = {
-    'last_name': 'C'
+    'last_name': 'Gamma'
 }
 
 GMS_HHA_STUDENT_POST_SAMPLE_DATA = {
     'rotation': 'f1bd7d07-2633-4650-b85f-448f54fd3789',
-    'first_name': 'Test',
-    'last_name': 'A',
+    'first_name': 'TestA',
+    'last_name': 'Alpha',
     'makeup_student': False
 }
 
 GMS_HHA_STUDENT_PUT_SAMPLE_DATA = {
     'rotation': 'f1bd7d07-2633-4650-b85f-448f54fd3789',
-    'first_name': 'Test',
-    'last_name': 'B',
+    'first_name': 'TestA',
+    'last_name': 'Beta',
     'makeup_student': False
 }
 
 GMS_HHA_STUDENT_PATCH_SAMPLE_DATA = {
-    'last_name': 'C'
+    'last_name': 'Gamma'
 }
 
 GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA = {
     'student': 'ccc37087-32fa-4c26-8af8-e84619dc2e47',
     'date': '2021-09-01',
     'completed': True,
-    'hours_spent': 1,
+    'hours_spent': 8,
     'test_score': 100,
     'topic': 'Module 2 Quiz',
     'baserecord_ptr': 1
@@ -415,14 +415,14 @@ GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA = {
     'student': 'ccc37087-32fa-4c26-8af8-e84619dc2e47',
     'date': '2021-09-01',
     'completed': True,
-    'hours_spent': 2,
+    'hours_spent': 9,
     'test_score': 100,
     'topic': 'Module 2 Quiz',
     'baserecord_ptr': 1
 }
 
 GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA = {
-    'hours_spent': 3
+    'hours_spent': 10
 }
 
 GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA = {
@@ -431,7 +431,7 @@ GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA = {
     'completed': True,
     'start_time': '22:36:21',
     'end_time': '00:00:00',
-    'hours_spent': 2,
+    'hours_spent': 8,
     'test_score': 50,
     'topic': 'Personal Care Services',
     'baserecord_ptr': 3
@@ -443,14 +443,14 @@ GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA = {
     'completed': True,
     'start_time': '22:36:21',
     'end_time': '00:00:00',
-    'hours_spent': 2,
-    'test_score': 60,
+    'hours_spent': 9,
+    'test_score': 50,
     'topic': 'Personal Care Services',
     'baserecord_ptr': 3
 }
 
 GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA = {
-    'test_score': 70
+    'hours_spent': 10
 }
 
 GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
@@ -494,7 +494,7 @@ GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
 
 GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
     'student': 'd4125d1a-56af-4522-846d-dd09cff85162',
-    'date': '2021-09-01',
+    'date': '2021-09-02',
     'completed': True,
     'hours_spent': 2,
     'comments': '',
