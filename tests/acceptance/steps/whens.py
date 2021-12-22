@@ -1,6 +1,6 @@
 from behave import when
 
-from .constants import (SCHOOLS_API_URL,
+from constants import (SCHOOLS_API_URL,
                         PROGRAMS_API_URL,
                         ROTATIONS_API_URL,
                         STUDENTS_API_URL,

@@ -1,6 +1,6 @@
 from behave import given
 
-from .constants import (GMS_CNA_ROTATIONS_API_URL,
+from constants import (GMS_CNA_ROTATIONS_API_URL,
                         GMS_HHA_ROTATIONS_API_URL,
                         GMS_CNA_STUDENTS_API_URL,
                         GMS_HHA_STUDENTS_API_URL,

@@ -1,6 +1,6 @@
 from behave import given
 
-from .constants import (TEST_SUPERUSER,
+from constants import (TEST_SUPERUSER,
                         TEST_ADMIN_USER,
                         TEST_ADMIN_OFF_USER,
                         TEST_STAFF_USER,

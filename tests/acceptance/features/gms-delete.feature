@@ -3,6 +3,12 @@ Feature: Grading management DELETE access
     Superuser can delete every resource for all programs
     Instructor user can delete every resource of the programs they are assigned to
 
+
+    Scenario: requesting to auth login
+        Given no initial logon
+        When request GET to /auth/login/
+        Then server will respond with 405
+
     Scenario: superuser requesting to delete a cnaRotations resource
         Given logged on as superuser
         When request DELETE to /api/gms/cnaRotations

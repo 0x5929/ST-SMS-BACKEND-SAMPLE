@@ -148,9 +148,21 @@
   "pk": 14,
   "fields": {
     "user": [
-      "testinstructoruser@localhost"
+      "testcnainstructoruser@localhost"
     ],
-    "email": "testinstructoruser@localhost",
+    "email": "testcnainstructoruser@localhost",
+    "verified": true,
+    "primary": true
+  }
+},
+{
+  "model": "account.emailaddress",
+  "pk": 15,
+  "fields": {
+    "user": [
+      "testhhainstructoruser@localhost"
+    ],
+    "email": "testhhainstructoruser@localhost",
     "verified": true,
     "primary": true
   }
