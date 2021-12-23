@@ -60,7 +60,7 @@ Feature: Grading management partially EDIT access
 
     Scenario: cna instructor user requesting to partially update cnaClinicalRecord resource
         Given logged on as cna instructor user
-        When request PATCH to /api/gms/cnaClinicalRecord
+        When request PATCH to /api/gms/cnaClinicalRecords
         Then database will partially update the cna clinical record
 
     Scenario: hha instructor user requesting to partially update hhaRotations resource
@@ -80,7 +80,7 @@ Feature: Grading management partially EDIT access
 
     Scenario: hha instructor user requesting to partially update hhaClinicalRecord resource
         Given logged on as hha instructor user
-        When request PATCH to /api/gms/hhaClinicalRecord
+        When request PATCH to /api/gms/hhaClinicalRecords
         Then database will partially update the hha clinical record
 
     Scenario: hha instructor user requesting to partially update cnaRotations resource
@@ -100,7 +100,7 @@ Feature: Grading management partially EDIT access
 
     Scenario: hha instructor user requesting to partially update cnaClinicalRecord resource
         Given logged on as hha instructor user
-        When request PATCH to /api/gms/cnaClinicalRecord
+        When request PATCH to /api/gms/cnaClinicalRecords
         Then database will not partially update the cna clinical record
 
     Scenario: cna instructor user requesting to partially update hhaRotations resource
@@ -120,5 +120,5 @@ Feature: Grading management partially EDIT access
 
     Scenario: cna instructor user requesting to partially update hhaClinicalRecord resource
         Given logged on as cna instructor user
-        When request PATCH to /api/gms/hhaClinicalRecord
+        When request PATCH to /api/gms/hhaClinicalRecords
         Then database will not partially update the hha clinical record

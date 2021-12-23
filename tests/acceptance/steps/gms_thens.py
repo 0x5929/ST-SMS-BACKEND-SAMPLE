@@ -28,26 +28,10 @@ from constants import (GMS_CNA_ROTATION_POST_SAMPLE_DATA,
                         JSON_OBJ_NOT_FOUND_RES)
 
 
-# from apps.gms.models import (CNARotation,
-#                              HHARotation,
-#                              CNAStudent,
-#                              HHAStudent,
-#                              CNATheoryRecord,
-#                              HHATheoryRecord,
-#                              CNAClinicalRecord,
-#                              HHAClinicalRecord)
 
 
 from django.apps import apps
-# CNARotation = apps.get_model('gms', 'CNARotation')
-# HHARotation = apps.get_model('gms', 'HHARotation')
-# CNAStudent = apps.get_model('gms', 'CNAStudent')
-# HHAStudent = apps.get_model('gms', 'HHAStudent')
-# CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
-# HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
-# CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
-# HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
-# NOTE: should we also test with database? how would that work with behave? see below?
+
 
 
 @then('database will create the cna rotation record')
@@ -609,7 +593,7 @@ def database_partially_edit_hhaTheory_record(context):
     partially_editted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertEqual(response_data.data.get(
+    context.test().assertEqual(response_data.get(
         'hours_spent'), partially_editted_hhaTheory_hrs_spent)
 
     HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')

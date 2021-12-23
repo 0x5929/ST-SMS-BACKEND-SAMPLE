@@ -66,7 +66,7 @@ Feature: Grading management DELETE access
 
     Scenario: cna instructor user requesting to delete cnaClinicalRecord resource
         Given logged on as cna instructor user
-        When request DELETE to /api/gms/cnaClinicalRecord
+        When request DELETE to /api/gms/cnaClinicalRecords
         Then database will delete the cna clinical record
 
     Scenario: hha instructor user requesting to delete hhaRotations resource
@@ -86,7 +86,7 @@ Feature: Grading management DELETE access
 
     Scenario: hha instructor user requesting to delete hhaClinicalRecord resource
         Given logged on as hha instructor user
-        When request DELETE to /api/gms/hhaClinicalRecord
+        When request DELETE to /api/gms/hhaClinicalRecords
         Then database will delete the hha clinical record
 
     Scenario: hha instructor user requesting to delete cnaRotations resource
@@ -106,7 +106,7 @@ Feature: Grading management DELETE access
 
     Scenario: hha instructor user requesting to delete cnaClinicalRecord resource
         Given logged on as hha instructor user
-        When request DELETE to /api/gms/cnaClinicalRecord
+        When request DELETE to /api/gms/cnaClinicalRecords
         Then database will not delete the cna clinical record
 
     Scenario: cna instructor user requesting to delete hhaRotations resource
@@ -126,5 +126,5 @@ Feature: Grading management DELETE access
 
     Scenario: cna instructor user requesting to delete hhaClinicalRecord resource
         Given logged on as cna instructor user
-        When request DELETE to /api/gms/hhaClinicalRecord
+        When request DELETE to /api/gms/hhaClinicalRecords
         Then database will not delete the hha clinical record

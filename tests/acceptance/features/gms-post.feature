@@ -60,7 +60,7 @@ Feature: Grading management CREATE access
 
     Scenario: cna instructor user requesting to create cnaClinicalRecord resource
         Given logged on as cna instructor user
-        When request POST to /api/gms/cnaClinicalRecord
+        When request POST to /api/gms/cnaClinicalRecords
         Then database will create the cna clinical record
 
     Scenario: hha instructor user requesting to create hhaRotations resource
@@ -80,7 +80,7 @@ Feature: Grading management CREATE access
 
     Scenario: hha instructor user requesting to create hhaClinicalRecord resource
         Given logged on as hha instructor user
-        When request POST to /api/gms/hhaClinicalRecord
+        When request POST to /api/gms/hhaClinicalRecords
         Then database will create the hha clinical record
 
     Scenario: hha instructor user requesting to create cnaRotations resource
@@ -100,7 +100,7 @@ Feature: Grading management CREATE access
 
     Scenario: hha instructor user requesting to create cnaClinicalRecord resource
         Given logged on as hha instructor user
-        When request POST to /api/gms/cnaClinicalRecord
+        When request POST to /api/gms/cnaClinicalRecords
         Then database will not create the cna clinical record
 
     Scenario: cna instructor user requesting to create hhaRotations resource
@@ -120,5 +120,5 @@ Feature: Grading management CREATE access
 
     Scenario: cna instructor user requesting to create hhaClinicalRecord resource
         Given logged on as cna instructor user
-        When request POST to /api/gms/hhaClinicalRecord
+        When request POST to /api/gms/hhaClinicalRecords
         Then database will not create the hha clinical record
