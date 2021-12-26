@@ -9,20 +9,21 @@ class CNATheoryRecordSerializer(serializers.ModelSerializer):
         queryset=CNAStudent.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('cna_theory_record_uuid',)
+        #exclude = ('cna_theory_record_uuid',)
+        fields = '__all__'
         model = CNATheoryRecord
 
     def validate_student(self, value):
         return GMSValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
 
     def validate(self, data):
-        return GMSValidator.no_duplicate_records(data, self.Meta.model.__name__)
+        return GMSValidator.no_duplicate_records(self, data)
 
-    def create(self, validated_data):
-        return super(CNATheoryRecordSerializer, self).create(CNATheoryRecord.objects.create_or_update(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(CNATheoryRecordSerializer, self).create(CNATheoryRecord.objects.create_or_update(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(CNATheoryRecordSerializer, self).update(*CNATheoryRecord.objects.create_or_update(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     return super(CNATheoryRecordSerializer, self).update(*CNATheoryRecord.objects.create_or_update(validated_data=validated_data, instance=instance))
 
 
 class CNAClinicalRecordSerializer(serializers.ModelSerializer):
@@ -30,20 +31,22 @@ class CNAClinicalRecordSerializer(serializers.ModelSerializer):
         queryset=CNAStudent.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('cna_clinical_record_uuid',)
+        #exclude = ('cna_clinical_record_uuid',)
+        fields = '__all__'
         model = CNAClinicalRecord
 
     def validate_student(self, value):
         return GMSValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
 
     def validate(self, data):
-        return GMSValidator.no_duplicate_records(data, self.Meta.model.__name__)
+        return GMSValidator.no_duplicate_records(self, data)
+        # return GMSValidator.no_duplicate_records(data, self.Meta.model.__name__)
 
-    def create(self, validated_data):
-        return super(CNAClinicalRecordSerializer, self).create(CNAClinicalRecord.objects.create_or_update(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(CNAClinicalRecordSerializer, self).create(CNAClinicalRecord.objects.create_or_update(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(CNAClinicalRecordSerializer, self).update(*CNAClinicalRecord.objects.create_or_update(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     return super(CNAClinicalRecordSerializer, self).update(*CNAClinicalRecord.objects.create_or_update(validated_data=validated_data, instance=instance))
 
 
 class CNAStudentSerializer(serializers.ModelSerializer):
@@ -56,17 +59,19 @@ class CNAStudentSerializer(serializers.ModelSerializer):
         many=True, read_only=True)
 
     class Meta:
-        exclude = ('student_uuid',)
+        #exclude = ('student_uuid',)
+        fields = '__all__'
         model = CNAStudent
 
     def validate(self, data):
-        return GMSValidator.no_duplicate_students(data, self.Meta.model.__name__)
+        return GMSValidator.no_duplicate_students(self, data)
+        # return GMSValidator.no_duplicate_students(data, self.Meta.model.__name__)
 
-    def create(self, validated_data):
-        return super(CNAStudentSerializer, self).create(CNAStudent.objects.create_or_update(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(CNAStudentSerializer, self).create(CNAStudent.objects.create_or_update(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(CNAStudentSerializer, self).update(*CNAStudent.objects.create_or_update(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     return super(CNAStudentSerializer, self).update(*CNAStudent.objects.create_or_update(validated_data=validated_data, instance=instance))
 
 
 class CNARotationSerializer(serializers.ModelSerializer):
@@ -74,10 +79,12 @@ class CNARotationSerializer(serializers.ModelSerializer):
         many=True, read_only=True)
 
     class Meta:
-        exclude = ('rotation_uuid',)
+        #exclude = ('rotation_uuid',)
+        fields = '__all__'
         model = CNARotation
 
     def validate(self, data):
-        return GMSValidator.final_rot_validation(data, self.context.get('request'), self.Meta.model.__name__, self.instance)
+        return GMSValidator.final_rot_validation(self, data)
+        # return GMSValidator.final_rot_validation(data, self.context.get('request'), self.Meta.model.__name__, self.instance)
 
     # NOTE no more nested create/update here since we are at the top level, and thus no create/update methods are overridden here

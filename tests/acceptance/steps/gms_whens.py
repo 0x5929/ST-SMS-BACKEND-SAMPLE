@@ -1,45 +1,45 @@
 from behave import when
 
 from constants import (GMS_CNA_ROTATIONS_API_URL,
-                        GMS_HHA_ROTATIONS_API_URL,
-                        GMS_CNA_STUDENTS_API_URL,
-                        GMS_HHA_STUDENTS_API_URL,
-                        GMS_CNA_THEORY_RECORDS_API_URL,
-                        GMS_HHA_THEORY_RECORDS_API_URL,
-                        GMS_CNA_CLINICAL_RECORDS_API_URL,
-                        GMS_HHA_CLINICAL_RECORDS_API_URL,
-                        GMS_CNA_ROTATION_POST_SAMPLE_DATA,
-                        GMS_CNA_STUDENT_POST_SAMPLE_DATA,
-                        GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
-                        GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
-                        GMS_HHA_ROTATION_POST_SAMPLE_DATA,
-                        GMS_HHA_STUDENT_POST_SAMPLE_DATA,
-                        GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
-                        GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
-                        GMS_CNA_ROTATION_PUT_SAMPLE_DATA,
-                        GMS_HHA_ROTATION_PUT_SAMPLE_DATA,
-                        GMS_CNA_STUDENT_PUT_SAMPLE_DATA,
-                        GMS_HHA_STUDENT_PUT_SAMPLE_DATA,
-                        GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA,
-                        GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
-                        GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
-                        GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
-                        GMS_CNA_ROTATION_UUID_TO_TEST,
-                        GMS_HHA_ROTATION_UUID_TO_TEST,
-                        GMS_CNA_STUDENT_UUID_TO_TEST,
-                        GMS_HHA_STUDENT_UUID_TO_TEST,
-                        GMS_CNA_THEORY_RECORD_UUID_TO_TEST,
-                        GMS_HHA_THEORY_RECORD_UUID_TO_TEST,
-                        GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST,
-                        GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST,
-                        GMS_CNA_ROTATION_PATCH_SAMPLE_DATA,
-                        GMS_HHA_ROTATION_PATCH_SAMPLE_DATA,
-                        GMS_CNA_STUDENT_PATCH_SAMPLE_DATA,
-                        GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
-                        GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
-                        GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
-                        GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
-                        GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA)
+                       GMS_HHA_ROTATIONS_API_URL,
+                       GMS_CNA_STUDENTS_API_URL,
+                       GMS_HHA_STUDENTS_API_URL,
+                       GMS_CNA_THEORY_RECORDS_API_URL,
+                       GMS_HHA_THEORY_RECORDS_API_URL,
+                       GMS_CNA_CLINICAL_RECORDS_API_URL,
+                       GMS_HHA_CLINICAL_RECORDS_API_URL,
+                       GMS_CNA_ROTATION_POST_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_POST_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       GMS_CNA_ROTATION_PUT_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_PUT_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_PUT_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_PUT_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                       GMS_CNA_ROTATION_UUID_TO_TEST,
+                       GMS_HHA_ROTATION_UUID_TO_TEST,
+                       GMS_CNA_STUDENT_UUID_TO_TEST,
+                       GMS_HHA_STUDENT_UUID_TO_TEST,
+                       GMS_CNA_THEORY_RECORD_UUID_TO_TEST,
+                       GMS_HHA_THEORY_RECORD_UUID_TO_TEST,
+                       GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST,
+                       GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST,
+                       GMS_CNA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA)
 
 
 @when('request GET to /api/gms/cnaRotations')
@@ -382,6 +382,7 @@ def request_DELETE_cnaClinicalRecords(context):
                'sms-auth': context.access_token}
 
     context.uuid = GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST
+
     context.response = context.test.client.delete(
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
 
@@ -412,6 +413,7 @@ def request_DELETE_hhaTheoryRecords(context):
                'sms-auth': context.access_token}
 
     context.uuid = GMS_HHA_THEORY_RECORD_UUID_TO_TEST
+
     context.response = context.test.client.delete(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
 

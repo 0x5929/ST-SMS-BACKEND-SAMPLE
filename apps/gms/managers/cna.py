@@ -10,7 +10,7 @@ class CNARotationManager(models.Manager):
         elif request.user.is_admin:
             return super(CNARotationManager, self).get_queryset().all()
 
-        elif request.use.is_staff:
+        elif request.user.is_staff:
             return super(CNARotationManager, self).get_queryset().filter(
                 school_name__exact=request.user.school_name)
         else:
@@ -28,7 +28,7 @@ class CNAStudentManager(models.Manager):
         elif request.user.is_admin:
             return super(CNAStudentManager, self).get_queryset().all()
 
-        elif request.use.is_staff:
+        elif request.user.is_staff:
             return super(CNAStudentManager, self).get_queryset().filter(
                 rotation__school_name__exact=request.user.school_name)
         else:
@@ -36,19 +36,19 @@ class CNAStudentManager(models.Manager):
                 rotation__school_name__exact=request.user.school_name,
                 rotation__instructor_email__exact=request.user.email)
 
-    def create_or_update(self, validated_data, instance=None):
-        # grab rotation ID from request
-        rotation_id = uuid.UUID(
-            str(validated_data.get('rotation').rotation_uuid))
+    # def create_or_update(self, validated_data, instance=None):
+    #     # grab rotation ID from request
+    #     rotation_id = uuid.UUID(
+    #         str(validated_data.get('rotation').rotation_uuid))
 
-        # retrieve rotation from DB
-        from ..models import CNARotation
-        rotation = CNARotation.objects.get(rotation_uuid__exact=rotation_id)
+    #     # retrieve rotation from DB
+    #     from ..models import CNARotation
+    #     rotation = CNARotation.objects.get(rotation_uuid__exact=rotation_id)
 
-        # add rotation to student obj
-        validated_data['rotation'] = rotation
+    #     # add rotation to student obj
+    #     validated_data['rotation'] = rotation
 
-        return (instance, validated_data) if instance else validated_data
+    #     return (instance, validated_data) if instance else validated_data
 
 
 class CNATheoryRecordManager(models.Manager):
@@ -60,7 +60,7 @@ class CNATheoryRecordManager(models.Manager):
         elif request.user.is_admin:
             return super(CNATheoryRecordManager, self).get_queryset().all()
 
-        elif request.use.is_staff:
+        elif request.user.is_staff:
             return super(CNATheoryRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name)
         else:
@@ -68,18 +68,18 @@ class CNATheoryRecordManager(models.Manager):
                 student__rotation__school_name__exact=request.user.school_name,
                 student__rotation__instructor_email__exact=request.user.email)
 
-    def create_or_update(self, validated_data, instance=None):
-        # grab student ID from request
-        student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
+    # def create_or_update(self, validated_data, instance=None):
+    #     # grab student ID from request
+    #     student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
 
-        # retrive student from DB
-        from ..models import CNAStudent
-        student = CNAStudent.objects.get(student_uuid__exact=student_id)
+    #     # retrive student from DB
+    #     from ..models import CNAStudent
+    #     student = CNAStudent.objects.get(student_uuid__exact=student_id)
 
-        # add student to record object
-        validated_data['student'] = student
+    #     # add student to record object
+    #     validated_data['student'] = student
 
-        return (instance, validated_data) if instance else validated_data
+    #     return (instance, validated_data) if instance else validated_data
 
 
 class CNAClinicalRecordManager(models.Manager):
@@ -91,7 +91,7 @@ class CNAClinicalRecordManager(models.Manager):
         elif request.user.is_admin:
             return super(CNAClinicalRecordManager, self).get_queryset().all()
 
-        elif request.use.is_staff:
+        elif request.user.is_staff:
             return super(CNAClinicalRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name)
         else:
@@ -99,15 +99,15 @@ class CNAClinicalRecordManager(models.Manager):
                 student__rotation__school_name__exact=request.user.school_name,
                 student__rotation__instructor_email__exact=request.user.email)
 
-    def create_or_update(self, validated_data, instance=None):
-        # grab student ID from request
-        student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
+    # def create_or_update(self, validated_data, instance=None):
+    #     # grab student ID from request
+    #     student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
 
-        # retrive student from DB
-        from ..models import CNAStudent
-        student = CNAStudent.objects.get(student_uuid__exact=student_id)
+    #     # retrive student from DB
+    #     from ..models import CNAStudent
+    #     student = CNAStudent.objects.get(student_uuid__exact=student_id)
 
-        # add student to record object
-        validated_data['student'] = student
+    #     # add student to record object
+    #     validated_data['student'] = student
 
-        return (instance, validated_data) if instance else validated_data
+    #     return (instance, validated_data) if instance else validated_data

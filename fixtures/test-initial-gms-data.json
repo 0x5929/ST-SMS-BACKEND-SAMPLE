@@ -6,7 +6,7 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "testinstructoruser@localhost"
+            "instructor_email": "testhhainstructoruser@localhost"
         }
     },
     {
@@ -16,7 +16,7 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "testinstructorstaff@localhost"
+            "instructor_email": "testcnainstructoruser@localhost"
         }
     },
     {
@@ -39,7 +39,7 @@
     },
     {
         "model": "gms.baserecord",
-        "pk": 1,
+        "pk": "868769c7-0742-4ca9-bf6a-9ab5b5cc73c1",
         "fields": {
             "date": "2021-10-06",
             "completed": true
@@ -47,7 +47,7 @@
     },
     {
         "model": "gms.baserecord",
-        "pk": 2,
+        "pk": "bad5926f-3f8e-4c73-b11d-de07b0255624",
         "fields": {
             "date": "2021-10-06",
             "completed": true
@@ -55,7 +55,7 @@
     },
     {
         "model": "gms.baserecord",
-        "pk": 3,
+        "pk": "8ab11f0b-6214-4f43-be18-8e1b711db6eb",
         "fields": {
             "date": "2021-10-06",
             "completed": true
@@ -63,7 +63,7 @@
     },
     {
         "model": "gms.baserecord",
-        "pk": 4,
+        "pk": "28b09da5-a7e0-4c9e-abd1-f88ec95c20b7",
         "fields": {
             "date": "2021-10-06",
             "completed": true
@@ -91,7 +91,7 @@
         "model": "gms.cnatheoryrecord",
         "pk": "075a3e5d-6ad7-44db-a47e-294ae38895dd",
         "fields": {
-            "baserecord_ptr": 1,
+            "baserecord_ptr": "868769c7-0742-4ca9-bf6a-9ab5b5cc73c1",
             "hours_spent": 1,
             "test_score": 75,
             "topic": "Module 2 Quiz",
@@ -102,7 +102,7 @@
         "model": "gms.cnaclinicalrecord",
         "pk": "5f6eec84-6e5d-46ba-93c6-c34e98c2530a",
         "fields": {
-            "baserecord_ptr": 2,
+            "baserecord_ptr": "bad5926f-3f8e-4c73-b11d-de07b0255624",
             "comments": "",
             "performance_satisfied": true,
             "topic": "Mouth care of the unconscious resident",
@@ -131,7 +131,7 @@
         "model": "gms.hhatheoryrecord",
         "pk": "b7b559e8-035c-4329-91c7-8800115fc2e6",
         "fields": {
-            "baserecord_ptr": 3,
+            "baserecord_ptr": "8ab11f0b-6214-4f43-be18-8e1b711db6eb",
             "start_time": "22:36:21",
             "end_time": "00:00:00",
             "hours_spent": 2,
@@ -144,7 +144,7 @@
         "model": "gms.hhaclinicalrecord",
         "pk": "08d594c5-2a3e-49ce-93d5-1551d4f86ebd",
         "fields": {
-            "baserecord_ptr": 4,
+            "baserecord_ptr": "28b09da5-a7e0-4c9e-abd1-f88ec95c20b7",
             "hours_spent": 2,
             "comments": "",
             "performance_satisfied": true,

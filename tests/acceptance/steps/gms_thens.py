@@ -1,37 +1,34 @@
 from behave import then
 
 from constants import (GMS_CNA_ROTATION_POST_SAMPLE_DATA,
-                        GMS_CNA_STUDENT_POST_SAMPLE_DATA,
-                        GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
-                        GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
-                        GMS_HHA_ROTATION_POST_SAMPLE_DATA,
-                        GMS_HHA_STUDENT_POST_SAMPLE_DATA,
-                        GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
-                        GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
-                        GMS_CNA_ROTATION_PUT_SAMPLE_DATA,
-                        GMS_CNA_STUDENT_PUT_SAMPLE_DATA,
-                        GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA,
-                        GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
-                        GMS_HHA_ROTATION_PUT_SAMPLE_DATA,
-                        GMS_HHA_STUDENT_PUT_SAMPLE_DATA,
-                        GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
-                        GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
-                        GMS_CNA_ROTATION_PATCH_SAMPLE_DATA,
-                        GMS_CNA_STUDENT_PATCH_SAMPLE_DATA,
-                        GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
-                        GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
-                        GMS_HHA_ROTATION_PATCH_SAMPLE_DATA,
-                        GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
-                        GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
-                        GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
-                        JSON_PERMISSION_DENIED_RES,
-                        JSON_OBJ_NOT_FOUND_RES)
-
-
+                       GMS_CNA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_POST_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       GMS_CNA_ROTATION_PUT_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_PUT_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_PUT_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_PUT_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                       GMS_CNA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       JSON_PERMISSION_DENIED_RES,
+                       JSON_OBJ_NOT_FOUND_RES)
 
 
 from django.apps import apps
-
 
 
 @then('database will create the cna rotation record')
@@ -47,7 +44,7 @@ def database_create_cnaRotation_record(context):
     CNARotation = apps.get_model('gms', 'CNARotation')
 
     if not CNARotation.objects.filter(
-            start_date__exact=posted_rotation_start_date).exist():
+            start_date__exact=posted_rotation_start_date).exists():
         assert False
     else:
         CNARotation.objects.filter(
@@ -64,7 +61,6 @@ def database_create_cnaStudent_record(context):
     context.test().assertEqual(response_data.get(
         'last_name'), posted_student_last_name)
 
-    
     CNAStudent = apps.get_model('gms', 'CNAStudent')
 
     if not CNAStudent.objects.filter(
@@ -82,7 +78,7 @@ def database_create_cnaTheory_record(context):
     posted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertEqual(response_data.data.get(
+    context.test().assertEqual(response_data.get(
         'hours_spent'), posted_cnaTheory_hrs_spent)
 
     CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
@@ -127,7 +123,7 @@ def database_create_hhaRotation_record(context):
     HHARotation = apps.get_model('gms', 'HHARotation')
 
     if not HHARotation.objects.filter(
-            start_date__exact=posted_rotation_start_date).exist():
+            start_date__exact=posted_rotation_start_date).exists():
         assert False
     else:
         HHARotation.objects.filter(
@@ -161,7 +157,7 @@ def database_create_hhaTheory_record(context):
     posted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertEqual(response_data.data.get(
+    context.test().assertEqual(response_data.get(
         'hours_spent'), posted_hhaTheory_hrs_spent)
 
     HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
@@ -206,7 +202,7 @@ def database_no_create_cnaRotation_record(context):
     CNARotation = apps.get_model('gms', 'CNARotation')
 
     if CNARotation.objects.filter(
-            start_date__exact=posted_rotation_start_date).exist():
+            start_date__exact=posted_rotation_start_date).exists():
         assert False
 
 
@@ -234,7 +230,7 @@ def database_no_create_cnaTheory_record(context):
     posted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertNotEqual(response_data.data.get(
+    context.test().assertNotEqual(response_data.get(
         'hours_spent'), posted_cnaTheory_hrs_spent)
 
     CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
@@ -273,7 +269,7 @@ def database_no_create_hhaRotation_record(context):
     HHARotation = apps.get_model('gms', 'HHARotation')
 
     if HHARotation.objects.filter(
-            start_date__exact=posted_rotation_start_date).exist():
+            start_date__exact=posted_rotation_start_date).exists():
         assert False
 
 
@@ -300,7 +296,7 @@ def database_no_create_hhaTheory_record(context):
     posted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertNotEqual(response_data.data.get(
+    context.test().assertNotEqual(response_data.get(
         'hours_spent'), posted_hhaTheory_hrs_spent)
 
     HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
@@ -336,7 +332,7 @@ def database_edit_cnaRotation_record(context):
 
     CNARotation = apps.get_model('gms', 'CNARotation')
     if not CNARotation.objects.filter(
-            start_date__exact=editted_rotation_start_date).exist():
+            start_date__exact=editted_rotation_start_date).exists():
         assert False
 
 
@@ -363,7 +359,7 @@ def database_edit_cnaTheory_record(context):
     editted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertEqual(response_data.data.get(
+    context.test().assertEqual(response_data.get(
         'hours_spent'), editted_cnaTheory_hrs_spent)
 
     CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
@@ -399,7 +395,7 @@ def database_edit_hhaRotation_record(context):
 
     HHARotation = apps.get_model('gms', 'HHARotation')
     if not HHARotation.objects.filter(
-            start_date__exact=editted_rotation_start_date).exist():
+            start_date__exact=editted_rotation_start_date).exists():
         assert False
 
 
@@ -426,7 +422,7 @@ def database_edit_hhaTheory_record(context):
     editted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertEqual(response_data.data.get(
+    context.test().assertEqual(response_data.get(
         'hours_spent'), editted_hhaTheory_hrs_spent)
 
     HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
@@ -502,7 +498,7 @@ def database_partially_edit_cnaRotation_record(context):
 
     CNARotation = apps.get_model('gms', 'CNARotation')
     if not CNARotation.objects.filter(
-            start_date__exact=partially_editted_rotation_start_date).exist():
+            start_date__exact=partially_editted_rotation_start_date).exists():
         assert False
 
 
@@ -529,7 +525,7 @@ def database_partially_edit_cnaTheory_record(context):
     partially_editted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA.get(
         'hours_spent')
 
-    context.test().assertEqual(response_data.data.get(
+    context.test().assertEqual(response_data.get(
         'hours_spent'), partially_editted_cnaTheory_hrs_spent)
 
     CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
@@ -566,7 +562,7 @@ def database_partially_edit_hhaRotation_record(context):
 
     HHARotation = apps.get_model('gms', 'HHARotation')
     if not HHARotation.objects.filter(
-            start_date__exact=partially_editted_rotation_start_date).exist():
+            start_date__exact=partially_editted_rotation_start_date).exists():
         assert False
 
 
@@ -607,14 +603,14 @@ def database_partially_edit_hhaClinical_record(context):
     response_data = context.response.data
 
     partially_editted_hhaClinical_date = GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA.get(
-        'date')
+        'end_date')
 
     context.test().assertEqual(response_data.get(
-        'date'), partially_editted_hhaClinical_date)
+        'end_date'), partially_editted_hhaClinical_date)
 
     HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
     if not HHAClinicalRecord.objects.filter(
-            date__exact=partially_editted_hhaClinical_date).exists():
+            end_date__exact=partially_editted_hhaClinical_date).exists():
         assert False
 
 

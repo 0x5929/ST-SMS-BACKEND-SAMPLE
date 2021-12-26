@@ -45,5 +45,11 @@ class BaseRecord(models.Model):
     class Meta:
         app_label = 'gms'
 
+    record_uuid = models.UUIDField(
+        primary_key=True, default=uuid.uuid4, editable=False)
+
     date = models.DateField()
     completed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.pk)

@@ -3,6 +3,11 @@ Feature: Grading management fully EDIT access
     Superuser can fully update every resource for all programs
     Instructor user can fully update every resource of the programs they are assigned to
 
+    Scenario: requesting to auth login
+        Given no initial logon
+        When request GET to /auth/login/
+        Then server will respond with 405
+
     Scenario: superuser requesting to fully update a cnaRotations resource
         Given logged on as superuser
         When request PUT to /api/gms/cnaRotations
@@ -52,7 +57,7 @@ Feature: Grading management fully EDIT access
         Given logged on as cna instructor user
         When request PUT to /api/gms/cnaStudents
         Then database will fully update the cna student record
-    
+
     Scenario: cna instructor user requesting to fully update cnaTheoryRecords resource
         Given logged on as cna instructor user
         When request PUT to /api/gms/cnaTheoryRecords
@@ -72,7 +77,7 @@ Feature: Grading management fully EDIT access
         Given logged on as hha instructor user
         When request PUT to /api/gms/hhaStudents
         Then database will fully update the hha student record
-    
+
     Scenario: hha instructor user requesting to fully update hhaTheoryRecords resource
         Given logged on as hha instructor user
         When request PUT to /api/gms/hhaTheoryRecords
@@ -92,7 +97,7 @@ Feature: Grading management fully EDIT access
         Given logged on as hha instructor user
         When request PUT to /api/gms/cnaStudents
         Then database will not fully update the cna student record
-    
+
     Scenario: hha instructor user requesting to fully update cnaTheoryRecords resource
         Given logged on as hha instructor user
         When request PUT to /api/gms/cnaTheoryRecords
@@ -112,7 +117,7 @@ Feature: Grading management fully EDIT access
         Given logged on as cna instructor user
         When request PUT to /api/gms/hhaStudents
         Then database will not fully update the hha student record
-    
+
     Scenario: cna instructor user requesting to fully update hhaTheoryRecords resource
         Given logged on as cna instructor user
         When request PUT to /api/gms/hhaTheoryRecords

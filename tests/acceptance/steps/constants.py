@@ -321,8 +321,8 @@ GMS_CNA_ROTATION_POST_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-13',
     'end_date': '2021-10-13',
-    'instructor_email': 'test@email.com',
-    'rotation_num': 1,
+    'instructor_email': 'testcnainstructoruser@localhost',
+    'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
 }
@@ -331,8 +331,8 @@ GMS_CNA_ROTATION_PUT_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-14',
     'end_date': '2021-10-13',
-    'instructor_email': 'test@email.com',
-    'rotation_num': 1,
+    'instructor_email': 'testcnainstructoruser@localhost',
+    'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
 }
@@ -344,9 +344,9 @@ GMS_CNA_ROTATION_PATCH_SAMPLE_DATA = {
 GMS_HHA_ROTATION_POST_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-13',
-    'end_date': '2021-09-13',
-    'instructor_email': 'test@email.com',
-    'rotation_num': 1,
+    'end_date': '2021-10-13',
+    'instructor_email': 'testhhainstructoruser@localhost',
+    'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
 }
@@ -354,9 +354,9 @@ GMS_HHA_ROTATION_POST_SAMPLE_DATA = {
 GMS_HHA_ROTATION_PUT_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-14',
-    'end_date': '2021-09-13',
-    'instructor_email': 'test@email.com',
-    'rotation_num': 1,
+    'end_date': '2021-10-13',
+    'instructor_email': 'testhhainstructoruser@localhost',
+    'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
 }
@@ -408,7 +408,7 @@ GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA = {
     'hours_spent': 8,
     'test_score': 100,
     'topic': 'Module 2 Quiz',
-    'baserecord_ptr': 1
+    'baserecord_ptr': '868769c7-0742-4ca9-bf6a-9ab5b5cc73c1'
 }
 
 GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA = {
@@ -418,7 +418,7 @@ GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA = {
     'hours_spent': 9,
     'test_score': 100,
     'topic': 'Module 2 Quiz',
-    'baserecord_ptr': 1
+    'baserecord_ptr': '868769c7-0742-4ca9-bf6a-9ab5b5cc73c1'
 }
 
 GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA = {
@@ -434,7 +434,7 @@ GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA = {
     'hours_spent': 8,
     'test_score': 50,
     'topic': 'Personal Care Services',
-    'baserecord_ptr': 3
+    'baserecord_ptr': '8ab11f0b-6214-4f43-be18-8e1b711db6eb'
 }
 
 GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA = {
@@ -446,7 +446,7 @@ GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA = {
     'hours_spent': 9,
     'test_score': 50,
     'topic': 'Personal Care Services',
-    'baserecord_ptr': 3
+    'baserecord_ptr': '8ab11f0b-6214-4f43-be18-8e1b711db6eb'
 }
 
 GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA = {
@@ -460,7 +460,7 @@ GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
     'comments': '',
     'performance_satisfied': True,
     'topic': 'Mouth care of the unconscious resident',
-    'baserecord_ptr': 2
+    'baserecord_ptr': 'bad5926f-3f8e-4c73-b11d-de07b0255624'
 }
 
 GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
@@ -470,7 +470,7 @@ GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
     'comments': '',
     'performance_satisfied': True,
     'topic': 'Mouth care of the unconscious resident',
-    'baserecord_ptr': 2
+    'baserecord_ptr': 'bad5926f-3f8e-4c73-b11d-de07b0255624'
 }
 
 GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA = {
@@ -489,7 +489,7 @@ GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
     'start_date': '2021-09-01',
     'end_date': '2021-09-01',
     'topic': 'Nutrition',
-    'baserecord_ptr': 4
+    'baserecord_ptr': '28b09da5-a7e0-4c9e-abd1-f88ec95c20b7'
 }
 
 GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
@@ -504,7 +504,7 @@ GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
     'start_date': '2021-09-01',
     'end_date': '2021-09-02',
     'topic': 'Nutrition',
-    'baserecord_ptr': 4
+    'baserecord_ptr': '28b09da5-a7e0-4c9e-abd1-f88ec95c20b7'
 }
 
 GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA = {
@@ -517,5 +517,8 @@ GMS_CNA_STUDENT_UUID_TO_TEST = 'ccc37087-32fa-4c26-8af8-e84619dc2e47'
 GMS_HHA_STUDENT_UUID_TO_TEST = 'd4125d1a-56af-4522-846d-dd09cff85162'
 GMS_CNA_THEORY_RECORD_UUID_TO_TEST = '075a3e5d-6ad7-44db-a47e-294ae38895dd'
 GMS_HHA_THEORY_RECORD_UUID_TO_TEST = 'b7b559e8-035c-4329-91c7-8800115fc2e6'
-GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST = '5f6eec84-6e5d-46ba-93c6-c34e98c2530a"'
+GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST = '5f6eec84-6e5d-46ba-93c6-c34e98c2530a'
 GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST = '08d594c5-2a3e-49ce-93d5-1551d4f86ebd'
+
+
+# /api/gms/hhaTheoryRecords/b7b559e8-035c-4329-91c7-8800115fc2e6/
