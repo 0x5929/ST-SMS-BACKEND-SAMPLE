@@ -193,10 +193,29 @@ SCHOOL_SAMPLE_POST_DATA = {
     'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770'
 }
 
+SCHOOL_SAMPLE_PUT_DATA = {
+        'school_name': 'STI',
+        'school_code': '27091743',
+        'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770',
+        'year_founded': '2009-03-05'
+}
+
+SCHOOL_SAMPLE_PATCH_DATA = {
+    'school_code' : '27091744'
+}
 PROGRAM_SAMPLE_POST_DATA = {
     'school': '0c805318-7706-405e-a66c-5936062617a5',
     'program_name': 'SG',
     'approval_entities': ['BSIS', 'BPPE']
+}
+PROGRAM_SAMPLE_PUT_DATA = {
+        'program_name': 'HSFA',
+        'approval_entities': ['CDPH', 'BPPE'],
+        'school': '0c805318-7706-405e-a66c-5936062617a5'
+}
+
+PROGRAM_SAMPLE_PATCH_DATA = {
+    'program_name' :  'BLS'
 }
 
 ROTATION_SAMPLE_POST_DATA = {
@@ -204,6 +223,14 @@ ROTATION_SAMPLE_POST_DATA = {
     'rotation_number': 5
 }
 
+ROTATION_SAMPLE_PUT_DATA = {
+    'rotation_number': 6,
+    'program': '67301e14-cd3d-493a-a2cf-84d8c490c0ef'
+}
+
+ROTATION_SAMPLE_PATCH_DATA = {
+    'rotation_number' : 7
+}
 
 PUT_DATA = {
     'school__school_code': '27091743',
@@ -407,8 +434,7 @@ GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA = {
     'completed': True,
     'hours_spent': 8,
     'test_score': 100,
-    'topic': 'Module 2 Quiz',
-    'baserecord_ptr': '868769c7-0742-4ca9-bf6a-9ab5b5cc73c1'
+    'topic': 'Module 1 Quiz'
 }
 
 GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA = {
@@ -417,8 +443,7 @@ GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA = {
     'completed': True,
     'hours_spent': 9,
     'test_score': 100,
-    'topic': 'Module 2 Quiz',
-    'baserecord_ptr': '868769c7-0742-4ca9-bf6a-9ab5b5cc73c1'
+    'topic': 'Module 2 Quiz'
 }
 
 GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA = {
@@ -433,8 +458,7 @@ GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA = {
     'end_time': '00:00:00',
     'hours_spent': 8,
     'test_score': 50,
-    'topic': 'Personal Care Services',
-    'baserecord_ptr': '8ab11f0b-6214-4f43-be18-8e1b711db6eb'
+    'topic':'Introduction to Aide and Agency Role'
 }
 
 GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA = {
@@ -445,8 +469,7 @@ GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA = {
     'end_time': '00:00:00',
     'hours_spent': 9,
     'test_score': 50,
-    'topic': 'Personal Care Services',
-    'baserecord_ptr': '8ab11f0b-6214-4f43-be18-8e1b711db6eb'
+    'topic': 'Personal Care Services'
 }
 
 GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA = {
@@ -459,8 +482,7 @@ GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
     'completed': True,
     'comments': '',
     'performance_satisfied': True,
-    'topic': 'Mouth care of the unconscious resident',
-    'baserecord_ptr': 'bad5926f-3f8e-4c73-b11d-de07b0255624'
+    'topic': 'Knocks on door before entering'
 }
 
 GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
@@ -469,8 +491,7 @@ GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
     'completed': True,
     'comments': '',
     'performance_satisfied': True,
-    'topic': 'Mouth care of the unconscious resident',
-    'baserecord_ptr': 'bad5926f-3f8e-4c73-b11d-de07b0255624'
+    'topic': 'Mouth care of the unconscious resident'
 }
 
 GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA = {
@@ -488,8 +509,7 @@ GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
     'end_time': '00:00:00',
     'start_date': '2021-09-01',
     'end_date': '2021-09-01',
-    'topic': 'Nutrition',
-    'baserecord_ptr': '28b09da5-a7e0-4c9e-abd1-f88ec95c20b7'
+    'topic': 'Cleaning and Care Tasks in the Home'
 }
 
 GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
@@ -503,8 +523,7 @@ GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
     'end_time': '00:00:00',
     'start_date': '2021-09-01',
     'end_date': '2021-09-02',
-    'topic': 'Nutrition',
-    'baserecord_ptr': '28b09da5-a7e0-4c9e-abd1-f88ec95c20b7'
+    'topic': 'Nutrition'
 }
 
 GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA = {
@@ -515,10 +534,10 @@ GMS_CNA_ROTATION_UUID_TO_TEST = 'fdc7898d-80f0-4a48-9617-d205b1486066'
 GMS_HHA_ROTATION_UUID_TO_TEST = 'f1bd7d07-2633-4650-b85f-448f54fd3789'
 GMS_CNA_STUDENT_UUID_TO_TEST = 'ccc37087-32fa-4c26-8af8-e84619dc2e47'
 GMS_HHA_STUDENT_UUID_TO_TEST = 'd4125d1a-56af-4522-846d-dd09cff85162'
-GMS_CNA_THEORY_RECORD_UUID_TO_TEST = '075a3e5d-6ad7-44db-a47e-294ae38895dd'
-GMS_HHA_THEORY_RECORD_UUID_TO_TEST = 'b7b559e8-035c-4329-91c7-8800115fc2e6'
-GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST = '5f6eec84-6e5d-46ba-93c6-c34e98c2530a'
-GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST = '08d594c5-2a3e-49ce-93d5-1551d4f86ebd'
+GMS_CNA_THEORY_RECORD_UUID_TO_TEST = '868769c7-0742-4ca9-bf6a-9ab5b5cc73c1'
+GMS_HHA_THEORY_RECORD_UUID_TO_TEST = '8ab11f0b-6214-4f43-be18-8e1b711db6eb'
+GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST = 'bad5926f-3f8e-4c73-b11d-de07b0255624'
+GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST = '28b09da5-a7e0-4c9e-abd1-f88ec95c20b7'
 
 
 # /api/gms/hhaTheoryRecords/b7b559e8-035c-4329-91c7-8800115fc2e6/

@@ -89,7 +89,7 @@
     },
     {
         "model": "gms.cnatheoryrecord",
-        "pk": "075a3e5d-6ad7-44db-a47e-294ae38895dd",
+        "pk": "868769c7-0742-4ca9-bf6a-9ab5b5cc73c1",
         "fields": {
             "baserecord_ptr": "868769c7-0742-4ca9-bf6a-9ab5b5cc73c1",
             "hours_spent": 1,
@@ -100,7 +100,7 @@
     },
     {
         "model": "gms.cnaclinicalrecord",
-        "pk": "5f6eec84-6e5d-46ba-93c6-c34e98c2530a",
+        "pk": "bad5926f-3f8e-4c73-b11d-de07b0255624",
         "fields": {
             "baserecord_ptr": "bad5926f-3f8e-4c73-b11d-de07b0255624",
             "comments": "",
@@ -129,7 +129,7 @@
     },
     {
         "model": "gms.hhatheoryrecord",
-        "pk": "b7b559e8-035c-4329-91c7-8800115fc2e6",
+        "pk": "8ab11f0b-6214-4f43-be18-8e1b711db6eb",
         "fields": {
             "baserecord_ptr": "8ab11f0b-6214-4f43-be18-8e1b711db6eb",
             "start_time": "22:36:21",
@@ -142,7 +142,7 @@
     },
     {
         "model": "gms.hhaclinicalrecord",
-        "pk": "08d594c5-2a3e-49ce-93d5-1551d4f86ebd",
+        "pk": "28b09da5-a7e0-4c9e-abd1-f88ec95c20b7",
         "fields": {
             "baserecord_ptr": "28b09da5-a7e0-4c9e-abd1-f88ec95c20b7",
             "hours_spent": 2,

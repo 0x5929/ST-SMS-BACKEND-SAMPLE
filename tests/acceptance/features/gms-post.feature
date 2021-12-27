@@ -3,6 +3,12 @@ Feature: Grading management CREATE access
     Superuser can create every resource for all programs
     Instructor user can create every resource of the programs they are assigned to
 
+    Scenario: requesting to auth login
+        Given no initial logon
+        When request GET to /auth/login/
+        Then server will respond with 405
+
+
     Scenario: superuser requesting to create a cnaRotations resource
         Given logged on as superuser
         When request POST to /api/gms/cnaRotations

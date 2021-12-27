@@ -97,7 +97,9 @@ class GMSValidator:
         # if we are POSTing a record that already exists
         if not serializer.instance and record_exists:
             raise ValidationError(err_msg)
-
+        elif serializer.instance and record_exists \
+            and getattr(serializer.instance, 'topic') != current_topic:
+            raise ValidationError(err_msg)
         return data
 
     # used by StudentSerializers

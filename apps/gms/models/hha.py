@@ -57,8 +57,8 @@ class HHATheoryRecord(BaseRecord):
         app_label = 'gms'
         verbose_name = 'HHA Theory Record'
 
-    hha_theory_record_uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
+    # hha_theory_record_uuid = models.UUIDField(
+    #     primary_key=True, default=uuid.uuid4, editable=False)
 
     start_time = models.TimeField(auto_now=False, auto_now_add=False)
     end_time = models.TimeField(auto_now=False, auto_now_add=False)
@@ -87,8 +87,8 @@ class HHAClinicalRecord(BaseRecord):
         app_label = 'gms'
         verbose_name = 'HHA Clinical Record'
 
-    hha_clinical_record_uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
+    # hha_clinical_record_uuid = models.UUIDField(
+    #     primary_key=True, default=uuid.uuid4, editable=False)
 
     hours_spent = models.PositiveIntegerField()
     comments = models.CharField(max_length=200, blank=True)

@@ -57,8 +57,8 @@ class CNATheoryRecord(BaseRecord):
         app_label = 'gms'
         verbose_name = 'CNA Theory Record'
 
-    cna_theory_record_uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
+    # cna_theory_record_uuid = models.UUIDField(
+    #     primary_key=True, default=uuid.uuid4, editable=False)
 
     hours_spent = models.PositiveIntegerField()
     test_score = models.IntegerField(validators=[MinValueValidator(0),
@@ -83,8 +83,8 @@ class CNAClinicalRecord(BaseRecord):
         app_label = 'gms'
         verbose_name = 'CNA Clinical Record'
 
-    cna_clinical_record_uuid = models.UUIDField(
-        primary_key=True, default=uuid.uuid4, editable=False)
+    # cna_clinical_record_uuid = models.UUIDField(
+    #     primary_key=True, default=uuid.uuid4, editable=False)
 
     comments = models.CharField(max_length=200, blank=True)
     performance_satisfied = models.BooleanField(default=True)

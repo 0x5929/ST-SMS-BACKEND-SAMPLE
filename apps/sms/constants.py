@@ -85,7 +85,7 @@ SHEET_CONSTANTS = {
     'MATCH_BY_COL':  {'Student ID': 'A'},
 
     # max recursive calls allowed
-    'MAX_RECURSE': 2,
+    'MAX_RECURSE': 4,
 
     # max waiting between google sheet init errors
     'MAX_INIT_WAIT': 200,

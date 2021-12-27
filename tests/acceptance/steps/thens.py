@@ -177,6 +177,8 @@ def database_will_create_school(context):
 
     posted_school_code = SCHOOL_SAMPLE_POST_DATA.get('school_code')
 
+    print('response: ', response.get('school_code'))
+    print('posted: ', posted_school_code)
     context.test().assertEqual(response.get('school_code'), posted_school_code)
 
 

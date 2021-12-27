@@ -5,7 +5,11 @@ Feature: Student Management CREATE access
     Staff user can create rotation, student resource for own school
     Regular user can create student resource for own school
 
-
+    Scenario: requesting to auth login
+        Given no initial logon
+        When request GET to /auth/login/
+        Then server will respond with 405
+        
     Scenario: superuser requesting to create a student resource of the same school program rotation
         Given logged on as superuser
         When request POST to /api/sms/students of the same school

@@ -15,13 +15,18 @@ from constants import (SCHOOLS_API_URL,
                         ROTATION_SAMPLE_POST_DATA,
                         STUDENT_SAMPLE_PUT_DATA,
                         FILTER_PARAMS,
-                        PUT_DATA,
                         PATCH_DATA,
                         DATADUMP_API_URL,
                         TEST_SPREADSHEET_ID,
                         TEST_SHEET_ID,
                         TEST_SCHOOL_NAME,
-                        TEST_DATADUMP_DUMMY_DATA)
+                        TEST_DATADUMP_DUMMY_DATA,
+                        SCHOOL_SAMPLE_PUT_DATA,
+                        SCHOOL_SAMPLE_PATCH_DATA,
+                        PROGRAM_SAMPLE_PUT_DATA,
+                        PROGRAM_SAMPLE_PATCH_DATA,
+                        ROTATION_SAMPLE_PUT_DATA,
+                        ROTATION_SAMPLE_PATCH_DATA)
 
 
 @when('request GET to /api/sms/schools')
@@ -115,8 +120,8 @@ def request_POST_to_schools(context):
 
 @when('request PUT to /api/sms/schools/school_uuid')
 def request_PUT_to_school(context):
-    put_data = SCHOOL_SAMPLE_POST_DATA
-    put_data['school_code'] = PUT_DATA.get('school__school_code')
+    put_data = SCHOOL_SAMPLE_PUT_DATA
+
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -126,7 +131,7 @@ def request_PUT_to_school(context):
 
 @when('request PATCH to /api/sms/schools/school_uuid')
 def request_PATCH_to_school(context):
-    patch_data = {'school_code': PATCH_DATA.get('school__school_code')}
+    patch_data = SCHOOL_SAMPLE_PATCH_DATA
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -155,9 +160,8 @@ def request_POST_to_programs(context):
 
 @when('request PUT to /api/sms/programs/program_uuid')
 def request_PUT_to_program(context):
-    put_data = PROGRAM_SAMPLE_POST_DATA
+    put_data = PROGRAM_SAMPLE_PUT_DATA
 
-    put_data['program_name'] = PUT_DATA.get('program__program_name')
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -167,7 +171,7 @@ def request_PUT_to_program(context):
 
 @when('request PATCH to /api/sms/programs/program_uuid')
 def request_PATCH_to_program(context):
-    patch_data = {"program_name": PATCH_DATA.get('program__program_name')}
+    patch_data = PROGRAM_SAMPLE_PATCH_DATA
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -196,8 +200,7 @@ def request_POST_to_rotations(context):
 
 @when('request PUT to /api/sms/rotations/rotation_uuid')
 def request_PUT_to_rotaiton(context):
-    put_data = ROTATION_SAMPLE_POST_DATA
-    put_data['rotation_number'] = PUT_DATA.get('rotation__rotation_number')
+    put_data = ROTATION_SAMPLE_PUT_DATA
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -207,9 +210,7 @@ def request_PUT_to_rotaiton(context):
 
 @when('request PATCH to /api/sms/rotations/rotation_uuid')
 def request_PATCH_to_rotation(context):
-    patch_data = {
-        "rotation_number": PATCH_DATA.get('rotation__rotation_number')
-    }
+    patch_data = ROTATION_SAMPLE_PATCH_DATA
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 

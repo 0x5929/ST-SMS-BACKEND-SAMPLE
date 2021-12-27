@@ -9,7 +9,8 @@ class HHATheoryRecordSerializer(serializers.ModelSerializer):
         queryset=HHAStudent.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('hha_theory_record_uuid',)
+        #exclude = ('hha_theory_record_uuid',)
+        fields = '__all__'
         model = HHATheoryRecord
 
     def validate_student(self, value):
@@ -30,7 +31,8 @@ class HHAClinicalRecordSerializer(serializers.ModelSerializer):
         queryset=HHAStudent.objects.all(), allow_null=False)
 
     class Meta:
-        exclude = ('hha_clinical_record_uuid',)
+        #exclude = ('hha_clinical_record_uuid',)
+        fields = '__all__'
         model = HHAClinicalRecord
 
     def validate_student(self, value):
@@ -56,7 +58,8 @@ class HHAStudentSerializer(serializers.ModelSerializer):
         many=True, read_only=True)
 
     class Meta:
-        exclude = ('student_uuid',)
+        #exclude = ('student_uuid',)
+        fields = '__all__'
         model = HHAStudent
 
     def validate(self, data):
@@ -74,7 +77,8 @@ class HHARotationSerializer(serializers.ModelSerializer):
         many=True, read_only=True)
 
     class Meta:
-        exclude = ('rotation_uuid',)
+        #exclude = ('rotation_uuid',)
+        fields = '__all__'
         model = HHARotation
 
     def validate(self, data):

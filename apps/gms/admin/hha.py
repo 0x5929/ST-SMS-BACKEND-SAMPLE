@@ -69,17 +69,17 @@ class ModelAdminHHAStudentConfig(ModelAdmin):
 
 
 class ModelAdminHHATheoryRecordConfig(ModelAdmin):
-    readonly_fields = ('hha_theory_record_uuid',)
-    search_fields = ('hha_theory_record_uuid', 'date',
+    readonly_fields = ('record_uuid',)
+    search_fields = ('record_uuid', 'date',
                      'completed', 'test_score', 'topic', 'student')
-    list_filter = ('hha_theory_record_uuid', 'date',
+    list_filter = ('record_uuid', 'date',
                    'completed', 'test_score', 'topic', 'student')
     ordering = ('-date',)
-    list_display = ('hha_theory_record_uuid', 'date',
+    list_display = ('record_uuid', 'date',
                     'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic', 'student')
 
     fieldsets = (
-        (None, {'fields': ('hha_theory_record_uuid', 'date',
+        (None, {'fields': ('record_uuid', 'date',
                            'completed', 'hours_spent', 'start_time', 'end_time', 'test_score', 'topic', 'student')
                 }
          ),
@@ -89,7 +89,7 @@ class ModelAdminHHATheoryRecordConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('hha_theory_record_uuid', 'date',
+            'fields': ('record_uuid', 'date',
                        'completed',  'hours_spent', 'start_time', 'end_time', 'test_score', 'topic', 'student')
         }
 
@@ -102,17 +102,17 @@ class ModelAdminHHATheoryRecordConfig(ModelAdmin):
 
 
 class ModelAdminHHAClinicalRecordConfig(ModelAdmin):
-    readonly_fields = ('hha_clinical_record_uuid',)
+    readonly_fields = ('record_uuid',)
     search_fields = ('hha_clinical_record_uuid', 'date',
                      'completed', 'performance_satisfied', 'topic', 'student')
-    list_filter = ('hha_clinical_record_uuid', 'date',
+    list_filter = ('record_uuid', 'date',
                    'completed', 'performance_satisfied', 'topic', 'student')
     ordering = ('-date',)
-    list_display = ('hha_clinical_record_uuid', 'date',
+    list_display = ('record_uuid', 'date',
                     'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic', 'student')
 
     fieldsets = (
-        (None, {'fields': ('hha_clinical_record_uuid', 'date',
+        (None, {'fields': ('record_uuid', 'date',
                            'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic', 'student')
                 }
          ),
@@ -122,7 +122,7 @@ class ModelAdminHHAClinicalRecordConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('hha_clinical_record_uuid', 'date',
+            'fields': ('record_uuid', 'date',
                        'completed', 'hours_spent', 'comments', 'performance_satisfied', 'start_time', 'end_time', 'start_date', 'end_date', 'topic', 'student')
         }
 

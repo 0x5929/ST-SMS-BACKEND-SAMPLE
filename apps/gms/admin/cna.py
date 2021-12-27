@@ -71,17 +71,17 @@ class ModelAdminCNAStudentConfig(ModelAdmin):
 
 
 class ModelAdminCNATheoryRecordConfig(ModelAdmin):
-    readonly_fields = ('cna_theory_record_uuid',)
-    search_fields = ('cna_theory_record_uuid', 'date',
+    readonly_fields = ('record_uuid',)
+    search_fields = ('record_uuid', 'date',
                      'hours_spent', 'completed', 'test_score', 'topic', 'student')
-    list_filter = ('cna_theory_record_uuid', 'date',
+    list_filter = ('record_uuid', 'date',
                    'hours_spent', 'completed', 'test_score', 'topic', 'student')
     ordering = ('-date',)
-    list_display = ('cna_theory_record_uuid', 'date',
+    list_display = ('record_uuid', 'date',
                     'hours_spent', 'completed', 'test_score', 'topic', 'student')
 
     fieldsets = (
-        (None, {'fields': ('cna_theory_record_uuid', 'date',
+        (None, {'fields': ('record_uuid', 'date',
                            'hours_spent', 'completed', 'test_score', 'topic', 'student')
                 }
          ),
@@ -91,7 +91,7 @@ class ModelAdminCNATheoryRecordConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('cna_theory_record_uuid', 'date',
+            'fields': ('record_uuid', 'date',
                        'hours_spent', 'completed', 'test_score', 'topic', 'student')
         }
 
@@ -104,17 +104,17 @@ class ModelAdminCNATheoryRecordConfig(ModelAdmin):
 
 
 class ModelAdminCNAClinicalRecordConfig(ModelAdmin):
-    readonly_fields = ('cna_clinical_record_uuid',)
+    readonly_fields = ('record_uuid',)
     search_fields = ('cna_clinical_record_uuid', 'date',
                      'completed', 'performance_satisfied', 'topic', 'student')
-    list_filter = ('cna_clinical_record_uuid', 'date',
+    list_filter = ('record_uuid', 'date',
                    'completed', 'performance_satisfied', 'topic', 'student')
     ordering = ('-date',)
-    list_display = ('cna_clinical_record_uuid', 'date',
+    list_display = ('record_uuid', 'date',
                     'completed', 'performance_satisfied', 'comments', 'topic', 'student')
 
     fieldsets = (
-        (None, {'fields': ('cna_clinical_record_uuid', 'date',
+        (None, {'fields': ('record_uuid', 'date',
                            'completed', 'performance_satisfied', 'comments', 'topic', 'student')
                 }
          ),
@@ -124,7 +124,7 @@ class ModelAdminCNAClinicalRecordConfig(ModelAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('cna_clinical_record_uuid', 'date',
+            'fields': ('record_uuid', 'date',
                        'completed', 'performance_satisfied', 'comments', 'topic', 'student')
         }
 
