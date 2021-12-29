@@ -5,24 +5,29 @@ from behave import then
 
 from apps.sms.google_sheets import GoogleSheet
 from apps.sms.constants import STUDENT_RECORD_HEADERS
-from tests.acceptance.steps.constants import (STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
-                                              STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
-                                              SCHOOL_SAMPLE_POST_DATA,
-                                              PROGRAM_SAMPLE_POST_DATA,
-                                              ROTATION_SAMPLE_POST_DATA,
-                                              STUDENT_SAMPLE_PUT_DATA,
+from tests.acceptance.steps.constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
+                                              SMS_STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
+                                              SMS_SCHOOL_SAMPLE_POST_DATA,
+                                              SMS_PROGRAM_SAMPLE_POST_DATA,
+                                              SMS_ROTATION_SAMPLE_POST_DATA,
+                                              SMS_STUDENT_SAMPLE_PUT_DATA,
                                               JSON_PERMISSION_DENIED_RES,
                                               JSON_OBJ_NOT_FOUND_RES,
-                                              FILTER_PARAMS,
-                                              PUT_DATA,
-                                              PATCH_DATA,
-                                              GOOGLE_POST_DATA,
-                                              GOOGLE_EDIT_CHECK_DATA,
+                                              SMS_FILTER_PARAMS,
+                                              SMS_SCHOOL_SAMPLE_PUT_DATA,
+                                              SMS_PROGRAM_SAMPLE_PUT_DATA,
+                                              SMS_ROTATION_SAMPLE_PUT_DATA,
+                                              SMS_STUDENT_SAMPLE_PATCH_DATA,
+                                              SMS_SCHOOL_SAMPLE_PATCH_DATA,
+                                              SMS_PROGRAM_SAMPLE_PATCH_DATA,
+                                              SMS_ROTATION_SAMPLE_PATCH_DATA,
+                                              SMS_GOOGLE_POST_DATA,
+                                              SMS_GOOGLE_EDIT_CHECK_DATA,
                                               JSON_SUPERUSER_ONLY_RES)
 
 
 def google_sheet_del(context, student_id):
-    school_name = FILTER_PARAMS.get('school_name')
+    school_name = SMS_FILTER_PARAMS.get('school_name')
     gs_api = GoogleSheet.init_google_sheet(school_name)
 
     del_row_num = gs_api.match(gs_api.worksheets, student_id)
@@ -37,11 +42,11 @@ def google_sheet_del(context, student_id):
 
 
 def google_sheet_create(context, student_id):
-    school_name = FILTER_PARAMS.get('school_name')
+    school_name = SMS_FILTER_PARAMS.get('school_name')
 
     gs_api = GoogleSheet.init_google_sheet(school_name)
 
-    gs_api.create(gs_api.worksheets, GOOGLE_POST_DATA)
+    gs_api.create(gs_api.worksheets, SMS_GOOGLE_POST_DATA)
     gs_api.refresh(gs_api.spreadsheet)
 
     # assert that we have created!
@@ -51,7 +56,7 @@ def google_sheet_create(context, student_id):
 
 # dependent on what is passed to check, make sure [] lists are passed in
 def google_sheet_check_edit(context, student_id, data_to_check):
-    school_name = FILTER_PARAMS.get('school_name')
+    school_name = SMS_FILTER_PARAMS.get('school_name')
     gs_api = GoogleSheet.init_google_sheet(school_name)
 
     row = gs_api.match(gs_api.worksheets, student_id)
@@ -77,7 +82,7 @@ def receive_JSON_data(context):
 @then('database will create the student record of another school')
 def database_create_student(context):
     response = context.response.data
-    posted_student_last_name = STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA.get(
+    posted_student_last_name = SMS_STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA.get(
         'last_name')
 
     # assert
@@ -92,7 +97,7 @@ def database_create_student(context):
 @then('database will create the student record')
 def database_create_student(context):
     response = context.response.data
-    posted_student_last_name = STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA.get(
+    posted_student_last_name = SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA.get(
         'last_name')
 
     # assert
@@ -102,25 +107,14 @@ def database_create_student(context):
 
     # the student's school that we are testing with
     google_sheet_del(context, response.get('student_id'))
-    # school_name = FILTER_PARAMS.get('school_name')
-    # gs_api = GoogleSheet.init_google_sheet(school_name)
-
-    # del_row_num = gs_api.match(gs_api.worksheets, response.get('student_id'))
-
-    # # assert we are matching the student we've created and posted onto google sheet
-    # context.test().assertIsNotNone(del_row_num)
-
-    # gs_api.delete(gs_api.spreadsheet, del_row_num)
-    # gs_api.refresh(gs_api.spreadsheet)
-
-# when posting to /api/sms/students/ with a rotation of a program that belongs to another school location
 
 
 @then('database will not create the student record')
 def database_will_not_create_student(context):
     response = context.response.data
 
-    posted_student_id = STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA.get('student_id')
+    posted_student_id = SMS_STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA.get(
+        'student_id')
 
     context.test().assertNotEqual(response.get('student_id'), posted_student_id)
 
@@ -129,28 +123,28 @@ def database_will_not_create_student(context):
 def database_will_edit_student(context):
     response = context.response.data
 
-    editted_last_name = STUDENT_SAMPLE_PUT_DATA.get('last_name')
+    editted_last_name = SMS_STUDENT_SAMPLE_PUT_DATA.get('last_name')
 
     context.test().assertEqual(response.get('last_name'), editted_last_name)
 
     # we need to test google sheet migration, and delete student!
     student_id = response.get('student_id')
     google_sheet_check_edit(context, student_id,
-                            GOOGLE_EDIT_CHECK_DATA.get('PUT_DATA'))
+                            SMS_GOOGLE_EDIT_CHECK_DATA.get('PUT_DATA'))
 
 
 @then('database will partially edit the student record')
 def database_will_partially_edit_student(context):
     response = context.response.data
 
-    editted_last_name = PATCH_DATA.get('student__last_name')
+    editted_last_name = SMS_STUDENT_SAMPLE_PATCH_DATA.get('last_name')
 
     context.test().assertEqual(response.get('last_name'), editted_last_name)
 
     # we need to test google sheet migration, and delete student!
     student_id = response.get('student_id')
     google_sheet_check_edit(context, student_id,
-                            GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'))
+                            SMS_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'))
 
 
 @then('database will not delete the student record')
@@ -166,7 +160,7 @@ def database_will_delete_student(context):
 
     # same student ID that will be used for matching the student record
     student_id_index = STUDENT_RECORD_HEADERS.index('student_id')
-    student_id = GOOGLE_POST_DATA[student_id_index]
+    student_id = SMS_GOOGLE_POST_DATA[student_id_index]
 
     google_sheet_create(context, student_id)
 
@@ -175,7 +169,7 @@ def database_will_delete_student(context):
 def database_will_create_school(context):
     response = context.response.data
 
-    posted_school_code = SCHOOL_SAMPLE_POST_DATA.get('school_code')
+    posted_school_code = SMS_SCHOOL_SAMPLE_POST_DATA.get('school_code')
 
     print('response: ', response.get('school_code'))
     print('posted: ', posted_school_code)
@@ -186,7 +180,7 @@ def database_will_create_school(context):
 def database_will_edit_school(context):
     response = context.response.data
 
-    editted_school_code = PUT_DATA.get('school__school_code')
+    editted_school_code = SMS_SCHOOL_SAMPLE_PUT_DATA.get('school_code')
 
     context.test().assertEqual(response.get('school_code'), editted_school_code)
 
@@ -195,7 +189,7 @@ def database_will_edit_school(context):
 def database_will_partially_edit_school(context):
     response = context.response.data
 
-    editted_school_code = PATCH_DATA.get('school__school_code')
+    editted_school_code = SMS_SCHOOL_SAMPLE_PATCH_DATA.get('school_code')
 
     context.test().assertEqual(response.get('school_code'), editted_school_code)
 
@@ -230,7 +224,7 @@ def database_will_not_delete_school(context):
 def database_will_create_program(context):
     response = context.response.data
 
-    posted_program_name = PROGRAM_SAMPLE_POST_DATA.get('program_name')
+    posted_program_name = SMS_PROGRAM_SAMPLE_POST_DATA.get('program_name')
 
     context.test().assertEqual(response.get('program_name'), posted_program_name)
 
@@ -239,7 +233,7 @@ def database_will_create_program(context):
 def database_will_edit_program(context):
     response = context.response.data
 
-    editted_program_name = PUT_DATA.get('program__program_name')
+    editted_program_name = SMS_PROGRAM_SAMPLE_PUT_DATA.get('program_name')
 
     # print('response: ', response)
     context.test().assertEqual(response.get('program_name'), editted_program_name)
@@ -249,7 +243,7 @@ def database_will_edit_program(context):
 def database_will_partially_edit_program(context):
     response = context.response.data
 
-    editted_program_name = PATCH_DATA.get('program__program_name')
+    editted_program_name = SMS_PROGRAM_SAMPLE_PATCH_DATA.get('program_name')
 
     context.test().assertEqual(response.get(
         'program_name'), editted_program_name)
@@ -285,7 +279,7 @@ def database_will_not_delete_program(context):
 def database_will_create_rotation(context):
     response = context.response.data
 
-    posted_rotation_num = ROTATION_SAMPLE_POST_DATA.get('rotation_number')
+    posted_rotation_num = SMS_ROTATION_SAMPLE_POST_DATA.get('rotation_number')
 
     context.test().assertEqual(response.get(
         'rotation_number'), posted_rotation_num)
@@ -295,7 +289,7 @@ def database_will_create_rotation(context):
 def database_will_edit_rotation(context):
     response = context.response.data
 
-    editted_rotation_num = PUT_DATA.get('rotation__rotation_number')
+    editted_rotation_num = SMS_ROTATION_SAMPLE_PUT_DATA.get('rotation_number')
 
     context.test().assertEqual(response.get(
         'rotation_number'), editted_rotation_num)
@@ -305,7 +299,8 @@ def database_will_edit_rotation(context):
 def database_will_partially_edit_rotation(context):
     response = context.response.data
 
-    editted_rotation_num = PATCH_DATA.get('rotation__rotation_number')
+    editted_rotation_num = SMS_ROTATION_SAMPLE_PATCH_DATA.get(
+        'rotation_number')
 
     context.test().assertEqual(response.get(
         'rotation_number'), editted_rotation_num)
@@ -341,7 +336,7 @@ def database_will_not_delete_rotation(context):
 def specific_student_JSON_data_response(context):
     response = context.response.data
 
-    filtered_student_lastname = FILTER_PARAMS.get('last_name')
+    filtered_student_lastname = SMS_FILTER_PARAMS.get('last_name')
 
     context.test().assertEqual(response[0].get('last_name'),
                                filtered_student_lastname)

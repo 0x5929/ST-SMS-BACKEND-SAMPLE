@@ -16,11 +16,11 @@ from sms.data_operations import GoogleSheetDataOps
 from sms.constants import SHEET_CONSTANTS
 
 
-from .sms_constants import (STUDENT_UUID_TO_TEST,
-                            SCHOOL_UUID_TO_TEST,
-                            PROGRAM_UUID_TO_TEST,
-                            ROTATION_UUID_TO_TEST,
-                            FILTER_PARAMS,
+from .sms_constants import (SMS_STUDENT_UUID_TO_TEST,
+                            SMS_SCHOOL_UUID_TO_TEST,
+                            SMS_PROGRAM_UUID_TO_TEST,
+                            SMS_ROTATION_UUID_TO_TEST,
+                            SMS_FILTER_PARAMS,
                             TEST_SPREADSHEET_ID,
                             TEST_DB_SHEET_ID,
                             TEST_SCHOOL_NAME,
@@ -46,9 +46,6 @@ from .sms_constants import (STUDENT_UUID_TO_TEST,
                             TEST_CHARGES_CHARGED)
 
 
-
-
-
 @pytest.mark.google
 class TestGoogleSheet:
     """
@@ -58,7 +55,7 @@ class TestGoogleSheet:
 
     @pytest.fixture
     def get_student_obj(self):
-        return Student.objects.get(student_uuid__exact=STUDENT_UUID_TO_TEST)
+        return Student.objects.get(student_uuid__exact=SMS_STUDENT_UUID_TO_TEST)
 
     @pytest.fixture
     def get_data(self, get_student_obj):
@@ -230,8 +227,6 @@ class TestGoogleSheet:
                 key).id == get_gs_api.get_worksheets().get(key).id
 
 
-
-
 def getting_worksheet():
 
     try:
@@ -248,9 +243,11 @@ def getting_worksheet():
 
     return worksheet
 
+
 @pytest.fixture(scope='class')
 def get_worksheet():
     return getting_worksheet()
+
 
 def getting_sheet_data(worksheet):
 
@@ -263,10 +260,12 @@ def getting_sheet_data(worksheet):
         return getting_sheet_data(worksheet)
     return sheet_data
 
+
 @pytest.fixture(scope='class')
 def get_sheet_data(get_worksheet):
 
     return getting_sheet_data(get_worksheet)
+
 
 @pytest.mark.current
 @pytest.mark.google
@@ -291,7 +290,6 @@ class TestExportHandler:
         for gs_name, internal_name in TEST_SCHOOL_NAME_AND_INTERNAL_NAME:
             if get_school_name == gs_name:
                 return internal_name
-
 
     @pytest.fixture
     def get_prog_name(self):
@@ -401,7 +399,7 @@ class TestExportHandler:
             get_export_handler_obj, 'check_prog_ref')
 
         mocked_check_rot_ref = mocker.patch.object(
-            get_export_handler_obj, 'check_rot_ref', return_value=ROTATION_UUID_TO_TEST)
+            get_export_handler_obj, 'check_rot_ref', return_value=SMS_ROTATION_UUID_TO_TEST)
 
         monkeypatch.setitem(get_export_handler_obj.each_data,
                             'student_id', TEST_STUDENT_ID)
@@ -412,7 +410,7 @@ class TestExportHandler:
         mocked_check_prog_ref.assert_called_once()
         mocked_check_rot_ref.assert_called_once()
 
-        assert result == ROTATION_UUID_TO_TEST
+        assert result == SMS_ROTATION_UUID_TO_TEST
 
     def test_buid_ref_failure(self, get_export_handler_obj, mocker, monkeypatch):
         mocked_check_school_ref = mocker.patch.object(
@@ -422,7 +420,7 @@ class TestExportHandler:
             get_export_handler_obj, 'check_prog_ref')
 
         mocked_check_rot_ref = mocker.patch.object(
-            get_export_handler_obj, 'check_rot_ref', return_value=ROTATION_UUID_TO_TEST)
+            get_export_handler_obj, 'check_rot_ref', return_value=SMS_ROTATION_UUID_TO_TEST)
 
         monkeypatch.setitem(get_export_handler_obj.each_data,
                             'student_id', TEST_NON_MATCH_SID)
@@ -634,30 +632,30 @@ class TestExportHandler:
 
     def test_ensure_unique_matching(self, get_export_handler_obj, monkeypatch):
         monkeypatch.setattr(get_export_handler_obj,
-                            'school_uuids', [(SCHOOL_UUID_TO_TEST, TEST_SCHOOL_NAME)])
+                            'school_uuids', [(SMS_SCHOOL_UUID_TO_TEST, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'program_uuids', [(PROGRAM_UUID_TO_TEST, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
+                            'program_uuids', [(SMS_PROGRAM_UUID_TO_TEST, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'rotation_uuids', [(ROTATION_UUID_TO_TEST, TEST_ROT_NUM, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
+                            'rotation_uuids', [(SMS_ROTATION_UUID_TO_TEST, TEST_ROT_NUM, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'student_uuids', [STUDENT_UUID_TO_TEST])
+                            'student_uuids', [SMS_STUDENT_UUID_TO_TEST])
 
         assert get_export_handler_obj.ensure_unique(
-            STUDENT_UUID_TO_TEST, 'Student') == False
+            SMS_STUDENT_UUID_TO_TEST, 'Student') == False
         assert get_export_handler_obj.ensure_unique(
-            ROTATION_UUID_TO_TEST, 'Rotation') == False
+            SMS_ROTATION_UUID_TO_TEST, 'Rotation') == False
         assert get_export_handler_obj.ensure_unique(
-            PROGRAM_UUID_TO_TEST, 'Program') == False
+            SMS_PROGRAM_UUID_TO_TEST, 'Program') == False
         assert get_export_handler_obj.ensure_unique(
-            SCHOOL_UUID_TO_TEST, 'School') == False
+            SMS_SCHOOL_UUID_TO_TEST, 'School') == False
 
     def test_ensure_unique_nonmatching(self, get_export_handler_obj, monkeypatch):
         monkeypatch.setattr(get_export_handler_obj,
-                            'school_uuids', [(SCHOOL_UUID_TO_TEST, TEST_SCHOOL_NAME)])
+                            'school_uuids', [(SMS_SCHOOL_UUID_TO_TEST, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'program_uuids', [(PROGRAM_UUID_TO_TEST, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
+                            'program_uuids', [(SMS_PROGRAM_UUID_TO_TEST, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
-                            'rotation_uuids', [(ROTATION_UUID_TO_TEST, TEST_ROT_NUM, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
+                            'rotation_uuids', [(SMS_ROTATION_UUID_TO_TEST, TEST_ROT_NUM, TEST_PROGRAM_NAME, TEST_SCHOOL_NAME)])
         monkeypatch.setattr(get_export_handler_obj,
                             'student_uuids', [TEST_STUDENT_UUID])
 
@@ -676,11 +674,12 @@ class TestExportHandler:
         monkeypatch.setitem(get_export_handler_obj.each_data,
                             'total_charges_charged', TEST_CHARGES_CHARGED)
         monkeypatch.setitem(get_export_handler_obj.each_data,
-                            'full_name', FILTER_PARAMS.get('full_name'))
+                            'full_name', SMS_FILTER_PARAMS.get('full_name'))
         result = get_export_handler_obj.finalize_each_record(
-            ROTATION_UUID_TO_TEST)
+            SMS_ROTATION_UUID_TO_TEST)
 
-        assert result.get('fields').get('rotation') == ROTATION_UUID_TO_TEST
+        assert result.get('fields').get(
+            'rotation') == SMS_ROTATION_UUID_TO_TEST
         assert result.get('fields').get('google_sheet_migrated') == True
         assert result.get('fields').get('google_sheet_migration_issue') == ''
         assert result.get('fields').get('paid') == True
@@ -695,7 +694,6 @@ class TestExportHandler:
                 assert False
 
 
-
 @pytest.fixture(scope='class')
 def get_gs_api():
     return GoogleSheet.init_google_sheet(TEST_SCHOOL_NAME)
@@ -707,7 +705,7 @@ class TestGoogleSheetDataOps:
 
     @pytest.fixture
     def get_student_obj(self):
-        return Student.objects.get(student_uuid__exact=STUDENT_UUID_TO_TEST)
+        return Student.objects.get(student_uuid__exact=SMS_STUDENT_UUID_TO_TEST)
 
     @pytest.fixture
     def get_data(self, get_student_obj):
@@ -725,14 +723,15 @@ class TestGoogleSheetDataOps:
     @pytest.fixture
     def get_worksheets(self, get_gs_api):
         return get_gs_api.worksheets
-    
+
     @pytest.fixture
     def test_settings_setup(self, monkeypatch):
         monkeypatch.setitem(SHEET_CONSTANTS, 'MAX_RECURSE', 0)
         monkeypatch.setitem(SHEET_CONSTANTS, 'MAX_DATAOP_WAIT', 0)
 
     def test_create_record_success(self, get_data, get_worksheets, mocker):
-        mocked_append_rows = mocker.patch.object(get_worksheets.get('db_worksheet'), 'append_rows')
+        mocked_append_rows = mocker.patch.object(
+            get_worksheets.get('db_worksheet'), 'append_rows')
         GoogleSheetDataOps.create_record(get_worksheets, get_data)
 
         mocked_append_rows.assert_called_once()
@@ -740,15 +739,18 @@ class TestGoogleSheetDataOps:
     def test_create_record_failure(self, get_data, get_worksheets, test_settings_setup, monkeypatch):
         def return_raiseexception():
             raise Exception
- 
-        monkeypatch.setattr(get_worksheets.get('db_worksheet'), 'append_rows', return_raiseexception)
+
+        monkeypatch.setattr(get_worksheets.get('db_worksheet'),
+                            'append_rows', return_raiseexception)
 
         with pytest.raises(Exception):
             GoogleSheetDataOps.create_record(get_worksheets, get_data)
 
     def test_update_record_success(self, get_data, get_spreadsheet, mocker):
-        mocked_values_update = mocker.patch.object(get_spreadsheet, 'values_update')
-        GoogleSheetDataOps.update_record(get_spreadsheet, TEST_ROW_NUM, get_data)
+        mocked_values_update = mocker.patch.object(
+            get_spreadsheet, 'values_update')
+        GoogleSheetDataOps.update_record(
+            get_spreadsheet, TEST_ROW_NUM, get_data)
 
         mocked_values_update.assert_called_once()
 
@@ -756,13 +758,16 @@ class TestGoogleSheetDataOps:
         def return_raiseexception():
             raise Exception
 
-        monkeypatch.setattr(get_spreadsheet, 'values_update', return_raiseexception)
+        monkeypatch.setattr(get_spreadsheet, 'values_update',
+                            return_raiseexception)
 
         with pytest.raises(Exception):
-            GoogleSheetDataOps.update_record(get_spreadsheet, TEST_ROW_NUM, get_data)
+            GoogleSheetDataOps.update_record(
+                get_spreadsheet, TEST_ROW_NUM, get_data)
 
     def test_delete_record_success(self, get_spreadsheet, mocker):
-        mocked_values_delete = mocker.patch.object(get_spreadsheet, 'batch_update')
+        mocked_values_delete = mocker.patch.object(
+            get_spreadsheet, 'batch_update')
         GoogleSheetDataOps.delete_record(get_spreadsheet, TEST_ROW_NUM)
 
         mocked_values_delete.assert_called_once()
@@ -771,14 +776,17 @@ class TestGoogleSheetDataOps:
         def return_raiseexception():
             raise Exception
 
-        monkeypatch.setattr(get_spreadsheet, 'batch_update', return_raiseexception)
+        monkeypatch.setattr(get_spreadsheet, 'batch_update',
+                            return_raiseexception)
 
         with pytest.raises(Exception):
             GoogleSheetDataOps.delete_record(get_spreadsheet, TEST_ROW_NUM)
 
     def test_match_record_success(self, get_worksheets, mocker):
-        mocked_update = mocker.patch.object(get_worksheets.get('match_worksheet'), 'update')
-        mocked_get = mocker.patch.object(get_worksheets.get('match_worksheet'), 'get')
+        mocked_update = mocker.patch.object(
+            get_worksheets.get('match_worksheet'), 'update')
+        mocked_get = mocker.patch.object(
+            get_worksheets.get('match_worksheet'), 'get')
 
         GoogleSheetDataOps.match_record(get_worksheets, TEST_STUDENT_ID)
 
@@ -789,25 +797,27 @@ class TestGoogleSheetDataOps:
         def return_raiseexception():
             raise Exception
 
-        monkeypatch.setattr(get_worksheets.get('match_worksheet'), 'update', return_raiseexception)
-        monkeypatch.setattr(get_worksheets.get('match_worksheet'), 'get', return_raiseexception)
-        
+        monkeypatch.setattr(get_worksheets.get(
+            'match_worksheet'), 'update', return_raiseexception)
+        monkeypatch.setattr(get_worksheets.get(
+            'match_worksheet'), 'get', return_raiseexception)
+
         with pytest.raises(Exception):
             GoogleSheetDataOps.match_record(get_worksheets, TEST_STUDENT_ID)
 
-
     def test_refresh_success(self, get_spreadsheet, mocker):
-        mocked_values_delete = mocker.patch.object(get_spreadsheet, 'batch_update')
+        mocked_values_delete = mocker.patch.object(
+            get_spreadsheet, 'batch_update')
         GoogleSheetDataOps.refresh(get_spreadsheet)
 
         mocked_values_delete.assert_called_once()
 
-    
     def test_refresh_failure(self, get_spreadsheet, test_settings_setup, monkeypatch):
         def return_raiseexception():
             raise Exception
 
-        monkeypatch.setattr(get_spreadsheet, 'batch_update', return_raiseexception)
+        monkeypatch.setattr(get_spreadsheet, 'batch_update',
+                            return_raiseexception)
 
         with pytest.raises(Exception):
             GoogleSheetDataOps.refresh(get_spreadsheet)

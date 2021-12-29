@@ -5,19 +5,18 @@ from sms.models import School, Program, Rotation, Student
 from sms.google_sheets import GoogleSheet
 
 
-from .sms_constants import (SCHOOL_UUID_TO_TEST,
+from .sms_constants import (SMS_SCHOOL_UUID_TO_TEST,
                             SCHOOL_STR,
-                            PROGRAM_UUID_TO_TEST,
+                            SMS_PROGRAM_UUID_TO_TEST,
                             PROGRAM_STR,
-                            ROTATION_UUID_TO_TEST,
+                            SMS_ROTATION_UUID_TO_TEST,
                             ROTATION_STR,
-                            STUDENT_UUID_TO_TEST,
+                            SMS_STUDENT_UUID_TO_TEST,
                             STUDENT_STR,
-                            FILTER_PARAMS,
+                            SMS_FILTER_PARAMS,
                             TEST_ROTATION_SIZE,
                             TEST_UNPAID_CHARGES_PAID,
                             TEST_UNPAID_CHARGES_CHARGED)
-
 
 
 @pytest.mark.sms
@@ -29,24 +28,25 @@ class TestSMSModelStr:
     """
 
     def test_school_model_str(self):
-        school = School.objects.get(school_uuid__exact=SCHOOL_UUID_TO_TEST)
+        school = School.objects.get(school_uuid__exact=SMS_SCHOOL_UUID_TO_TEST)
 
         assert str(school) == SCHOOL_STR
 
     def test_program_model_str(self):
-        program = Program.objects.get(program_uuid__exact=PROGRAM_UUID_TO_TEST)
+        program = Program.objects.get(
+            program_uuid__exact=SMS_PROGRAM_UUID_TO_TEST)
 
         assert str(program) == PROGRAM_STR
 
     def test_rotation_model_str(self):
         rotation = Rotation.objects.get(
-            rotation_uuid__exact=ROTATION_UUID_TO_TEST)
+            rotation_uuid__exact=SMS_ROTATION_UUID_TO_TEST)
 
         assert str(rotation) == ROTATION_STR
 
     def test_student_model_str(self):
         student = Student.objects.get(
-            student_uuid__exact=STUDENT_UUID_TO_TEST)
+            student_uuid__exact=SMS_STUDENT_UUID_TO_TEST)
 
         assert str(student) == STUDENT_STR
 
@@ -59,7 +59,7 @@ class TestSMSModelAttrRequirement:
     """
 
     def test_school_model_attr(self):
-        school = School.objects.get(school_uuid__exact=SCHOOL_UUID_TO_TEST)
+        school = School.objects.get(school_uuid__exact=SMS_SCHOOL_UUID_TO_TEST)
 
         if hasattr(school, 'school_uuid') and \
            hasattr(school, 'school_name') and \
@@ -72,7 +72,8 @@ class TestSMSModelAttrRequirement:
             assert False
 
     def test_program_model_attr(self):
-        program = Program.objects.get(program_uuid__exact=PROGRAM_UUID_TO_TEST)
+        program = Program.objects.get(
+            program_uuid__exact=SMS_PROGRAM_UUID_TO_TEST)
 
         if hasattr(program, 'program_uuid') and \
            hasattr(program, 'program_name') and \
@@ -84,7 +85,7 @@ class TestSMSModelAttrRequirement:
 
     def test_rotation_model_attr(self):
         rotation = Rotation.objects.get(
-            rotation_uuid__exact=ROTATION_UUID_TO_TEST)
+            rotation_uuid__exact=SMS_ROTATION_UUID_TO_TEST)
 
         if hasattr(rotation, 'rotation_uuid') and \
            hasattr(rotation, 'rotation_number') and \
@@ -95,7 +96,8 @@ class TestSMSModelAttrRequirement:
             assert False
 
     def test_student_model_attr(self):
-        student = Student.objects.get(student_uuid__exact=STUDENT_UUID_TO_TEST)
+        student = Student.objects.get(
+            student_uuid__exact=SMS_STUDENT_UUID_TO_TEST)
 
         if hasattr(student, 'student_uuid') and \
            hasattr(student, 'student_id') and \
@@ -140,17 +142,18 @@ class TestSMSModelAttrExtraLogic:
 
     @pytest.fixture
     def get_student_obj(self):
-        return Student.objects.get(student_uuid__exact=STUDENT_UUID_TO_TEST)
+        return Student.objects.get(student_uuid__exact=SMS_STUDENT_UUID_TO_TEST)
 
     @pytest.fixture
     def get_rotation_obj(self):
-        return Rotation.objects.get(rotation_uuid__exact=ROTATION_UUID_TO_TEST)
+        return Rotation.objects.get(rotation_uuid__exact=SMS_ROTATION_UUID_TO_TEST)
 
     def test_rotation_size(self, get_rotation_obj):
         assert get_rotation_obj.size == TEST_ROTATION_SIZE
 
     def test_student_school_name(self, get_student_obj):
-        assert get_student_obj.school_name == FILTER_PARAMS.get('school_name')
+        assert get_student_obj.school_name == SMS_FILTER_PARAMS.get(
+            'school_name')
 
     def test_student_pre_hook(self, get_student_obj, monkeypatch):
 

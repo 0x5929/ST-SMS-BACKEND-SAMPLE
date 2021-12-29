@@ -2,7 +2,6 @@ import re
 import uuid
 
 from django.apps import apps
-from django.db.models.expressions import Value
 from rest_framework.exceptions import ValidationError
 
 
@@ -21,44 +20,19 @@ class GMSValidator:
 
         raise ValidationError(err_msg)
 
-    # used by RecordSerializers
-    # @classmethod
-    # def no_duplicate_records(cls, data, model_name):
-    #     err_msg = 'The record you are trying to add already exist in this rotation.'
+    @staticmethod
+    def get_current_rot_id(serializer, data):
+        # get current student obj
+        current_student_uuid = data.get('student').student_uuid
 
-    #     # first, grab rotation ID:
-    #     # note the following may not work, thats why i only grabbed student id, to grab student from db, and evaluate its belonging rotation's uuid
-    #     # current_rot_id = uuid.UUID(str(data.get('student').get(
-    #     #    'rotation').get('rotation_uuid')))
+        if 'CNA' in serializer.Meta.model.__name__:
+            StudentModel = apps.get_model('gms', 'CNAStudent')
 
-    #     # get current student obj
-    #     current_student_uuid = data.get('student').student_uuid
-    #     if 'CNA' in model_name:
-    #         StudentModel = apps.get_model('gms', 'CNAStudent')
-    #     elif 'HHA' in model_name:
-    #         StudentModel = apps.get_model('gms', 'HHAStudent')
+        elif 'HHA' in serializer.Meta.model.__name__:
+            StudentModel = apps.get_model('gms', 'HHAStudent')
 
-    #     current_student = StudentModel.objects.get(
-    #         student_uuid__exact=current_student_uuid)
-
-    #     # get current rotation ID:
-    #     current_rot_id = current_student.rotation.rotation_uuid
-
-    #     # second, grab topic
-    #     current_topic = data.get('topic')
-
-    #     # third, check if record exist with rotation_id and record topic
-    #     # apps.get_model is like import
-    #     RecordModel = apps.get_model('gms', model_name)
-
-    #     record = RecordModel.objects.filter(
-    #         student__rotation__rotation_id__exact=current_rot_id,
-    #         topic__exact=current_topic)
-
-    #     if len(record) > 0:
-    #         raise ValidationError(err_msg)
-
-    #     return data
+        return StudentModel.objects.get(
+            student_uuid__exact=current_student_uuid).rotation.rotation_uuid
 
     @classmethod
     def no_duplicate_records(cls, serializer, data):
@@ -70,18 +44,8 @@ class GMSValidator:
 
             return data
 
-        # get current student obj
-        current_student_uuid = data.get('student').student_uuid
-        if 'CNA' in serializer.Meta.model.__name__:
-            StudentModel = apps.get_model('gms', 'CNAStudent')
-        elif 'HHA' in serializer.Meta.model.__name__:
-            StudentModel = apps.get_model('gms', 'HHAStudent')
-
-        current_student = StudentModel.objects.get(
-            student_uuid__exact=current_student_uuid)
-
-        # get current rotation ID:
-        current_rot_id = current_student.rotation.rotation_uuid
+        # first get current rotation ID:
+        current_rot_id = cls.get_current_rot_id(serializer, data)
 
         # second, grab topic
         current_topic = data.get('topic')
@@ -89,43 +53,21 @@ class GMSValidator:
         # third, check if record exist with rotation_id and record topic
         # apps.get_model is like import
         RecordModel = apps.get_model('gms', serializer.Meta.model.__name__)
-
-        record_exists = RecordModel.objects.filter(
-            student__rotation__rotation_uuid__exact=current_rot_id,
-            topic__exact=current_topic).exists()
+        record_exists = RecordModel.objects.filter(student__rotation__rotation_uuid__exact=current_rot_id,
+                                                   topic__exact=current_topic).exists()
 
         # if we are POSTing a record that already exists
         if not serializer.instance and record_exists:
+
             raise ValidationError(err_msg)
-        elif serializer.instance and record_exists \
-            and getattr(serializer.instance, 'topic') != current_topic:
+
+        elif serializer.instance and \
+                record_exists and \
+                getattr(serializer.instance, 'topic') != current_topic:
+
             raise ValidationError(err_msg)
+
         return data
-
-    # used by StudentSerializers
-
-    # @classmethod
-    # def no_duplicate_students(cls, data, model_name):
-    #     err_msg = 'The student you are trying to add already exist in this rotation.'
-
-    #     current_rot_id = data.get('rotation').rotation_uuid
-
-    #     first_name = data.get('first_name')
-    #     last_name = data.get('last_name')
-
-    #     # check if the current rotation has a student with the same first and last name
-    #     # checking for both CNAStudent and HHAStudent models
-    #     StudentModel = apps.get_model('gms', model_name)
-    #     student_exists = StudentModel.objects.filter(
-    #         rotation__rotation_uuid__exact=current_rot_id,
-    #         first_name__iexact=first_name,
-    #         last_name__iexact=last_name).exists()
-
-    #     # raise validationError, duplicate student in rotation
-    #     if student_exists:
-    #         raise ValidationError(err_msg)
-
-    #     return data
 
     @classmethod
     def no_duplicate_students(cls, serializer, data):
@@ -166,6 +108,7 @@ class GMSValidator:
 
         elif partial and not data.get('start_date'):
             data['start_date'] = getattr(instance, 'start_date')
+
         elif partial and not data.get('end_date'):
             data['end_date'] = getattr(instance, 'end_date')
 
@@ -184,6 +127,7 @@ class GMSValidator:
 
         if request.user.school_name == data.get('school_name') or request.user.is_superuser:
             return data
+
         else:
             raise ValidationError(err_msg)
 
@@ -210,14 +154,6 @@ class GMSValidator:
             return data
         else:
             raise ValidationError(err_msg)
-
-    # @classmethod
-    # def final_rot_validation(cls, data, request, model_name, instance):
-    #     data = GMSValidator.date_checker(data)
-    #     same_school_verified = GMSValidator.ensure_same_school_name(
-    #         data, request)
-
-    #     return cls.ensure_no_dup_rot(same_school_verified, model_name, instance)
 
     @classmethod
     def final_rot_validation(cls, serializer, data):

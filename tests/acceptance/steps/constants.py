@@ -5,13 +5,13 @@ from tests.common_constants import *
 # NOTE: PLEASE EDIT THIS FILE WITH CARE, THIS WILL BREAK ALL ACCEPTANCE/INTEGRATION TESTS RUN WITH BEHAVE
 
 
-SCHOOLS_API_URL = '/api/sms/schools/'
-PROGRAMS_API_URL = '/api/sms/programs/'
-ROTATIONS_API_URL = '/api/sms/rotations/'
-STUDENTS_API_URL = '/api/sms/students/'
+SMS_SCHOOLS_API_URL = '/api/sms/schools/'
+SMS_PROGRAMS_API_URL = '/api/sms/programs/'
+SMS_ROTATIONS_API_URL = '/api/sms/rotations/'
+SMS_STUDENTS_API_URL = '/api/sms/students/'
 
 
-STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
+SMS_STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
     'student_id': 'AL-CNA-01-1019-TA',
     'first_name': 'Test',
     'last_name': 'A',
@@ -46,7 +46,7 @@ STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA = {
     'rotation': 'a6a1c1c3-df42-4783-9c20-49b94ad1d6ba'
 }
 
-STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
+SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
     'student_id': 'RO-CNA-01-1006-TA',
     'first_name': 'Test',
     'last_name': 'A',
@@ -81,7 +81,7 @@ STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
     'rotation': 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
 }
 
-STUDENT_SAMPLE_PUT_DATA = {
+SMS_STUDENT_SAMPLE_PUT_DATA = {
     'student_id': 'RO-HHA-01-1006-TB',
     'first_name': 'Test',
     'last_name': 'B',
@@ -117,7 +117,11 @@ STUDENT_SAMPLE_PUT_DATA = {
 
 }
 
-GOOGLE_POST_DATA = [
+SMS_STUDENT_SAMPLE_PATCH_DATA = {
+    'last_name': 'D'
+}
+
+SMS_GOOGLE_POST_DATA = [
     'RO-HHA-01-1006-TB',
     'test_b',
     'B',
@@ -145,7 +149,7 @@ GOOGLE_POST_DATA = [
     '',
 ]
 
-GOOGLE_EDIT_CHECK_DATA = {
+SMS_GOOGLE_EDIT_CHECK_DATA = {
     'PUT_DATA': [
 
         'RO-HHA-01-1006-TB',
@@ -186,65 +190,65 @@ GOOGLE_EDIT_CHECK_DATA = {
 }
 
 
-SCHOOL_SAMPLE_POST_DATA = {
+SMS_SCHOOL_SAMPLE_POST_DATA = {
     'school_name': 'ST3',
     'school_code': '27091742',
     'year_founded': '2011-09-13',
     'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770'
 }
 
-SCHOOL_SAMPLE_PUT_DATA = {
-        'school_name': 'STI',
-        'school_code': '27091743',
-        'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770',
-        'year_founded': '2009-03-05'
+SMS_SCHOOL_SAMPLE_PUT_DATA = {
+    'school_name': 'STI',
+    'school_code': '27091743',
+    'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770',
+    'year_founded': '2009-03-05'
 }
 
-SCHOOL_SAMPLE_PATCH_DATA = {
-    'school_code' : '27091744'
+SMS_SCHOOL_SAMPLE_PATCH_DATA = {
+    'school_code': '27091744'
 }
-PROGRAM_SAMPLE_POST_DATA = {
+SMS_PROGRAM_SAMPLE_POST_DATA = {
     'school': '0c805318-7706-405e-a66c-5936062617a5',
     'program_name': 'SG',
     'approval_entities': ['BSIS', 'BPPE']
 }
-PROGRAM_SAMPLE_PUT_DATA = {
-        'program_name': 'HSFA',
-        'approval_entities': ['CDPH', 'BPPE'],
-        'school': '0c805318-7706-405e-a66c-5936062617a5'
+SMS_PROGRAM_SAMPLE_PUT_DATA = {
+    'program_name': 'HSFA',
+    'approval_entities': ['CDPH', 'BPPE'],
+    'school': '0c805318-7706-405e-a66c-5936062617a5'
 }
 
-PROGRAM_SAMPLE_PATCH_DATA = {
-    'program_name' :  'BLS'
+SMS_PROGRAM_SAMPLE_PATCH_DATA = {
+    'program_name':  'BLS'
 }
 
-ROTATION_SAMPLE_POST_DATA = {
+SMS_ROTATION_SAMPLE_POST_DATA = {
     'program': '67301e14-cd3d-493a-a2cf-84d8c490c0ef',
     'rotation_number': 5
 }
 
-ROTATION_SAMPLE_PUT_DATA = {
+SMS_ROTATION_SAMPLE_PUT_DATA = {
     'rotation_number': 6,
     'program': '67301e14-cd3d-493a-a2cf-84d8c490c0ef'
 }
 
-ROTATION_SAMPLE_PATCH_DATA = {
-    'rotation_number' : 7
+SMS_ROTATION_SAMPLE_PATCH_DATA = {
+    'rotation_number': 7
 }
 
-PUT_DATA = {
-    'school__school_code': '27091743',
-    'program__program_name': 'HSFA',
-    'rotation__rotation_number': 6
+# PUT_DATA = {
+#     'school__school_code': '27091743',
+#     'program__program_name': 'HSFA',
+#     'rotation__rotation_number': 6
 
-}
+# }
 
-PATCH_DATA = {
-    'student__last_name': 'D',
-    'school__school_code': '27091744',
-    'program__program_name': 'BLS',
-    'rotation__rotation_number': 7
-}
+# PATCH_DATA = {
+#     'student__last_name': 'D',
+#     'school__school_code': '27091744',
+#     'program__program_name': 'BLS',
+#     'rotation__rotation_number': 7
+# }
 
 JSON_PERMISSION_DENIED_RES = {
     'detail': 'You do not have permission to perform this action.'
@@ -458,7 +462,7 @@ GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA = {
     'end_time': '00:00:00',
     'hours_spent': 8,
     'test_score': 50,
-    'topic':'Introduction to Aide and Agency Role'
+    'topic': 'Introduction to Aide and Agency Role'
 }
 
 GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA = {
