@@ -1,15 +1,21 @@
 from rest_framework import viewsets, response
 from django_filters import rest_framework as filters
 
-from ..permissions import IsSuperuser, IsAuthenticatedHHAInstructor
+from ..permissions import IsSuperuser, IsAuthenticatedHHAInstructor, IsAuthenticatedAdminInstructor, IsAuthenticatedHHAStaffInstructor
 from ..models import HHARotation, HHAStudent, HHATheoryRecord, HHAClinicalRecord
 from ..serializers import HHARotationSerializer, HHAStudentSerializer, HHATheoryRecordSerializer, HHAClinicalRecordSerializer
 from ..filters import GMSHHARotationFilter, GMSHHAStudentFilter, GMSHHATheoryRecordFilter, GMSHHAClinicalRecordFilter
 from ..utils import FilterHandler
 
+
 class HHARotationView(viewsets.ModelViewSet):
     serializer_class = HHARotationSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedHHAStaffInstructor |
+        IsAuthenticatedHHAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHARotationFilter
 
@@ -22,9 +28,15 @@ class HHARotationView(viewsets.ModelViewSet):
             return response.Response([])
         return super(HHARotationView, self).list(request, *args, **kwargs)
 
+
 class HHAStudentView(viewsets.ModelViewSet):
     serializer_class = HHAStudentSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedHHAStaffInstructor |
+        IsAuthenticatedHHAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHAStudentFilter
 
@@ -37,9 +49,15 @@ class HHAStudentView(viewsets.ModelViewSet):
             return response.Response([])
         return super(HHAStudentView, self).list(request, *args, **kwargs)
 
+
 class HHATheoryRecordView(viewsets.ModelViewSet):
     serializer_class = HHATheoryRecordSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedHHAStaffInstructor |
+        IsAuthenticatedHHAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHATheoryRecordFilter
 
@@ -52,9 +70,15 @@ class HHATheoryRecordView(viewsets.ModelViewSet):
             return response.Response([])
         return super(HHATheoryRecordView, self).list(request, *args, **kwargs)
 
+
 class HHAClinicalRecordView(viewsets.ModelViewSet):
     serializer_class = HHAClinicalRecordSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedHHAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedHHAStaffInstructor |
+        IsAuthenticatedHHAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSHHAClinicalRecordFilter
 

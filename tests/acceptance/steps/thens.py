@@ -23,8 +23,38 @@ from tests.acceptance.steps.constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POS
                                               SMS_ROTATION_SAMPLE_PATCH_DATA,
                                               SMS_GOOGLE_POST_DATA,
                                               SMS_GOOGLE_EDIT_CHECK_DATA,
-                                              JSON_SUPERUSER_ONLY_RES)
+                                              JSON_SUPERUSER_ONLY_RES,
+                                              GMS_CNA_ROTATION_POST_SAMPLE_DATA,
+                                              GMS_CNA_STUDENT_POST_SAMPLE_DATA,
+                                              GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
+                                              GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                                              GMS_HHA_ROTATION_POST_SAMPLE_DATA,
+                                              GMS_HHA_STUDENT_POST_SAMPLE_DATA,
+                                              GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
+                                              GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                                              GMS_CNA_ROTATION_PUT_SAMPLE_DATA,
+                                              GMS_CNA_STUDENT_PUT_SAMPLE_DATA,
+                                              GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                                              GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                                              GMS_HHA_ROTATION_PUT_SAMPLE_DATA,
+                                              GMS_HHA_STUDENT_PUT_SAMPLE_DATA,
+                                              GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                                              GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                                              GMS_CNA_ROTATION_PATCH_SAMPLE_DATA,
+                                              GMS_CNA_STUDENT_PATCH_SAMPLE_DATA,
+                                              GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                                              GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                                              GMS_HHA_ROTATION_PATCH_SAMPLE_DATA,
+                                              GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
+                                              GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                                              GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                                              )
 
+
+from django.apps import apps
+
+
+# NOTE: BELOW ARE SMS RELATED @THENS
 
 def google_sheet_del(context, student_id):
     school_name = SMS_FILTER_PARAMS.get('school_name')
@@ -85,11 +115,19 @@ def database_create_student(context):
     posted_student_last_name = SMS_STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA.get(
         'last_name')
 
-    # assert
+    # assert response
     context.test().assertEqual(response.get('last_name'), posted_student_last_name)
 
-    # we need to test google sheet migration, and delete student!
+    # assert DB
+    Student = apps.get_model('sms', 'Student')
 
+    if not Student.objects.filter(last_name__exact=posted_student_last_name).exists():
+        assert False
+    else:
+        Student.objects.filter(
+            last_name__exact=posted_student_last_name).delete()
+
+    # we need to test google sheet migration, and delete student!
     # the student's school that we are testing with
     google_sheet_del(context, response.get('student_id'))
 
@@ -102,6 +140,15 @@ def database_create_student(context):
 
     # assert
     context.test().assertEqual(response.get('last_name'), posted_student_last_name)
+
+    # assert DB
+    Student = apps.get_model('sms', 'Student')
+
+    if not Student.objects.filter(last_name__exact=posted_student_last_name).exists():
+        assert False
+    else:
+        Student.objects.filter(
+            last_name__exact=posted_student_last_name).delete()
 
     # we need to test google sheet migration, and delete student!
 
@@ -118,6 +165,12 @@ def database_will_not_create_student(context):
 
     context.test().assertNotEqual(response.get('student_id'), posted_student_id)
 
+    Student = apps.get_model('sms', 'Student')
+
+    if Student.objects.filter(
+            student_id__exact=posted_student_id).exists():
+        assert False
+
 
 @then('database will edit the student record')
 def database_will_edit_student(context):
@@ -129,8 +182,14 @@ def database_will_edit_student(context):
 
     # we need to test google sheet migration, and delete student!
     student_id = response.get('student_id')
+
     google_sheet_check_edit(context, student_id,
                             SMS_GOOGLE_EDIT_CHECK_DATA.get('PUT_DATA'))
+
+    Student = apps.get_model('sms', 'Student')
+    if not Student.objects.filter(
+            last_name__exact=editted_last_name).exists():
+        assert False
 
 
 @then('database will partially edit the student record')
@@ -146,6 +205,11 @@ def database_will_partially_edit_student(context):
     google_sheet_check_edit(context, student_id,
                             SMS_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'))
 
+    Student = apps.get_model('sms', 'Student')
+    if not Student.objects.filter(
+            last_name__exact=editted_last_name).exists():
+        assert False
+
 
 @then('database will not delete the student record')
 def database_will_not_delete_student(context):
@@ -158,9 +222,12 @@ def database_will_not_delete_student(context):
 def database_will_delete_student(context):
     context.test().assertEqual(context.response.data, None)
 
-    # same student ID that will be used for matching the student record
-    student_id_index = STUDENT_RECORD_HEADERS.index('student_id')
-    student_id = SMS_GOOGLE_POST_DATA[student_id_index]
+    Student = apps.get_model('sms', 'Student')
+    if Student.objects.filter(student_uuid__exact=context.uuid).exists():
+        assert False
+
+    student_id = SMS_GOOGLE_POST_DATA[STUDENT_RECORD_HEADERS.index(
+        'student_id')]
 
     google_sheet_create(context, student_id)
 
@@ -171,9 +238,16 @@ def database_will_create_school(context):
 
     posted_school_code = SMS_SCHOOL_SAMPLE_POST_DATA.get('school_code')
 
-    print('response: ', response.get('school_code'))
-    print('posted: ', posted_school_code)
     context.test().assertEqual(response.get('school_code'), posted_school_code)
+
+    School = apps.get_model('sms', 'School')
+
+    if not School.objects.filter(
+            school_code__exact=posted_school_code).exists():
+        assert False
+    else:
+        School.objects.filter(
+            school_code__exact=posted_school_code).delete()
 
 
 @then('database will edit the school record')
@@ -184,6 +258,11 @@ def database_will_edit_school(context):
 
     context.test().assertEqual(response.get('school_code'), editted_school_code)
 
+    School = apps.get_model('sms', 'School')
+    if not School.objects.filter(
+            school_code__exact=editted_school_code).exists():
+        assert False
+
 
 @then('database will partially edit the school record')
 def database_will_partially_edit_school(context):
@@ -193,10 +272,19 @@ def database_will_partially_edit_school(context):
 
     context.test().assertEqual(response.get('school_code'), editted_school_code)
 
+    School = apps.get_model('sms', 'School')
+    if not School.objects.filter(
+            school_code__exact=editted_school_code).exists():
+        assert False
+
 
 @then('database will delete the school record')
 def database_will_delete_school(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    School = apps.get_model('sms', 'School')
+    if School.objects.filter(pk__exact=context.uuid).exists():
+        assert False
 
 
 @then('database will not create the school record')
@@ -228,6 +316,14 @@ def database_will_create_program(context):
 
     context.test().assertEqual(response.get('program_name'), posted_program_name)
 
+    Program = apps.get_model('sms', 'Program')
+    if not Program.objects.filter(
+            program_name__exact=posted_program_name).exists():
+        assert False
+    else:
+        Program.objects.filter(
+            program_name__exact=posted_program_name).delete()
+
 
 @then('database will edit the program record')
 def database_will_edit_program(context):
@@ -235,8 +331,12 @@ def database_will_edit_program(context):
 
     editted_program_name = SMS_PROGRAM_SAMPLE_PUT_DATA.get('program_name')
 
-    # print('response: ', response)
     context.test().assertEqual(response.get('program_name'), editted_program_name)
+
+    Program = apps.get_model('sms', 'Program')
+    if not Program.objects.filter(
+            program_name__exact=editted_program_name).exists():
+        assert False
 
 
 @then('database will partially edit the program record')
@@ -248,10 +348,20 @@ def database_will_partially_edit_program(context):
     context.test().assertEqual(response.get(
         'program_name'), editted_program_name)
 
+    Program = apps.get_model('sms', 'Program')
+    if not Program.objects.filter(
+            program_name__exact=editted_program_name).exists():
+        assert False
+
 
 @then('database will delete the program record')
 def database_will_delete_program(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Program = apps.get_model('sms', 'Program')
+    if Program.objects.filter(
+            program_uuid__exact=context.uuid).exists():
+        assert False
 
 
 @then('database will not create the program record')
@@ -284,6 +394,15 @@ def database_will_create_rotation(context):
     context.test().assertEqual(response.get(
         'rotation_number'), posted_rotation_num)
 
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if not Rotation.objects.filter(
+            rotation_number__exact=posted_rotation_num).exists():
+        assert False
+    else:
+        Rotation.objects.filter(
+            rotation_number__exact=posted_rotation_num).delete()
+
 
 @then('database will edit the rotation record')
 def database_will_edit_rotation(context):
@@ -293,6 +412,12 @@ def database_will_edit_rotation(context):
 
     context.test().assertEqual(response.get(
         'rotation_number'), editted_rotation_num)
+
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if not Rotation.objects.filter(
+            rotation_number__exact=editted_rotation_num).exists():
+        assert False
 
 
 @then('database will partially edit the rotation record')
@@ -305,10 +430,22 @@ def database_will_partially_edit_rotation(context):
     context.test().assertEqual(response.get(
         'rotation_number'), editted_rotation_num)
 
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if not Rotation.objects.filter(
+            rotation_number__exact=editted_rotation_num).exists():
+        assert False
+
 
 @then('database will delete the rotation record')
 def database_will_delete_rotation(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if Rotation.objects.filter(
+            rotation_uuid__exact=context.uuid).exists():
+        assert False
 
 
 @then('database will not create the rotation record')
@@ -387,3 +524,740 @@ def server_response_with_superuser_only(context):
     response = context.response.data
 
     context.test().assertEqual(response, JSON_SUPERUSER_ONLY_RES)
+
+
+# NOTE: BELOW ARE GMS RELATED @THENS
+
+@then('database will create the cna rotation record')
+def database_create_cnaRotation_record(context):
+    response_data = context.response.data
+
+    posted_rotation_start_date = GMS_CNA_ROTATION_POST_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertEqual(response_data.get(
+        'start_date'), posted_rotation_start_date)
+
+    CNARotation = apps.get_model('gms', 'CNARotation')
+
+    if not CNARotation.objects.filter(
+            start_date__exact=posted_rotation_start_date).exists():
+        assert False
+    else:
+        CNARotation.objects.filter(
+            start_date__exact=posted_rotation_start_date).delete()
+
+
+@then('database will create the cna student record')
+def database_create_cnaStudent_record(context):
+    response_data = context.response.data
+
+    posted_student_last_name = GMS_CNA_STUDENT_POST_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), posted_student_last_name)
+
+    CNAStudent = apps.get_model('gms', 'CNAStudent')
+
+    if not CNAStudent.objects.filter(
+            last_name__exact=posted_student_last_name).exists():
+        assert False
+    else:
+        CNAStudent.objects.filter(
+            last_name__exact=posted_student_last_name).delete()
+
+
+@then('database will create the cna theory record')
+def database_create_cnaTheory_record(context):
+    response_data = context.response.data
+
+    posted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), posted_cnaTheory_hrs_spent)
+
+    CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
+
+    if not CNATheoryRecord.objects.filter(
+            hours_spent__exact=posted_cnaTheory_hrs_spent).exists():
+        assert False
+    else:
+        CNATheoryRecord.objects.filter(
+            hours_spent__exact=posted_cnaTheory_hrs_spent).delete()
+
+
+@then('database will create the cna clinical record')
+def database_create_cnaClinical_record(context):
+    response_data = context.response.data
+
+    posted_cnaClinical_date = GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertEqual(response_data.get('date'), posted_cnaClinical_date)
+
+    CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
+
+    if not CNAClinicalRecord.objects.filter(
+            date__exact=posted_cnaClinical_date).exists():
+        assert False
+    else:
+        CNAClinicalRecord.objects.filter(
+            date__exact=posted_cnaClinical_date).delete()
+
+
+@then('database will create the hha rotation record')
+def database_create_hhaRotation_record(context):
+    response_data = context.response.data
+
+    posted_rotation_start_date = GMS_HHA_ROTATION_POST_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertEqual(response_data.get(
+        'start_date'), posted_rotation_start_date)
+
+    HHARotation = apps.get_model('gms', 'HHARotation')
+
+    if not HHARotation.objects.filter(
+            start_date__exact=posted_rotation_start_date).exists():
+        assert False
+    else:
+        HHARotation.objects.filter(
+            start_date__exact=posted_rotation_start_date).delete()
+
+
+@then('database will create the hha student record')
+def database_create_hhaStudent_record(context):
+    response_data = context.response.data
+
+    posted_student_last_name = GMS_HHA_STUDENT_POST_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), posted_student_last_name)
+
+    HHAStudent = apps.get_model('gms', 'HHAStudent')
+
+    if not HHAStudent.objects.filter(
+            last_name__exact=posted_student_last_name).exists():
+        assert False
+    else:
+        HHAStudent.objects.filter(
+            last_name__exact=posted_student_last_name).delete()
+
+
+@then('database will create the hha theory record')
+def database_create_hhaTheory_record(context):
+    response_data = context.response.data
+
+    posted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), posted_hhaTheory_hrs_spent)
+
+    HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
+    if not HHATheoryRecord.objects.filter(
+            hours_spent__exact=posted_hhaTheory_hrs_spent).exists():
+        assert False
+
+    else:
+        HHATheoryRecord.objects.filter(
+            hours_spent__exact=posted_hhaTheory_hrs_spent).delete()
+
+
+@then('database will create the hha clinical record')
+def database_create_hhaClinical_record(context):
+    response_data = context.response.data
+
+    posted_hhaClinical_date = GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertEqual(response_data.get('date'), posted_hhaClinical_date)
+
+    HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
+
+    if not HHAClinicalRecord.objects.filter(
+            date__exact=posted_hhaClinical_date).exists():
+        assert False
+    else:
+        HHAClinicalRecord.objects.filter(
+            date__exact=posted_hhaClinical_date).delete()
+
+
+@then('database will not create the cna rotation record')
+def database_no_create_cnaRotation_record(context):
+    response_data = context.response.data
+
+    posted_rotation_start_date = GMS_CNA_ROTATION_POST_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertNotEqual(response_data.get(
+        'start_date'), posted_rotation_start_date)
+
+    CNARotation = apps.get_model('gms', 'CNARotation')
+
+    if CNARotation.objects.filter(
+            start_date__exact=posted_rotation_start_date).exists():
+        assert False
+
+
+@then('database will not create the cna student record')
+def database_no_create_cnaStudent_record(context):
+    response_data = context.response.data
+
+    posted_student_last_name = GMS_CNA_STUDENT_POST_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertNotEqual(response_data.get(
+        'last_name'), posted_student_last_name)
+
+    CNAStudent = apps.get_model('gms', 'CNAStudent')
+
+    if CNAStudent.objects.filter(
+            last_name__exact=posted_student_last_name).exists():
+        assert False
+
+
+@then('database will not create the cna theory record')
+def database_no_create_cnaTheory_record(context):
+    response_data = context.response.data
+
+    posted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertNotEqual(response_data.get(
+        'hours_spent'), posted_cnaTheory_hrs_spent)
+
+    CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
+
+    if CNATheoryRecord.objects.filter(
+            hours_spent__exact=posted_cnaTheory_hrs_spent).exists():
+        assert False
+
+
+@then('database will not create the cna clinical record')
+def database_no_create_cnaClinical_record(context):
+    response_data = context.response.data
+
+    posted_cnaClinical_date = GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertNotEqual(response_data.get('date'), posted_cnaClinical_date)
+
+    CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
+
+    if CNAClinicalRecord.objects.filter(
+            date__exact=posted_cnaClinical_date).exists():
+        assert False
+
+
+@then('database will not create the hha rotation record')
+def database_no_create_hhaRotation_record(context):
+    response_data = context.response.data
+
+    posted_rotation_start_date = GMS_HHA_ROTATION_POST_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertNotEqual(response_data.get(
+        'start_date'), posted_rotation_start_date)
+
+    HHARotation = apps.get_model('gms', 'HHARotation')
+
+    if HHARotation.objects.filter(
+            start_date__exact=posted_rotation_start_date).exists():
+        assert False
+
+
+@then('database will not create the hha student record')
+def database_no_create_hhaStudent_record(context):
+    response_data = context.response.data
+
+    posted_student_last_name = GMS_HHA_STUDENT_POST_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertNotEqual(response_data.get(
+        'last_name'), posted_student_last_name)
+
+    HHAStudent = apps.get_model('gms', 'HHAStudent')
+    if HHAStudent.objects.filter(
+            last_name__exact=posted_student_last_name).exists():
+        assert False
+
+
+@then('database will not create the hha theory record')
+def database_no_create_hhaTheory_record(context):
+    response_data = context.response.data
+
+    posted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertNotEqual(response_data.get(
+        'hours_spent'), posted_hhaTheory_hrs_spent)
+
+    HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
+    if HHATheoryRecord.objects.filter(
+            hours_spent__exact=posted_hhaTheory_hrs_spent).exists():
+        assert False
+
+
+@then('database will not create the hha clinical record')
+def database_no_create_hhaClinical_record(context):
+    response_data = context.response.data
+
+    posted_hhaClinical_date = GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertNotEqual(response_data.get('date'), posted_hhaClinical_date)
+
+    HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
+    if HHAClinicalRecord.objects.filter(
+            date__exact=posted_hhaClinical_date).exists():
+        assert False
+
+
+@then('database will fully update the cna rotation record')
+def database_edit_cnaRotation_record(context):
+    response_data = context.response.data
+
+    editted_rotation_start_date = GMS_CNA_ROTATION_PUT_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertEqual(response_data.get(
+        'start_date'), editted_rotation_start_date)
+
+    CNARotation = apps.get_model('gms', 'CNARotation')
+    if not CNARotation.objects.filter(
+            start_date__exact=editted_rotation_start_date).exists():
+        assert False
+
+
+@then('database will fully update the cna student record')
+def database_edit_cnaStudent_record(context):
+    response_data = context.response.data
+
+    editted_student_last_name = GMS_CNA_STUDENT_PUT_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), editted_student_last_name)
+
+    CNAStudent = apps.get_model('gms', 'CNAStudent')
+    if not CNAStudent.objects.filter(
+            last_name__exact=editted_student_last_name).exists():
+        assert False
+
+
+@then('database will fully update the cna theory record')
+def database_edit_cnaTheory_record(context):
+    response_data = context.response.data
+
+    editted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), editted_cnaTheory_hrs_spent)
+
+    CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
+    if not CNATheoryRecord.objects.filter(
+            hours_spent__exact=editted_cnaTheory_hrs_spent).exists():
+        assert False
+
+
+@then('database will fully update the cna clinical record')
+def database_edit_cnaClinical_record(context):
+    response_data = context.response.data
+
+    editted_cnaClinical_date = GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertEqual(response_data.get('date'), editted_cnaClinical_date)
+
+    CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
+    if not CNAClinicalRecord.objects.filter(
+            date__exact=editted_cnaClinical_date).exists():
+        assert False
+
+
+@then('database will fully update the hha rotation record')
+def database_edit_hhaRotation_record(context):
+    response_data = context.response.data
+
+    editted_rotation_start_date = GMS_HHA_ROTATION_PUT_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertEqual(response_data.get(
+        'start_date'), editted_rotation_start_date)
+
+    HHARotation = apps.get_model('gms', 'HHARotation')
+    if not HHARotation.objects.filter(
+            start_date__exact=editted_rotation_start_date).exists():
+        assert False
+
+
+@then('database will fully update the hha student record')
+def database_edit_hhaStudent_record(context):
+    response_data = context.response.data
+
+    editted_student_last_name = GMS_HHA_STUDENT_PUT_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), editted_student_last_name)
+
+    HHAStudent = apps.get_model('gms', 'HHAStudent')
+    if not HHAStudent.objects.filter(
+            last_name__exact=editted_student_last_name).exists():
+        assert False
+
+
+@then('database will fully update the hha theory record')
+def database_edit_hhaTheory_record(context):
+    response_data = context.response.data
+
+    editted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), editted_hhaTheory_hrs_spent)
+
+    HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
+    if not HHATheoryRecord.objects.filter(
+            hours_spent__exact=editted_hhaTheory_hrs_spent).exists():
+        assert False
+
+
+@then('database will fully update the hha clinical record')
+def database_edit_hhaClinical_record(context):
+    response_data = context.response.data
+
+    edittedd_hhaClinical_date = GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertEqual(response_data.get('date'), edittedd_hhaClinical_date)
+
+    HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
+    if not HHAClinicalRecord.objects.filter(
+            date__exact=edittedd_hhaClinical_date).exists():
+        assert False
+
+
+@then('database will not fully update the cna rotation record')
+def database_no_edit_cnaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not fully update the cna student record')
+def database_no_edit_cnaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not fully update the cna theory record')
+def database_no_edit_cnaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not fully update the cna clinical record')
+def database_no_edit_cnaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not fully update the hha rotation record')
+def database_no_edit_hhaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not fully update the hha student record')
+def database_no_edit_hhaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not fully update the hha theory record')
+def database_no_edit_hhaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not fully update the hha clinical record')
+def database_no_edit_hhaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will partially update the cna rotation record')
+def database_partially_edit_cnaRotation_record(context):
+    response_data = context.response.data
+
+    partially_editted_rotation_start_date = GMS_CNA_ROTATION_PATCH_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertEqual(response_data.get(
+        'start_date'), partially_editted_rotation_start_date)
+
+    CNARotation = apps.get_model('gms', 'CNARotation')
+    if not CNARotation.objects.filter(
+            start_date__exact=partially_editted_rotation_start_date).exists():
+        assert False
+
+
+@then('database will partially update the cna student record')
+def database_partially_edit_cnaStudent_record(context):
+    response_data = context.response.data
+
+    partially_editted_student_last_name = GMS_CNA_STUDENT_PATCH_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), partially_editted_student_last_name)
+
+    CNAStudent = apps.get_model('gms', 'CNAStudent')
+    if not CNAStudent.objects.filter(
+            last_name__exact=partially_editted_student_last_name).exists():
+        assert False
+
+
+@then('database will partially update the cna theory record')
+def database_partially_edit_cnaTheory_record(context):
+    response_data = context.response.data
+
+    partially_editted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), partially_editted_cnaTheory_hrs_spent)
+
+    CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
+    if not CNATheoryRecord.objects.filter(
+            hours_spent__exact=partially_editted_cnaTheory_hrs_spent).exists():
+        assert False
+
+
+@then('database will partially update the cna clinical record')
+def database_partially_edit_cnaClinical_record(context):
+    response_data = context.response.data
+
+    partially_editted_cnaClinical_date = GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertEqual(response_data.get(
+        'date'), partially_editted_cnaClinical_date)
+
+    CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
+    if not CNAClinicalRecord.objects.filter(
+            date__exact=partially_editted_cnaClinical_date).exists():
+        assert False
+
+
+@then('database will partially update the hha rotation record')
+def database_partially_edit_hhaRotation_record(context):
+    response_data = context.response.data
+
+    partially_editted_rotation_start_date = GMS_HHA_ROTATION_PATCH_SAMPLE_DATA.get(
+        'start_date')
+
+    context.test().assertEqual(response_data.get(
+        'start_date'), partially_editted_rotation_start_date)
+
+    HHARotation = apps.get_model('gms', 'HHARotation')
+    if not HHARotation.objects.filter(
+            start_date__exact=partially_editted_rotation_start_date).exists():
+        assert False
+
+
+@then('database will partially update the hha student record')
+def database_partially_edit_hhaStudent_record(context):
+    response_data = context.response.data
+
+    partially_editted_student_last_name = GMS_HHA_STUDENT_PATCH_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), partially_editted_student_last_name)
+
+    HHAStudent = apps.get_model('gms', 'HHAStudent')
+    if not HHAStudent.objects.filter(
+            last_name__exact=partially_editted_student_last_name).exists():
+        assert False
+
+
+@then('database will partially update the hha theory record')
+def database_partially_edit_hhaTheory_record(context):
+    response_data = context.response.data
+
+    partially_editted_hhaTheory_hrs_spent = GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), partially_editted_hhaTheory_hrs_spent)
+
+    HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
+    if not HHATheoryRecord.objects.filter(
+            hours_spent__exact=partially_editted_hhaTheory_hrs_spent).exists():
+        assert False
+
+
+@then('database will partially update the hha clinical record')
+def database_partially_edit_hhaClinical_record(context):
+    response_data = context.response.data
+
+    partially_editted_hhaClinical_date = GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA.get(
+        'end_date')
+
+    context.test().assertEqual(response_data.get(
+        'end_date'), partially_editted_hhaClinical_date)
+
+    HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
+    if not HHAClinicalRecord.objects.filter(
+            end_date__exact=partially_editted_hhaClinical_date).exists():
+        assert False
+
+
+@then('database will not partially update the cna rotation record')
+def database_no_partially_edit_cnaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not partially update the cna student record')
+def database_no_partially_edit_cnaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not partially update the cna theory record')
+def database_no_partially_edit_cnaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not partially update the cna clinical record')
+def database_no_partially_edit_cnaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not partially update the hha rotation record')
+def database_no_partially_edit_hhaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not partially update the hha student record')
+def database_no_partially_edit_hhaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not partially update the hha theory record')
+def database_no_partially_edit_hhaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not partially update the hha clinical record')
+def database_no_partially_edit_hhaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will delete the cna rotation record')
+def database_delete_cnaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNARotation = apps.get_model('gms', 'CNARotation')
+    if CNARotation.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the cna student record')
+def database_delete_cnaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNAStudent = apps.get_model('gms', 'CNAStudent')
+    if CNAStudent.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the cna theory record')
+def database_delete_cnaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
+    if CNATheoryRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the cna clinical record')
+def database_delete_cnaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
+    if CNAClinicalRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the hha rotation record')
+def database_delete_hhaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHARotation = apps.get_model('gms', 'HHARotation')
+    if HHARotation.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the hha student record')
+def database_delete_hhaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHAStudent = apps.get_model('gms', 'HHAStudent')
+    if HHAStudent.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the hha theory record')
+def database_delete_hhaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
+    if HHATheoryRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the hha clinical record')
+def database_delete_hhaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
+    if HHAClinicalRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will not delete the cna rotation record')
+def database_no_delete_cnaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not delete the cna student record')
+def database_no_delete_cnaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not delete the cna theory record')
+def database_no_delete_cnaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not delete the cna clinical record')
+def database_no_delete_cnaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not delete the hha rotation record')
+def database_no_delete_hhaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not delete the hha student record')
+def database_no_delete_hhaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not delete the hha theory record')
+def database_no_delete_hhaTheory_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
+
+@then('database will not delete the hha clinical record')
+def database_no_delete_hhaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)

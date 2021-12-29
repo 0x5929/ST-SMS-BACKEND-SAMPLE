@@ -1,5 +1,26 @@
-import uuid
 from django.db import models
+
+# proposed change:
+# changed 12/28/2021 @2150
+# behave tests: passed 12/28/2021 @2154
+# pytest tests: passed 12/28/2021 @2157
+# if request.user.is_superuser:
+#     return super(HHARotationManager, self).get_queryset().all()
+
+# can see all course in the same school (done in permission and views)
+# elif request.user.is_admin:
+#     return super(HHARotationManager, self).get_queryset().filter(
+#         school_name__exact=request.user.school_name)
+
+# limited by only its assigned course (done in permission and views)
+# elif request.user.is_staff:
+#     return super(HHARotationManager, self).get_queryset().filter(
+#         school_name__exact=request.user.school_name)
+# limited by only its assigned course and assigned email (done in permission and views)
+# else:
+#     return super(HHARotationManager, self).get_queryset().filter(
+#         school_name__exact=request.user.school_name,
+#         instructor_email__exact=request.user.email)
 
 
 class HHARotationManager(models.Manager):
@@ -8,7 +29,8 @@ class HHARotationManager(models.Manager):
             return super(HHARotationManager, self).get_queryset().all()
 
         elif request.user.is_admin:
-            return super(HHARotationManager, self).get_queryset().all()
+            return super(HHARotationManager, self).get_queryset().filter(
+                school_name__exact=request.user.school_name)
 
         elif request.user.is_staff:
             return super(HHARotationManager, self).get_queryset().filter(
@@ -25,7 +47,8 @@ class HHAStudentManager(models.Manager):
             return super(HHAStudentManager, self).get_queryset().all()
 
         elif request.user.is_admin:
-            return super(HHAStudentManager, self).get_queryset().all()
+            return super(HHAStudentManager, self).get_queryset().filter(
+                rotation__school_name__exact=request.user.school_name)
 
         elif request.user.is_staff:
             return super(HHAStudentManager, self).get_queryset().filter(
@@ -35,20 +58,6 @@ class HHAStudentManager(models.Manager):
                 rotation__school_name__exact=request.user.school_name,
                 rotation__instructor_email__exact=request.user.email)
 
-    # def create_or_update(self, validated_data, instance=None):
-    #     # grab rotation ID from request
-    #     rotation_id = uuid.UUID(
-    #         str(validated_data.get('rotation').rotation_uuid))
-
-    #     # retrieve rotation from DB
-    #     from ..models import HHARotation
-    #     rotation = HHARotation.objects.get(rotation_uuid__exact=rotation_id)
-
-    #     # add rotation to student obj
-    #     validated_data['rotation'] = rotation
-
-    #     return (instance, validated_data) if instance else validated_data
-
 
 class HHATheoryRecordManager(models.Manager):
     def get_query(self, request):
@@ -56,7 +65,8 @@ class HHATheoryRecordManager(models.Manager):
             return super(HHATheoryRecordManager, self).get_queryset().all()
 
         elif request.user.is_admin:
-            return super(HHATheoryRecordManager, self).get_queryset().all()
+            return super(HHATheoryRecordManager, self).get_queryset().filter(
+                student__rotation__school_name__exact=request.user.school_name)
 
         elif request.user.is_staff:
             return super(HHATheoryRecordManager, self).get_queryset().filter(
@@ -65,19 +75,6 @@ class HHATheoryRecordManager(models.Manager):
             return super(HHATheoryRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name,
                 student__rotation__instructor_email__exact=request.user.email)
-
-    # def create_or_update(self, validated_data, instance=None):
-    #     # grab student ID from request
-    #     student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
-
-    #     # retrive student from DB
-    #     from ..models import HHAStudent
-    #     student = HHAStudent.objects.get(student_uuid__exact=student_id)
-
-    #     # add student to record object
-    #     validated_data['student'] = student
-
-    #     return (instance, validated_data) if instance else validated_data
 
 
 class HHAClinicalRecordManager(models.Manager):
@@ -86,7 +83,8 @@ class HHAClinicalRecordManager(models.Manager):
             return super(HHAClinicalRecordManager, self).get_queryset().all()
 
         elif request.user.is_admin:
-            return super(HHAClinicalRecordManager, self).get_queryset().all()
+            return super(HHAClinicalRecordManager, self).get_queryset().filter(
+                student__rotation__school_name__exact=request.user.school_name)
 
         elif request.user.is_staff:
             return super(HHAClinicalRecordManager, self).get_queryset().filter(
@@ -95,16 +93,3 @@ class HHAClinicalRecordManager(models.Manager):
             return super(HHAClinicalRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name,
                 student__rotation__instructor_email__exact=request.user.email)
-
-    # def create_or_update(self, validated_data, instance=None):
-    #     # grab student ID from request
-    #     student_id = uuid.UUID(str(validated_data.get('student').student_uuid))
-
-    #     # retrive student from DB
-    #     from ..models import HHAStudent
-    #     student = HHAStudent.objects.get(student_uuid__exact=student_id)
-
-    #     # add student to record object
-    #     validated_data['student'] = student
-
-    #     return (instance, validated_data) if instance else validated_data

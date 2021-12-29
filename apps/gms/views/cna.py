@@ -1,15 +1,21 @@
 from rest_framework import viewsets, response
 from django_filters import rest_framework as filters
 
-from ..permissions import IsSuperuser, IsAuthenticatedCNAInstructor
+from ..permissions import IsSuperuser, IsAuthenticatedCNAInstructor, IsAuthenticatedAdminInstructor, IsAuthenticatedCNAStaffInstructor
 from ..models import CNARotation, CNAStudent, CNATheoryRecord, CNAClinicalRecord
 from ..serializers import CNARotationSerializer, CNAStudentSerializer, CNATheoryRecordSerializer, CNAClinicalRecordSerializer
 from ..filters import GMSCNARotationFilter, GMSCNAStudentFilter, GMSCNATheoryRecordFilter, GMSCNAClinicalRecordFilter
 from ..utils import FilterHandler
 
+
 class CNARotationView(viewsets.ModelViewSet):
     serializer_class = CNARotationSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedCNAStaffInstructor |
+        IsAuthenticatedCNAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNARotationFilter
 
@@ -23,10 +29,14 @@ class CNARotationView(viewsets.ModelViewSet):
         return super(CNARotationView, self).list(request, *args, **kwargs)
 
 
-
 class CNAStudentView(viewsets.ModelViewSet):
     serializer_class = CNAStudentSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedCNAStaffInstructor |
+        IsAuthenticatedCNAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNAStudentFilter
 
@@ -42,7 +52,12 @@ class CNAStudentView(viewsets.ModelViewSet):
 
 class CNATheoryRecordView(viewsets.ModelViewSet):
     serializer_class = CNATheoryRecordSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedCNAStaffInstructor |
+        IsAuthenticatedCNAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNATheoryRecordFilter
 
@@ -58,7 +73,12 @@ class CNATheoryRecordView(viewsets.ModelViewSet):
 
 class CNAClinicalRecordView(viewsets.ModelViewSet):
     serializer_class = CNAClinicalRecordSerializer
-    permission_classes = [IsSuperuser | IsAuthenticatedCNAInstructor]
+    permission_classes = [
+        IsSuperuser |
+        IsAuthenticatedAdminInstructor |
+        IsAuthenticatedCNAStaffInstructor |
+        IsAuthenticatedCNAInstructor
+    ]
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = GMSCNAClinicalRecordFilter
 
