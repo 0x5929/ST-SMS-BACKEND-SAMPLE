@@ -7,6 +7,9 @@ from constants import (TEST_SUPERUSER,
                        TEST_STAFF_OFF_USER,
                        TEST_REG_USER,
                        TEST_REG_OFF_USER,
+                       TEST_ADMIN_INST_USER,
+                       TEST_STAFF_CNA_INST_USER,
+                       TEST_STAFF_HHA_INST_USER,
                        TEST_REG_INST_CNA_USER,
                        TEST_REG_INST_HHA_USER)
 
@@ -94,7 +97,6 @@ def no_user_logon(context):
 
 
 # NOTE: BELOW ARE GMS RELATED @GIVENS
-#
 
 @given('logged on as cna instructor user')
 def logged_on_as_reg_cna_inst(context):
@@ -111,6 +113,66 @@ def logged_on_as_reg_hha_inst(context):
     # POST to login
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_REG_INST_HHA_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+@given('logged on as admin instructor user')
+def logged_on_as_admin_inst(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_ADMIN_INST_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+@given('logged on as staff cna instructor user')
+def logged_on_as_staff_cna_inst(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_STAFF_CNA_INST_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+@given('logged on as staff hha instructor user')
+def logged_on_as_staff_hha_inst(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_STAFF_HHA_INST_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+@given('logged on as admin user with is_instructor set to false')
+def logged_on_as_admin_is_inst_false(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_ADMIN_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+@given('logged on as staff user with is_instructor set to false')
+def logged_on_as_staff_is_inst_false(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_STAFF_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+@given('logged on as regular user with is_instructor set to false')
+def logged_on_as_reg_is_inst_false(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_REG_USER}@localhost', 'password': LOGIN_PW})
 
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']

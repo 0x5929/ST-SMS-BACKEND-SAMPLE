@@ -100,9 +100,9 @@
   "pk": 10,
   "fields": {
     "user": [
-      "testinstructorstaff@localhost"
+      "testcnainstructorstaff@localhost"
     ],
-    "email": "testinstructorstaff@localhost",
+    "email": "testcnainstructorstaff@localhost",
     "verified": true,
     "primary": true
   }
@@ -166,5 +166,17 @@
     "verified": true,
     "primary": true
   }
-}
+},
+{
+    "model": "account.emailaddress",
+    "pk": 16,
+    "fields": {
+      "user": [
+        "testhhainstructorstaff@localhost"
+      ],
+      "email": "testhhainstructorstaff@localhost",
+      "verified": true,
+      "primary": true
+    }
+  }
 ]

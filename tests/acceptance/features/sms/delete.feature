@@ -40,7 +40,7 @@ Feature: Student Management DELETE access
     Scenario: admin office user requesting to delete sms/schools resource
         Given logged on as admin office User
         When request DELETE to /api/sms/schools/school_uuid
-        Then database will not delete the school record
+        Then will be permission denied
 
     Scenario: admin office user requesting to delete sms/programs resource
         Given logged on as admin office User
@@ -61,12 +61,12 @@ Feature: Student Management DELETE access
     Scenario: staff office user requesting to delete sms/schools resource
         Given logged on as staff office User
         When request DELETE to /api/sms/schools/school_uuid
-        Then database will not delete the school record
+        Then will be permission denied
 
     Scenario: staff office user requesting to delete sms/programs resource
         Given logged on as staff office User
         When request DELETE to /api/sms/programs/program_uuid
-        Then database will not delete the program record
+        Then will be permission denied
 
     Scenario: staff office user requesting to delete sms/rotations resource
         Given logged on as staff office User
@@ -77,22 +77,22 @@ Feature: Student Management DELETE access
     Scenario: regular office user requesting to delete a student resource
         Given logged on as regular office user
         When request DELETE to /api/sms/students/student_uuid
-        Then database will not delete the student record
+        Then will be permission denied
 
 
     Scenario: regular office user requesting to delete sms/schools resource
         Given logged on as regular office User
         When request DELETE to /api/sms/schools/school_uuid
-        Then database will not delete the school record
+        Then will be permission denied
 
 
     Scenario: regular office user requesting to delete sms/programs resource
         Given logged on as regular office User
         When request DELETE to /api/sms/programs/program_uuid
-        Then database will not delete the program record
+        Then will be permission denied
 
 
     Scenario: regular office user requesting to delete sms/rotations resource
         Given logged on as regular office User
         When request DELETE to /api/sms/rotations/rotation_uuid
-        Then database will not delete the rotation record
+        Then will be permission denied

@@ -5,50 +5,51 @@ from behave import then
 
 from apps.sms.google_sheets import GoogleSheet
 from apps.sms.constants import STUDENT_RECORD_HEADERS
-from tests.acceptance.steps.constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
-                                              SMS_STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
-                                              SMS_SCHOOL_SAMPLE_POST_DATA,
-                                              SMS_PROGRAM_SAMPLE_POST_DATA,
-                                              SMS_ROTATION_SAMPLE_POST_DATA,
-                                              SMS_STUDENT_SAMPLE_PUT_DATA,
-                                              JSON_PERMISSION_DENIED_RES,
-                                              JSON_OBJ_NOT_FOUND_RES,
-                                              SMS_FILTER_PARAMS,
-                                              SMS_SCHOOL_SAMPLE_PUT_DATA,
-                                              SMS_PROGRAM_SAMPLE_PUT_DATA,
-                                              SMS_ROTATION_SAMPLE_PUT_DATA,
-                                              SMS_STUDENT_SAMPLE_PATCH_DATA,
-                                              SMS_SCHOOL_SAMPLE_PATCH_DATA,
-                                              SMS_PROGRAM_SAMPLE_PATCH_DATA,
-                                              SMS_ROTATION_SAMPLE_PATCH_DATA,
-                                              SMS_GOOGLE_POST_DATA,
-                                              SMS_GOOGLE_EDIT_CHECK_DATA,
-                                              JSON_SUPERUSER_ONLY_RES,
-                                              GMS_CNA_ROTATION_POST_SAMPLE_DATA,
-                                              GMS_CNA_STUDENT_POST_SAMPLE_DATA,
-                                              GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
-                                              GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
-                                              GMS_HHA_ROTATION_POST_SAMPLE_DATA,
-                                              GMS_HHA_STUDENT_POST_SAMPLE_DATA,
-                                              GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
-                                              GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
-                                              GMS_CNA_ROTATION_PUT_SAMPLE_DATA,
-                                              GMS_CNA_STUDENT_PUT_SAMPLE_DATA,
-                                              GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA,
-                                              GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
-                                              GMS_HHA_ROTATION_PUT_SAMPLE_DATA,
-                                              GMS_HHA_STUDENT_PUT_SAMPLE_DATA,
-                                              GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
-                                              GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
-                                              GMS_CNA_ROTATION_PATCH_SAMPLE_DATA,
-                                              GMS_CNA_STUDENT_PATCH_SAMPLE_DATA,
-                                              GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
-                                              GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
-                                              GMS_HHA_ROTATION_PATCH_SAMPLE_DATA,
-                                              GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
-                                              GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
-                                              GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
-                                              )
+
+from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
+                       SMS_STUDENT_SAMPLE_DIFF_SCHOOL_POST_DATA,
+                       SMS_SCHOOL_SAMPLE_POST_DATA,
+                       SMS_PROGRAM_SAMPLE_POST_DATA,
+                       SMS_ROTATION_SAMPLE_POST_DATA,
+                       SMS_STUDENT_SAMPLE_PUT_DATA,
+                       JSON_PERMISSION_DENIED_RES,
+                       JSON_OBJ_NOT_FOUND_RES,
+                       SMS_FILTER_PARAMS,
+                       SMS_SCHOOL_SAMPLE_PUT_DATA,
+                       SMS_PROGRAM_SAMPLE_PUT_DATA,
+                       SMS_ROTATION_SAMPLE_PUT_DATA,
+                       SMS_STUDENT_SAMPLE_PATCH_DATA,
+                       SMS_SCHOOL_SAMPLE_PATCH_DATA,
+                       SMS_PROGRAM_SAMPLE_PATCH_DATA,
+                       SMS_ROTATION_SAMPLE_PATCH_DATA,
+                       SMS_GOOGLE_POST_DATA,
+                       SMS_GOOGLE_EDIT_CHECK_DATA,
+                       JSON_SUPERUSER_ONLY_RES,
+                       GMS_CNA_ROTATION_POST_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_POST_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       GMS_CNA_ROTATION_PUT_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_PUT_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_PUT_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_PUT_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                       GMS_CNA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_CNA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_HHA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       )
 
 
 from django.apps import apps
@@ -211,13 +212,6 @@ def database_will_partially_edit_student(context):
         assert False
 
 
-@then('database will not delete the student record')
-def database_will_not_delete_student(context):
-    response = context.response.data
-
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
-
-
 @then('database will delete the student record')
 def database_will_delete_student(context):
     context.test().assertEqual(context.response.data, None)
@@ -293,19 +287,10 @@ def database_will_not_create_school(context):
 
     context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
+    School = apps.get_model('sms', 'School')
 
-@then('database will not edit the school record')
-def database_will_not_edit_school(context):
-    response = context.response.data
-
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the school record')
-def database_will_not_delete_school(context):
-    response = context.response.data
-
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
+    if School.objects.filter(school_code__exact=SMS_PROGRAM_SAMPLE_POST_DATA.get('school_code')).exists():
+        assert False
 
 
 @then('database will create the program record')
@@ -370,19 +355,10 @@ def database_will_not_create_program(context):
 
     context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
+    Program = apps.get_model('sms', 'Program')
 
-@then('database will not edit the program record')
-def database_will_not_edit_program(context):
-    response = context.response.data
-
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the program record')
-def database_will_not_delete_program(context):
-    response = context.response.data
-
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
+    if Program.objects.filter(program_name__exact=SMS_PROGRAM_SAMPLE_POST_DATA.get('program_name')).exists():
+        assert False
 
 
 @then('database will create the rotation record')
@@ -454,19 +430,10 @@ def database_will_not_create_rotation(context):
 
     context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
+    Rotation = apps.get_model('sms', 'Rotation')
 
-@then('database will not edit the rotation record')
-def database_will_not_edit_rotation(context):
-    response = context.response.data
-
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the rotation record')
-def database_will_not_delete_rotation(context):
-    response = context.response.data
-
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
+    if Rotation.objects.filter(rotation_number__exact=SMS_ROTATION_SAMPLE_POST_DATA.get('rotation_number')).exists():
+        assert False
 
 
 @then('the specific students data will be returned as JSON response')
@@ -479,11 +446,11 @@ def specific_student_JSON_data_response(context):
                                filtered_student_lastname)
 
 
-@then('No data response will be sent from server')
-def no_response_from_server(context):
-    response = context.response.data
+# @then('No data response will be sent from server')
+# def no_response_from_server(context):
+#     response = context.response.data
 
-    context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
+#     context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
 
 @then('server will respond with 405')
@@ -527,6 +494,11 @@ def server_response_with_superuser_only(context):
 
 
 # NOTE: BELOW ARE GMS RELATED @THENS
+
+@then('will be permission denied')
+def permission_denied(context):
+    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
+
 
 @then('database will create the cna rotation record')
 def database_create_cnaRotation_record(context):
@@ -943,46 +915,6 @@ def database_edit_hhaClinical_record(context):
         assert False
 
 
-@then('database will not fully update the cna rotation record')
-def database_no_edit_cnaRotation_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not fully update the cna student record')
-def database_no_edit_cnaStudent_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not fully update the cna theory record')
-def database_no_edit_cnaTheory_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not fully update the cna clinical record')
-def database_no_edit_cnaClinical_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not fully update the hha rotation record')
-def database_no_edit_hhaRotation_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not fully update the hha student record')
-def database_no_edit_hhaStudent_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not fully update the hha theory record')
-def database_no_edit_hhaTheory_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not fully update the hha clinical record')
-def database_no_edit_hhaClinical_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
 @then('database will partially update the cna rotation record')
 def database_partially_edit_cnaRotation_record(context):
     response_data = context.response.data
@@ -1111,46 +1043,6 @@ def database_partially_edit_hhaClinical_record(context):
         assert False
 
 
-@then('database will not partially update the cna rotation record')
-def database_no_partially_edit_cnaRotation_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not partially update the cna student record')
-def database_no_partially_edit_cnaStudent_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not partially update the cna theory record')
-def database_no_partially_edit_cnaTheory_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not partially update the cna clinical record')
-def database_no_partially_edit_cnaClinical_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not partially update the hha rotation record')
-def database_no_partially_edit_hhaRotation_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not partially update the hha student record')
-def database_no_partially_edit_hhaStudent_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not partially update the hha theory record')
-def database_no_partially_edit_hhaTheory_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not partially update the hha clinical record')
-def database_no_partially_edit_hhaClinical_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
 @then('database will delete the cna rotation record')
 def database_delete_cnaRotation_record(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -1221,43 +1113,3 @@ def database_delete_hhaClinical_record(context):
     HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
     if HHAClinicalRecord.objects.filter(pk__exact=context.uuid).exists():
         assert False
-
-
-@then('database will not delete the cna rotation record')
-def database_no_delete_cnaRotation_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the cna student record')
-def database_no_delete_cnaStudent_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the cna theory record')
-def database_no_delete_cnaTheory_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the cna clinical record')
-def database_no_delete_cnaClinical_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the hha rotation record')
-def database_no_delete_hhaRotation_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the hha student record')
-def database_no_delete_hhaStudent_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the hha theory record')
-def database_no_delete_hhaTheory_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
-
-
-@then('database will not delete the hha clinical record')
-def database_no_delete_hhaClinical_record(context):
-    context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)

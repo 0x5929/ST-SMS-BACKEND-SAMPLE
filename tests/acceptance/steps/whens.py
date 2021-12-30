@@ -497,7 +497,7 @@ def request_GET_cnaTheoryRecords(context):
         f'{GMS_CNA_THEORY_RECORDS_API_URL}', headers=headers)
 
 
-@when('request GET to /api/gms/cnaClinicalRecord')
+@when('request GET to /api/gms/cnaClinicalRecords')
 def request_GET_cnaClinicalRecords(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}

@@ -13,6 +13,10 @@ PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 # REG USER: can do everything within school, email and limited to assigned courses as well
 
 
+def user_has_program(program, user):
+    return True if program in user.programs else False
+
+
 class IsSuperuser(permissions.BasePermission):
     message = 'Sorry, you must be a superuser to perform this action.'
 
@@ -29,13 +33,11 @@ class IsAuthenticatedCNAInstructor(permissions.BasePermission):
                 return 'CNA'
 
     def has_permission(self, request, view):
-        program_name = self.get_cna_program_name()
 
-        if program_name:
-            if request.user.is_authenticated and \
-                    request.user.is_instructor and \
-                    program_name in request.user.programs:
-                return True
+        if user_has_program('CNA', request.user) and \
+           request.user.is_authenticated and \
+           request.user.is_instructor:
+            return True
 
         return False
 
@@ -43,19 +45,12 @@ class IsAuthenticatedCNAInstructor(permissions.BasePermission):
 class IsAuthenticatedHHAInstructor(permissions.BasePermission):
     message = 'Please be sure to log in with a CNA intructor account and try again.'
 
-    def get_hha_program_name(self):
-        for program in PROGRAM_NAMES:
-            if 'HHA' in program:
-                return 'HHA'
-
     def has_permission(self, request, view):
-        program_name = self.get_hha_program_name()
 
-        if program_name:
-            if request.user.is_authenticated and \
-                    request.user.is_instructor and \
-                    program_name in request.user.programs:
-                return True
+        if user_has_program('HHA', request.user) and \
+           request.user.is_authenticated and \
+           request.user.is_instructor:
+            return True
 
         return False
 
@@ -76,16 +71,11 @@ class IsAuthenticatedAdminInstructor(permissions.BasePermission):
 class IsAuthenticatedCNAStaffInstructor(permissions.BasePermission):
     message = 'Please be sure to log in with a CNA staff instructor account and try again'
 
-    def get_cna_program_name(self):
-        for program in PROGRAM_NAMES:
-            if 'CNA' in program:
-                return 'CNA'
-
     def has_permission(self, request, view):
-        if request.user.is_authenticated and \
+        if user_has_program('CNA', request.user) and \
+           request.user.is_authenticated and \
            request.user.is_instructor and \
-           request.user.is_staff and\
-           self.get_cna_program_name() == 'CNA':
+           request.user.is_staff:
             return True
         else:
             return False
@@ -94,16 +84,11 @@ class IsAuthenticatedCNAStaffInstructor(permissions.BasePermission):
 class IsAuthenticatedHHAStaffInstructor(permissions.BasePermission):
     message = 'Please be sure to log in with a HHA staff instructor account and try again'
 
-    def get_hha_program_name(self):
-        for program in PROGRAM_NAMES:
-            if 'HHA' in program:
-                return 'HHA'
-
     def has_permission(self, request, view):
-        if request.user.is_authenticated and \
+        if user_has_program('HHA', request.user) and \
+           request.user.is_authenticated and \
            request.user.is_instructor and \
-           request.user.is_staff and\
-           self.get_hha_program_name() == 'HHA':
+           request.user.is_staff:
             return True
         else:
             return False
