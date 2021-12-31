@@ -6,7 +6,7 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "testhhainstructoruser@localhost"
+            "instructor_email": "[\"testhhainstructoruser@localhost\"]"
         }
     },
     {
@@ -16,7 +16,7 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "testcnainstructoruser@localhost"
+            "instructor_email": "[\"testcnainstructoruser@localhost\"]"
         }
     },
     {
@@ -154,5 +154,169 @@
             "end_date": "2021-10-06",
             "topic": "Nutrition",
             "student": "d4125d1a-56af-4522-846d-dd09cff85162"
+        }
+    },
+
+
+
+
+
+
+
+    {
+        "model": "gms.baserotation",
+        "pk": "37e1c605-aced-40b6-a3fb-bf2776207f52",
+        "fields": {
+            "school_name": "ST2",
+            "start_date": "2021-11-06",
+            "end_date": "2021-11-30",
+            "instructor_email": "[\"testhhainstructoruser2@localhost\"]"
+        }
+    },
+    {
+        "model": "gms.baserotation",
+        "pk": "b42249ec-b354-4ff6-9ffa-f88454fdcd21",
+        "fields": {
+            "school_name": "ST2",
+            "start_date": "2021-11-06",
+            "end_date": "2021-11-30",
+            "instructor_email": "[\"testcnainstructoruser2@localhost\"]"
+        }
+    },
+    {
+        "model": "gms.basestudent",
+        "pk": "2ad62709-e450-4498-a28b-df0f8990e9ac",
+        "fields": {
+            "first_name": "Test",
+            "last_name": "Z",
+            "makeup_student": false
+        }
+    },
+    {
+        "model": "gms.basestudent",
+        "pk": "c13a0659-64cc-4bcb-a153-ba8415f05bd0",
+        "fields": {
+            "first_name": "Test",
+            "last_name": "Y",
+            "makeup_student": false
+        }
+    },
+    {
+        "model": "gms.baserecord",
+        "pk": "3795d9c5-a0ca-4ad7-ac8d-f8eb1e66be0c",
+        "fields": {
+            "date": "2021-11-06",
+            "completed": true
+        }
+    },
+    {
+        "model": "gms.baserecord",
+        "pk": "5c75dd4d-8638-47df-afa8-5e1748e19be7",
+        "fields": {
+            "date": "2021-11-06",
+            "completed": true
+        }
+    },
+    {
+        "model": "gms.baserecord",
+        "pk": "136fb640-7cd7-4f2e-892f-67b7a2a4b238",
+        "fields": {
+            "date": "2021-11-06",
+            "completed": true
+        }
+    },
+    {
+        "model": "gms.baserecord",
+        "pk": "85bf2e7d-a51c-41dd-acea-58a751c39e38",
+        "fields": {
+            "date": "2021-11-06",
+            "completed": true
+        }
+    },
+    {
+        "model": "gms.cnarotation",
+        "pk": "b42249ec-b354-4ff6-9ffa-f88454fdcd21",
+        "fields": {
+            "baserotation_ptr": "b42249ec-b354-4ff6-9ffa-f88454fdcd21",
+            "rotation_num": 1,
+            "instructor_title": "LVN",
+            "clinical_site": "Pinegrove"
+        }
+    },
+    {
+        "model": "gms.cnastudent",
+        "pk": "2ad62709-e450-4498-a28b-df0f8990e9ac",
+        "fields": {
+            "basestudent_ptr": "2ad62709-e450-4498-a28b-df0f8990e9ac",
+            "rotation": "b42249ec-b354-4ff6-9ffa-f88454fdcd21"
+        }
+    },
+    {
+        "model": "gms.cnatheoryrecord",
+        "pk": "3795d9c5-a0ca-4ad7-ac8d-f8eb1e66be0c",
+        "fields": {
+            "baserecord_ptr": "3795d9c5-a0ca-4ad7-ac8d-f8eb1e66be0c",
+            "hours_spent": 1,
+            "test_score": 75,
+            "topic": "Module 3 Quiz",
+            "student": "2ad62709-e450-4498-a28b-df0f8990e9ac"
+        }
+    },
+    {
+        "model": "gms.cnaclinicalrecord",
+        "pk": "5c75dd4d-8638-47df-afa8-5e1748e19be7",
+        "fields": {
+            "baserecord_ptr": "5c75dd4d-8638-47df-afa8-5e1748e19be7",
+            "comments": "",
+            "performance_satisfied": true,
+            "topic": "Positioning of call light",
+            "student": "2ad62709-e450-4498-a28b-df0f8990e9ac"
+        }
+    },
+    {
+        "model": "gms.hharotation",
+        "pk": "37e1c605-aced-40b6-a3fb-bf2776207f52",
+        "fields": {
+            "baserotation_ptr": "37e1c605-aced-40b6-a3fb-bf2776207f52",
+            "rotation_num": 1,
+            "instructor_title": "LVN",
+            "clinical_site": "Pinegrove"
+        }
+    },
+    {
+        "model": "gms.hhastudent",
+        "pk": "c13a0659-64cc-4bcb-a153-ba8415f05bd0",
+        "fields": {
+            "basestudent_ptr": "c13a0659-64cc-4bcb-a153-ba8415f05bd0",
+            "rotation": "37e1c605-aced-40b6-a3fb-bf2776207f52"
+        }
+    },
+    {
+        "model": "gms.hhatheoryrecord",
+        "pk": "136fb640-7cd7-4f2e-892f-67b7a2a4b238",
+        "fields": {
+            "baserecord_ptr": "136fb640-7cd7-4f2e-892f-67b7a2a4b238",
+            "start_time": "22:36:21",
+            "end_time": "00:00:00",
+            "hours_spent": 2,
+            "test_score": 40,
+            "topic": "Cleaning and Care Tasks in the Home",
+            "student": "c13a0659-64cc-4bcb-a153-ba8415f05bd0"
+        }
+    },
+    {
+        "model": "gms.hhaclinicalrecord",
+        "pk": "85bf2e7d-a51c-41dd-acea-58a751c39e38",
+        "fields": {
+            "baserecord_ptr": "85bf2e7d-a51c-41dd-acea-58a751c39e38",
+            "hours_spent": 2,
+            "comments": "",
+            "performance_satisfied": true,
+            "start_time": "22:38:07",
+            "end_time": "00:00:00",
+            "start_date": "2021-11-05",
+            "end_date": "2021-11-06",
+            "topic": "Cleaning and Care Tasks in the Home",
+            "student": "c13a0659-64cc-4bcb-a153-ba8415f05bd0"
         }
     }]

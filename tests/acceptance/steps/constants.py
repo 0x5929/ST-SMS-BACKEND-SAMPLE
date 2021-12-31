@@ -353,7 +353,7 @@ GMS_CNA_ROTATION_POST_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-13',
     'end_date': '2021-10-13',
-    'instructor_email': 'testcnainstructoruser@localhost',
+    'instructor_email': ['testcnainstructoruser@localhost'],
     'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
@@ -363,7 +363,7 @@ GMS_CNA_ROTATION_PUT_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-14',
     'end_date': '2021-10-13',
-    'instructor_email': 'testcnainstructoruser@localhost',
+    'instructor_email': ['testcnainstructoruser@localhost'],
     'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
@@ -377,7 +377,7 @@ GMS_HHA_ROTATION_POST_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-13',
     'end_date': '2021-10-13',
-    'instructor_email': 'testhhainstructoruser@localhost',
+    'instructor_email': ['testhhainstructoruser@localhost'],
     'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'
@@ -387,7 +387,7 @@ GMS_HHA_ROTATION_PUT_SAMPLE_DATA = {
     'school_name': 'STI',
     'start_date': '2021-09-14',
     'end_date': '2021-10-13',
-    'instructor_email': 'testhhainstructoruser@localhost',
+    'instructor_email': ['testhhainstructoruser@localhost'],
     'rotation_num': 10,
     'instructor_title': 'LVN',
     'clinical_site': 'Rowland'

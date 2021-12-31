@@ -374,5 +374,60 @@
       "groups": [],
       "user_permissions": []
     }
+  },
+
+
+
+
+  {
+    "model": "authentication.account",
+    "pk": 17,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$h1Z34Ip3Qb0tz2okBFvwVU$ZCt8oX0nPU3/9g+2eOLLZDAmadUXclUeYsOe6Z5Hqqs=",
+      "last_login": null,
+      "email": "testcnainstructoruser2@localhost",
+      "username": "testcnainstructoruser2",
+      "first_name": "testcnainstructoruser2",
+      "last_name": "testcnainstructoruser2",
+      "date_joined": "2021-10-30T02:10:53.185Z",
+      "phone_number": "",
+      "is_office": false,
+      "is_recruit": false,
+      "is_instructor": true,
+      "programs": "[\"CNA\"]",
+      "school_name": "STI",
+      "is_active": true,
+      "is_staff": false,
+      "is_admin": false,
+      "is_superuser": false,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "authentication.account",
+    "pk": 18,
+    "fields": {
+      "password": "pbkdf2_sha256$260000$h1Z34Ip3Qb0tz2okBFvwVU$ZCt8oX0nPU3/9g+2eOLLZDAmadUXclUeYsOe6Z5Hqqs=",
+      "last_login": null,
+      "email": "testhhainstructoruser2@localhost",
+      "username": "testhhainstructoruser2",
+      "first_name": "testhhainstructoruser2",
+      "last_name": "testhhainstructoruser2",
+      "date_joined": "2021-10-30T02:10:53.185Z",
+      "phone_number": "",
+      "is_office": false,
+      "is_recruit": false,
+      "is_instructor": true,
+      "programs": "[\"HHA\"]",
+      "school_name": "STI",
+      "is_active": true,
+      "is_staff": false,
+      "is_admin": false,
+      "is_superuser": false,
+      "groups": [],
+      "user_permissions": []
+    }
   }
+
 ]

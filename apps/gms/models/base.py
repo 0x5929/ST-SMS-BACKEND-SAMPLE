@@ -1,8 +1,8 @@
 import uuid
+
 from django.db import models
-
-
 from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
 
 SCHOOL_NAMES = getattr(settings, 'SCHOOL_NAMES')
 
@@ -19,7 +19,7 @@ class BaseRotation(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
 
-    instructor_email = models.EmailField()
+    instructor_email = ArrayField(models.EmailField())
 
     def __str__(self):
         return self.rotation_uuid

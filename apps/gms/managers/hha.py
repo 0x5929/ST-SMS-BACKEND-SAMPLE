@@ -38,7 +38,7 @@ class HHARotationManager(models.Manager):
         else:
             return super(HHARotationManager, self).get_queryset().filter(
                 school_name__exact=request.user.school_name,
-                instructor_email__exact=request.user.email)
+                instructor_email__contains=[request.user.email])
 
 
 class HHAStudentManager(models.Manager):
@@ -56,7 +56,7 @@ class HHAStudentManager(models.Manager):
         else:
             return super(HHAStudentManager, self).get_queryset().filter(
                 rotation__school_name__exact=request.user.school_name,
-                rotation__instructor_email__exact=request.user.email)
+                rotation__instructor_email__contains=[request.user.email])
 
 
 class HHATheoryRecordManager(models.Manager):
@@ -74,7 +74,7 @@ class HHATheoryRecordManager(models.Manager):
         else:
             return super(HHATheoryRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name,
-                student__rotation__instructor_email__exact=request.user.email)
+                student__rotation__instructor_email__contains=[request.user.email])
 
 
 class HHAClinicalRecordManager(models.Manager):
@@ -92,4 +92,4 @@ class HHAClinicalRecordManager(models.Manager):
         else:
             return super(HHAClinicalRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name,
-                student__rotation__instructor_email__exact=request.user.email)
+                student__rotation__instructor_email__contains=[request.user.email])

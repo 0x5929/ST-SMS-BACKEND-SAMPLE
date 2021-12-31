@@ -16,7 +16,7 @@ class CNARotationManager(models.Manager):
         else:
             return super(CNARotationManager, self).get_queryset().filter(
                 school_name__exact=request.user.school_name,
-                instructor_email__exact=request.user.email)
+                instructor_email__contains=[request.user.email])
 
 
 class CNAStudentManager(models.Manager):
@@ -35,7 +35,7 @@ class CNAStudentManager(models.Manager):
         else:
             return super(CNAStudentManager, self).get_queryset().filter(
                 rotation__school_name__exact=request.user.school_name,
-                rotation__instructor_email__exact=request.user.email)
+                rotation__instructor_email__contains=[request.user.email])
 
 
 class CNATheoryRecordManager(models.Manager):
@@ -54,7 +54,7 @@ class CNATheoryRecordManager(models.Manager):
         else:
             return super(CNATheoryRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name,
-                student__rotation__instructor_email__exact=request.user.email)
+                student__rotation__instructor_email__contains=[request.user.email])
 
 
 class CNAClinicalRecordManager(models.Manager):
@@ -73,4 +73,4 @@ class CNAClinicalRecordManager(models.Manager):
         else:
             return super(CNAClinicalRecordManager, self).get_queryset().filter(
                 student__rotation__school_name__exact=request.user.school_name,
-                student__rotation__instructor_email__exact=request.user.email)
+                student__rotation__instructor_email__contains=[request.user.email])

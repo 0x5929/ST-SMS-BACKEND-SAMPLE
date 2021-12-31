@@ -178,5 +178,29 @@
       "verified": true,
       "primary": true
     }
-  }
+  },
+  {
+      "model": "account.emailaddress",
+      "pk": 17,
+      "fields": {
+        "user": [
+          "testcnainstructoruser2@localhost"
+        ],
+        "email": "testcnainstructoruser2@localhost",
+        "verified": true,
+        "primary": true
+      }
+    },
+    {
+        "model": "account.emailaddress",
+        "pk": 18,
+        "fields": {
+          "user": [
+            "testhhainstructoruser2@localhost"
+          ],
+          "email": "testhhainstructoruser2@localhost",
+          "verified": true,
+          "primary": true
+        }
+      }
 ]
