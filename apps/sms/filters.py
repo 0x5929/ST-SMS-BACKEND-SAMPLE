@@ -19,7 +19,9 @@ class SMSFilter(django_filters.FilterSet):
             'rotation__rotation_number',
             'student_id',
             'first_name',
+            'cfirst_name',
             'last_name',
+            'clast_name',
             'phone_number',
             'email',
             'start_date',
@@ -30,6 +32,7 @@ class SMSFilter(django_filters.FilterSet):
             'graduated',
             'passed_first_exam',
             'passed_second_or_third_exam',
+            'google_sheet_migrated'
         )
 
     school = django_filters.CharFilter(

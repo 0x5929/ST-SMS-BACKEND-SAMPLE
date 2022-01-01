@@ -275,8 +275,11 @@ TEST_STAFF_HHA_INST_USER = 'testhhainstructorstaff'
 TEST_REG_USER = 'testuser'
 TEST_REG_OFF_USER = 'testofficeuser'
 TEST_REG_REC_USER = 'testrecruituser'
+TEST_REG_INST_USER = 'testinstructoruser'
 TEST_REG_INST_CNA_USER = 'testcnainstructoruser'
 TEST_REG_INST_HHA_USER = 'testhhainstructoruser'
+TEST_REG_INST_CNA_USER2 = 'testcnainstructoruser2'
+TEST_REG_INST_HHA_USER2 = 'testhhainstructoruser2'
 
 
 DATADUMP_API_URL = '/api/sms/google_sheet_datadump/'

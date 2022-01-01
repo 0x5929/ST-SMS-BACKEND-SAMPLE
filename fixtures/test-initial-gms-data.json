@@ -6,7 +6,7 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "[\"testhhainstructoruser@localhost\"]"
+            "instructor_email": "[\"testhhainstructoruser@localhost\",\"testinstructoruser@localhost\"]"
         }
     },
     {
@@ -16,7 +16,7 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "[\"testcnainstructoruser@localhost\"]"
+            "instructor_email": "[\"testcnainstructoruser@localhost\",\"testinstructoruser@localhost\"]"
         }
     },
     {

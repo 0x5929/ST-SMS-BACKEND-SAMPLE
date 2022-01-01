@@ -202,5 +202,17 @@
           "verified": true,
           "primary": true
         }
+      },
+      {
+        "model": "account.emailaddress",
+        "pk": 19,
+        "fields": {
+          "user": [
+            "testinstructoruser@localhost"
+          ],
+          "email": "testinstructoruser@localhost",
+          "verified": true,
+          "primary": true
+        }
       }
 ]
