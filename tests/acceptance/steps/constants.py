@@ -554,6 +554,19 @@ GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS = {
     'rotation_num': 1
 }
 
+GMS_STI_CNA_ROTATION2_FILTER_PARAMS = {
+    'start_date': '2022-10-06',
+    'end_date': '2022-12-30',
+    'rotation_num': 15
+}
+
+GMS_STI_HHA_ROTATION2_FILTER_PARAMS = {
+    'start_date': '2022-11-06',
+    'end_date': '2022-11-30',
+    'rotation_num': 25
+}
+
+
 GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS = {
     'start_date': '2021-11-06',
     'end_date': '2021-11-30',

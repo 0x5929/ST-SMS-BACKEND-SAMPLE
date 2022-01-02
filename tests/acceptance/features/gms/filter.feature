@@ -27,6 +27,20 @@ Feature: Grading Management filter
         When request GET to /api/gms/cnaRotations with filters by STI rotation_num
         Then the specific STI cnaRotations data will be returned as JSON response
 
+    Scenario: superuser requesting to filter second instructor gms/cnaRotations resource by STI start_date
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaRotations with filters by STI start_date
+        Then the specific STI second cnaRotations data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/cnaRotations resource by STI end_date
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaRotations with filters by STI end_date
+        Then the specific STI second cnaRotations data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/cnaRotations resource by STI rotation_num
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaRotations with filters by STI rotation_num
+        Then the specific STI second cnaRotations data will be returned as JSON response
 
     Scenario: superuser requesting to filter gms/hhaRotations resource by STI start_date
         Given logged on as superuser
@@ -45,7 +59,20 @@ Feature: Grading Management filter
         When request GET to /api/gms/hhaRotations with filters by STI rotation_num
         Then the specific STI hhaRotations data will be returned as JSON response
 
+    Scenario: superuser requesting to filter second instructor gms/hhaRotations resource by STI start_date
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI start_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
+    Scenario: superuser requesting to filter second instructor gms/hhaRotations resource by STI end_date
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI end_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/hhaRotations resource by STI rotation_num
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI rotation_num
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
 
 
@@ -106,6 +133,20 @@ Feature: Grading Management filter
         When request GET to /api/gms/cnaRotations with filters by STI rotation_num
         Then the specific STI cnaRotations data will be returned as JSON response
 
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaRotations resource by STI start_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaRotations with filters by STI start_date
+        Then the specific STI second cnaRotations data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaRotations resource by STI end_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaRotations with filters by STI end_date
+        Then the specific STI second cnaRotations data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaRotations resource by STI rotation_num
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaRotations with filters by STI rotation_num
+        Then the specific STI second cnaRotations data will be returned as JSON response
 
     Scenario: admin instructor user requesting to filter gms/hhaRotations resource by STI start_date
         Given logged on as admin instructor user
@@ -124,9 +165,20 @@ Feature: Grading Management filter
         When request GET to /api/gms/hhaRotations with filters by STI rotation_num
         Then the specific STI hhaRotations data will be returned as JSON response
 
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI start_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI start_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI end_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI end_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
-
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI rotation_num
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI rotation_num
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
 
     Scenario: STI admin instructor user requesting to filter gms/cnaRotations resource by ST2 start_date
@@ -180,12 +232,8 @@ Feature: Grading Management filter
 
 
 
-    ## NOTE: replace Rotations below with Students
-    ## NOTE: replace Rotations below with Students
-    ## NOTE: replace Rotations below with Students
-    ## NOTE: replace Rotations below with Students
-    ## NOTE: replace Rotations below with Students
-    ## NOTE: replace Rotations below with Students
+
+    ## NOTE: replace Rotations below with Students; Done
 
     Scenario: superuser requesting to filter gms/cnaStudents resource by STI first_name
         Given logged on as superuser

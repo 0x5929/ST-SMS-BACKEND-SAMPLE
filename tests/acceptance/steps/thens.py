@@ -54,7 +54,9 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        GMS_STI_CNA_STUDENT_FILTER_PARAMS,
                        GMS_STI_HHA_STUDENT_FILTER_PARAMS,
                        GMS_ST2_CNA_STUDENT_FILTER_PARAMS,
-                       GMS_ST2_HHA_STUDENT_FILTER_PARAMS
+                       GMS_ST2_HHA_STUDENT_FILTER_PARAMS,
+                       GMS_STI_HHA_ROTATION2_FILTER_PARAMS,
+                       GMS_STI_CNA_ROTATION2_FILTER_PARAMS
                        )
 
 
@@ -1207,3 +1209,25 @@ def specific_hhaStudents_JSON_data_response(context):
 
     context.test().assertEqual(response[0].get(
         'last_name'), filtered_hhaStudents_last_name)
+
+
+@then('the specific STI second hhaRotations data will be returned as JSON response')
+def specific_second_hhaRotations_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_hhaRotations_end_date = GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get(
+        'end_date')
+
+    context.test().assertEqual(response[0].get(
+        'end_date'), filtered_hhaRotations_end_date)
+
+
+@then('the specific STI second cnaRotations data will be returned as JSON response')
+def specific_second_cnaRotations_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_hhaRotations_end_date = GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get(
+        'end_date')
+
+    context.test().assertEqual(response[0].get(
+        'end_date'), filtered_hhaRotations_end_date)

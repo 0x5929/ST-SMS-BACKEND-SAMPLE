@@ -6,7 +6,7 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "[\"testhhainstructoruser@localhost\",\"testinstructoruser@localhost\"]"
+            "instructor_email": "[\"testhhainstructoruser@localhost\"]"
         }
     },
     {
@@ -16,9 +16,38 @@
             "school_name": "STI",
             "start_date": "2021-10-06",
             "end_date": "2021-12-30",
-            "instructor_email": "[\"testcnainstructoruser@localhost\",\"testinstructoruser@localhost\"]"
+            "instructor_email": "[\"testcnainstructoruser@localhost\"]"
         }
     },
+
+
+    {
+        "model": "gms.baserotation",
+        "pk": "1d269361-4ccc-492c-bff2-a5db199c1734",
+        "fields": {
+            "school_name": "STI",
+            "start_date": "2022-10-06",
+            "end_date": "2022-12-30",
+            "instructor_email": "[\"testinstructoruser@localhost\"]"
+        }
+    },
+    {
+        "model": "gms.baserotation",
+        "pk": "61c5524f-47ed-42cf-9c6a-e751f0a5c97b",
+        "fields": {
+            "school_name": "STI",
+            "start_date": "2022-11-06",
+            "end_date": "2022-11-30",
+            "instructor_email": "[\"testinstructoruser@localhost\"]"
+        }
+    },
+
+
+
+
+
+
+
     {
         "model": "gms.basestudent",
         "pk": "ccc37087-32fa-4c26-8af8-e84619dc2e47",
@@ -37,6 +66,29 @@
             "makeup_student": false
         }
     },
+
+
+    {
+        "model": "gms.basestudent",
+        "pk": "19efe58f-4bff-454b-81c3-1afca15c42a4",
+        "fields": {
+            "first_name": "Test",
+            "last_name": "A",
+            "makeup_student": false
+        }
+    },
+    {
+        "model": "gms.basestudent",
+        "pk": "20d0b65d-c125-4e2d-984e-8e318ec775e4",
+        "fields": {
+            "first_name": "Test",
+            "last_name": "B",
+            "makeup_student": false
+        }
+    },
+
+
+
     {
         "model": "gms.baserecord",
         "pk": "868769c7-0742-4ca9-bf6a-9ab5b5cc73c1",
@@ -69,6 +121,50 @@
             "completed": true
         }
     },
+
+    
+
+
+
+
+    {
+        "model": "gms.baserecord",
+        "pk": "6c5e5952-75af-478e-ace9-73fd0d06ff29",
+        "fields": {
+            "date": "2021-10-06",
+            "completed": true
+        }
+    },
+    {
+        "model": "gms.baserecord",
+        "pk": "6b39fbb8-9b98-4c8e-b8e4-b9de6858845a",
+        "fields": {
+            "date": "2021-10-06",
+            "completed": true
+        }
+    },
+    {
+        "model": "gms.baserecord",
+        "pk": "8ef87785-7103-4036-9673-df64b5fa5a73",
+        "fields": {
+            "date": "2021-10-06",
+            "completed": true
+        }
+    },
+    {
+        "model": "gms.baserecord",
+        "pk": "0661f433-de5a-4399-826c-585c09950c15",
+        "fields": {
+            "date": "2021-10-06",
+            "completed": true
+        }
+    },
+
+
+
+
+
+
     {
         "model": "gms.cnarotation",
         "pk": "fdc7898d-80f0-4a48-9617-d205b1486066",
@@ -79,6 +175,21 @@
             "clinical_site": "Rowland"
         }
     },
+
+
+    {
+        "model": "gms.cnarotation",
+        "pk": "1d269361-4ccc-492c-bff2-a5db199c1734",
+        "fields": {
+            "baserotation_ptr": "1d269361-4ccc-492c-bff2-a5db199c1734",
+            "rotation_num": 15,
+            "instructor_title": "LVN",
+            "clinical_site": "Rowland"
+        }
+    },
+
+
+
     {
         "model": "gms.cnastudent",
         "pk": "ccc37087-32fa-4c26-8af8-e84619dc2e47",
@@ -87,6 +198,19 @@
             "rotation": "fdc7898d-80f0-4a48-9617-d205b1486066"
         }
     },
+
+
+    {
+        "model": "gms.cnastudent",
+        "pk": "19efe58f-4bff-454b-81c3-1afca15c42a4",
+        "fields": {
+            "basestudent_ptr": "19efe58f-4bff-454b-81c3-1afca15c42a4",
+            "rotation": "1d269361-4ccc-492c-bff2-a5db199c1734"
+        }
+    },
+
+
+
     {
         "model": "gms.cnatheoryrecord",
         "pk": "868769c7-0742-4ca9-bf6a-9ab5b5cc73c1",
@@ -109,6 +233,41 @@
             "student": "ccc37087-32fa-4c26-8af8-e84619dc2e47"
         }
     },
+
+
+
+
+
+
+
+    {
+        "model": "gms.cnatheoryrecord",
+        "pk": "6c5e5952-75af-478e-ace9-73fd0d06ff29",
+        "fields": {
+            "baserecord_ptr": "6c5e5952-75af-478e-ace9-73fd0d06ff29",
+            "hours_spent": 1,
+            "test_score": 75,
+            "topic": "Module 2 Quiz",
+            "student": "19efe58f-4bff-454b-81c3-1afca15c42a4"
+        }
+    },
+    {
+        "model": "gms.cnaclinicalrecord",
+        "pk": "6b39fbb8-9b98-4c8e-b8e4-b9de6858845a",
+        "fields": {
+            "baserecord_ptr": "6b39fbb8-9b98-4c8e-b8e4-b9de6858845a",
+            "comments": "",
+            "performance_satisfied": true,
+            "topic": "Mouth care of the unconscious resident",
+            "student": "19efe58f-4bff-454b-81c3-1afca15c42a4"
+        }
+    },
+
+
+
+
+
+
     {
         "model": "gms.hharotation",
         "pk": "f1bd7d07-2633-4650-b85f-448f54fd3789",
@@ -119,6 +278,19 @@
             "clinical_site": "Rowland"
         }
     },
+
+    {
+        "model": "gms.hharotation",
+        "pk": "61c5524f-47ed-42cf-9c6a-e751f0a5c97b",
+        "fields": {
+            "baserotation_ptr": "61c5524f-47ed-42cf-9c6a-e751f0a5c97b",
+            "rotation_num": 25,
+            "instructor_title": "LVN",
+            "clinical_site": "Rowland"
+        }
+    },
+
+    
     {
         "model": "gms.hhastudent",
         "pk": "d4125d1a-56af-4522-846d-dd09cff85162",
@@ -127,6 +299,20 @@
             "rotation": "f1bd7d07-2633-4650-b85f-448f54fd3789"
         }
     },
+
+
+
+    {
+        "model": "gms.hhastudent",
+        "pk": "20d0b65d-c125-4e2d-984e-8e318ec775e4",
+        "fields": {
+            "basestudent_ptr": "20d0b65d-c125-4e2d-984e-8e318ec775e4",
+            "rotation": "61c5524f-47ed-42cf-9c6a-e751f0a5c97b"
+        }
+    },
+
+
+
     {
         "model": "gms.hhatheoryrecord",
         "pk": "8ab11f0b-6214-4f43-be18-8e1b711db6eb",
@@ -157,6 +343,38 @@
         }
     },
 
+
+
+
+    {
+        "model": "gms.hhatheoryrecord",
+        "pk": "8ef87785-7103-4036-9673-df64b5fa5a73",
+        "fields": {
+            "baserecord_ptr": "8ef87785-7103-4036-9673-df64b5fa5a73",
+            "start_time": "22:36:21",
+            "end_time": "00:00:00",
+            "hours_spent": 2,
+            "test_score": 40,
+            "topic": "Personal Care Services",
+            "student": "20d0b65d-c125-4e2d-984e-8e318ec775e4"
+        }
+    },
+    {
+        "model": "gms.hhaclinicalrecord",
+        "pk": "0661f433-de5a-4399-826c-585c09950c15",
+        "fields": {
+            "baserecord_ptr": "0661f433-de5a-4399-826c-585c09950c15",
+            "hours_spent": 2,
+            "comments": "",
+            "performance_satisfied": true,
+            "start_time": "22:38:07",
+            "end_time": "00:00:00",
+            "start_date": "2021-10-05",
+            "end_date": "2021-10-06",
+            "topic": "Nutrition",
+            "student": "20d0b65d-c125-4e2d-984e-8e318ec775e4"
+        }
+    },
 
 
 
