@@ -187,18 +187,18 @@
         "model": "gms.basestudent",
         "pk": "2ad62709-e450-4498-a28b-df0f8990e9ac",
         "fields": {
-            "first_name": "Test",
-            "last_name": "Z",
-            "makeup_student": false
+            "first_name": "Z",
+            "last_name": "Test",
+            "makeup_student": true
         }
     },
     {
         "model": "gms.basestudent",
         "pk": "c13a0659-64cc-4bcb-a153-ba8415f05bd0",
         "fields": {
-            "first_name": "Test",
-            "last_name": "Y",
-            "makeup_student": false
+            "first_name": "Y",
+            "last_name": "Test",
+            "makeup_student": true
         }
     },
     {
@@ -238,7 +238,7 @@
         "pk": "b42249ec-b354-4ff6-9ffa-f88454fdcd21",
         "fields": {
             "baserotation_ptr": "b42249ec-b354-4ff6-9ffa-f88454fdcd21",
-            "rotation_num": 1,
+            "rotation_num": 30,
             "instructor_title": "LVN",
             "clinical_site": "Pinegrove"
         }
@@ -278,7 +278,7 @@
         "pk": "37e1c605-aced-40b6-a3fb-bf2776207f52",
         "fields": {
             "baserotation_ptr": "37e1c605-aced-40b6-a3fb-bf2776207f52",
-            "rotation_num": 1,
+            "rotation_num": 30,
             "instructor_title": "LVN",
             "clinical_site": "Pinegrove"
         }

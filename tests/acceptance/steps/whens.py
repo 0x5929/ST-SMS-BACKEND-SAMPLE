@@ -66,7 +66,13 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
                        GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
                        GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
-                       GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA)
+                       GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS,
+                       GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS,
+                       GMS_STI_CNA_STUDENT_FILTER_PARAMS,
+                       GMS_STI_HHA_STUDENT_FILTER_PARAMS,
+                       GMS_ST2_CNA_STUDENT_FILTER_PARAMS,
+                       GMS_ST2_HHA_STUDENT_FILTER_PARAMS)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -857,3 +863,243 @@ def request_DELETE_hhaClinicalRecords(context):
     context.uuid = GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST
     context.response = context.test.client.delete(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
+
+
+@when('request GET to /api/gms/cnaRotations with filters by STI start_date')
+def request_GET_cnaRotations_by_start_date_STI(context):
+    parameter = f'?start_date={GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get("start_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaRotations with filters by STI end_date')
+def request_GET_cnaRotations_by_end_date_STI(context):
+    parameter = f'?end_date={GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get("end_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaRotations with filters by STI rotation_num')
+def request_GET_cnaRotations_by_rotation_num_STI(context):
+    parameter = f'?rotation_num={GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get("rotation_num")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaRotations with filters by STI start_date')
+def request_GET_hhaRotations_by_start_date_STI(context):
+    parameter = f'?start_date={GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get("start_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaRotations with filters by STI end_date')
+def request_GET_hhaRotations_by_end_date_STI(context):
+    parameter = f'?end_date={GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get("end_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaRotations with filters by STI rotation_num')
+def request_GET_hhaRotations_by_rotation_num_STI(context):
+    parameter = f'?rotation_num={GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get("rotation_num")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaRotations with filters by ST2 start_date')
+def request_GET_cnaRotations_by_start_date_ST2(context):
+    parameter = f'?start_date={GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get("start_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaRotations with filters by ST2 end_date')
+def request_GET_cnaRotations_by_end_date_ST2(context):
+    parameter = f'?end_date={GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get("end_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaRotations with filters by ST2 rotation_num')
+def request_GET_cnaRotations_by_rotation_num_ST2(context):
+    parameter = f'?rotation_num={GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get("rotation_num")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaRotations with filters by ST2 start_date')
+def request_GET_hhaRotations_by_start_date_ST2(context):
+    parameter = f'?start_date={GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get("start_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaRotations with filters by ST2 end_date')
+def request_GET_hhaRotations_by_end_date_ST2(context):
+    parameter = f'?end_date={GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get("end_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaRotations with filters by ST2 rotation_num')
+def request_GET_hhaRotations_by_rotation_num_ST2(context):
+    parameter = f'?rotation_num={GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get("rotation_num")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaStudents with filters by STI first_name')
+def request_GET_cnaStudents_by_first_name_STI(context):
+    parameter = f'?first_name={GMS_STI_CNA_STUDENT_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaStudents with filters by STI last_name')
+def request_GET_cnaStudents_by_last_name_STI(context):
+    parameter = f'?last_name={GMS_STI_CNA_STUDENT_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaStudents with filters by STI makeup_student')
+def request_GET_cnaStudents_by_makeup_student_STI(context):
+    parameter = f'?makeup_student={GMS_STI_CNA_STUDENT_FILTER_PARAMS.get("makeup_student")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaStudents with filters by STI first_name')
+def request_GET_hhaStudents_by_first_name_STI(context):
+    parameter = f'?first_name={GMS_STI_HHA_STUDENT_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaStudents with filters by STI last_name')
+def request_GET_hhaStudents_by_last_name_STI(context):
+    parameter = f'?last_name={GMS_STI_HHA_STUDENT_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaStudents with filters by STI makeup_student')
+def request_GET_hhaStudents_by_makeup_student_STI(context):
+    parameter = f'?makeup_student={GMS_STI_HHA_STUDENT_FILTER_PARAMS.get("makeup_student")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaStudents with filters by ST2 first_name')
+def request_GET_cnaStudents_by_first_name_ST2(context):
+    parameter = f'?first_name={GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaStudents with filters by ST2 last_name')
+def request_GET_cnaStudents_by_last_name_ST2(context):
+    parameter = f'?last_name={GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaStudents with filters by ST2 makeup_student')
+def request_GET_cnaStudents_by_makeup_student_ST2(context):
+    parameter = f'?makeup_student={GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get("makeup_student")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaStudents with filters by ST2 first_name')
+def request_GET_hhaStudents_by_first_name_ST2(context):
+    parameter = f'?first_name={GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaStudents with filters by ST2 last_name')
+def request_GET_hhaStudents_by_last_name_ST2(context):
+    parameter = f'?last_name={GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaStudents with filters by ST2 makeup_student')
+def request_GET_hhaStudents_by_makeup_student_ST2(context):
+    parameter = f'?makeup_student={GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get("makeup_student")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)

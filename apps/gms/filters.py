@@ -1,5 +1,3 @@
-from django.db.models import fields
-
 from .models import CNARotation, CNAStudent, CNATheoryRecord, CNAClinicalRecord, HHARotation, HHAStudent, HHATheoryRecord, HHAClinicalRecord
 
 import django_filters

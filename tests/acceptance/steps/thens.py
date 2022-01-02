@@ -49,6 +49,12 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        GMS_HHA_STUDENT_PATCH_SAMPLE_DATA,
                        GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
                        GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS,
+                       GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS,
+                       GMS_STI_CNA_STUDENT_FILTER_PARAMS,
+                       GMS_STI_HHA_STUDENT_FILTER_PARAMS,
+                       GMS_ST2_CNA_STUDENT_FILTER_PARAMS,
+                       GMS_ST2_HHA_STUDENT_FILTER_PARAMS
                        )
 
 
@@ -444,13 +450,6 @@ def specific_student_JSON_data_response(context):
 
     context.test().assertEqual(response[0].get('last_name'),
                                filtered_student_lastname)
-
-
-# @then('No data response will be sent from server')
-# def no_response_from_server(context):
-#     response = context.response.data
-
-#     context.test().assertEqual(response, JSON_PERMISSION_DENIED_RES)
 
 
 @then('server will respond with 405')
@@ -1113,3 +1112,98 @@ def database_delete_hhaClinical_record(context):
     HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
     if HHAClinicalRecord.objects.filter(pk__exact=context.uuid).exists():
         assert False
+
+
+@then('the specific STI cnaRotations data will be returned as JSON response')
+def specific_cnaRotation_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_cnaRotation_end_date = GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get(
+        'end_date')
+
+    context.test().assertEqual(response[0].get(
+        'end_date'), filtered_cnaRotation_end_date)
+
+
+@then('the specific STI hhaRotations data will be returned as JSON response')
+def specific_hhaRotations_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_hhaRotations_start_date = GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get(
+        'start_date')
+
+    context.test().assertEqual(response[0].get(
+        'start_date'), filtered_hhaRotations_start_date)
+
+
+@then('the specific ST2 cnaRotations data will be returned as JSON response')
+def specific_cnaRotation_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_cnaRotation_end_date = GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get(
+        'end_date')
+
+    context.test().assertEqual(response[0].get(
+        'end_date'), filtered_cnaRotation_end_date)
+
+
+@then('the specific ST2 hhaRotations data will be returned as JSON response')
+def specific_hhaRotations_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_hhaRotations_start_date = GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get(
+        'start_date')
+
+    context.test().assertEqual(response[0].get(
+        'start_date'), filtered_hhaRotations_start_date)
+
+
+@then('no data will be returned as JSON response')
+def no_json_response(context):
+    response_data = context.response.data
+
+    context.test().assertEqual(response_data, [])
+
+
+@then('the specific STI cnaStudents data will be returned as JSON response')
+def specific_cnaStudents_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_cnaStudents_last_name = GMS_STI_CNA_STUDENT_FILTER_PARAMS.get(
+        'last_name')
+
+    context.test().assertEqual(response[0].get(
+        'last_name'), filtered_cnaStudents_last_name)
+
+
+@then('the specific STI hhaStudents data will be returned as JSON response')
+def specific_hhaStudents_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_hhaStudents_last_name = GMS_STI_HHA_STUDENT_FILTER_PARAMS.get(
+        'last_name')
+
+    context.test().assertEqual(response[0].get(
+        'last_name'), filtered_hhaStudents_last_name)
+
+
+@then('the specific ST2 cnaStudents data will be returned as JSON response')
+def specific_cnaStudents_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_cnaStudents_last_name = GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get(
+        'last_name')
+
+    context.test().assertEqual(response[0].get(
+        'last_name'), filtered_cnaStudents_last_name)
+
+
+@then('the specific ST2 hhaStudents data will be returned as JSON response')
+def specific_hhaStudents_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_hhaStudents_last_name = GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get(
+        'last_name')
+
+    context.test().assertEqual(response[0].get(
+        'last_name'), filtered_hhaStudents_last_name)

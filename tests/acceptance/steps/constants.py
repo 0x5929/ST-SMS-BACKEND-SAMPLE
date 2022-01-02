@@ -548,4 +548,38 @@ GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST = 'bad5926f-3f8e-4c73-b11d-de07b0255624'
 GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST = '28b09da5-a7e0-4c9e-abd1-f88ec95c20b7'
 
 
-# /api/gms/hhaTheoryRecords/b7b559e8-035c-4329-91c7-8800115fc2e6/
+GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS = {
+    'start_date': '2021-10-06',
+    'end_date': '2021-12-30',
+    'rotation_num': 1
+}
+
+GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS = {
+    'start_date': '2021-11-06',
+    'end_date': '2021-11-30',
+    'rotation_num': 30
+}
+
+
+GMS_STI_CNA_STUDENT_FILTER_PARAMS = {
+    'first_name': 'Test',
+    'last_name': 'A',
+    'makeup_student': 'False'
+}
+
+GMS_STI_HHA_STUDENT_FILTER_PARAMS = {
+    'first_name': 'Test',
+    'last_name': 'B',
+    'makeup_student': 'False'
+}
+
+GMS_ST2_CNA_STUDENT_FILTER_PARAMS = {
+    'first_name': 'Z',
+    'last_name': 'Test',
+    'makeup_student': 'True'
+}
+GMS_ST2_HHA_STUDENT_FILTER_PARAMS = {
+    'first_name': 'Y',
+    'last_name': 'Test',
+    'makeup_student': 'True'
+}
