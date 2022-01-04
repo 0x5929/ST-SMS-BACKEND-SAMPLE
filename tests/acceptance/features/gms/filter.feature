@@ -253,6 +253,25 @@ Feature: Grading Management filter
         Then the specific STI cnaStudents data will be returned as JSON response
 
 
+
+
+    Scenario: superuser requesting to filter second instructor gms/cnaStudents resource by STI first_name
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaStudents with filters by STI first_name
+        Then the specific STI second cnaStudents data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/cnaStudents resource by STI last_name
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaStudents with filters by STI last_name
+        Then the specific STI second cnaStudents data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/cnaStudents resource by STI makeup_student
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaStudents with filters by STI makeup_student
+        Then the specific STI second cnaStudents data will be returned as JSON response
+
+
+
     Scenario: superuser requesting to filter gms/hhaStudents resource by STI first_name
         Given logged on as superuser
         When request GET to /api/gms/hhaStudents with filters by STI first_name
@@ -269,6 +288,25 @@ Feature: Grading Management filter
         Given logged on as superuser
         When request GET to /api/gms/hhaStudents with filters by STI makeup_student
         Then the specific STI hhaStudents data will be returned as JSON response
+
+
+
+
+    Scenario: superuser requesting to filter second instructor gms/hhaStudents resource by STI first_name
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaStudents with filters by STI first_name
+        Then the specific STI second hhaStudents data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/hhaStudents resource by STI last_name
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaStudents with filters by STI last_name
+        Then the specific STI second hhaStudents data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/hhaStudents resource by STI makeup_student
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaStudents with filters by STI makeup_student
+        Then the specific STI second hhaStudents data will be returned as JSON response
+
 
 
 
@@ -332,6 +370,27 @@ Feature: Grading Management filter
         Then the specific STI cnaStudents data will be returned as JSON response
 
 
+
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaStudents resource by STI first_name
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaStudents with filters by STI first_name
+        Then the specific STI second cnaStudents data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaStudents resource by STI last_name
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaStudents with filters by STI last_name
+        Then the specific STI second cnaStudents data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaStudents resource by STI makeup_student
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaStudents with filters by STI makeup_student
+        Then the specific STI second cnaStudents data will be returned as JSON response
+
+
+
+
+
     Scenario: admin instructor user requesting to filter gms/hhaStudents resource by STI first_name
         Given logged on as admin instructor user
         When request GET to /api/gms/hhaStudents with filters by STI first_name
@@ -349,6 +408,23 @@ Feature: Grading Management filter
         When request GET to /api/gms/hhaStudents with filters by STI makeup_student
         Then the specific STI hhaStudents data will be returned as JSON response
 
+
+
+
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI start_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI start_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI end_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI end_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI rotation_num
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI rotation_num
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
 
 
@@ -387,4 +463,256 @@ Feature: Grading Management filter
     Scenario: STI admin instructor user requesting to filter gms/hhaStudents resource by ST2 makeup_student
         Given logged on as admin instructor user
         When request GET to /api/gms/hhaStudents with filters by ST2 makeup_student
+        Then no data will be returned as JSON response
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # BELOW ARE FOR CNA/HHATHEORYRECORD
+    Scenario: superuser requesting to filter gms/cnaTheoryRecords resource by STI date
+        Given logged on as superuser
+        When request GET to /api/gms/cnaTheoryRecords with filters by STI date
+        Then the specific STI cnaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/cnaTheoryRecords resource by STI completed
+        Given logged on as superuser
+        When request GET to /api/gms/cnaTheoryRecords with filters by STI completed
+        Then the specific STI cnaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/cnaTheoryRecords resource by STI topic
+        Given logged on as superuser
+        When request GET to /api/gms/cnaTheoryRecords with filters by STI topic
+        Then the specific STI cnaTheoryRecords data will be returned as JSON response
+
+
+
+
+    Scenario: superuser requesting to filter second instructor gms/cnaTheoryRecords resource by STI date
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI date
+        Then the specific STI second cnaTheoryRecords data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/cnaTheoryRecords resource by STI completed
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI completed
+        Then the specific STI second cnaTheoryRecords data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/cnaTheoryRecords resource by STI topic
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI topic
+        Then the specific STI second cnaTheoryRecords data will be returned as JSON response
+
+
+
+    Scenario: superuser requesting to filter gms/hhaTheoryRecords resource by STI date
+        Given logged on as superuser
+        When request GET to /api/gms/hhaTheoryRecords with filters by STI date
+        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/hhaTheoryRecords resource by STI completed
+        Given logged on as superuser
+        When request GET to /api/gms/hhaTheoryRecords with filters by STI completed
+        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/hhaTheoryRecords resource by STI topic
+        Given logged on as superuser
+        When request GET to /api/gms/hhaTheoryRecords with filters by STI topic
+        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+
+
+
+
+    Scenario: superuser requesting to filter second instructor gms/hhaTheoryRecords resource by STI date
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI date
+        Then the specific STI second hhaTheoryRecords data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/hhaTheoryRecords resource by STI completed
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI completed
+        Then the specific STI second hhaTheoryRecords data will be returned as JSON response
+
+    Scenario: superuser requesting to filter second instructor gms/hhaTheoryRecords resource by STI topic
+        Given logged on as superuser
+        When request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI topic
+        Then the specific STI second hhaTheoryRecords data will be returned as JSON response
+
+
+
+
+
+
+
+    Scenario: superuser requesting to filter gms/cnaTheoryRecords resource by ST2 date
+        Given logged on as superuser
+        When request GET to /api/gms/cnaTheoryRecords with filters by ST2 date
+        Then the specific ST2 cnaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/cnaTheoryRecords resource by ST2 completed
+        Given logged on as superuser
+        When request GET to /api/gms/cnaTheoryRecords with filters by ST2 completed
+        Then the specific ST2 cnaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/cnaTheoryRecords resource by ST2 topic
+        Given logged on as superuser
+        When request GET to /api/gms/cnaTheoryRecords with filters by ST2 topic
+        Then the specific ST2 cnaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/hhaTheoryRecords resource by ST2 date
+        Given logged on as superuser
+        When request GET to /api/gms/hhaTheoryRecords with filters by ST2 date
+        Then the specific ST2 hhaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/hhaTheoryRecords resource by ST2 completed
+        Given logged on as superuser
+        When request GET to /api/gms/hhaTheoryRecords with filters by ST2 completed
+        Then the specific ST2 hhaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: superuser requesting to filter gms/hhaTheoryRecords resource by ST2 topic
+        Given logged on as superuser
+        When request GET to /api/gms/hhaTheoryRecords with filters by ST2 topic
+        Then the specific ST2 hhaTheoryRecords data will be returned as JSON response
+    # remember also a scenario where filter for data for another school? should not appear unless your superuser
+
+
+
+
+    Scenario: admin instructor user requesting to filter gms/cnaTheoryRecords resource by STI date
+        Given logged on as admin instructor user
+        When request GET to /api/gms/cnaTheoryRecords with filters by STI date
+        Then the specific STI cnaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: admin instructor user requesting to filter gms/cnaTheoryRecords resource by STI completed
+        Given logged on as admin instructor user
+        When request GET to /api/gms/cnaTheoryRecords with filters by STI completed
+        Then the specific STI cnaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: admin instructor user requesting to filter gms/cnaTheoryRecords resource by STI topic
+        Given logged on as admin instructor user
+        When request GET to /api/gms/cnaTheoryRecords with filters by STI topic
+        Then the specific STI cnaTheoryRecords data will be returned as JSON response
+
+
+
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaTheoryRecords resource by STI date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI date
+        Then the specific STI second cnaTheoryRecords data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaTheoryRecords resource by STI completed
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI completed
+        Then the specific STI second cnaTheoryRecords data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/cnaTheoryRecords resource by STI topic
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI topic
+        Then the specific STI second cnaTheoryRecords data will be returned as JSON response
+
+
+
+
+
+    Scenario: admin instructor user requesting to filter gms/hhaTheoryRecords resource by STI date
+        Given logged on as admin instructor user
+        When request GET to /api/gms/hhaTheoryRecords with filters by STI date
+        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: admin instructor user requesting to filter gms/hhaTheoryRecords resource by STI completed
+        Given logged on as admin instructor user
+        When request GET to /api/gms/hhaTheoryRecords with filters by STI completed
+        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+
+
+    Scenario: admin instructor user requesting to filter gms/hhaTheoryRecords resource by STI topic
+        Given logged on as admin instructor user
+        When request GET to /api/gms/hhaTheoryRecords with filters by STI topic
+        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+
+
+
+
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI start_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI start_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI end_date
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI end_date
+        Then the specific STI second hhaRotations data will be returned as JSON response
+
+    Scenario: admin instructor user requesting to filter second instructor gms/hhaRotations resource by STI rotation_num
+        Given logged on as admin instructor user
+        When request GET to second instructor /api/gms/hhaRotations with filters by STI rotation_num
+        Then the specific STI second hhaRotations data will be returned as JSON response
+
+
+
+
+
+    Scenario: STI admin instructor user requesting to filter gms/cnaTheoryRecords resource by ST2 date
+        Given logged on as admin instructor user
+        When request GET to /api/gms/cnaTheoryRecords with filters by ST2 date
+        Then no data will be returned as JSON response
+
+
+    Scenario: STI admin instructor user requesting to filter gms/cnaTheoryRecords resource by ST2 completed
+        Given logged on as admin instructor user
+        When request GET to /api/gms/cnaTheoryRecords with filters by ST2 completed
+        Then no data will be returned as JSON response
+
+
+    Scenario: STI admin instructor user requesting to filter gms/cnaTheoryRecords resource by ST2 topic
+        Given logged on as admin instructor user
+        When request GET to /api/gms/cnaTheoryRecords with filters by ST2 topic
+        Then no data will be returned as JSON response
+
+
+    Scenario: STI admin instructor user requesting to filter gms/hhaTheoryRecords resource by ST2 date
+        Given logged on as admin instructor user
+        When request GET to /api/gms/hhaTheoryRecords with filters by ST2 date
+        Then no data will be returned as JSON response
+
+
+    Scenario: STI admin instructor user requesting to filter gms/hhaTheoryRecords resource by ST2 completed
+        Given logged on as admin instructor user
+        When request GET to /api/gms/hhaTheoryRecords with filters by ST2 completed
+        Then no data will be returned as JSON response
+
+
+    Scenario: STI admin instructor user requesting to filter gms/hhaTheoryRecords resource by ST2 topic
+        Given logged on as admin instructor user
+        When request GET to /api/gms/hhaTheoryRecords with filters by ST2 topic
         Then no data will be returned as JSON response

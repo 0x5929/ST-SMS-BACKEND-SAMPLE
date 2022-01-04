@@ -74,7 +74,15 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_ST2_CNA_STUDENT_FILTER_PARAMS,
                        GMS_ST2_HHA_STUDENT_FILTER_PARAMS,
                        GMS_STI_CNA_ROTATION2_FILTER_PARAMS,
-                       GMS_STI_HHA_ROTATION2_FILTER_PARAMS)
+                       GMS_STI_HHA_ROTATION2_FILTER_PARAMS,
+                       GMS_STI_CNA_STUDENT2_FILTER_PARAMS,
+                       GMS_STI_HHA_STUDENT2_FILTER_PARAMS,
+                       GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS,
+                       GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS,
+                       GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS,
+                       GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS,
+                       GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS,
+                       GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -1165,3 +1173,243 @@ def request_GET_second_hhaRotations_by_rotation_num(context):
 
     context.response = context.test.client.get(
         f'{GMS_HHA_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/cnaStudents with filters by STI first_name')
+def request_GET_second_cnaStudents_by_first_name(context):
+    parameter = f'?first_name={GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/cnaStudents with filters by STI last_name')
+def request_GET_second_cnaStudents_by_last_name(context):
+    parameter = f'?last_name={GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/cnaStudents with filters by STI makeup_student')
+def request_GET_second_cnaStudents_by_makeup_student(context):
+    parameter = f'?makeup_student={GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get("makeup_student")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/hhaStudents with filters by STI first_name')
+def request_GET_second_hhaStudents_by_first_name(context):
+    parameter = f'?first_name={GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/hhaStudents with filters by STI last_name')
+def request_GET_second_hhaStudents_by_last_name(context):
+    parameter = f'?last_name={GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/hhaStudents with filters by STI makeup_student')
+def request_GET_second_hhaStudents_by_makeup_student(context):
+    parameter = f'?makeup_student={GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get("makeup_student")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaTheoryRecords with filters by STI date')
+def request_GET_cnaTheoryRecords_by_date(context):
+    parameter = f'?date={GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaTheoryRecords with filters by STI completed')
+def request_GET_cnaTheoryRecords_by_completed(context):
+    parameter = f'?completed={GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get("completed")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaTheoryRecords with filters by STI topic')
+def request_GET_cnaTheoryRecords_by_topic(context):
+    parameter = f'?topic={GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get("topic")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaTheoryRecords with filters by STI date')
+def request_GET_hhaTheoryRecords_by_date(context):
+    parameter = f'?date={GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaTheoryRecords with filters by STI completed')
+def request_GET_hhaTheoryRecords_by_completed(context):
+    parameter = f'?completed={GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get("completed")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaTheoryRecords with filters by STI topic')
+def request_GET_hhaTheoryRecords_by_topic(context):
+    parameter = f'?topic={GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get("topic")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI date')
+def request_GET_second_cnaTheoryRecords_by_date(context):
+    parameter = f'?date={GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI completed')
+def request_GET_second_cnaTheoryRecords_by_completed(context):
+    parameter = f'?completed={GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get("completed")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI topic')
+def request_GET_second_cnaTheoryRecords_by_topic(context):
+    parameter = f'?topic={GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get("topic")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI date')
+def request_GET_second_hhaTheoryRecords_by_date(context):
+    parameter = f'?date={GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI completed')
+def request_GET_second_hhaTheoryRecords_by_completed(context):
+    parameter = f'?completed={GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get("completed")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI topic')
+def request_GET_second_hhaTheoryRecords_by_topic(context):
+    parameter = f'?topic={GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get("topic")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaTheoryRecords with filters by ST2 date')
+def request_GET_cnaTheoryRecords_by_date_ST2(context):
+    parameter = f'?date={GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaTheoryRecords with filters by ST2 completed')
+def request_GET_cnaTheoryRecords_by_completed_ST2(context):
+    parameter = f'?completed={GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get("completed")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/cnaTheoryRecords with filters by ST2 topic')
+def request_GET_cnaTheoryRecords_by_topic_ST2(context):
+    parameter = f'?topic={GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get("topic")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaTheoryRecords with filters by ST2 date')
+def request_GET_hhaTheoryRecords_by_date_ST2(context):
+    parameter = f'?date={GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaTheoryRecords with filters by ST2 completed')
+def request_GET_hhaTheoryRecords_by_completed_ST2(context):
+    parameter = f'?completed={GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get("completed")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/gms/hhaTheoryRecords with filters by ST2 topic')
+def request_GET_hhaTheoryRecords_by_topic_ST2(context):
+    parameter = f'?topic={GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get("topic")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)

@@ -580,11 +580,25 @@ GMS_STI_CNA_STUDENT_FILTER_PARAMS = {
     'makeup_student': 'False'
 }
 
+GMS_STI_CNA_STUDENT2_FILTER_PARAMS = {
+    'first_name': 'George',
+    'last_name': 'Abby',
+    'makeup_student': 'False'
+}
+
+
 GMS_STI_HHA_STUDENT_FILTER_PARAMS = {
     'first_name': 'Test',
     'last_name': 'B',
     'makeup_student': 'False'
 }
+
+GMS_STI_HHA_STUDENT2_FILTER_PARAMS = {
+    'first_name': 'Abby',
+    'last_name': 'George',
+    'makeup_student': 'False'
+}
+
 
 GMS_ST2_CNA_STUDENT_FILTER_PARAMS = {
     'first_name': 'Z',
@@ -595,4 +609,42 @@ GMS_ST2_HHA_STUDENT_FILTER_PARAMS = {
     'first_name': 'Y',
     'last_name': 'Test',
     'makeup_student': 'True'
+}
+
+
+GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS = {
+    'date': '2021-10-01',
+    'completed': 'True',
+    'topic': 'Module 2 Quiz'
+}
+
+GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS = {
+    'date': '2021-10-05',
+    'completed': 'True',
+    'topic': 'Module 9 Quiz'
+}
+
+
+GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS = {
+    'date': '2021-10-03',
+    'completed': 'True',
+    'topic': 'Personal Care Services'
+}
+
+GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS = {
+    'date': '2021-10-07',
+    'completed': 'True',
+    'topic': 'Introduction to Aide and Agency Role'
+}
+
+GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS = {
+    'date': '2021-11-06',
+    'completed': 'False',
+    'topic': 'Module 3 Quiz'
+}
+
+GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS = {
+    'date': '2021-11-08',
+    'completed': 'False',
+    'topic': 'Cleaning and Care Tasks in the Home'
 }

@@ -72,8 +72,8 @@
         "model": "gms.basestudent",
         "pk": "19efe58f-4bff-454b-81c3-1afca15c42a4",
         "fields": {
-            "first_name": "Test",
-            "last_name": "A",
+            "first_name": "George",
+            "last_name": "Abby",
             "makeup_student": false
         }
     },
@@ -81,8 +81,8 @@
         "model": "gms.basestudent",
         "pk": "20d0b65d-c125-4e2d-984e-8e318ec775e4",
         "fields": {
-            "first_name": "Test",
-            "last_name": "B",
+            "first_name": "Abby",
+            "last_name": "George",
             "makeup_student": false
         }
     },
@@ -93,7 +93,7 @@
         "model": "gms.baserecord",
         "pk": "868769c7-0742-4ca9-bf6a-9ab5b5cc73c1",
         "fields": {
-            "date": "2021-10-06",
+            "date": "2021-10-01",
             "completed": true
         }
     },
@@ -101,7 +101,7 @@
         "model": "gms.baserecord",
         "pk": "bad5926f-3f8e-4c73-b11d-de07b0255624",
         "fields": {
-            "date": "2021-10-06",
+            "date": "2021-10-02",
             "completed": true
         }
     },
@@ -109,7 +109,7 @@
         "model": "gms.baserecord",
         "pk": "8ab11f0b-6214-4f43-be18-8e1b711db6eb",
         "fields": {
-            "date": "2021-10-06",
+            "date": "2021-10-03",
             "completed": true
         }
     },
@@ -117,7 +117,7 @@
         "model": "gms.baserecord",
         "pk": "28b09da5-a7e0-4c9e-abd1-f88ec95c20b7",
         "fields": {
-            "date": "2021-10-06",
+            "date": "2021-10-04",
             "completed": true
         }
     },
@@ -131,7 +131,7 @@
         "model": "gms.baserecord",
         "pk": "6c5e5952-75af-478e-ace9-73fd0d06ff29",
         "fields": {
-            "date": "2021-10-06",
+            "date": "2021-10-05",
             "completed": true
         }
     },
@@ -147,7 +147,7 @@
         "model": "gms.baserecord",
         "pk": "8ef87785-7103-4036-9673-df64b5fa5a73",
         "fields": {
-            "date": "2021-10-06",
+            "date": "2021-10-07",
             "completed": true
         }
     },
@@ -155,7 +155,7 @@
         "model": "gms.baserecord",
         "pk": "0661f433-de5a-4399-826c-585c09950c15",
         "fields": {
-            "date": "2021-10-06",
+            "date": "2021-10-08",
             "completed": true
         }
     },
@@ -247,7 +247,7 @@
             "baserecord_ptr": "6c5e5952-75af-478e-ace9-73fd0d06ff29",
             "hours_spent": 1,
             "test_score": 75,
-            "topic": "Module 2 Quiz",
+            "topic": "Module 9 Quiz",
             "student": "19efe58f-4bff-454b-81c3-1afca15c42a4"
         }
     },
@@ -355,7 +355,7 @@
             "end_time": "00:00:00",
             "hours_spent": 2,
             "test_score": 40,
-            "topic": "Personal Care Services",
+            "topic": "Introduction to Aide and Agency Role",
             "student": "20d0b65d-c125-4e2d-984e-8e318ec775e4"
         }
     },
@@ -424,31 +424,31 @@
         "pk": "3795d9c5-a0ca-4ad7-ac8d-f8eb1e66be0c",
         "fields": {
             "date": "2021-11-06",
-            "completed": true
+            "completed": false
         }
     },
     {
         "model": "gms.baserecord",
         "pk": "5c75dd4d-8638-47df-afa8-5e1748e19be7",
         "fields": {
-            "date": "2021-11-06",
-            "completed": true
+            "date": "2021-11-07",
+            "completed": false
         }
     },
     {
         "model": "gms.baserecord",
         "pk": "136fb640-7cd7-4f2e-892f-67b7a2a4b238",
         "fields": {
-            "date": "2021-11-06",
-            "completed": true
+            "date": "2021-11-08",
+            "completed": false
         }
     },
     {
         "model": "gms.baserecord",
         "pk": "85bf2e7d-a51c-41dd-acea-58a751c39e38",
         "fields": {
-            "date": "2021-11-06",
-            "completed": true
+            "date": "2021-11-09",
+            "completed": false
         }
     },
     {
