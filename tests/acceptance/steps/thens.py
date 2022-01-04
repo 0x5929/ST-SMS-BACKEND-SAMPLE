@@ -64,7 +64,13 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS,
                        GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS,
                        GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS,
-                       GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS
+                       GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS,
+                       GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS,
+                       GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS,
+                       GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS,
+                       GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS,
+                       GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS,
+                       GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS
                        )
 
 
@@ -1434,4 +1440,106 @@ def specific_hhaTheoryRecords_ST2_JSON_data_response(context):
            data.get('last_name') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('date') and \
            data.get('first_name') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
            data.get('makeup_student') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('topic'):
+            assert False
+
+
+@then('the specific STI cnaClinicalRecords data will be returned as JSON response')
+def specific_cnaClinicalRecords_JSON_data_response(context):
+    response = context.response.data
+
+    for indx, data in enumerate(response):
+        if data.get('last_name') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+            assert True
+            break
+        if indx == (len(response) - 1) and \
+           data.get('last_name') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+            assert False
+
+
+@then('the specific STI second cnaClinicalRecords data will be returned as JSON response')
+def specific_second_cnaClinicalRecords_JSON_data_response(context):
+    response = context.response.data
+
+    for indx, data in enumerate(response):
+        if data.get('last_name') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
+            assert True
+            break
+        if indx == (len(response) - 1) and \
+           data.get('last_name') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
+            assert False
+
+
+@then('the specific ST2 cnaClinicalRecords data will be returned as JSON response')
+def specific_cnaClinicalRecords_ST2_JSON_data_response(context):
+    response = context.response.data
+
+    for indx, data in enumerate(response):
+        if data.get('last_name') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+            assert True
+            break
+        if indx == (len(response) - 1) and \
+           data.get('last_name') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+            assert False
+
+
+@then('the specific STI hhaClinicalRecords data will be returned as JSON response')
+def specific_hhaClinicalRecords_JSON_data_response(context):
+    response = context.response.data
+
+    for indx, data in enumerate(response):
+        if data.get('last_name') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+            assert True
+            break
+        if indx == (len(response) - 1) and \
+           data.get('last_name') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+            assert False
+
+
+@then('the specific STI second hhaClinicalRecords data will be returned as JSON response')
+def specific_second_hhaClinicalRecords_JSON_data_response(context):
+    response = context.response.data
+
+    for indx, data in enumerate(response):
+        if data.get('last_name') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
+            assert True
+            break
+        if indx == (len(response) - 1) and \
+           data.get('last_name') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
+            assert False
+
+
+@then('the specific ST2 hhaClinicalRecords data will be returned as JSON response')
+def specific_hhaClinicalRecords_ST2_JSON_data_response(context):
+    response = context.response.data
+
+    for indx, data in enumerate(response):
+        if data.get('last_name') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+            assert True
+            break
+        if indx == (len(response) - 1) and \
+           data.get('last_name') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           data.get('first_name') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('makeup_student') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
             assert False

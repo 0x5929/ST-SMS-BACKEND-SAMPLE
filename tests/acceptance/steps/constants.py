@@ -648,3 +648,41 @@ GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS = {
     'completed': 'False',
     'topic': 'Cleaning and Care Tasks in the Home'
 }
+
+
+GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS = {
+    'date': '2021-10-02',
+    'completed': 'True',
+    'topic': 'Mouth care of the unconscious resident'
+}
+
+GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS = {
+    'date': '2021-10-06',
+    'completed': 'True',
+    'topic': 'Shampoo with shower or tub bath'
+}
+
+
+GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS = {
+    'date': '2021-10-04',
+    'completed': 'True',
+    'topic': 'Nutrition'
+}
+
+GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS = {
+    'date': '2021-10-08',
+    'completed': 'True',
+    'topic': 'Cleaning and Care Tasks in the Home'
+}
+
+GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS = {
+    'date': '2021-11-07',
+    'completed': 'False',
+    'topic': 'Positioning of call light'
+}
+
+GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS = {
+    'date': '2021-11-09',
+    'completed': 'False',
+    'topic': 'Cleaning and Care Tasks in the Home'
+}
