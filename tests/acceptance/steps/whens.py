@@ -88,7 +88,8 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS,
                        GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS,
                        GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS,
-                       GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS)
+                       GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS,
+                       SMS_FILTER_PARAMS_ST2)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -490,6 +491,139 @@ def request_DELETE_to_datadump(context):
 
     context.response = context.test.client.delete(
         f'{DATADUMP_API_URL}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 school name')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?rotation__program__school__school_name={SMS_FILTER_PARAMS_ST2.get("school_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+# need to do a different then for this step for [], since there will be two HHAs in test db
+@when('request GET to /api/sms/students with filters by ST2 program name')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?rotation__program__program_name={SMS_FILTER_PARAMS_ST2.get("program_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+# need to do a different then for this step for [], since there will be two HHAs rot 1 in test db
+
+
+@when('request GET to /api/sms/students with filters by ST2 rotation number')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?rotation__rotation_number={SMS_FILTER_PARAMS_ST2.get("rotation_num")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student first name')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?first_name={SMS_FILTER_PARAMS_ST2.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student last name')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?last_name={SMS_FILTER_PARAMS_ST2.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student email')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?email={SMS_FILTER_PARAMS_ST2.get("email")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student phone number')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?phone_number={SMS_FILTER_PARAMS_ST2.get("phone")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student ID')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?student_id={SMS_FILTER_PARAMS_ST2.get("id_")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student program end date')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?completion_date={SMS_FILTER_PARAMS_ST2.get("completion_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student program start date')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?start_date={SMS_FILTER_PARAMS_ST2.get("start_date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student payment completions')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?paid={SMS_FILTER_PARAMS_ST2.get("paid")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student program completions')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?graduated={SMS_FILTER_PARAMS_ST2.get("graduated")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/sms/students with filters by ST2 student employment status')
+def request_GET_to_smsStudents_by_ST2_school_name(context):
+    parameter = f'?employed={SMS_FILTER_PARAMS_ST2.get("employed")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
 
 
 # NOTE: BELOW ARE GMS RELATED @WHENS
@@ -1458,7 +1592,7 @@ def request_GET_hhaClinicalRecords_by_date(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to /api/gms/hhaClinicalRecords with filters by STI completed')
@@ -1468,7 +1602,7 @@ def request_GET_hhaClinicalRecords_by_completed(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to /api/gms/hhaClinicalRecords with filters by STI topic')
@@ -1478,7 +1612,7 @@ def request_GET_hhaClinicalRecords_by_topic(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to second instructor /api/gms/cnaClinicalRecords with filters by STI date')
@@ -1518,7 +1652,7 @@ def request_GET_second_hhaClinicalRecords_by_date(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI completed')
@@ -1528,7 +1662,7 @@ def request_GET_second_hhaClinicalRecords_by_completed(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI topic')
@@ -1538,7 +1672,7 @@ def request_GET_second_hhaClinicalRecords_by_topic(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to /api/gms/cnaClinicalRecords with filters by ST2 date')
@@ -1578,7 +1712,7 @@ def request_GET_hhaClinicalRecords_by_date_ST2(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to /api/gms/hhaClinicalRecords with filters by ST2 completed')
@@ -1588,7 +1722,7 @@ def request_GET_hhaClinicalRecords_by_completed_ST2(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
 
 @when('request GET to /api/gms/hhaClinicalRecords with filters by ST2 topic')
@@ -1598,4 +1732,4 @@ def request_GET_hhaClinicalRecords_by_topic_ST2(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)

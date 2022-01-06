@@ -236,19 +236,6 @@ SMS_ROTATION_SAMPLE_PATCH_DATA = {
     'rotation_number': 7
 }
 
-# PUT_DATA = {
-#     'school__school_code': '27091743',
-#     'program__program_name': 'HSFA',
-#     'rotation__rotation_number': 6
-
-# }
-
-# PATCH_DATA = {
-#     'student__last_name': 'D',
-#     'school__school_code': '27091744',
-#     'program__program_name': 'BLS',
-#     'rotation__rotation_number': 7
-# }
 
 JSON_PERMISSION_DENIED_RES = {
     'detail': 'You do not have permission to perform this action.'

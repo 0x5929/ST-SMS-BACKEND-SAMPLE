@@ -70,7 +70,8 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS,
                        GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS,
                        GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS,
-                       GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS
+                       GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS,
+                       SMS_FILTER_PARAMS_ST2
                        )
 
 
@@ -506,6 +507,37 @@ def server_response_with_superuser_only(context):
     response = context.response.data
 
     context.test().assertEqual(response, JSON_SUPERUSER_ONLY_RES)
+
+
+@then('the specific ST2 students data will be returned as JSON response')
+def specific_ST2_smsStudent_data_JSON_response(context):
+    response = context.response.data
+
+    for indx, data in enumerate(response):
+        if data.get('first_name') == SMS_FILTER_PARAMS_ST2.get('first_name') and \
+           data.get('last_name') == SMS_FILTER_PARAMS_ST2.get('last_name') and \
+           data.get('email') == SMS_FILTER_PARAMS_ST2.get('email'):
+            assert True
+            break
+
+        if indx == (len(response) - 1) and \
+           (data.get('first_name') != SMS_FILTER_PARAMS_ST2.get('first_name') or
+           data.get('last_name') != SMS_FILTER_PARAMS_ST2.get('last_name') or
+           data.get('email') != SMS_FILTER_PARAMS_ST2.get('email')):
+            assert False
+
+
+@then('no desired ST2 students data filtered by rotation or program will be returned as JSON response')
+def no_specific_ST2_smsStudents_JSON_data_response(context):
+    response = context.response.data
+
+    for data in response:
+        if data.get('first_name') == SMS_FILTER_PARAMS_ST2.get('first_name') and \
+           str(data.get('last_name')) == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('last_name') and \
+           data.get('email') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('email'):
+            assert False
+
+    assert True
 
 
 # NOTE: BELOW ARE GMS RELATED @THENS
@@ -1141,9 +1173,9 @@ def specific_cnaRotation_JSON_data_response(context):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('end_date') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
-           data.get('start_date') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') and \
-           data.get('rotation_num') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num'):
+           (data.get('end_date') != GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') or
+           data.get('start_date') != GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') or
+           data.get('rotation_num') != GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num')):
             assert False
 
 
@@ -1158,9 +1190,14 @@ def specific_hhaRotations_JSON_data_response(context):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('end_date') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
-           data.get('start_date') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') and \
-           data.get('rotation_num') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num'):
+           (data.get('end_date') != GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') or
+           data.get('start_date') != GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') or
+           data.get('rotation_num') != GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num')):
+            print('data', data.get('end_date'), data.get(
+                'start_date'), data.get('rotation_num'))
+            print('HELLO MOTHERFUCKIN WORLD',
+                  GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date'), GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date'), GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num'))
+            print('type of :', type(GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS))
             assert False
 
 
@@ -1175,9 +1212,9 @@ def specific_cnaRotation_JSON_data_response(context):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('end_date') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
-           data.get('start_date') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') and \
-           data.get('rotation_num') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num'):
+           (data.get('end_date') != GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') or
+           data.get('start_date') != GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') or
+           data.get('rotation_num') != GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num')):
             assert False
 
 
@@ -1192,9 +1229,9 @@ def specific_hhaRotations_JSON_data_response(context):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('end_date') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
-           data.get('start_date') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') and \
-           data.get('rotation_num') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num'):
+           (data.get('end_date') != GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') or
+           data.get('start_date') != GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') or
+           data.get('rotation_num') != GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('rotation_num')):
             assert False
 
 
@@ -1212,13 +1249,14 @@ def specific_cnaStudents_JSON_data_response(context):
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           str(data.get('makeup_student')) == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('last_name') == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('last_name') and \
-           data.get('first_name') == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           (data.get('last_name') != GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('last_name') or
+           data.get('first_name') != GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('first_name') or
+           str(data.get('makeup_student')) != GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('makeup_student')):
+
             assert False
 
 
@@ -1229,13 +1267,13 @@ def specific_hhaStudents_JSON_data_response(context):
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           str(data.get('makeup_student')) == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('makeup_student'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('last_name') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('last_name') and \
-           data.get('first_name') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           (data.get('last_name') != GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('last_name') or
+           data.get('first_name') != GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('first_name') or
+           str(data.get('makeup_student')) != GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('makeup_student')):
             assert False
 
 
@@ -1246,13 +1284,13 @@ def specific_cnaStudents_JSON_data_response(context):
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           str(data.get('makeup_student')) == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('last_name') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('last_name') and \
-           data.get('first_name') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           (data.get('last_name') != GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('last_name') or
+           data.get('first_name') != GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('first_name') or
+           str(data.get('makeup_student')) != GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('makeup_student')):
             assert False
 
 
@@ -1263,13 +1301,13 @@ def specific_hhaStudents_JSON_data_response(context):
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           str(data.get('makeup_student')) == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('makeup_student'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('last_name') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('last_name') and \
-           data.get('first_name') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           (data.get('last_name') != GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('last_name') or
+           data.get('first_name') != GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('first_name') or
+           str(data.get('makeup_student')) != GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('makeup_student')):
             assert False
 
 
@@ -1284,9 +1322,9 @@ def specific_second_hhaRotations_JSON_data_response(context):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('end_date') == GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get('end_date') and \
-           data.get('start_date') == GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get('start_date') and \
-           data.get('rotation_num') == GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get('rotation_num'):
+           (data.get('end_date') != GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get('end_date') or
+           data.get('start_date') != GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get('start_date') or
+           data.get('rotation_num') != GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get('rotation_num')):
             assert False
 
 
@@ -1301,9 +1339,9 @@ def specific_second_cnaRotations_JSON_data_response(context):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('end_date') == GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('end_date') and \
-           data.get('start_date') == GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('start_date') and \
-           data.get('rotation_num') == GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('rotation_num'):
+           (data.get('end_date') != GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('end_date') or
+           data.get('start_date') != GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('start_date') or
+           data.get('rotation_num') != GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('rotation_num')):
             assert False
 
 
@@ -1314,13 +1352,13 @@ def specific_second_cnaStudents_JSON_data_response(context):
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('makeup_student'):
+           str(data.get('makeup_student')) == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('makeup_student'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('last_name') == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('last_name') and \
-           data.get('first_name') == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('makeup_student'):
+           (data.get('last_name') != GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('last_name') or
+           data.get('first_name') != GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('first_name') or
+           str(data.get('makeup_student')) != GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('makeup_student')):
             assert False
 
 
@@ -1331,13 +1369,13 @@ def specific_second_hhaStudents_JSON_data_response(context):
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('makeup_student'):
+           str(data.get('makeup_student')) == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('makeup_student'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('last_name') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('last_name') and \
-           data.get('first_name') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('makeup_student'):
+           (data.get('last_name') != GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('last_name') or
+           data.get('first_name') != GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('first_name') or
+           str(data.get('makeup_student')) != GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('makeup_student')):
             assert False
 
 
@@ -1347,14 +1385,14 @@ def specific_cnaTheoryRecords_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1364,14 +1402,14 @@ def specific_second_cnaTheoryRecords_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1381,14 +1419,14 @@ def specific_cnaTheoryRecords_ST2_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1398,14 +1436,14 @@ def specific_hhaTheoryRecords_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1415,14 +1453,19 @@ def specific_second_hhaTheoryRecords_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('topic')):
+            print('data: ', data.get('date'), data.get(
+                'completed'), data.get('topic'))
+            print('GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS: ', GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get(
+                'date'), GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('completed'), GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('topic'))
+            print('HELLO WORLD')
             assert False
 
 
@@ -1432,14 +1475,14 @@ def specific_hhaTheoryRecords_ST2_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1449,14 +1492,14 @@ def specific_cnaClinicalRecords_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1466,14 +1509,14 @@ def specific_second_cnaClinicalRecords_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1483,14 +1526,14 @@ def specific_cnaClinicalRecords_ST2_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1499,15 +1542,16 @@ def specific_hhaClinicalRecords_JSON_data_response(context):
     response = context.response.data
 
     for indx, data in enumerate(response):
+
         if data.get('date') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic')):
             assert False
 
 
@@ -1517,14 +1561,15 @@ def specific_second_hhaClinicalRecords_JSON_data_response(context):
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('topic')):
+
             assert False
 
 
@@ -1533,15 +1578,16 @@ def specific_hhaClinicalRecords_ST2_JSON_data_response(context):
     response = context.response.data
 
     for indx, data in enumerate(response):
-        if data.get('date') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+        if (data.get('date') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and
+           str(data.get('completed')) == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and
+           data.get('topic') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic')):
             assert True
             break
         if indx == (len(response) - 1) and \
-           data.get('date') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
-           data.get('topic') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
+           (data.get('date') != GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') or
+           str(data.get('completed')) != GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') or
+           data.get('topic') != GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic')):
+
             assert False
 
 
@@ -1552,7 +1598,7 @@ def no_specific_cnaStudents_ST2_JSON_data_response(context):
     for data in response:
         if data.get('last_name') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('first_name') and \
-           data.get('makeup_student') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
+           str(data.get('makeup_student')) == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('makeup_student'):
             assert False
 
     assert True
@@ -1564,21 +1610,34 @@ def no_specific_second_cnaClinicalRecords_JSON_data_response(context):
 
     for data in response:
         if data.get('date') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('topic'):
             assert False
 
     assert True
 
 
-@then('no desired second instructor cnaTheoryRecords data will be returned as JSON response')
+@then('no desired second instructor cnaTheoryRecords data filterd by completed will be returned as JSON response')
 def no_specific_second_cnaTheoryRecords_JSON_data_response(context):
     response = context.response.data
 
     for data in response:
         if data.get('date') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('date') and \
-           data.get('completed') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
+           str(data.get('completed')) == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
            data.get('topic') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('topic'):
+            assert False
+
+    assert True
+
+
+@then('no desired ST2 hhaClinicalRecords data filtered by topic will be returned as JSON response')
+def no_specific_ST2_hhaClinicalRecords_JSON_data_response(context):
+    response = context.response.data
+
+    for data in response:
+        if data.get('date') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
+           str(data.get('completed')) == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
+           data.get('topic') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('topic'):
             assert False
 
     assert True

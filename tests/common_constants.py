@@ -20,3 +20,20 @@ SMS_FILTER_PARAMS = {
     'graduated': 'False',
     'employed': 'False'
 }
+
+SMS_FILTER_PARAMS_ST2 = {
+    'school_name': 'ST2',
+    'program_name': 'HHA',
+    'rotation_num': 1,
+    'first_name': 'Alvin',
+    'last_name': 'Chipmonk',
+    'full_name': 'alvin_chipmonk',
+    'email': 'alvin@email.com',
+    'phone': '626-333-5545',
+    'id_': 'AL-HHA-01-1019-TB',
+    'start_date': '2021-10-06',
+    'completion_date': '2021-12-11',
+    'paid': 'True',
+    'graduated': 'True',
+    'employed': 'True'
+}

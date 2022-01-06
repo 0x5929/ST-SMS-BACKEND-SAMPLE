@@ -2,6 +2,7 @@ Feature: Grading Management filter
 
     All user can filter all gms model objects that they have access to based on attributes via GET parameters
 
+    @init
     Scenario: requesting to auth login
         Given no initial logon
         When request GET to /auth/login/
@@ -384,17 +385,17 @@ Feature: Grading Management filter
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaRotations resource by STI start_date
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaRotations with filters by STI start_date
-        Then the specific STI hhaRotations data will be returned as JSON response
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaRotations resource by STI end_date
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaRotations with filters by STI end_date
-        Then the specific STI hhaRotations data will be returned as JSON response
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaRotations resource by STI rotation_num
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaRotations with filters by STI rotation_num
-        Then the specific STI hhaRotations data will be returned as JSON response
+        Then the specific STI second hhaRotations data will be returned as JSON response
 
 
 
@@ -1068,17 +1069,17 @@ Feature: Grading Management filter
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaStudents resource by STI first_name
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaStudents with filters by STI first_name
-        Then the specific STI hhaStudents data will be returned as JSON response
+        Then the specific STI second hhaStudents data will be returned as JSON response
 
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaStudents resource by STI last_name
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaStudents with filters by STI last_name
-        Then the specific STI hhaStudents data will be returned as JSON response
+        Then the specific STI second hhaStudents data will be returned as JSON response
 
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaStudents resource by STI makeup_student
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaStudents with filters by STI makeup_student
-        Then the specific STI hhaStudents data will be returned as JSON response
+        Then the specific STI second hhaStudents data will be returned as JSON response
 
 
 
@@ -1769,17 +1770,17 @@ Feature: Grading Management filter
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaTheoryRecords resource by STI date
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI date
-        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+        Then the specific STI second hhaTheoryRecords data will be returned as JSON response
 
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaTheoryRecords resource by STI completed
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI completed
-        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+        Then the specific STI second hhaTheoryRecords data will be returned as JSON response
 
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaTheoryRecords resource by STI topic
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaTheoryRecords with filters by STI topic
-        Then the specific STI hhaTheoryRecords data will be returned as JSON response
+        Then the specific STI second hhaTheoryRecords data will be returned as JSON response
 
 
 
@@ -1854,7 +1855,7 @@ Feature: Grading Management filter
     Scenario: cna instructor user requesting to filter second instructor gms/cnaTheoryRecords resource by STI completed
         Given logged on as cna instructor user
         When request GET to second instructor /api/gms/cnaTheoryRecords with filters by STI completed
-        Then no desired second instructor cnaTheoryRecords data will be returned as JSON response
+        Then no desired second instructor cnaTheoryRecords data filterd by completed will be returned as JSON response
 
     Scenario: cna instructor user requesting to filter second instructor gms/cnaTheoryRecords resource by STI topic
         Given logged on as cna instructor user
@@ -2112,10 +2113,12 @@ Feature: Grading Management filter
         When request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI date
         Then the specific STI second hhaClinicalRecords data will be returned as JSON response
 
+
     Scenario: superuser requesting to filter second instructor gms/hhaClinicalRecords resource by STI completed
         Given logged on as superuser
         When request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI completed
         Then the specific STI second hhaClinicalRecords data will be returned as JSON response
+
 
     Scenario: superuser requesting to filter second instructor gms/hhaClinicalRecords resource by STI topic
         Given logged on as superuser
@@ -2156,6 +2159,7 @@ Feature: Grading Management filter
         Given logged on as superuser
         When request GET to /api/gms/hhaClinicalRecords with filters by ST2 completed
         Then the specific ST2 hhaClinicalRecords data will be returned as JSON response
+
 
 
     Scenario: superuser requesting to filter gms/hhaClinicalRecords resource by ST2 topic
@@ -2278,7 +2282,7 @@ Feature: Grading Management filter
     Scenario: STI admin instructor user requesting to filter gms/hhaClinicalRecords resource by ST2 topic
         Given logged on as admin instructor user
         When request GET to /api/gms/hhaClinicalRecords with filters by ST2 topic
-        Then no data will be returned as JSON response
+        Then no desired ST2 hhaClinicalRecords data filtered by topic will be returned as JSON response
 
 
 
@@ -2436,7 +2440,6 @@ Feature: Grading Management filter
         When request GET to /api/gms/hhaClinicalRecords with filters by STI date
         Then the specific STI hhaClinicalRecords data will be returned as JSON response
 
-
     Scenario: staff hha instructor user requesting to filter gms/hhaClinicalRecords resource by STI completed
         Given logged on as staff hha instructor user
         When request GET to /api/gms/hhaClinicalRecords with filters by STI completed
@@ -2448,20 +2451,23 @@ Feature: Grading Management filter
         When request GET to /api/gms/hhaClinicalRecords with filters by STI topic
         Then the specific STI hhaClinicalRecords data will be returned as JSON response
 
+    @current
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaClinicalRecords resource by STI date
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI date
-        Then the specific STI hhaClinicalRecords data will be returned as JSON response
+        Then the specific STI second hhaClinicalRecords data will be returned as JSON response
+
 
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaClinicalRecords resource by STI completed
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI completed
         Then the specific STI hhaClinicalRecords data will be returned as JSON response
 
+    @current
     Scenario: staff hha instructor user requesting to filter second instructor gms/hhaClinicalRecords resource by STI topic
         Given logged on as staff hha instructor user
         When request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI topic
-        Then the specific STI hhaClinicalRecords data will be returned as JSON response
+        Then the specific STI second hhaClinicalRecords data will be returned as JSON response
 
 
 
@@ -2498,7 +2504,7 @@ Feature: Grading Management filter
     Scenario: STI staff hha instructor user requesting to filter gms/hhaClinicalRecords resource by ST2 topic
         Given logged on as staff hha instructor user
         When request GET to /api/gms/hhaClinicalRecords with filters by ST2 topic
-        Then no data will be returned as JSON response
+        Then no desired ST2 hhaClinicalRecords data filtered by topic will be returned as JSON response
 
 
 
@@ -2658,7 +2664,6 @@ Feature: Grading Management filter
         When request GET to /api/gms/hhaClinicalRecords with filters by STI date
         Then the specific STI hhaClinicalRecords data will be returned as JSON response
 
-
     Scenario: hha instructor user requesting to filter gms/hhaClinicalRecords resource by STI completed
         Given logged on as hha instructor user
         When request GET to /api/gms/hhaClinicalRecords with filters by STI completed
@@ -2674,6 +2679,7 @@ Feature: Grading Management filter
         Given logged on as hha instructor user
         When request GET to second instructor /api/gms/hhaClinicalRecords with filters by STI date
         Then the specific STI hhaClinicalRecords data will be returned as JSON response
+
 
     Scenario: hha instructor user requesting to filter second instructor gms/hhaClinicalRecords resource by STI completed
         Given logged on as hha instructor user
