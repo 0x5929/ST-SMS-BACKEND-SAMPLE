@@ -89,7 +89,11 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS,
                        GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS,
                        GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS,
-                       SMS_FILTER_PARAMS_ST2)
+                       SMS_FILTER_PARAMS_ST2,
+                       SMS_STUDENT_UUID_ST2,
+                       SMS_SCHOOL_UUID_ST2,
+                       SMS_PROGRAM_UUID_ST2,
+                       SMS_ROTATION_UUID_ST2)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -624,6 +628,18 @@ def request_GET_to_smsStudents_by_ST2_school_name(context):
 
     context.response = context.test.client.get(
         f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request PATCH to ST2 /api/sms/students/student_uuid')
+def request_PATCH_ST2_students(context):
+    patch_data = SMS_STUDENT_SAMPLE_PATCH_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{SMS_STUDENTS_API_URL}{SMS_STUDENT_UUID_ST2}/', patch_data, format='json', headers=headers)
+
+
 
 
 # NOTE: BELOW ARE GMS RELATED @WHENS

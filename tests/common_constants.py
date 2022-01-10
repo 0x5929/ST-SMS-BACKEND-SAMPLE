@@ -3,6 +3,13 @@ SMS_SCHOOL_UUID_TO_TEST = '0c805318-7706-405e-a66c-5936062617a5'
 SMS_PROGRAM_UUID_TO_TEST = '67301e14-cd3d-493a-a2cf-84d8c490c0ef'
 SMS_ROTATION_UUID_TO_TEST = 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
 
+
+SMS_STUDENT_UUID_ST2 = 'c7efabb4-890c-48bb-a5f9-854c899496c8'
+SMS_SCHOOL_UUID_ST2 = '6bfad48c-ecc6-44ac-b53f-c94ccd240119'
+SMS_PROGRAM_UUID_ST2 = 'd682ebed-72a4-499f-9bd5-4ce777c492cd'
+SMS_ROTATION_UUID_ST2 = '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
+
+
 # this is for filter URLs of the STI HHA student, please change this if test fixture changes
 SMS_FILTER_PARAMS = {
     'school_name': 'STI',

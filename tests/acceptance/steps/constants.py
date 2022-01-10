@@ -244,8 +244,12 @@ JSON_PERMISSION_DENIED_RES = {
 JSON_SUPERUSER_ONLY_RES = {
     'detail': 'Sorry, you must be a superuser to perform this action.'
 }
+
 JSON_OBJ_NOT_FOUND_RES = None
 
+JSON_404_NOT_FOUND_RES = {
+    'detail': 'Not found.'
+}
 TEST_SUPERUSER = 'testsuper'
 
 TEST_ADMIN_USER = 'testadmin'
