@@ -62,9 +62,9 @@ SHEET_CONSTANTS = {
 
         # second location, mainly for testing purpose, until there is an actual second school loc
         'ST2': {
-            'dev':  '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U',
-            'test': '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU',
-            'prod': '1lniXCNcKlzKqpVmPjRPiKPOly1prOODzaVM_f-UPWoM'
+            'dev':  '1NMJ7znT04vkEx9GkEh-id5CM51HBlRQGx6cYhaMrTl4',
+            'test': '1UdAFq2p1vhObi0MOSE7k3CV5nnk1iF525VttoDYm0cs',
+            'prod': ''
         }
     },
 

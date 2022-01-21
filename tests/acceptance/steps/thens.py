@@ -235,6 +235,10 @@ def database_will_partially_edit_student(context):
         assert False
 
 
+@then('database will partially edit the ST2 student record')
+def database_will_partially_edit_ST2_student(context):
+    response = context.response.data
+
 @then('database will delete the student record')
 def database_will_delete_student(context):
     context.test().assertEqual(context.response.data, None)

@@ -99,22 +99,22 @@ Feature: Student Management partially EDIT access
     Scenario: superuser requesting to partially edit ST2 sms/studens resource
         Given logged on as superuser
         When request PATCH to ST2 /api/sms/students/student_uuid
-        Then database will partially edit the student record
+        Then database will partially edit the ST2 student record
 
     Scenario: superuser requesting to partially edit ST2 sms/schools resource
         Given logged on as superuser
         When request PATCH to ST2 /api/sms/schools/school_uuid
-        Then database will partially edit the school record
+        Then database will partially edit the ST2 school record
 
     Scenario: superuser requesting to partially edit ST2 sms/programs resource
         Given logged on as superuser
         When request PATCH to ST2 /api/sms/programs/program_uuid
-        Then database will partially edit the program record
+        Then database will partially edit the ST2 program record
 
     Scenario: superuser requesting to partially edit ST2 sms/rotations resource
         Given logged on as superuser
         When request PATCH to ST2 /api/sms/rotations/rotation_uuid
-        Then database will partially edit the rotation record
+        Then database will partially edit the ST2 rotation record
 
     Scenario: admin office user requesting to partially edit ST2 sms/students resource
         Given logged on as admin office user
