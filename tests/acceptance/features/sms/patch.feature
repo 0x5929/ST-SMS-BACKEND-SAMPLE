@@ -96,7 +96,7 @@ Feature: Student Management partially EDIT access
 
 
     @current
-    Scenario: superuser requesting to partially edit ST2 sms/studens resource
+    Scenario: superuser requesting to partially edit ST2 sms/students resource
         Given logged on as superuser
         When request PATCH to ST2 /api/sms/students/student_uuid
         Then database will partially edit the ST2 student record

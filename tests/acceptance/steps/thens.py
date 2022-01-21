@@ -71,7 +71,9 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS,
                        GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS,
                        GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS,
-                       SMS_FILTER_PARAMS_ST2
+                       SMS_FILTER_PARAMS_ST2,
+                       SMS_ST2_STUDENT_SAMPLE_PATCH_DATA,
+                       SMS_ST2_GOOGLE_EDIT_CHECK_DATA
                        )
 
 
@@ -109,8 +111,7 @@ def google_sheet_create(context, student_id):
 
 
 # dependent on what is passed to check, make sure [] lists are passed in
-def google_sheet_check_edit(context, student_id, data_to_check):
-    school_name = SMS_FILTER_PARAMS.get('school_name')
+def google_sheet_check_edit(context, student_id, data_to_check, school_name):
     gs_api = GoogleSheet.init_google_sheet(school_name)
 
     row = gs_api.match(gs_api.worksheets, student_id)
@@ -227,7 +228,7 @@ def database_will_partially_edit_student(context):
     # we need to test google sheet migration, and delete student!
     student_id = response.get('student_id')
     google_sheet_check_edit(context, student_id,
-                            SMS_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'))
+                            SMS_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'), 'STI')
 
     Student = apps.get_model('sms', 'Student')
     if not Student.objects.filter(
@@ -238,6 +239,20 @@ def database_will_partially_edit_student(context):
 @then('database will partially edit the ST2 student record')
 def database_will_partially_edit_ST2_student(context):
     response = context.response.data
+
+    editted_last_name = SMS_ST2_STUDENT_SAMPLE_PATCH_DATA.get('last_name')
+
+    context.test().assertEqual(response.get('last_name'), editted_last_name)
+
+
+    student_id = response.get('student_id')
+    google_sheet_check_edit(context, student_id, SMS_ST2_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'), 'ST2')
+
+    Student = apps.get_model('sms', 'Student')
+    if not Student.objects.filter(
+            last_name__exact=editted_last_name).exists():
+        assert False
+
 
 @then('database will delete the student record')
 def database_will_delete_student(context):

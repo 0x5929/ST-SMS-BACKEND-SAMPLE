@@ -81,6 +81,42 @@ SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
     'rotation': 'fcd1f629-6449-4672-8dc8-4a2183cc70e9'
 }
 
+
+SMS_ST2_STUDENT_SAMPLE_POST_DATA = {
+      'student_id': 'AL-HHA-01-1019-AD',
+      'first_name': 'Alvinia',
+      'last_name': 'Dipmonks',
+      'phone_number': '626-555-3345',
+      'email': 'alvinia@email.com',
+      'mailing_address': '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
+      'course': 'HHA',
+      'start_date': '2021-10-06',
+      'completion_date': '2021-12-11',
+      'date_enrollment_agreement_signed': '2021-10-06',
+      'third_party_payer_info': '',
+      'course_cost_currency': 'USD',
+      'course_cost': '680.00',
+      'total_charges_charged_currency': 'USD',
+      'total_charges_charged': '680.00',
+      'total_charges_paid_currency': 'USD',
+      'total_charges_paid': '680.00',
+      'paid': True,
+      'graduated': True,
+      'passed_first_exam': True,
+      'passed_second_or_third_exam': False,
+      'employed': True,
+      'place_of_employment': '',
+      'employment_address': '',
+      'position': '',
+      'starting_wage_currency': 'USD',
+      'starting_wage': None,
+      'hours_worked_weekly': '',
+      'description_of_attempts_to_contact_student': '',
+      'google_sheet_migrated': False,
+      'google_sheet_migration_issue': '',
+      'rotation': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
+}
+
 SMS_STUDENT_SAMPLE_PUT_DATA = {
     'student_id': 'RO-HHA-01-1006-TB',
     'first_name': 'Test',
@@ -117,8 +153,47 @@ SMS_STUDENT_SAMPLE_PUT_DATA = {
 
 }
 
+SMS_ST2_STUDENT_SAMPLE_PUT_DATA = {
+      'student_id': 'AL-HHA-01-1019-AC',
+      'first_name': 'Alvinia',
+      'last_name': 'Chipmonks',
+      'phone_number': '626-555-3345',
+      'email': 'alvinia@email.com',
+      'mailing_address': '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
+      'course': 'HHA',
+      'start_date': '2021-10-06',
+      'completion_date': '2021-12-11',
+      'date_enrollment_agreement_signed': '2021-10-06',
+      'third_party_payer_info': '',
+      'course_cost_currency': 'USD',
+      'course_cost': '680.00',
+      'total_charges_charged_currency': 'USD',
+      'total_charges_charged': '680.00',
+      'total_charges_paid_currency': 'USD',
+      'total_charges_paid': '680.00',
+      'paid': True,
+      'graduated': True,
+      'passed_first_exam': True,
+      'passed_second_or_third_exam': False,
+      'employed': True,
+      'place_of_employment': '',
+      'employment_address': '',
+      'position': '',
+      'starting_wage_currency': 'USD',
+      'starting_wage': None,
+      'hours_worked_weekly': '',
+      'description_of_attempts_to_contact_student': '',
+      'google_sheet_migrated': False,
+      'google_sheet_migration_issue': '',
+      'rotation': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
+}
+
 SMS_STUDENT_SAMPLE_PATCH_DATA = {
     'last_name': 'D'
+}
+
+SMS_ST2_STUDENT_SAMPLE_PATCH_DATA = {
+    'last_name' : 'Mctest'
 }
 
 SMS_GOOGLE_POST_DATA = [
@@ -167,6 +242,7 @@ SMS_GOOGLE_EDIT_CHECK_DATA = {
         '$680',
         '$680',
         '$600',
+        
     ],
 
     'PATCH_DATA': [
@@ -185,7 +261,52 @@ SMS_GOOGLE_EDIT_CHECK_DATA = {
         '',
         '$680',
         '$680',
-        '$600',
+        '$600'
+    ],
+}
+
+
+SMS_ST2_GOOGLE_EDIT_CHECK_DATA = {
+    'PUT_DATA': [
+
+        'AL-HHA-01-1019-AC',
+        'alvina_chipmonks',
+        'Chipmonks',
+        'Alvina',
+        '626-555-3345',
+        'alvinia@email.com',
+        '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
+        'Home Health Aide',
+        '10/6/21',
+        '12/11/21',
+        '10/6/21',
+        '',
+        '$680',
+        '$680',
+        '$680',
+    ],
+
+    'PATCH_DATA':[
+
+        'AL-HHA-01-1019-TB',
+        'alvin_mctest',
+        'Mctest',
+        'Alvin',
+        '626-333-5545',
+        'alvin@email.com',
+        '1020 S. Fake STI2 HHA Student Ave, TestA, CA 91770',
+        'Home Health Aide',
+        '10/6/21',
+        '12/11/21',
+        '10/6/21',
+        '',
+        '$680',
+        '$680',
+        '$680',
+        'Y',
+        'Y',
+        '',
+        'Y'
     ],
 }
 
@@ -197,6 +318,13 @@ SMS_SCHOOL_SAMPLE_POST_DATA = {
     'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770'
 }
 
+SMS_ST2_SCHOOL_SAMPLE_POST_DATA = {
+    'school_name': 'ST2',
+    'school_code': '27091738',
+    'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770',
+    'year_founded': '2009-03-10'
+}
+
 SMS_SCHOOL_SAMPLE_PUT_DATA = {
     'school_name': 'STI',
     'school_code': '27091743',
@@ -204,22 +332,55 @@ SMS_SCHOOL_SAMPLE_PUT_DATA = {
     'year_founded': '2009-03-05'
 }
 
+SMS_ST2_SCHOOL_SAMPLE_PUT_DATA = {
+    'school_name': 'ST2',
+    'school_code': '27091748',
+    'school_address': '2209 N. San Gabriel Blvd., Suite C, Rosemead, CA 91770',
+    'year_founded': '2009-03-10'
+}
+
 SMS_SCHOOL_SAMPLE_PATCH_DATA = {
     'school_code': '27091744'
 }
+
+SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA = {
+    'school_code': '27091749'
+}
+
 SMS_PROGRAM_SAMPLE_POST_DATA = {
     'school': '0c805318-7706-405e-a66c-5936062617a5',
     'program_name': 'SG',
     'approval_entities': ['BSIS', 'BPPE']
 }
-SMS_PROGRAM_SAMPLE_PUT_DATA = {
+
+
+SMS_ST2_PROGRAM_SAMPLE_POST_DATA = {
+    'school': '6bfad48c-ecc6-44ac-b53f-c94ccd240119',
     'program_name': 'HSFA',
+    'approval_entities': ['CDPH', 'BPPE'],
+}
+
+
+SMS_PROGRAM_SAMPLE_PUT_DATA = {
+    'program_name': 'BLS',
     'approval_entities': ['CDPH', 'BPPE'],
     'school': '0c805318-7706-405e-a66c-5936062617a5'
 }
 
+SMS_ST2_PROGRAM_SAMPLE_PUT_DATA = {
+    'program_name': 'HSFA',
+    'approval_entities': ['CDPH', 'BPPE'],
+    'school': '6bfad48c-ecc6-44ac-b53f-c94ccd240119'
+}
+
+
 SMS_PROGRAM_SAMPLE_PATCH_DATA = {
     'program_name':  'BLS'
+}
+
+
+SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA = {
+    'program_name':  'ESOL'
 }
 
 SMS_ROTATION_SAMPLE_POST_DATA = {
@@ -227,15 +388,28 @@ SMS_ROTATION_SAMPLE_POST_DATA = {
     'rotation_number': 5
 }
 
+SMS_ST2_ROTATION_SAMPLE_POST_DATA = {
+    'program': '37b61d4e-ab68-4f49-ae8c-d742da756fcc',
+    'rotation_number': 50,
+}
+
 SMS_ROTATION_SAMPLE_PUT_DATA = {
     'rotation_number': 6,
     'program': '67301e14-cd3d-493a-a2cf-84d8c490c0ef'
+}
+
+SMS_ST2_ROTATION_SAMPLE_PUT_DATA = {
+    'rotation_number': 60,
+    'program': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
 }
 
 SMS_ROTATION_SAMPLE_PATCH_DATA = {
     'rotation_number': 7
 }
 
+SMS_ST2_ROTATION_SAMPLE_PATCH_DATA = {
+    'rotation_number': 70
+}
 
 JSON_PERMISSION_DENIED_RES = {
     'detail': 'You do not have permission to perform this action.'

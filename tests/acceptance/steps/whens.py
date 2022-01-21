@@ -93,7 +93,8 @@ from constants import (SMS_SCHOOLS_API_URL,
                        SMS_STUDENT_UUID_ST2,
                        SMS_SCHOOL_UUID_ST2,
                        SMS_PROGRAM_UUID_ST2,
-                       SMS_ROTATION_UUID_ST2)
+                       SMS_ROTATION_UUID_ST2,
+                       SMS_ST2_STUDENT_SAMPLE_PATCH_DATA)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -632,7 +633,7 @@ def request_GET_to_smsStudents_by_ST2_school_name(context):
 
 @when('request PATCH to ST2 /api/sms/students/student_uuid')
 def request_PATCH_ST2_students(context):
-    patch_data = SMS_STUDENT_SAMPLE_PATCH_DATA
+    patch_data = SMS_ST2_STUDENT_SAMPLE_PATCH_DATA
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 

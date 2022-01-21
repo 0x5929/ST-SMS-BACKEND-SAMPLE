@@ -157,7 +157,7 @@
       "starting_wage_currency": "USD",
       "starting_wage": null,
       "hours_worked_weekly": "",
-      "description_of_attempts_to_contact_student": "Information provided by ST office contacting students via phone/text/email.",
+      "description_of_attempts_to_contact_student": "",
       "google_sheet_migrated": false,
       "google_sheet_migration_issue": "POST",
       "rotation": "37b61d4e-ab68-4f49-ae8c-d742da756fcc"
