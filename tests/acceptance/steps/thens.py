@@ -24,6 +24,8 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        SMS_ROTATION_SAMPLE_PATCH_DATA,
                        SMS_GOOGLE_POST_DATA,
                        SMS_GOOGLE_EDIT_CHECK_DATA,
+                       SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA,
+                       SMS_ST2_ROTATION_SAMPLE_PATCH_DATA,
                        JSON_SUPERUSER_ONLY_RES,
                        GMS_CNA_ROTATION_POST_SAMPLE_DATA,
                        GMS_CNA_STUDENT_POST_SAMPLE_DATA,
@@ -73,11 +75,14 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS,
                        SMS_FILTER_PARAMS_ST2,
                        SMS_ST2_STUDENT_SAMPLE_PATCH_DATA,
-                       SMS_ST2_GOOGLE_EDIT_CHECK_DATA
+                       SMS_ST2_GOOGLE_EDIT_CHECK_DATA,
+                       JSON_404_NOT_FOUND_RES
                        )
 
 
 from django.apps import apps
+
+from tests.acceptance.steps.constants import SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA
 
 
 # NOTE: BELOW ARE SMS RELATED @THENS
@@ -245,6 +250,11 @@ def database_will_partially_edit_ST2_student(context):
     context.test().assertEqual(response.get('last_name'), editted_last_name)
 
 
+    Student = apps.get_model('sms', 'Student')
+    if not Student.objects.filter(
+            last_name__exact=editted_last_name).exists():
+        assert False
+
     student_id = response.get('student_id')
     google_sheet_check_edit(context, student_id, SMS_ST2_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'), 'ST2')
 
@@ -313,6 +323,18 @@ def database_will_partially_edit_school(context):
             school_code__exact=editted_school_code).exists():
         assert False
 
+@then('database will partially edit the ST2 school record')
+def database_will_partially_edit_ST2_school(context):
+    response = context.response.data
+
+    editted_school_code = SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA.get('school_code')
+
+    context.test().assertEqual(response.get('school_code'), editted_school_code)
+
+    School = apps.get_model('sms', 'School')
+    if not School.objects.filter(
+            school_code__exact=editted_school_code).exists():
+        assert False
 
 @then('database will delete the school record')
 def database_will_delete_school(context):
@@ -371,6 +393,21 @@ def database_will_partially_edit_program(context):
     response = context.response.data
 
     editted_program_name = SMS_PROGRAM_SAMPLE_PATCH_DATA.get('program_name')
+
+    context.test().assertEqual(response.get(
+        'program_name'), editted_program_name)
+
+    Program = apps.get_model('sms', 'Program')
+    if not Program.objects.filter(
+            program_name__exact=editted_program_name).exists():
+        assert False
+
+
+@then('database will partially edit the ST2 program record')
+def database_will_partially_edit_ST2_program(context):
+    response = context.response.data
+
+    editted_program_name = SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA.get('program_name')
 
     context.test().assertEqual(response.get(
         'program_name'), editted_program_name)
@@ -443,6 +480,23 @@ def database_will_partially_edit_rotation(context):
     response = context.response.data
 
     editted_rotation_num = SMS_ROTATION_SAMPLE_PATCH_DATA.get(
+        'rotation_number')
+
+    context.test().assertEqual(response.get(
+        'rotation_number'), editted_rotation_num)
+
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if not Rotation.objects.filter(
+            rotation_number__exact=editted_rotation_num).exists():
+        assert False
+
+
+@then('database will partially edit the ST2 rotation record')
+def database_will_partially_edit_ST2_rotation(context):
+
+    response = context.response.data
+    editted_rotation_num = SMS_ST2_ROTATION_SAMPLE_PATCH_DATA.get(
         'rotation_number')
 
     context.test().assertEqual(response.get(
@@ -557,6 +611,11 @@ def no_specific_ST2_smsStudents_JSON_data_response(context):
             assert False
 
     assert True
+
+
+@then('server will respond with 404')
+def server_responds_with_404_not_found(context):
+    context.test().assertEqual(context.response.data, JSON_404_NOT_FOUND_RES)
 
 
 # NOTE: BELOW ARE GMS RELATED @THENS

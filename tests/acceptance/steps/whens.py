@@ -95,6 +95,7 @@ from constants import (SMS_SCHOOLS_API_URL,
                        SMS_PROGRAM_UUID_ST2,
                        SMS_ROTATION_UUID_ST2,
                        SMS_ST2_STUDENT_SAMPLE_PATCH_DATA)
+from tests.acceptance.steps.constants import SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA, SMS_ST2_ROTATION_SAMPLE_PATCH_DATA, SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -641,7 +642,35 @@ def request_PATCH_ST2_students(context):
         f'{SMS_STUDENTS_API_URL}{SMS_STUDENT_UUID_ST2}/', patch_data, format='json', headers=headers)
 
 
+@when('request PATCH to ST2 /api/sms/schools/school_uuid')
+def request_PATCH_ST2_schools(context):
+    patch_data = SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
 
+    context.response = context.test.client.patch(
+        f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_ST2}/', patch_data, format='json', headers=headers)
+
+
+@when('request PATCH to ST2 /api/sms/programs/program_uuid')
+def request_PATCH_ST2_programs(context):
+    patch_data = SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{SMS_PROGRAMS_API_URL}{SMS_PROGRAM_UUID_ST2}/', patch_data, format='json', headers=headers)
+
+
+
+@when('request PATCH to ST2 /api/sms/rotations/rotation_uuid')
+def request_PATCH_ST2_rotations(context):
+    patch_data = SMS_ST2_ROTATION_SAMPLE_PATCH_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', patch_data, format='json', headers=headers)
 
 # NOTE: BELOW ARE GMS RELATED @WHENS
 
