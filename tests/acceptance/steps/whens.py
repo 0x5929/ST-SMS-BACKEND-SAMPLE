@@ -632,6 +632,43 @@ def request_GET_to_smsStudents_by_ST2_school_name(context):
         f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
 
 
+@when('request GET to ST2 /api/sms/students/student_uuid')
+def request_GET_ST2_student(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_STUDENTS_API_URL}{SMS_STUDENT_UUID_ST2}/', headers=headers)
+
+
+@when('request GET to ST2 /api/sms/schools/school_uuid')
+def request_GET_ST2_school(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_ST2}/', headers=headers)
+
+
+@when('request GET to ST2 /api/sms/programs/program_uuid')
+def request_GET_ST2_program(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_PROGRAMS_API_URL}{SMS_PROGRAM_UUID_ST2}/', headers=headers)
+
+
+@when('request GET to ST2 /api/sms/rotations/rotation_uuid')
+def request_GET_ST2_rotation(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', headers=headers)
+
+
+
 @when('request PATCH to ST2 /api/sms/students/student_uuid')
 def request_PATCH_ST2_students(context):
     patch_data = SMS_ST2_STUDENT_SAMPLE_PATCH_DATA
