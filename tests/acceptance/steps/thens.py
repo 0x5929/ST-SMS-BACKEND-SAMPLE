@@ -76,7 +76,11 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        SMS_FILTER_PARAMS_ST2,
                        SMS_ST2_STUDENT_SAMPLE_PATCH_DATA,
                        SMS_ST2_GOOGLE_EDIT_CHECK_DATA,
-                       JSON_404_NOT_FOUND_RES
+                       JSON_404_NOT_FOUND_RES,
+                       SMS_ST2_STUDENT_SAMPLE_POST_DATA,
+                       SMS_ST2_SCHOOL_SAMPLE_POST_DATA,
+                       SMS_ST2_PROGRAM_SAMPLE_POST_DATA,
+                       SMS_ST2_ROTATION_SAMPLE_POST_DATA
                        )
 
 
@@ -87,8 +91,7 @@ from tests.acceptance.steps.constants import SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA
 
 # NOTE: BELOW ARE SMS RELATED @THENS
 
-def google_sheet_del(context, student_id):
-    school_name = SMS_FILTER_PARAMS.get('school_name')
+def google_sheet_del(context, student_id, school_name):
     gs_api = GoogleSheet.init_google_sheet(school_name)
 
     del_row_num = gs_api.match(gs_api.worksheets, student_id)
@@ -159,7 +162,7 @@ def database_create_student(context):
 
     # we need to test google sheet migration, and delete student!
     # the student's school that we are testing with
-    google_sheet_del(context, response.get('student_id'))
+    google_sheet_del(context, response.get('student_id'), 'ST2')
 
 
 @then('database will create the student record')
@@ -183,8 +186,31 @@ def database_create_student(context):
     # we need to test google sheet migration, and delete student!
 
     # the student's school that we are testing with
-    google_sheet_del(context, response.get('student_id'))
+    google_sheet_del(context, response.get('student_id'), 'STI')
 
+
+@then('database will create the ST2 student record')
+def database_create_ST2_student(context):
+    response = context.response.data
+    posted_student_last_name = SMS_ST2_STUDENT_SAMPLE_POST_DATA.get(
+        'last_name')
+
+    # assert response
+    context.test().assertEqual(response.get('last_name'), posted_student_last_name)
+
+
+    # assert DB
+    Student = apps.get_model('sms', 'Student')
+
+    if not Student.objects.filter(last_name__exact=posted_student_last_name).exists():
+        assert False
+    else:
+        Student.objects.filter(
+            last_name__exact=posted_student_last_name).delete()
+
+    # we need to test google sheet migration, and delete student!
+    # the student's school that we are testing with
+    google_sheet_del(context, response.get('student_id'), 'ST2')
 
 @then('database will not create the student record')
 def database_will_not_create_student(context):
@@ -296,6 +322,24 @@ def database_will_create_school(context):
             school_code__exact=posted_school_code).delete()
 
 
+@then('database will create the ST2 school record')
+def database_will_create_ST2_school(context):
+    response = context.response.data
+
+    posted_school_code = SMS_ST2_SCHOOL_SAMPLE_POST_DATA.get('school_code')
+
+    context.test().assertEqual(response.get('school_code'), posted_school_code)
+
+    School = apps.get_model('sms', 'School')
+
+    if not School.objects.filter(
+            school_code__exact=posted_school_code).exists():
+        assert False
+    else:
+        School.objects.filter(
+            school_code__exact=posted_school_code).delete()
+
+
 @then('database will edit the school record')
 def database_will_edit_school(context):
     response = context.response.data
@@ -362,6 +406,23 @@ def database_will_create_program(context):
     response = context.response.data
 
     posted_program_name = SMS_PROGRAM_SAMPLE_POST_DATA.get('program_name')
+
+    context.test().assertEqual(response.get('program_name'), posted_program_name)
+
+    Program = apps.get_model('sms', 'Program')
+    if not Program.objects.filter(
+            program_name__exact=posted_program_name).exists():
+        assert False
+    else:
+        Program.objects.filter(
+            program_name__exact=posted_program_name).delete()
+
+
+@then('database will create the ST2 program record')
+def database_will_create_ST2_program(context):
+    response = context.response.data
+
+    posted_program_name = SMS_ST2_PROGRAM_SAMPLE_POST_DATA.get('program_name')
 
     context.test().assertEqual(response.get('program_name'), posted_program_name)
 
@@ -458,6 +519,23 @@ def database_will_create_rotation(context):
         Rotation.objects.filter(
             rotation_number__exact=posted_rotation_num).delete()
 
+@then('database will create the ST2 rotation record')
+def database_will_create_ST2_rotation(context):
+    response = context.response.data
+
+    posted_rotation_num = SMS_ST2_ROTATION_SAMPLE_POST_DATA.get('rotation_number')
+
+    context.test().assertEqual(response.get(
+        'rotation_number'), posted_rotation_num)
+
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if not Rotation.objects.filter(
+            rotation_number__exact=posted_rotation_num).exists():
+        assert False
+    else:
+        Rotation.objects.filter(
+            rotation_number__exact=posted_rotation_num).delete()
 
 @then('database will edit the rotation record')
 def database_will_edit_rotation(context):

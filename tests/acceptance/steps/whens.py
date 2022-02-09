@@ -94,8 +94,14 @@ from constants import (SMS_SCHOOLS_API_URL,
                        SMS_SCHOOL_UUID_ST2,
                        SMS_PROGRAM_UUID_ST2,
                        SMS_ROTATION_UUID_ST2,
-                       SMS_ST2_STUDENT_SAMPLE_PATCH_DATA)
-from tests.acceptance.steps.constants import SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA, SMS_ST2_ROTATION_SAMPLE_PATCH_DATA, SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA
+                       SMS_ST2_STUDENT_SAMPLE_PATCH_DATA,
+                       SMS_ST2_STUDENT_SAMPLE_POST_DATA,
+                       SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA,
+                       SMS_ST2_ROTATION_SAMPLE_PATCH_DATA,
+                       SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA,
+                       SMS_ST2_SCHOOL_SAMPLE_POST_DATA,
+                       SMS_ST2_PROGRAM_SAMPLE_POST_DATA,
+                       SMS_ST2_ROTATION_SAMPLE_POST_DATA)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -188,6 +194,46 @@ def request_POST_to_schools(context):
 
     context.response = context.test.client.post(
         f'{SMS_SCHOOLS_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request POST to ST2 /api/sms/students/')
+def request_POST_to_ST2_students(context):
+    post_data = SMS_ST2_STUDENT_SAMPLE_POST_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{SMS_STUDENTS_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request POST to ST2 /api/sms/schools/')
+def request_POST_to_ST2_schools(context):
+    post_data = SMS_ST2_SCHOOL_SAMPLE_POST_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{SMS_SCHOOLS_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request POST to ST2 /api/sms/programs/')
+def request_POST_to_ST2_programs(context):
+    post_data = SMS_ST2_PROGRAM_SAMPLE_POST_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{SMS_PROGRAMS_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request POST to ST2 /api/sms/rotations/')
+def request_POST_to_ST2_rotations(context):
+    post_data = SMS_ST2_ROTATION_SAMPLE_POST_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{SMS_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
 
 
 @when('request PUT to /api/sms/schools/school_uuid')

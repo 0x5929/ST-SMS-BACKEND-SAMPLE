@@ -389,8 +389,8 @@ SMS_ROTATION_SAMPLE_POST_DATA = {
 }
 
 SMS_ST2_ROTATION_SAMPLE_POST_DATA = {
-    'program': '37b61d4e-ab68-4f49-ae8c-d742da756fcc',
-    'rotation_number': 50,
+    'program': 'd682ebed-72a4-499f-9bd5-4ce777c492cd',
+    'rotation_number': 50
 }
 
 SMS_ROTATION_SAMPLE_PUT_DATA = {
@@ -400,7 +400,7 @@ SMS_ROTATION_SAMPLE_PUT_DATA = {
 
 SMS_ST2_ROTATION_SAMPLE_PUT_DATA = {
     'rotation_number': 60,
-    'program': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
+    'program': 'd682ebed-72a4-499f-9bd5-4ce777c492cd'
 }
 
 SMS_ROTATION_SAMPLE_PATCH_DATA = {

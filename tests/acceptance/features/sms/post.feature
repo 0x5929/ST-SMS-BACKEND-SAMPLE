@@ -110,3 +110,110 @@ Feature: Student Management CREATE access
         Given logged on as regular office User
         When request POST to /api/sms/rotations
         Then database will not create the rotation record
+
+
+
+
+
+
+
+
+
+    @current
+    Scenario: superuser requesting to create ST2 sms/students resource
+        Given logged on as superuser
+        When request POST to ST2 /api/sms/students/
+        Then database will create the ST2 student record
+
+
+    @current
+    Scenario: superuser requesting to create ST2 sms/schools resource
+        Given logged on as superuser
+        When request POST to ST2 /api/sms/schools/
+        Then database will create the ST2 school record
+
+    @current
+    Scenario: superuser requesting to create ST2 sms/programs resource
+        Given logged on as superuser
+        When request POST to ST2 /api/sms/programs/
+        Then database will create the ST2 program record
+
+    @current
+    Scenario: superuser requesting to create ST2 sms/rotations resource
+        Given logged on as superuser
+        When request POST to ST2 /api/sms/rotations/
+        Then database will create the ST2 rotation record
+
+    # @current
+    # Scenario: admin office user requesting to read ST2 sms/students resource
+    #     Given logged on as admin office user
+    #     When request GET to ST2 /api/sms/students/student_uuid
+    #     Then server will respond with 404
+   
+   
+    # @current
+    # Scenario: admin office user requesting to read ST2 sms/schools resource
+    #     Given logged on as admin office User
+    #     When request GET to ST2 /api/sms/schools/school_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: admin office user requesting to read ST2 sms/programs resource
+    #     Given logged on as admin office User
+    #     When request GET to ST2 /api/sms/programs/program_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: admin office user requesting to read sms/rotations resource
+    #     Given logged on as admin office User
+    #     When request GET to ST2 /api/sms/rotations/rotation_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: staff office user requesting to read ST2 sms/students resource
+    #     Given logged on as staff office user
+    #     When request GET to ST2 /api/sms/students/student_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: staff office user requesting to read ST2 sms/schools resource
+    #     Given logged on as staff office User
+    #     When request GET to ST2 /api/sms/schools/school_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: staff office user requesting to read ST2 sms/programs resource
+    #     Given logged on as staff office User
+    #     When request GET to ST2 /api/sms/programs/program_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: staff office user requesting to read ST2 sms/rotations resource
+    #     Given logged on as staff office User
+    #     When request GET to ST2 /api/sms/rotations/rotation_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: regular office user requesting to read ST2 sms/students resource
+    #     Given logged on as regular office user
+    #     When request GET to ST2 /api/sms/students/student_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: regular office user requesting to read ST2 sms/schools resource
+    #     Given logged on as regular office User
+    #     When request GET to ST2 /api/sms/schools/school_uuid
+    #     Then server will respond with 404
+
+    # @current
+    # Scenario: regular office user requesting to read ST2 sms/programs resource
+    #     Given logged on as regular office User
+    #     When request GET to ST2 /api/sms/programs/program_uuid
+    #     Then server will respond with 404
+
+
+    # @current
+    # Scenario: regular office user requesting to read ST2 sms/rotations resource
+    #     Given logged on as regular office User
+    #     When request GET to ST2 /api/sms/rotations/rotation_uuid
+    #     Then server will respond with 404
