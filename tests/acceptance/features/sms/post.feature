@@ -144,76 +144,77 @@ Feature: Student Management CREATE access
         When request POST to ST2 /api/sms/rotations/
         Then database will create the ST2 rotation record
 
-    # @current
-    # Scenario: admin office user requesting to read ST2 sms/students resource
-    #     Given logged on as admin office user
-    #     When request GET to ST2 /api/sms/students/student_uuid
-    #     Then server will respond with 404
+    @current
+    Scenario: admin office user requesting to create ST2 sms/students resource
+        Given logged on as admin office user
+        When request POST to ST2 /api/sms/students/
+        Then server will respond with 400 bad request due to cross school student additions
    
    
-    # @current
-    # Scenario: admin office user requesting to read ST2 sms/schools resource
-    #     Given logged on as admin office User
-    #     When request GET to ST2 /api/sms/schools/school_uuid
-    #     Then server will respond with 404
+    @current
+    Scenario: admin office user requesting to create ST2 sms/schools resource
+        Given logged on as admin office User
+        When request POST to ST2 /api/sms/schools/
+        Then will be permission denied
 
-    # @current
-    # Scenario: admin office user requesting to read ST2 sms/programs resource
-    #     Given logged on as admin office User
-    #     When request GET to ST2 /api/sms/programs/program_uuid
-    #     Then server will respond with 404
+    @current
+    Scenario: admin office user requesting to create ST2 sms/programs resource
+        Given logged on as admin office User
+        When request POST to ST2 /api/sms/programs/
+        Then server will respond with 400 bad request due to cross school student additions
 
-    # @current
-    # Scenario: admin office user requesting to read sms/rotations resource
-    #     Given logged on as admin office User
-    #     When request GET to ST2 /api/sms/rotations/rotation_uuid
-    #     Then server will respond with 404
-
-    # @current
-    # Scenario: staff office user requesting to read ST2 sms/students resource
-    #     Given logged on as staff office user
-    #     When request GET to ST2 /api/sms/students/student_uuid
-    #     Then server will respond with 404
-
-    # @current
-    # Scenario: staff office user requesting to read ST2 sms/schools resource
-    #     Given logged on as staff office User
-    #     When request GET to ST2 /api/sms/schools/school_uuid
-    #     Then server will respond with 404
-
-    # @current
-    # Scenario: staff office user requesting to read ST2 sms/programs resource
-    #     Given logged on as staff office User
-    #     When request GET to ST2 /api/sms/programs/program_uuid
-    #     Then server will respond with 404
-
-    # @current
-    # Scenario: staff office user requesting to read ST2 sms/rotations resource
-    #     Given logged on as staff office User
-    #     When request GET to ST2 /api/sms/rotations/rotation_uuid
-    #     Then server will respond with 404
-
-    # @current
-    # Scenario: regular office user requesting to read ST2 sms/students resource
-    #     Given logged on as regular office user
-    #     When request GET to ST2 /api/sms/students/student_uuid
-    #     Then server will respond with 404
-
-    # @current
-    # Scenario: regular office user requesting to read ST2 sms/schools resource
-    #     Given logged on as regular office User
-    #     When request GET to ST2 /api/sms/schools/school_uuid
-    #     Then server will respond with 404
-
-    # @current
-    # Scenario: regular office user requesting to read ST2 sms/programs resource
-    #     Given logged on as regular office User
-    #     When request GET to ST2 /api/sms/programs/program_uuid
-    #     Then server will respond with 404
+    @current
+    Scenario: admin office user requesting to create sms/rotations resource
+        Given logged on as admin office User
+        When request POST to ST2 /api/sms/rotations/
+        Then server will respond with 400 bad request due to cross school student additions
 
 
-    # @current
-    # Scenario: regular office user requesting to read ST2 sms/rotations resource
-    #     Given logged on as regular office User
-    #     When request GET to ST2 /api/sms/rotations/rotation_uuid
-    #     Then server will respond with 404
+    @current
+    Scenario: staff office user requesting to create ST2 sms/students resource
+        Given logged on as staff office user
+        When request POST to ST2 /api/sms/students/
+        Then server will respond with 400 bad request due to cross school student additions
+
+    @current
+    Scenario: staff office user requesting to create ST2 sms/schools resource
+        Given logged on as staff office User
+        When request POST to ST2 /api/sms/schools/
+        Then will be permission denied
+
+    @current
+    Scenario: staff office user requesting to create ST2 sms/programs resource
+        Given logged on as staff office User
+        When request POST to ST2 /api/sms/programs/
+        Then will be permission denied
+
+    @current
+    Scenario: staff office user requesting to create ST2 sms/rotations resource
+        Given logged on as staff office User
+        When request POST to ST2 /api/sms/rotations/
+        Then server will respond with 400 bad request due to cross school student additions
+
+    @current
+    Scenario: regular office user requesting to create ST2 sms/students resource
+        Given logged on as regular office user
+        When request POST to ST2 /api/sms/students/
+        Then server will respond with 400 bad request due to cross school student additions
+
+    @current
+    Scenario: regular office user requesting to create ST2 sms/schools resource
+        Given logged on as regular office User
+        When request POST to ST2 /api/sms/schools/
+        Then will be permission denied
+
+    @current
+    Scenario: regular office user requesting to create ST2 sms/programs resource
+        Given logged on as regular office User
+        When request POST to ST2 /api/sms/programs/
+        Then will be permission denied
+
+
+    @current
+    Scenario: regular office user requesting to create ST2 sms/rotations resource
+        Given logged on as regular office User
+        When request POST to ST2 /api/sms/rotations/
+        Then will be permission denied

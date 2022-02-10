@@ -424,6 +424,10 @@ JSON_OBJ_NOT_FOUND_RES = None
 JSON_404_NOT_FOUND_RES = {
     'detail': 'Not found.'
 }
+
+JSON_400_CROSS_SCHOOL_ADD_ERR = {
+    'non_field_errors' : ["You are adding a student record for the wrong school's program rotation, please add to your own school's program rotation"]
+}
 TEST_SUPERUSER = 'testsuper'
 
 TEST_ADMIN_USER = 'testadmin'

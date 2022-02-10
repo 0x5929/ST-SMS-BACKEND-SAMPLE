@@ -80,7 +80,8 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        SMS_ST2_STUDENT_SAMPLE_POST_DATA,
                        SMS_ST2_SCHOOL_SAMPLE_POST_DATA,
                        SMS_ST2_PROGRAM_SAMPLE_POST_DATA,
-                       SMS_ST2_ROTATION_SAMPLE_POST_DATA
+                       SMS_ST2_ROTATION_SAMPLE_POST_DATA,
+                       JSON_400_CROSS_SCHOOL_ADD_ERR
                        )
 
 
@@ -695,6 +696,10 @@ def no_specific_ST2_smsStudents_JSON_data_response(context):
 def server_responds_with_404_not_found(context):
     context.test().assertEqual(context.response.data, JSON_404_NOT_FOUND_RES)
 
+
+@then('server will respond with 400 bad request due to cross school student additions')
+def server_responds_with_400_cross_school_additions(context):
+    context.test().assertEqual(context.response.data, JSON_400_CROSS_SCHOOL_ADD_ERR)
 
 # NOTE: BELOW ARE GMS RELATED @THENS
 
