@@ -81,13 +81,18 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        SMS_ST2_SCHOOL_SAMPLE_POST_DATA,
                        SMS_ST2_PROGRAM_SAMPLE_POST_DATA,
                        SMS_ST2_ROTATION_SAMPLE_POST_DATA,
-                       JSON_400_CROSS_SCHOOL_ADD_ERR
+                       JSON_400_CROSS_SCHOOL_ADD_ERR,
+                       SMS_ST2_SCHOOL_SAMPLE_PUT_DATA,
+                       SMS_ST2_PROGRAM_SAMPLE_PUT_DATA,
+                       SMS_ST2_ROTATION_SAMPLE_PUT_DATA,
+                       SMS_ST2_STUDENT_SAMPLE_PUT_DATA,
+                       SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA,
+                       SMS_ST2_GOOGLE_POST_DATA
                        )
 
 
 from django.apps import apps
 
-from tests.acceptance.steps.constants import SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA
 
 
 # NOTE: BELOW ARE SMS RELATED @THENS
@@ -106,12 +111,11 @@ def google_sheet_del(context, student_id, school_name):
     context.test().assertIsNone(del_row_num)
 
 
-def google_sheet_create(context, student_id):
-    school_name = SMS_FILTER_PARAMS.get('school_name')
+def google_sheet_create(context, student_id, school_name, post_data):
 
     gs_api = GoogleSheet.init_google_sheet(school_name)
 
-    gs_api.create(gs_api.worksheets, SMS_GOOGLE_POST_DATA)
+    gs_api.create(gs_api.worksheets, post_data)
     gs_api.refresh(gs_api.spreadsheet)
 
     # assert that we have created!
@@ -130,6 +134,7 @@ def google_sheet_check_edit(context, student_id, data_to_check, school_name):
     database_worksheet = gs_api.worksheets.get('db_worksheet')
 
     values = database_worksheet.get(range_)
+
     context.test().assertEqual(values, [data_to_check])
 
 
@@ -241,7 +246,7 @@ def database_will_edit_student(context):
     student_id = response.get('student_id')
 
     google_sheet_check_edit(context, student_id,
-                            SMS_GOOGLE_EDIT_CHECK_DATA.get('PUT_DATA'))
+                            SMS_GOOGLE_EDIT_CHECK_DATA.get('PUT_DATA'), 'STI')
 
     Student = apps.get_model('sms', 'Student')
     if not Student.objects.filter(
@@ -302,7 +307,21 @@ def database_will_delete_student(context):
     student_id = SMS_GOOGLE_POST_DATA[STUDENT_RECORD_HEADERS.index(
         'student_id')]
 
-    google_sheet_create(context, student_id)
+    google_sheet_create(context, student_id, 'STI', SMS_GOOGLE_POST_DATA)
+
+
+@then('database will delete the ST2 student record')
+def database_will_delete_ST2_student(context):
+    context.test().assertEqual(context.response.data, None)
+
+    Student = apps.get_model('sms', 'Student')
+    if Student.objects.filter(student_uuid__exact=context.uuid).exists():
+        assert False
+
+    student_id = SMS_ST2_GOOGLE_POST_DATA[STUDENT_RECORD_HEADERS.index(
+        'student_id')]
+
+    google_sheet_create(context, student_id, 'ST2', SMS_ST2_GOOGLE_POST_DATA)
 
 
 @then('database will create the school record')
@@ -354,6 +373,70 @@ def database_will_edit_school(context):
             school_code__exact=editted_school_code).exists():
         assert False
 
+@then('database will edit the ST2 school record')
+def database_will_edit_ST2_school(context):
+    response = context.response.data
+
+    editted_school_code = SMS_ST2_SCHOOL_SAMPLE_PUT_DATA.get('school_code')
+
+    context.test().assertEqual(response.get('school_code'), editted_school_code)
+
+    School = apps.get_model('sms', 'School')
+    if not School.objects.filter(
+            school_code__exact=editted_school_code).exists():
+        assert False
+
+@then('database will edit the ST2 program record')
+def database_will_edit_ST2_program(context):
+    response = context.response.data
+    editted_program_name = SMS_ST2_PROGRAM_SAMPLE_PUT_DATA.get('program_name')
+
+    context.test().assertEqual(response.get('program_name'), editted_program_name)
+
+    Program = apps.get_model('sms', 'Program')
+    if not Program.objects.filter(
+            program_name__exact=editted_program_name).exists():
+        assert False
+
+
+
+
+@then('database will edit the ST2 rotation record')
+def database_will_edit_ST2_rotation(context):
+    response = context.response.data
+
+    editted_rotation_num = SMS_ST2_ROTATION_SAMPLE_PUT_DATA.get('rotation_number')
+
+    context.test().assertEqual(response.get(
+        'rotation_number'), editted_rotation_num)
+
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if not Rotation.objects.filter(
+            rotation_number__exact=editted_rotation_num).exists():
+        assert False
+
+
+
+@then('database will edit the ST2 student record')
+def database_will_edit_ST2_student(context):
+    response = context.response.data
+
+    editted_last_name = SMS_ST2_STUDENT_SAMPLE_PUT_DATA.get('last_name')
+
+    context.test().assertEqual(response.get('last_name'), editted_last_name)
+
+    # we need to test google sheet migration, and delete student!
+    student_id = response.get('student_id')
+
+    google_sheet_check_edit(context, student_id,
+                            SMS_ST2_GOOGLE_EDIT_CHECK_DATA.get('PUT_DATA'), 'ST2')
+
+    Student = apps.get_model('sms', 'Student')
+    if not Student.objects.filter(
+            last_name__exact=editted_last_name).exists():
+        assert False
+
 
 @then('database will partially edit the school record')
 def database_will_partially_edit_school(context):
@@ -388,6 +471,16 @@ def database_will_delete_school(context):
     School = apps.get_model('sms', 'School')
     if School.objects.filter(pk__exact=context.uuid).exists():
         assert False
+
+
+@then('database will delete the ST2 school record')
+def database_will_delete_ST2_school(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    School = apps.get_model('sms', 'School')
+    if School.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
 
 
 @then('database will not create the school record')
@@ -489,6 +582,14 @@ def database_will_delete_program(context):
             program_uuid__exact=context.uuid).exists():
         assert False
 
+@then('database will delete the ST2 program record')
+def database_will_delete_ST2_program(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Program = apps.get_model('sms', 'Program')
+    if Program.objects.filter(
+            program_uuid__exact=context.uuid).exists():
+        assert False
 
 @then('database will not create the program record')
 def database_will_not_create_program(context):
@@ -590,6 +691,17 @@ def database_will_partially_edit_ST2_rotation(context):
 
 @then('database will delete the rotation record')
 def database_will_delete_rotation(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Rotation = apps.get_model('sms', 'Rotation')
+
+    if Rotation.objects.filter(
+            rotation_uuid__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the ST2 rotation record')
+def database_will_delete_ST2_rotation(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
 
     Rotation = apps.get_model('sms', 'Rotation')

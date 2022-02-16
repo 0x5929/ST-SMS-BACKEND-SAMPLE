@@ -101,7 +101,11 @@ from constants import (SMS_SCHOOLS_API_URL,
                        SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA,
                        SMS_ST2_SCHOOL_SAMPLE_POST_DATA,
                        SMS_ST2_PROGRAM_SAMPLE_POST_DATA,
-                       SMS_ST2_ROTATION_SAMPLE_POST_DATA)
+                       SMS_ST2_ROTATION_SAMPLE_POST_DATA,
+                       SMS_ST2_SCHOOL_SAMPLE_PUT_DATA,
+                       SMS_ST2_PROGRAM_SAMPLE_PUT_DATA,
+                       SMS_ST2_ROTATION_SAMPLE_PUT_DATA,
+                       SMS_ST2_STUDENT_SAMPLE_PUT_DATA)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -247,6 +251,50 @@ def request_PUT_to_school(context):
         f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_TO_TEST}/', put_data, format='json', headers=headers)
 
 
+@when('request PUT to ST2 /api/sms/schools/school_uuid')
+def request_PUT_to_ST2_school(context):
+    put_data = SMS_ST2_SCHOOL_SAMPLE_PUT_DATA
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.put(
+        f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_ST2}/', put_data, format='json', headers=headers)
+
+@when('request PUT to ST2 /api/sms/programs/program_uuid')
+def request_PUT_to_ST2_program(context):
+    put_data = SMS_ST2_PROGRAM_SAMPLE_PUT_DATA
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.put(
+        f'{SMS_PROGRAMS_API_URL}{SMS_PROGRAM_UUID_ST2}/', put_data, format='json', headers=headers)
+
+
+
+@when('request PUT to ST2 /api/sms/rotations/rotation_uuid')
+def request_PUT_to_ST2_rotation(context):
+    put_data = SMS_ST2_ROTATION_SAMPLE_PUT_DATA
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.put(
+        f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', put_data, format='json', headers=headers)
+
+
+
+@when('request PUT to ST2 /api/sms/students/student_uuid')
+def request_PUT_to_ST2_student(context):
+    put_data = SMS_ST2_STUDENT_SAMPLE_PUT_DATA
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.put(
+        f'{SMS_STUDENTS_API_URL}{SMS_STUDENT_UUID_ST2}/', put_data, format='json', headers=headers)
+
 @when('request PATCH to /api/sms/schools/school_uuid')
 def request_PATCH_to_school(context):
     patch_data = SMS_SCHOOL_SAMPLE_PATCH_DATA
@@ -265,6 +313,45 @@ def request_DEL_to_school(context):
     context.uuid = SMS_SCHOOL_UUID_TO_TEST
     context.response = context.test.client.delete(
         f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_TO_TEST}/', headers=headers)
+
+
+@when('request DELETE to ST2 /api/sms/students/student_uuid')
+def request_DEL_to_ST2_student(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = SMS_STUDENT_UUID_ST2
+    context.response = context.test.client.delete(
+        f'{SMS_STUDENTS_API_URL}{SMS_STUDENT_UUID_ST2}/', headers=headers)
+  
+@when('request DELETE to ST2 /api/sms/schools/school_uuid')
+def request_DEL_to_ST2_school(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = SMS_SCHOOL_UUID_ST2
+    context.response = context.test.client.delete(
+        f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_ST2}/', headers=headers)
+
+@when('request DELETE to ST2 /api/sms/programs/program_uuid')
+def request_DEL_to_ST2_program(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = SMS_PROGRAM_UUID_ST2
+    context.response = context.test.client.delete(
+        f'{SMS_PROGRAMS_API_URL}{SMS_PROGRAM_UUID_ST2}/', headers=headers)
+
+
+@when('request DELETE to ST2 /api/sms/rotations/rotation_uuid')
+def request_DEL_to_ST2_rotation(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = SMS_ROTATION_UUID_ST2
+    context.response = context.test.client.delete(
+        f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', headers=headers)
+
 
 
 @when('request POST to /api/sms/programs')

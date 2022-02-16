@@ -96,3 +96,106 @@ Feature: Student Management DELETE access
         Given logged on as regular office User
         When request DELETE to /api/sms/rotations/rotation_uuid
         Then will be permission denied
+
+
+
+
+    @current
+    Scenario: superuser requesting to delete ST2 sms/students resource
+        Given logged on as superuser
+        When request DELETE to ST2 /api/sms/students/student_uuid
+        Then database will delete the ST2 student record
+
+
+    @current
+    Scenario: superuser requesting to delete ST2 sms/schools resource
+        Given logged on as superuser
+        When request DELETE to ST2 /api/sms/schools/school_uuid
+        Then database will delete the ST2 school record
+
+    @current
+    Scenario: superuser requesting to delete ST2 sms/programs resource
+        Given logged on as superuser
+        When request DELETE to ST2 /api/sms/programs/program_uuid
+        Then database will delete the ST2 program record
+
+    @current
+    Scenario: superuser requesting to delete ST2 sms/rotations resource
+        Given logged on as superuser
+        When request DELETE to ST2 /api/sms/rotations/rotation_uuid
+        Then database will delete the ST2 rotation record
+
+    @current
+    Scenario: admin office user requesting to delete ST2 sms/students resource
+        Given logged on as admin office user
+        When request DELETE to ST2 /api/sms/students/student_uuid
+        Then server will respond with 404
+
+   
+    @current
+    Scenario: admin office user requesting to delete ST2 sms/schools resource
+        Given logged on as admin office User
+        When request DELETE to ST2 /api/sms/schools/school_uuid
+        Then will be permission denied
+
+    @current
+    Scenario: admin office user requesting to delete ST2 sms/programs resource
+        Given logged on as admin office User
+        When request DELETE to ST2 /api/sms/programs/program_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin office user requesting to delete sms/rotations resource
+        Given logged on as admin office User
+        When request DELETE to ST2 /api/sms/rotations/rotation_uuid
+        Then server will respond with 404
+
+
+    @current
+    Scenario: staff office user requesting to delete ST2 sms/students resource
+        Given logged on as staff office user
+        When request DELETE to ST2 /api/sms/students/student_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff office user requesting to delete ST2 sms/schools resource
+        Given logged on as staff office User
+        When request DELETE to ST2 /api/sms/schools/school_uuid
+        Then will be permission denied
+
+    @current
+    Scenario: staff office user requesting to delete ST2 sms/programs resource
+        Given logged on as staff office User
+        When request DELETE to ST2 /api/sms/programs/program_uuid
+        Then will be permission denied
+
+    @current
+    Scenario: staff office user requesting to delete ST2 sms/rotations resource
+        Given logged on as staff office User
+        When request DELETE to ST2 /api/sms/rotations/rotation_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: regular office user requesting to delete ST2 sms/students resource
+        Given logged on as regular office user
+        When request DELETE to ST2 /api/sms/students/student_uuid
+        Then will be permission denied
+
+    @current
+    Scenario: regular office user requesting to delete ST2 sms/schools resource
+        Given logged on as regular office User
+        When request DELETE to ST2 /api/sms/schools/school_uuid
+        Then will be permission denied
+
+    @current
+    Scenario: regular office user requesting to delete ST2 sms/programs resource
+        Given logged on as regular office User
+        When request DELETE to ST2 /api/sms/programs/program_uuid
+        Then will be permission denied
+
+
+    @current
+    Scenario: regular office user requesting to delete ST2 sms/rotations resource
+        Given logged on as regular office User
+        When request DELETE to ST2 /api/sms/rotations/rotation_uuid
+        Then will be permission denied

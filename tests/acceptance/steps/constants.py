@@ -224,6 +224,35 @@ SMS_GOOGLE_POST_DATA = [
     '',
 ]
 
+SMS_ST2_GOOGLE_POST_DATA = [
+    'AL-HHA-01-1019-TB',
+    'alvin_mctest',
+    'Chipmonk',
+    'Alvin',
+    '626-333-5545',
+    'alvin@email.com',
+    '1020 S. Fake STI2 HHA Student Ave, TestA, CA 91770',
+    'Home Health Aide',
+    '10/6/21',
+    '12/11/21',
+    '10/6/21',
+    '',
+    '$680',
+    '$680',
+    '$680',
+    'Y',
+    'Y',
+    '',
+    'Y',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Information provided by ST office contacting students via phone/text/email.'
+]
+
+
 SMS_GOOGLE_EDIT_CHECK_DATA = {
     'PUT_DATA': [
 
@@ -270,9 +299,9 @@ SMS_ST2_GOOGLE_EDIT_CHECK_DATA = {
     'PUT_DATA': [
 
         'AL-HHA-01-1019-AC',
-        'alvina_chipmonks',
+        'alvinia_chipmonks',
         'Chipmonks',
-        'Alvina',
+        'Alvinia',
         '626-555-3345',
         'alvinia@email.com',
         '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
@@ -284,6 +313,10 @@ SMS_ST2_GOOGLE_EDIT_CHECK_DATA = {
         '$680',
         '$680',
         '$680',
+        'Y',
+        'Y',
+        '',
+        'Y'
     ],
 
     'PATCH_DATA':[
