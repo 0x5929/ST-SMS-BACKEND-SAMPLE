@@ -275,49 +275,49 @@ Feature: Grading management DELETE access
 
 
 
-    @current
+    
     Scenario: second cna instructor user requesting to delete cnaRotations resources
         Given logged on as second cna instructor user
         When request DELETE to /api/gms/cnaRotations
         Then server will respond with 404
 
-    @current
+    
     Scenario: second cna instructor user requesting to delete cnaStudents resources
         Given logged on as second cna instructor user
         When request DELETE to /api/gms/cnaStudents
         Then server will respond with 404
 
-    @current
+    
     Scenario: second cna instructor user requesting to delete cnaTheoryRecords resources
         Given logged on as second cna instructor user
         When request DELETE to /api/gms/cnaTheoryRecords
         Then server will respond with 404
 
-    @current
+    
     Scenario: second cna instructor user requesting to delete cnaClinicalRecords resources
         Given logged on as second cna instructor user
         When request DELETE to /api/gms/cnaClinicalRecords
         Then server will respond with 404
 
-    @current
+    
     Scenario: second hha instructor user requesting to delete hhaRotations resources
         Given logged on as second hha instructor user
         When request DELETE to /api/gms/hhaRotationS
         Then server will respond with 404
 
-    @current
+    
     Scenario: second hha instructor user requesting to delete hhaStudents resources
         Given logged on as second hha instructor user
         When request DELETE to /api/gms/hhaStudents
         Then server will respond with 404
 
-    @current
+    
     Scenario: second hha instructor user requesting to delete hhaTheoryRecords resources
         Given logged on as second hha instructor user
         When request DELETE to /api/gms/hhaTheoryRecords
         Then server will respond with 404
 
-    @current
+    
     Scenario: second hha instructor user requesting to delete hhaClinicalRecords resources
         Given logged on as second hha instructor user
         When request DELETE to /api/gms/hhaClinicalRecords

@@ -146,7 +146,9 @@ def receive_JSON_data(context):
 
     context.test().assertJSONNotEqual(
         json.dumps(str(response)), json.dumps(no_json_res))
-
+    
+    context.test().assertNotEqual(context.response.data, JSON_404_NOT_FOUND_RES)
+    context.test().assertNotEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
 
 @then('database will create the student record of another school')
 def database_create_student(context):
