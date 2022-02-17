@@ -853,6 +853,72 @@ def request_GET_to_cnaRotations(context):
         f'{GMS_CNA_ROTATIONS_API_URL}', headers=headers)
 
 
+@when('request GET to /api/gms/cnaRotations/cnaRotation_uuid')
+def request_GET_to_cnaRotation_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{GMS_CNA_ROTATION_UUID_TO_TEST}/', headers=headers)
+
+
+@when('request GET to /api/gms/cnaStudents/cnaStudent_uuid')
+def request_GET_to_cnaStudent_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{GMS_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)
+  
+
+@when('request GET to /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid')
+def request_GET_to_cnaTheoryRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
+      
+
+@when('request GET to /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid')
+def request_GET_to_cnaClinicalRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)   
+
+
+@when('request GET to /api/gms/hhaRotations/hhaRotation_uuid')
+def request_GET_to_hhaRotation_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)   
+
+
+
+@when('request GET to /api/gms/hhaStudents/hhaStudent_uuid')
+def request_GET_to_hhaStudent_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)   
+
+
+@when('request GET to /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid')
+def request_GET_to_hhaTheoryRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)  
+
+
+
+@when('request GET to /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid')
+def request_GET_to_hhaClinicalRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
+
+
 @when('request GET to /api/gms/cnaStudents')
 def request_GET_cnaStudents(context):
     headers = {'csrftoken': context.csrf_token,

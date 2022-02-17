@@ -270,3 +270,56 @@ Feature: Grading management fully EDIT access
         Given logged on as cna instructor user
         When request PUT to /api/gms/hhaClinicalRecords
         Then will be permission denied
+
+
+
+
+
+
+
+    Scenario: second cna instructor user requesting to fully update cnaRotations resources
+        Given logged on as second cna instructor user
+        When request PUT to /api/gms/cnaRotations
+        Then server will respond with 404
+
+    
+    Scenario: second cna instructor user requesting to fully update cnaStudents resources
+        Given logged on as second cna instructor user
+        When request PUT to /api/gms/cnaStudents
+        Then server will respond with 404
+
+    
+    Scenario: second cna instructor user requesting to fully update cnaTheoryRecords resources
+        Given logged on as second cna instructor user
+        When request PUT to /api/gms/cnaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: second cna instructor user requesting to fully update cnaClinicalRecords resources
+        Given logged on as second cna instructor user
+        When request PUT to /api/gms/cnaClinicalRecords
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to fully update hhaRotations resources
+        Given logged on as second hha instructor user
+        When request PUT to /api/gms/hhaRotationS
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to fully update hhaStudents resources
+        Given logged on as second hha instructor user
+        When request PUT to /api/gms/hhaStudents
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to fully update hhaTheoryRecords resources
+        Given logged on as second hha instructor user
+        When request PUT to /api/gms/hhaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to fully update hhaClinicalRecords resources
+        Given logged on as second hha instructor user
+        When request PUT to /api/gms/hhaClinicalRecords
+        Then server will respond with 404

@@ -268,13 +268,51 @@ Feature: Grading Management READ access
 
 
 
+    
+    Scenario: second cna instructor user requesting to read cnaRotations resources
+        Given logged on as second cna instructor user
+        When request GET to /api/gms/cnaRotations/cnaRotation_uuid
+        Then server will respond with 404
 
+    
+    Scenario: second cna instructor user requesting to read cnaStudents resources
+        Given logged on as second cna instructor user
+        When request GET to /api/gms/cnaStudents/cnaStudent_uuid
+        Then server will respond with 404
 
+    
+    Scenario: second cna instructor user requesting to read cnaTheoryRecords resources
+        Given logged on as second cna instructor user
+        When request GET to /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
+        Then server will respond with 404
 
+    
+    Scenario: second cna instructor user requesting to read cnaClinicalRecords resources
+        Given logged on as second cna instructor user
+        When request GET to /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
+        Then server will respond with 404
 
+    
+    Scenario: second hha instructor user requesting to read hhaRotations resources
+        Given logged on as second hha instructor user
+        When request GET to /api/gms/hhaRotations/hhaRotation_uuid
+        Then server will respond with 404
 
+    
+    Scenario: second hha instructor user requesting to read hhaStudents resources
+        Given logged on as second hha instructor user
+        When request GET to /api/gms/hhaStudents/hhaStudent_uuid
+        Then server will respond with 404
 
+    
+    Scenario: second hha instructor user requesting to read hhaTheoryRecords resources
+        Given logged on as second hha instructor user
+        When request GET to /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
+        Then server will respond with 404
 
-
-
+    
+    Scenario: second hha instructor user requesting to read hhaClinicalRecords resources
+        Given logged on as second hha instructor user
+        When request GET to /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
+        Then server will respond with 404
 

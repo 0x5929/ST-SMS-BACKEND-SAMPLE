@@ -90,6 +90,9 @@ Feature: Grading management partially EDIT access
 
 
 
+
+
+
     Scenario: staff cna instructor user requesting to partially update cnaRotations resource
         Given logged on as staff cna instructor user
         When request PATCH to /api/gms/cnaRotations
@@ -267,3 +270,57 @@ Feature: Grading management partially EDIT access
         Given logged on as cna instructor user
         When request PATCH to /api/gms/hhaClinicalRecords
         Then will be permission denied
+
+
+        
+
+
+
+
+    
+    Scenario: second cna instructor user requesting to partially update cnaRotations resources
+        Given logged on as second cna instructor user
+        When request PATCH to /api/gms/cnaRotations
+        Then server will respond with 404
+
+    
+    Scenario: second cna instructor user requesting to partially update cnaStudents resources
+        Given logged on as second cna instructor user
+        When request PATCH to /api/gms/cnaStudents
+        Then server will respond with 404
+
+    
+    Scenario: second cna instructor user requesting to partially update cnaTheoryRecords resources
+        Given logged on as second cna instructor user
+        When request PATCH to /api/gms/cnaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: second cna instructor user requesting to partially update cnaClinicalRecords resources
+        Given logged on as second cna instructor user
+        When request PATCH to /api/gms/cnaClinicalRecords
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to partially update hhaRotations resources
+        Given logged on as second hha instructor user
+        When request PATCH to /api/gms/hhaRotationS
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to partially update hhaStudents resources
+        Given logged on as second hha instructor user
+        When request PATCH to /api/gms/hhaStudents
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to partially update hhaTheoryRecords resources
+        Given logged on as second hha instructor user
+        When request PATCH to /api/gms/hhaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: second hha instructor user requesting to partially update hhaClinicalRecords resources
+        Given logged on as second hha instructor user
+        When request PATCH to /api/gms/hhaClinicalRecords
+        Then server will respond with 404
