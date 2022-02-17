@@ -218,3 +218,63 @@ Feature: Grading Management READ access
         Given logged on as hha instructor user
         When request GET to /api/gms/hhaClinicalRecords
         Then will receive JSON response of data
+
+
+
+
+
+    Scenario: hha instructor user requesting to read cnaRotations resources
+        Given logged on as hha instructor user
+        When request GET to /api/gms/cnaRotations
+        Then will be permission denied
+
+    Scenario: hha instructor user requesting to read cnaStudents resources
+        Given logged on as hha instructor user
+        When request GET to /api/gms/cnaStudents
+        Then will be permission denied
+
+    Scenario: hha instructor user requesting to read cnaTheoryRecords resources
+        Given logged on as hha instructor user
+        When request GET to /api/gms/cnaTheoryRecords
+        Then will be permission denied
+
+    Scenario: hha instructor user requesting to read cnaClinicalRecords resources
+        Given logged on as hha instructor user
+        When request GET to /api/gms/cnaClinicalRecords
+        Then will be permission denied
+
+    Scenario: cna instructor user requesting to read hhaRotations resources
+        Given logged on as cna instructor user
+        When request GET to /api/gms/hhaRotations
+        Then will be permission denied
+
+    Scenario: cna instructor user requesting to read hhaStudents resources
+        Given logged on as cna instructor user
+        When request GET to /api/gms/hhaStudents
+        Then will be permission denied
+
+    Scenario: cna instructor user requesting to read hhaTheoryRecords resources
+        Given logged on as cna instructor user
+        When request GET to /api/gms/hhaTheoryRecords
+        Then will be permission denied
+
+    Scenario: cna instructor user requesting to read hhaClinicalRecords resources
+        Given logged on as cna instructor user
+        When request GET to /api/gms/hhaClinicalRecords
+        Then will be permission denied
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
