@@ -105,7 +105,15 @@ from constants import (SMS_SCHOOLS_API_URL,
                        SMS_ST2_SCHOOL_SAMPLE_PUT_DATA,
                        SMS_ST2_PROGRAM_SAMPLE_PUT_DATA,
                        SMS_ST2_ROTATION_SAMPLE_PUT_DATA,
-                       SMS_ST2_STUDENT_SAMPLE_PUT_DATA)
+                       SMS_ST2_STUDENT_SAMPLE_PUT_DATA,
+                       GMS_ST2_CNA_ROTATION_UUID_TO_TEST,
+                       GMS_ST2_CNA_STUDENT_UUID_TO_TEST,
+                       GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST,
+                       GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST,
+                       GMS_ST2_HHA_ROTATION_UUID_TO_TEST,
+                       GMS_ST2_HHA_STUDENT_UUID_TO_TEST,
+                       GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST,
+                       GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -861,6 +869,14 @@ def request_GET_to_cnaRotation_uuid(context):
         f'{GMS_CNA_ROTATIONS_API_URL}{GMS_CNA_ROTATION_UUID_TO_TEST}/', headers=headers)
 
 
+@when('request GET to ST2 /api/gms/cnaRotations/cnaRotation_uuid')
+def request_GET_to_ST2_cnaRotation_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_ROTATIONS_API_URL}{GMS_ST2_CNA_ROTATION_UUID_TO_TEST}/', headers=headers)
+
+
 @when('request GET to /api/gms/cnaStudents/cnaStudent_uuid')
 def request_GET_to_cnaStudent_uuid(context):
     headers = {'csrftoken': context.csrf_token,
@@ -868,6 +884,14 @@ def request_GET_to_cnaStudent_uuid(context):
     context.response = context.test.client.get(
         f'{GMS_CNA_STUDENTS_API_URL}{GMS_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)
   
+
+@when('request GET to ST2 /api/gms/cnaStudents/cnaStudent_uuid')
+def request_GET_to_ST2_cnaStudent_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)    
+
 
 @when('request GET to /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid')
 def request_GET_to_cnaTheoryRecord_uuid(context):
@@ -877,12 +901,27 @@ def request_GET_to_cnaTheoryRecord_uuid(context):
         f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
       
 
+
+@when('request GET to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid')
+def request_GET_to_ST2_cnaTheoryRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers) 
+
 @when('request GET to /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid')
 def request_GET_to_cnaClinicalRecord_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)   
+
+@when('request GET to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid')
+def request_GET_to_ST2_cnaClinicalRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)   
 
 
 @when('request GET to /api/gms/hhaRotations/hhaRotation_uuid')
@@ -892,6 +931,12 @@ def request_GET_to_hhaRotation_uuid(context):
     context.response = context.test.client.get(
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)   
 
+@when('request GET to ST2 /api/gms/hhaRotations/hhaRotation_uuid')
+def request_GET_to_ST2_hhaRotation_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)   
 
 
 @when('request GET to /api/gms/hhaStudents/hhaStudent_uuid')
@@ -902,12 +947,29 @@ def request_GET_to_hhaStudent_uuid(context):
         f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)   
 
 
+@when('request GET to ST2 /api/gms/hhaStudents/hhaStudent_uuid')
+def request_GET_to_ST2_hhaStudent_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_STUDENTS_API_URL}{GMS_ST2_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)   
+
+
+
 @when('request GET to /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid')
 def request_GET_to_hhaTheoryRecord_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)  
+
+
+@when('request GET to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid')
+def request_GET_to_ST2_hhaTheoryRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)  
 
 
 
@@ -918,6 +980,13 @@ def request_GET_to_hhaClinicalRecord_uuid(context):
     context.response = context.test.client.get(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
 
+
+@when('request GET to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid')
+def request_GET_to_ST2_hhaClinicalRecord_uuid(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
 
 @when('request GET to /api/gms/cnaStudents')
 def request_GET_cnaStudents(context):
