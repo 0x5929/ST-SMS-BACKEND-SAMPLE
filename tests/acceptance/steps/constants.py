@@ -842,13 +842,23 @@ GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
 }
 
 
-GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
+# GMS_ST2_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA = {
+#     'student': 'ccc37087-32fa-4c26-8af8-e84619dc2e47',
+#     'date': '2021-09-01',
+#     'completed': True,
+#     'comments': '',
+#     'performance_satisfied': True,
+#     'topic': 'Knocks on door before entering'
+# }
+
+
+GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
     'student': 'ccc37087-32fa-4c26-8af8-e84619dc2e47',
-    'date': '2021-09-01',
+    'date': '2021-09-02',
     'completed': True,
     'comments': '',
     'performance_satisfied': True,
-    'topic': 'Knocks on door before entering'
+    'topic': 'Mouth care of the unconscious resident'
 }
 
 # GMS_ST2_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
