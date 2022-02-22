@@ -331,49 +331,49 @@ Feature: Grading Management READ access
 
 
 
-    @current
+    
     Scenario: superuser requesting to read ST2 cnaRotations resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/cnaRotations/cnaRotation_uuid
         Then will receive JSON response of data
 
-    @current
+    
     Scenario: superuser requesting to read ST2 cnaStudents resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/cnaStudents/cnaStudent_uuid
         Then will receive JSON response of data
 
-    @current
+    
     Scenario: superuser requesting to read ST2 cnaTheoryRecords resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
         Then will receive JSON response of data
 
-    @current
+    
     Scenario: superuser requesting to read ST2 cnaClinicalRecords resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
         Then will receive JSON response of data
 
-    @current
+    
     Scenario: superuser requesting to read ST2 hhaRotations resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/hhaRotations/hhaRotation_uuid
         Then will receive JSON response of data
 
-    @current
+    
     Scenario: superuser requesting to read ST2 hhaStudents resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/hhaStudents/hhaStudent_uuid
         Then will receive JSON response of data
     
-    @current
+    
     Scenario: superuser requesting to read ST2 hhaTheoryRecords resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
         Then will receive JSON response of data
 
-    @current
+    
     Scenario: superuser requesting to read ST2 hhaClinicalRecords resources
         Given logged on as superuser
         When request GET to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
@@ -383,49 +383,49 @@ Feature: Grading Management READ access
 
 
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 cnaRotations resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/cnaRotations/cnaRotation_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 cnaStudents resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/cnaStudents/cnaStudent_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 cnaTheoryRecords resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 cnaClinicalRecords resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 hhaRotations resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/hhaRotations/hhaRotation_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 hhaStudents resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/hhaStudents/hhaStudent_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 hhaTheoryRecords resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: admin instructor user requesting to read ST2 hhaClinicalRecords resources
         Given logged on as admin instructor user
         When request GET to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
@@ -433,49 +433,49 @@ Feature: Grading Management READ access
 
 
 
-    @current
+    
     Scenario: staff cna instructor user requesting to read ST2 cnaRotations resources
         Given logged on as staff cna instructor user
         When request GET to ST2 /api/gms/cnaRotations/cnaRotation_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: staff cna instructor user requesting to read ST2 cnaStudents resources
         Given logged on as staff cna instructor user
         When request GET to ST2 /api/gms/cnaStudents/cnaStudent_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: staff cna instructor user requesting to read ST2 cnaTheoryRecords resources
         Given logged on as staff cna instructor user
         When request GET to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: staff cna instructor user requesting to read ST2 cnaClinicalRecords resources
         Given logged on as staff cna instructor user
         When request GET to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: staff hha instructor user requesting to read ST2 hhaRotations resources
         Given logged on as staff hha instructor user
         When request GET to ST2 /api/gms/hhaRotations/hhaRotation_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: staff hha instructor user requesting to read ST2 hhaStudents resources
         Given logged on as staff hha instructor user
         When request GET to ST2 /api/gms/hhaStudents/hhaStudent_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: staff hha instructor user requesting to read ST2 hhaTheoryRecords resources
         Given logged on as staff hha instructor user
         When request GET to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: staff hha instructor user requesting to read ST2 hhaClinicalRecords resources
         Given logged on as staff hha instructor user
         When request GET to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
@@ -484,49 +484,49 @@ Feature: Grading Management READ access
 
 
 
-    @current
+    
     Scenario: cna instructor user requesting to read ST2 cnaRotations resources
         Given logged on as cna instructor user
         When request GET to ST2 /api/gms/cnaRotations/cnaRotation_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: cna instructor user requesting to read ST2 cnaStudents resources
         Given logged on as cna instructor user
         When request GET to ST2 /api/gms/cnaStudents/cnaStudent_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: cna instructor user requesting to read ST2 cnaTheoryRecords resources
         Given logged on as cna instructor user
         When request GET to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: cna instructor user requesting to read ST2 cnaClinicalRecords resources
         Given logged on as cna instructor user
         When request GET to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: hha instructor user requesting to read ST2 hhaRotations resources
         Given logged on as hha instructor user
         When request GET to ST2 /api/gms/hhaRotations/hhaRotation_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: hha instructor user requesting to read ST2 hhaStudents resources
         Given logged on as hha instructor user
         When request GET to ST2 /api/gms/hhaStudents/hhaStudent_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: hha instructor user requesting to read ST2 hhaTheoryRecords resources
         Given logged on as hha instructor user
         When request GET to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
         Then server will respond with 404
 
-    @current
+    
     Scenario: hha instructor user requesting to read ST2 hhaClinicalRecords resources
         Given logged on as hha instructor user
         When request GET to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid

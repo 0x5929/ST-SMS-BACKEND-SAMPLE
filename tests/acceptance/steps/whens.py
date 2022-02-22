@@ -113,7 +113,15 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_ST2_HHA_ROTATION_UUID_TO_TEST,
                        GMS_ST2_HHA_STUDENT_UUID_TO_TEST,
                        GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST,
-                       GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST)
+                       GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST,
+                       GMS_ST2_CNA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_ST2_CNA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_ST2_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_ST2_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -1214,6 +1222,16 @@ def request_PATCH_cnaRotations(context):
         f'{GMS_CNA_ROTATIONS_API_URL}{GMS_CNA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
+@when('request PATCH to ST2 /api/gms/cnaRotations/cnaRotation_uuid')
+def request_PATCH_ST2_cnaRotations(context):
+    patch_data = GMS_ST2_CNA_ROTATION_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_CNA_ROTATIONS_API_URL}{GMS_ST2_CNA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
 @when('request PATCH to /api/gms/cnaStudents')
 def request_PATCH_cnaStudents(context):
     patch_data = GMS_CNA_STUDENT_PATCH_SAMPLE_DATA
@@ -1224,6 +1242,15 @@ def request_PATCH_cnaStudents(context):
         f'{GMS_CNA_STUDENTS_API_URL}{GMS_CNA_STUDENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
+@when('request PATCH to ST2 /api/gms/cnaStudents/cnaStudent_uuid')
+def request_PATCH_ST2_cnaStudents(context):
+    patch_data = GMS_ST2_CNA_STUDENT_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)  
+
 @when('request PATCH to /api/gms/cnaTheoryRecords')
 def request_PATCH_cnaTheoryRecords(context):
     patch_data = GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA
@@ -1232,6 +1259,16 @@ def request_PATCH_cnaTheoryRecords(context):
 
     context.response = context.test.client.patch(
         f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_CNA_THEORY_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
+@when('request PATCH to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid')
+def request_PATCH_ST2_cnaTheoryRecords(context):
+    patch_data = GMS_ST2_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
 @when('request PATCH to /api/gms/cnaClinicalRecords')
@@ -1244,6 +1281,16 @@ def request_PATCH_cnaClinicalRecords(context):
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
+@when('request PATCH to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid')
+def request_PATCH_ST2_cnaClinicalRecords(context):
+    patch_data = GMS_ST2_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
 @when('request PATCH to /api/gms/hhaRotations')
 def request_PATCH_hhaRotations(context):
     patch_data = GMS_HHA_ROTATION_PATCH_SAMPLE_DATA
@@ -1252,6 +1299,18 @@ def request_PATCH_hhaRotations(context):
 
     context.response = context.test.client.patch(
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
+
+@when('request PATCH to ST2 /api/gms/hhaRotations/hhaRotation_uuid')
+def request_PATCH_ST2_hhaRotations(context):
+    patch_data = GMS_ST2_HHA_ROTATION_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+   
 
 
 @when('request PATCH to /api/gms/hhaStudents')
@@ -1264,6 +1323,17 @@ def request_PATCH_hhaStudents(context):
         f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
+
+@when('request PATCH to ST2 /api/gms/hhaStudents/hhaStudent_uuid')
+def request_PATCH_ST2_hhaStudents(context):
+    patch_data = GMS_ST2_HHA_STUDENT_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_HHA_STUDENTS_API_URL}{GMS_ST2_HHA_STUDENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
 @when('request PATCH to /api/gms/hhaTheoryRecords')
 def request_PATCH_hhaTheoryRecords(context):
     patch_data = GMS_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA
@@ -1274,6 +1344,16 @@ def request_PATCH_hhaTheoryRecords(context):
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
+@when('request PATCH to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid')
+def request_PATCH_ST2_hhaTheoryRecords(context):
+    patch_data = GMS_ST2_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)  
+
+
 @when('request PATCH to /api/gms/hhaClinicalRecords')
 def request_PATCH_hhaClinicalRecords(context):
     patch_data = GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA
@@ -1282,6 +1362,17 @@ def request_PATCH_hhaClinicalRecords(context):
 
     context.response = context.test.client.patch(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
+
+@when('request PATCH to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid')
+def request_PATCH_ST2_hhaClinicalRecords(context):
+    patch_data = GMS_ST2_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
 @when('request DELETE to /api/gms/cnaRotations')

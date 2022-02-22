@@ -87,7 +87,15 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        SMS_ST2_ROTATION_SAMPLE_PUT_DATA,
                        SMS_ST2_STUDENT_SAMPLE_PUT_DATA,
                        SMS_ST2_SCHOOL_SAMPLE_PATCH_DATA,
-                       SMS_ST2_GOOGLE_POST_DATA
+                       SMS_ST2_GOOGLE_POST_DATA,
+                       GMS_ST2_CNA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_ROTATION_PATCH_SAMPLE_DATA,
+                       GMS_ST2_CNA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_ST2_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_ST2_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_STUDENT_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA,
+                       GMS_ST2_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA
                        )
 
 
@@ -1253,6 +1261,22 @@ def database_partially_edit_cnaRotation_record(context):
         assert False
 
 
+@then('database will partially update the ST2 cna rotation record')
+def database_partially_edit_ST2_cnaRotation_record(context):
+    response_data = context.response.data
+
+    partially_editted_rotation_clinical_site = GMS_ST2_CNA_ROTATION_PATCH_SAMPLE_DATA.get(
+        'clinical_site')
+
+    context.test().assertEqual(response_data.get(
+        'clinical_site'), partially_editted_rotation_clinical_site)
+
+    CNARotation = apps.get_model('gms', 'CNARotation')
+    if not CNARotation.objects.filter(
+            clinical_site__exact=partially_editted_rotation_clinical_site).exists():
+        assert False
+
+
 @then('database will partially update the cna student record')
 def database_partially_edit_cnaStudent_record(context):
     response_data = context.response.data
@@ -1269,11 +1293,44 @@ def database_partially_edit_cnaStudent_record(context):
         assert False
 
 
+@then('database will partially update the ST2 cna student record')
+def database_partially_edit_ST2_cnaStudent_record(context):
+    response_data = context.response.data
+
+    partially_editted_student_last_name = GMS_ST2_CNA_STUDENT_PATCH_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), partially_editted_student_last_name)
+
+    CNAStudent = apps.get_model('gms', 'CNAStudent')
+    if not CNAStudent.objects.filter(
+            last_name__exact=partially_editted_student_last_name).exists():
+        assert False
+
+
+
 @then('database will partially update the cna theory record')
 def database_partially_edit_cnaTheory_record(context):
     response_data = context.response.data
 
     partially_editted_cnaTheory_hrs_spent = GMS_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), partially_editted_cnaTheory_hrs_spent)
+
+    CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
+    if not CNATheoryRecord.objects.filter(
+            hours_spent__exact=partially_editted_cnaTheory_hrs_spent).exists():
+        assert False
+
+
+@then('database will partially update the ST2 cna theory record')
+def database_partially_edit_ST2_cnaTheory_record(context):
+    response_data = context.response.data
+
+    partially_editted_cnaTheory_hrs_spent = GMS_ST2_CNA_THEORY_RECORD_PATCH_SAMPLE_DATA.get(
         'hours_spent')
 
     context.test().assertEqual(response_data.get(
@@ -1301,6 +1358,25 @@ def database_partially_edit_cnaClinical_record(context):
         assert False
 
 
+
+@then('database will partially update the ST2 cna clinical record')
+def database_partially_edit_ST2_cnaClinical_record(context):
+    response_data = context.response.data
+
+    partially_editted_cnaClinical_date = GMS_ST2_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA.get(
+        'date')
+
+    context.test().assertEqual(response_data.get(
+        'date'), partially_editted_cnaClinical_date)
+
+    CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
+    if not CNAClinicalRecord.objects.filter(
+            date__exact=partially_editted_cnaClinical_date).exists():
+        assert False
+
+
+
+
 @then('database will partially update the hha rotation record')
 def database_partially_edit_hhaRotation_record(context):
     response_data = context.response.data
@@ -1317,11 +1393,44 @@ def database_partially_edit_hhaRotation_record(context):
         assert False
 
 
+@then('database will partially update the ST2 hha rotation record')
+def database_partially_edit_ST2_hhaRotation_record(context):
+    response_data = context.response.data
+
+    partially_editted_rotation_clinical_site = GMS_ST2_HHA_ROTATION_PATCH_SAMPLE_DATA.get(
+        'clinical_site')
+
+    context.test().assertEqual(response_data.get(
+        'clinical_site'), partially_editted_rotation_clinical_site)
+
+    HHARotation = apps.get_model('gms', 'HHARotation')
+    if not HHARotation.objects.filter(
+            clinical_site__exact=partially_editted_rotation_clinical_site).exists():
+        assert False
+
+
 @then('database will partially update the hha student record')
 def database_partially_edit_hhaStudent_record(context):
     response_data = context.response.data
 
     partially_editted_student_last_name = GMS_HHA_STUDENT_PATCH_SAMPLE_DATA.get(
+        'last_name')
+
+    context.test().assertEqual(response_data.get(
+        'last_name'), partially_editted_student_last_name)
+
+    HHAStudent = apps.get_model('gms', 'HHAStudent')
+    if not HHAStudent.objects.filter(
+            last_name__exact=partially_editted_student_last_name).exists():
+        assert False
+
+
+
+@then('database will partially update the ST2 hha student record')
+def database_partially_edit_ST2_hhaStudent_record(context):
+    response_data = context.response.data
+
+    partially_editted_student_last_name = GMS_ST2_HHA_STUDENT_PATCH_SAMPLE_DATA.get(
         'last_name')
 
     context.test().assertEqual(response_data.get(
@@ -1349,6 +1458,24 @@ def database_partially_edit_hhaTheory_record(context):
         assert False
 
 
+@then('database will partially update the ST2 hha theory record')
+def database_partially_edit_ST2_hhaTheory_record(context):
+    response_data = context.response.data
+
+    partially_editted_hhaTheory_hrs_spent = GMS_ST2_HHA_THEORY_RECORD_PATCH_SAMPLE_DATA.get(
+        'hours_spent')
+
+    context.test().assertEqual(response_data.get(
+        'hours_spent'), partially_editted_hhaTheory_hrs_spent)
+
+    HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
+    if not HHATheoryRecord.objects.filter(
+            hours_spent__exact=partially_editted_hhaTheory_hrs_spent).exists():
+        assert False
+
+
+
+
 @then('database will partially update the hha clinical record')
 def database_partially_edit_hhaClinical_record(context):
     response_data = context.response.data
@@ -1363,6 +1490,25 @@ def database_partially_edit_hhaClinical_record(context):
     if not HHAClinicalRecord.objects.filter(
             end_date__exact=partially_editted_hhaClinical_date).exists():
         assert False
+
+
+
+@then('database will partially update the ST2 hha clinical record')
+def database_partially_edit_ST2_hhaClinical_record(context):
+    response_data = context.response.data
+
+    partially_editted_hhaClinical_date = GMS_ST2_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA.get(
+        'end_date')
+
+    context.test().assertEqual(response_data.get(
+        'end_date'), partially_editted_hhaClinical_date)
+
+    HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
+    if not HHAClinicalRecord.objects.filter(
+            end_date__exact=partially_editted_hhaClinical_date).exists():
+        assert False
+
+
 
 
 @then('database will delete the cna rotation record')

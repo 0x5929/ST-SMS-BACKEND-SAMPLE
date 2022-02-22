@@ -324,3 +324,214 @@ Feature: Grading management partially EDIT access
         Given logged on as second hha instructor user
         When request PATCH to /api/gms/hhaClinicalRecords
         Then server will respond with 404
+
+
+
+
+
+
+
+
+
+
+    @current
+    Scenario: superuser requesting to partially update ST2 cnaRotations resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/cnaRotations/cnaRotation_uuid
+        Then database will partially update the ST2 cna rotation record
+
+    @current
+    Scenario: superuser requesting to partially update ST2 cnaStudents resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/cnaStudents/cnaStudent_uuid
+        Then database will partially update the ST2 cna student record
+
+    @current
+    Scenario: superuser requesting to partially update ST2 cnaTheoryRecords resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
+        Then database will partially update the ST2 cna theory record
+
+    @current
+    Scenario: superuser requesting to partially update ST2 cnaClinicalRecords resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
+        Then database will partially update the ST2 cna clinical record
+
+    @current
+    Scenario: superuser requesting to partially update ST2 hhaRotations resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/hhaRotations/hhaRotation_uuid
+        Then database will partially update the ST2 hha rotation record
+
+    @current
+    Scenario: superuser requesting to partially update ST2 hhaStudents resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/hhaStudents/hhaStudent_uuid
+        Then database will partially update the ST2 hha student record
+    
+
+    @current
+    Scenario: superuser requesting to partially update ST2 hhaTheoryRecords resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
+        Then database will partially update the ST2 hha theory record
+
+    @current
+    Scenario: superuser requesting to partially update ST2 hhaClinicalRecords resources
+        Given logged on as superuser
+        When request PATCH to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
+        Then database will partially update the ST2 hha clinical record
+
+
+
+
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 cnaRotations resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/cnaRotations/cnaRotation_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 cnaStudents resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/cnaStudents/cnaStudent_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 cnaTheoryRecords resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 cnaClinicalRecords resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 hhaRotations resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/hhaRotations/hhaRotation_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 hhaStudents resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/hhaStudents/hhaStudent_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 hhaTheoryRecords resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: admin instructor user requesting to partially update ST2 hhaClinicalRecords resources
+        Given logged on as admin instructor user
+        When request PATCH to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
+        Then server will respond with 404
+
+
+
+    @current
+    Scenario: staff cna instructor user requesting to partially update ST2 cnaRotations resources
+        Given logged on as staff cna instructor user
+        When request PATCH to ST2 /api/gms/cnaRotations/cnaRotation_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff cna instructor user requesting to partially update ST2 cnaStudents resources
+        Given logged on as staff cna instructor user
+        When request PATCH to ST2 /api/gms/cnaStudents/cnaStudent_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff cna instructor user requesting to partially update ST2 cnaTheoryRecords resources
+        Given logged on as staff cna instructor user
+        When request PATCH to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff cna instructor user requesting to partially update ST2 cnaClinicalRecords resources
+        Given logged on as staff cna instructor user
+        When request PATCH to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff hha instructor user requesting to partially update ST2 hhaRotations resources
+        Given logged on as staff hha instructor user
+        When request PATCH to ST2 /api/gms/hhaRotations/hhaRotation_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff hha instructor user requesting to partially update ST2 hhaStudents resources
+        Given logged on as staff hha instructor user
+        When request PATCH to ST2 /api/gms/hhaStudents/hhaStudent_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff hha instructor user requesting to partially update ST2 hhaTheoryRecords resources
+        Given logged on as staff hha instructor user
+        When request PATCH to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: staff hha instructor user requesting to partially update ST2 hhaClinicalRecords resources
+        Given logged on as staff hha instructor user
+        When request PATCH to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
+        Then server will respond with 404
+
+
+
+
+    @current
+    Scenario: cna instructor user requesting to partially update ST2 cnaRotations resources
+        Given logged on as cna instructor user
+        When request PATCH to ST2 /api/gms/cnaRotations/cnaRotation_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: cna instructor user requesting to partially update ST2 cnaStudents resources
+        Given logged on as cna instructor user
+        When request PATCH to ST2 /api/gms/cnaStudents/cnaStudent_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: cna instructor user requesting to partially update ST2 cnaTheoryRecords resources
+        Given logged on as cna instructor user
+        When request PATCH to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: cna instructor user requesting to partially update ST2 cnaClinicalRecords resources
+        Given logged on as cna instructor user
+        When request PATCH to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: hha instructor user requesting to partially update ST2 hhaRotations resources
+        Given logged on as hha instructor user
+        When request PATCH to ST2 /api/gms/hhaRotations/hhaRotation_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: hha instructor user requesting to partially update ST2 hhaStudents resources
+        Given logged on as hha instructor user
+        When request PATCH to ST2 /api/gms/hhaStudents/hhaStudent_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: hha instructor user requesting to partially update ST2 hhaTheoryRecords resources
+        Given logged on as hha instructor user
+        When request PATCH to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid
+        Then server will respond with 404
+
+    @current
+    Scenario: hha instructor user requesting to partially update ST2 hhaClinicalRecords resources
+        Given logged on as hha instructor user
+        When request PATCH to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid
+        Then server will respond with 404
