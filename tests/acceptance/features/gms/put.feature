@@ -323,3 +323,220 @@ Feature: Grading management fully EDIT access
         Given logged on as second hha instructor user
         When request PUT to /api/gms/hhaClinicalRecords
         Then server will respond with 404
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    Scenario: superuser requesting to fully update ST2 cnaRotations resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/cnaRotations
+        Then database will fully update the ST2 cna rotation record
+
+    
+    Scenario: superuser requesting to fully update ST2 cnaStudents resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/cnaStudents
+        Then database will fully update the ST2 cna student record
+
+    
+    Scenario: superuser requesting to fully update ST2 cnaTheoryRecords resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/cnaTheoryRecords
+        Then database will fully update the ST2 cna theory record
+
+    
+    Scenario: superuser requesting to fully update ST2 cnaClinicalRecords resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/cnaClinicalRecords
+        Then database will fully update the ST2 cna clinical record
+
+    
+    Scenario: superuser requesting to fully update ST2 hhaRotations resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/hhaRotations
+        Then database will fully update the ST2 hha rotation record
+
+
+    
+    Scenario: superuser requesting to fully update ST2 hhaStudents resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/hhaStudents
+        Then database will fully update the ST2 hha student record
+    
+
+    
+    Scenario: superuser requesting to fully update ST2 hhaTheoryRecords resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/hhaTheoryRecords
+        Then database will fully update the ST2 hha theory record
+
+    
+    Scenario: superuser requesting to fully update ST2 hhaClinicalRecords resources
+        Given logged on as superuser
+        When request PUT to ST2 /api/gms/hhaClinicalRecords
+        Then database will fully update the ST2 hha clinical record
+
+
+
+
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 cnaRotations resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/cnaRotations
+        Then server will respond with 404
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 cnaStudents resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/cnaStudents
+        Then server will respond with 404
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 cnaTheoryRecords resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/cnaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 cnaClinicalRecords resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/cnaClinicalRecords
+        Then server will respond with 404
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 hhaRotations resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/hhaRotations
+        Then server will respond with 404
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 hhaStudents resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/hhaStudents
+        Then server will respond with 404
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 hhaTheoryRecords resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/hhaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: admin instructor user requesting to fully update ST2 hhaClinicalRecords resources
+        Given logged on as admin instructor user
+        When request PUT to ST2 /api/gms/hhaClinicalRecords
+        Then server will respond with 404
+
+
+
+    
+    Scenario: staff cna instructor user requesting to fully update ST2 cnaRotations resources
+        Given logged on as staff cna instructor user
+        When request PUT to ST2 /api/gms/cnaRotations
+        Then server will respond with 404
+
+    
+    Scenario: staff cna instructor user requesting to fully update ST2 cnaStudents resources
+        Given logged on as staff cna instructor user
+        When request PUT to ST2 /api/gms/cnaStudents
+        Then server will respond with 404
+
+    
+    Scenario: staff cna instructor user requesting to fully update ST2 cnaTheoryRecords resources
+        Given logged on as staff cna instructor user
+        When request PUT to ST2 /api/gms/cnaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: staff cna instructor user requesting to fully update ST2 cnaClinicalRecords resources
+        Given logged on as staff cna instructor user
+        When request PUT to ST2 /api/gms/cnaClinicalRecords
+        Then server will respond with 404
+
+    
+    Scenario: staff hha instructor user requesting to fully update ST2 hhaRotations resources
+        Given logged on as staff hha instructor user
+        When request PUT to ST2 /api/gms/hhaRotations
+        Then server will respond with 404
+
+    
+    Scenario: staff hha instructor user requesting to fully update ST2 hhaStudents resources
+        Given logged on as staff hha instructor user
+        When request PUT to ST2 /api/gms/hhaStudents
+        Then server will respond with 404
+
+    
+    Scenario: staff hha instructor user requesting to fully update ST2 hhaTheoryRecords resources
+        Given logged on as staff hha instructor user
+        When request PUT to ST2 /api/gms/hhaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: staff hha instructor user requesting to fully update ST2 hhaClinicalRecords resources
+        Given logged on as staff hha instructor user
+        When request PUT to ST2 /api/gms/hhaClinicalRecords
+        Then server will respond with 404
+
+
+
+
+    
+    Scenario: cna instructor user requesting to fully update ST2 cnaRotations resources
+        Given logged on as cna instructor user
+        When request PUT to ST2 /api/gms/cnaRotations
+        Then server will respond with 404
+
+    
+    Scenario: cna instructor user requesting to fully update ST2 cnaStudents resources
+        Given logged on as cna instructor user
+        When request PUT to ST2 /api/gms/cnaStudents
+        Then server will respond with 404
+
+    
+    Scenario: cna instructor user requesting to fully update ST2 cnaTheoryRecords resources
+        Given logged on as cna instructor user
+        When request PUT to ST2 /api/gms/cnaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: cna instructor user requesting to fully update ST2 cnaClinicalRecords resources
+        Given logged on as cna instructor user
+        When request PUT to ST2 /api/gms/cnaClinicalRecords
+        Then server will respond with 404
+
+    
+    Scenario: hha instructor user requesting to fully update ST2 hhaRotations resources
+        Given logged on as hha instructor user
+        When request PUT to ST2 /api/gms/hhaRotations
+        Then server will respond with 404
+
+    
+    Scenario: hha instructor user requesting to fully update ST2 hhaStudents resources
+        Given logged on as hha instructor user
+        When request PUT to ST2 /api/gms/hhaStudents
+        Then server will respond with 404
+
+    
+    Scenario: hha instructor user requesting to fully update ST2 hhaTheoryRecords resources
+        Given logged on as hha instructor user
+        When request PUT to ST2 /api/gms/hhaTheoryRecords
+        Then server will respond with 404
+
+    
+    Scenario: hha instructor user requesting to fully update ST2 hhaClinicalRecords resources
+        Given logged on as hha instructor user
+        When request PUT to ST2 /api/gms/hhaClinicalRecords
+        Then server will respond with 404
