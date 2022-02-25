@@ -1662,8 +1662,28 @@ def database_delete_cnaRotation_record(context):
         assert False
 
 
+@then('database will delete the ST2 cna rotation record')
+def database_delete_ST2_cnaRotation(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNARotation = apps.get_model('gms', 'CNARotation')
+    if CNARotation.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+  
+
+
 @then('database will delete the cna student record')
 def database_delete_cnaStudent_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNAStudent = apps.get_model('gms', 'CNAStudent')
+    if CNAStudent.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the ST2 cna student record')
+def database_delete_ST2_cnaStudent(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
 
     CNAStudent = apps.get_model('gms', 'CNAStudent')
@@ -1680,6 +1700,17 @@ def database_delete_cnaTheory_record(context):
         assert False
 
 
+@then('database will delete the ST2 cna theory record')
+def database_delete_ST2_cnaTheory(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNATheoryRecord = apps.get_model('gms', 'CNATheoryRecord')
+    if CNATheoryRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+
+
 @then('database will delete the cna clinical record')
 def database_delete_cnaClinical_record(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -1689,8 +1720,28 @@ def database_delete_cnaClinical_record(context):
         assert False
 
 
+@then('database will delete the ST2 cna clinical record')
+def database_delete_cnaClinicalRecord(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
+    if CNAClinicalRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+
+
 @then('database will delete the hha rotation record')
 def database_delete_hhaRotation_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHARotation = apps.get_model('gms', 'HHARotation')
+    if HHARotation.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the ST2 hha rotation record')
+def database_delete_ST2_hhaRotation(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
 
     HHARotation = apps.get_model('gms', 'HHARotation')
@@ -1707,6 +1758,16 @@ def database_delete_hhaStudent_record(context):
         assert False
 
 
+@then('database will delete the ST2 hha student record')
+def database_delete_ST2_hhaStudent(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHAStudent = apps.get_model('gms', 'HHAStudent')
+    if HHAStudent.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+
 @then('database will delete the hha theory record')
 def database_delete_hhaTheory_record(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -1716,8 +1777,27 @@ def database_delete_hhaTheory_record(context):
         assert False
 
 
+
+@then('database will delete the ST2 hha theory record')
+def database_delete_ST2_hhaTheory(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
+    if HHATheoryRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
 @then('database will delete the hha clinical record')
 def database_delete_hhaClinical_record(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')
+    if HHAClinicalRecord.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+
+@then('database will delete the ST2 hha clinical record')
+def database_delete_ST2_hhaClinicalRecords(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
 
     HHAClinicalRecord = apps.get_model('gms', 'HHAClinicalRecord')

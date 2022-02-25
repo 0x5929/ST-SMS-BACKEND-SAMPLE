@@ -1479,6 +1479,15 @@ def request_DELETE_cnaRotations(context):
         f'{GMS_CNA_ROTATIONS_API_URL}{GMS_CNA_ROTATION_UUID_TO_TEST}/', headers=headers)
 
 
+@when('request DELETE to ST2 /api/gms/cnaRotations')
+def request_DELETE_ST2_cnaRotations(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_CNA_ROTATION_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{GMS_CNA_ROTATIONS_API_URL}{GMS_ST2_CNA_ROTATION_UUID_TO_TEST}/', headers=headers)
+
 @when('request DELETE to /api/gms/cnaStudents')
 def request_DELETE_cnaStudents(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1489,6 +1498,17 @@ def request_DELETE_cnaStudents(context):
         f'{GMS_CNA_STUDENTS_API_URL}{GMS_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)
 
 
+@when('request DELETE to ST2 /api/gms/cnaStudents')
+def request_DELETE_ST2_cnaStudents(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_CNA_STUDENT_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)
+
+
+
 @when('request DELETE to /api/gms/cnaTheoryRecords')
 def request_DELETE_cnaTheoryRecords(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1497,6 +1517,16 @@ def request_DELETE_cnaTheoryRecords(context):
     context.uuid = GMS_CNA_THEORY_RECORD_UUID_TO_TEST
     context.response = context.test.client.delete(
         f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
+
+
+@when('request DELETE to ST2 /api/gms/cnaTheoryRecords')
+def request_DELETE_ST2_cnaTheoryRecords(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request DELETE to /api/gms/cnaClinicalRecords')
@@ -1510,6 +1540,20 @@ def request_DELETE_cnaClinicalRecords(context):
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
+
+@when('request DELETE to ST2 /api/gms/cnaClinicalRecords')
+def request_DELETE_ST2_cnaClinicalRecords(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST
+
+    context.response = context.test.client.delete(
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
+
+
+
+
 @when('request DELETE to /api/gms/hhaRotations')
 def request_DELETE_hhaRotations(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1520,6 +1564,16 @@ def request_DELETE_hhaRotations(context):
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)
 
 
+@when('request DELETE to ST2 /api/gms/hhaRotations')
+def request_DELETE_hhaRotations(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_HHA_ROTATION_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)    
+
+
 @when('request DELETE to /api/gms/hhaStudents')
 def request_DELETE_hhaStudents(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1528,6 +1582,18 @@ def request_DELETE_hhaStudents(context):
     context.uuid = GMS_HHA_STUDENT_UUID_TO_TEST
     context.response = context.test.client.delete(
         f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)
+
+
+
+@when('request DELETE to ST2 /api/gms/hhaStudents')
+def request_DELETE_ST2_hhaStudents(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_HHA_STUDENT_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{GMS_HHA_STUDENTS_API_URL}{GMS_ST2_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)
+
 
 
 @when('request DELETE to /api/gms/hhaTheoryRecords')
@@ -1541,6 +1607,18 @@ def request_DELETE_hhaTheoryRecords(context):
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
+
+@when('request DELETE to ST2 /api/gms/hhaTheoryRecords')
+def request_DELETE_ST2_hhaTheoryRecords(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST
+
+    context.response = context.test.client.delete(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
+
+
 @when('request DELETE to /api/gms/hhaClinicalRecords')
 def request_DELETE_hhaClinicalRecords(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1549,6 +1627,16 @@ def request_DELETE_hhaClinicalRecords(context):
     context.uuid = GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST
     context.response = context.test.client.delete(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
+
+
+@when('request DELETE to ST2 /api/gms/hhaClinicalRecords')
+def request_DELETE_ST2_hhaClinicalRecords(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.uuid = GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to /api/gms/cnaRotations with filters by STI start_date')
