@@ -129,7 +129,15 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_ST2_HHA_ROTATION_PUT_SAMPLE_DATA,
                        GMS_ST2_HHA_STUDENT_PUT_SAMPLE_DATA,
                        GMS_ST2_HHA_THEORY_RECORD_PUT_SAMPLE_DATA,
-                       GMS_ST2_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA)
+                       GMS_ST2_HHA_CLINICAL_RECORD_PUT_SAMPLE_DATA,
+                       GMS_ST2_CNA_ROTATION_POST_SAMPLE_DATA,
+                       GMS_ST2_CNA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_ST2_CNA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_ST2_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       GMS_ST2_HHA_ROTATION_POST_SAMPLE_DATA,
+                       GMS_ST2_HHA_STUDENT_POST_SAMPLE_DATA,
+                       GMS_ST2_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
+                       GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -1070,6 +1078,17 @@ def request_POST_cnaRotations(context):
         f'{GMS_CNA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
 
 
+@when('request POST to ST2 /api/gms/cnaRotations')
+def request_POST_ST2_cnaRotations(context):
+    post_data = GMS_ST2_CNA_ROTATION_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_CNA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
+
+
+
 @when('request POST to /api/gms/cnaStudents')
 def request_POST_cnaStudents(context):
     post_data = GMS_CNA_STUDENT_POST_SAMPLE_DATA
@@ -1078,6 +1097,17 @@ def request_POST_cnaStudents(context):
 
     context.response = context.test.client.post(
         f'{GMS_CNA_STUDENTS_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request POST to ST2 /api/gms/cnaStudents')
+def request_POST_ST2_cnaStudents(context):
+    post_data = GMS_ST2_CNA_STUDENT_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_CNA_STUDENTS_API_URL}', post_data, format='json', headers=headers)
+
 
 
 @when('request POST to /api/gms/cnaTheoryRecords')
@@ -1090,6 +1120,18 @@ def request_POST_cnaTheoryRecords(context):
         f'{GMS_CNA_THEORY_RECORDS_API_URL}', post_data, format='json', headers=headers)
 
 
+
+@when('request POST to ST2 /api/gms/cnaTheoryRecords')
+def request_POST_ST2_cnaTheoryRecords(context):
+    post_data = GMS_ST2_CNA_THEORY_RECORD_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}', post_data, format='json', headers=headers)
+
+
+
 @when('request POST to /api/gms/cnaClinicalRecords')
 def request_POST_cnaClinicalRecords(context):
     post_data = GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA
@@ -1100,9 +1142,32 @@ def request_POST_cnaClinicalRecords(context):
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
 
 
+
+@when('request POST to ST2 /api/gms/cnaClinicalRecords')
+def request_POST_ST2_cnaClinicalRecords(context):
+    post_data = GMS_ST2_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
+
+
+
 @when('request POST to /api/gms/hhaRotations')
 def request_POST_hhaRotations(context):
     post_data = GMS_HHA_ROTATION_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_HHA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
+
+
+
+@when('request POST to ST2 /api/gms/hhaRotations')
+def request_POST_ST2_hhaRotations(context):
+    post_data = GMS_ST2_HHA_ROTATION_POST_SAMPLE_DATA
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -1120,9 +1185,31 @@ def request_POST_hhaStudents(context):
         f'{GMS_HHA_STUDENTS_API_URL}', post_data, format='json', headers=headers)
 
 
+
+@when('request POST to ST2 /api/gms/hhaStudents')
+def request_POST_ST2_hhaStudents(context):
+    post_data = GMS_ST2_HHA_STUDENT_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_HHA_STUDENTS_API_URL}', post_data, format='json', headers=headers)
+
+
 @when('request POST to /api/gms/hhaTheoryRecords')
 def request_POST_hhaTheoryRecords(context):
     post_data = GMS_HHA_THEORY_RECORD_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}', post_data, format='json', headers=headers)
+
+
+
+@when('request POST to ST2 /api/gms/hhaTheoryRecords')
+def request_ST2_POST_hhaTheoryRecords(context):
+    post_data = GMS_ST2_HHA_THEORY_RECORD_POST_SAMPLE_DATA
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -1138,6 +1225,18 @@ def request_POST_hhaClinicalRecords(context):
 
     context.response = context.test.client.post(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
+
+
+
+@when('request POST to ST2 /api/gms/hhaClinicalRecords')
+def request_POST_hhaClinicalRecords(context):
+    post_data = GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_HHA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
+
 
 
 @when('request PUT to /api/gms/cnaRotations')

@@ -272,3 +272,221 @@ Feature: Grading management CREATE access
         Given logged on as cna instructor user
         When request POST to /api/gms/hhaClinicalRecords
         Then database will not create the hha clinical record
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @current
+    Scenario: superuser requesting to create ST2 cnaRotations resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/cnaRotations
+        Then database will create the ST2 cna rotation record
+
+    @current
+    Scenario: superuser requesting to create ST2 cnaStudents resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/cnaStudents
+        Then database will create the ST2 cna student record
+
+    @current
+    Scenario: superuser requesting to create ST2 cnaTheoryRecords resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/cnaTheoryRecords
+        Then database will create the ST2 cna theory record
+
+    @current
+    Scenario: superuser requesting to create ST2 cnaClinicalRecords resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/cnaClinicalRecords
+        Then database will create the ST2 cna clinical record
+
+    @current
+    Scenario: superuser requesting to create ST2 hhaRotations resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/hhaRotations
+        Then database will create the ST2 hha rotation record
+
+
+    @current
+    Scenario: superuser requesting to create ST2 hhaStudents resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/hhaStudents
+        Then database will create the ST2 hha student record
+    
+
+    @current
+    Scenario: superuser requesting to create ST2 hhaTheoryRecords resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/hhaTheoryRecords
+        Then database will create the ST2 hha theory record
+
+    @current
+    Scenario: superuser requesting to create ST2 hhaClinicalRecords resources
+        Given logged on as superuser
+        When request POST to ST2 /api/gms/hhaClinicalRecords
+        Then database will create the ST2 hha clinical record
+
+
+
+
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 cnaRotations resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/cnaRotations
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 cnaStudents resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/cnaStudents
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 cnaTheoryRecords resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/cnaTheoryRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 cnaClinicalRecords resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/cnaClinicalRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 hhaRotations resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/hhaRotations
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 hhaStudents resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/hhaStudents
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 hhaTheoryRecords resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/hhaTheoryRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: admin instructor user requesting to create ST2 hhaClinicalRecords resources
+        Given logged on as admin instructor user
+        When request POST to ST2 /api/gms/hhaClinicalRecords
+        Then bad request error since we cannot add another school's resource
+
+
+
+    @current
+    Scenario: staff cna instructor user requesting to create ST2 cnaRotations resources
+        Given logged on as staff cna instructor user
+        When request POST to ST2 /api/gms/cnaRotations
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: staff cna instructor user requesting to create ST2 cnaStudents resources
+        Given logged on as staff cna instructor user
+        When request POST to ST2 /api/gms/cnaStudents
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: staff cna instructor user requesting to create ST2 cnaTheoryRecords resources
+        Given logged on as staff cna instructor user
+        When request POST to ST2 /api/gms/cnaTheoryRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: staff cna instructor user requesting to create ST2 cnaClinicalRecords resources
+        Given logged on as staff cna instructor user
+        When request POST to ST2 /api/gms/cnaClinicalRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: staff hha instructor user requesting to create ST2 hhaRotations resources
+        Given logged on as staff hha instructor user
+        When request POST to ST2 /api/gms/hhaRotations
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: staff hha instructor user requesting to create ST2 hhaStudents resources
+        Given logged on as staff hha instructor user
+        When request POST to ST2 /api/gms/hhaStudents
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: staff hha instructor user requesting to create ST2 hhaTheoryRecords resources
+        Given logged on as staff hha instructor user
+        When request POST to ST2 /api/gms/hhaTheoryRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: staff hha instructor user requesting to create ST2 hhaClinicalRecords resources
+        Given logged on as staff hha instructor user
+        When request POST to ST2 /api/gms/hhaClinicalRecords
+        Then bad request error since we cannot add another school's resource
+
+
+
+
+    @current
+    Scenario: cna instructor user requesting to create ST2 cnaRotations resources
+        Given logged on as cna instructor user
+        When request POST to ST2 /api/gms/cnaRotations
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: cna instructor user requesting to create ST2 cnaStudents resources
+        Given logged on as cna instructor user
+        When request POST to ST2 /api/gms/cnaStudents
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: cna instructor user requesting to create ST2 cnaTheoryRecords resources
+        Given logged on as cna instructor user
+        When request POST to ST2 /api/gms/cnaTheoryRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: cna instructor user requesting to create ST2 cnaClinicalRecords resources
+        Given logged on as cna instructor user
+        When request POST to ST2 /api/gms/cnaClinicalRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: hha instructor user requesting to create ST2 hhaRotations resources
+        Given logged on as hha instructor user
+        When request POST to ST2 /api/gms/hhaRotations
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: hha instructor user requesting to create ST2 hhaStudents resources
+        Given logged on as hha instructor user
+        When request POST to ST2 /api/gms/hhaStudents
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: hha instructor user requesting to create ST2 hhaTheoryRecords resources
+        Given logged on as hha instructor user
+        When request POST to ST2 /api/gms/hhaTheoryRecords
+        Then bad request error since we cannot add another school's resource
+
+    @current
+    Scenario: hha instructor user requesting to create ST2 hhaClinicalRecords resources
+        Given logged on as hha instructor user
+        When request POST to ST2 /api/gms/hhaClinicalRecords
+        Then bad request error since we cannot add another school's resource

@@ -17,7 +17,7 @@ class HHATheoryRecordSerializer(serializers.ModelSerializer):
         return GMSValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
 
     def validate(self, data):
-        return GMSValidator.no_duplicate_records(self, data)
+        return GMSValidator.final_record_validation(self, data)
 
     # def create(self, validated_data):
     #     return super(HHATheoryRecordSerializer, self).create(HHATheoryRecord.objects.create_or_update(validated_data=validated_data))
@@ -39,7 +39,7 @@ class HHAClinicalRecordSerializer(serializers.ModelSerializer):
         return GMSValidator.reference_does_not_change_on_updates(value, self.instance, 'student')
 
     def validate(self, data):
-        return GMSValidator.no_duplicate_records(self, data)
+        return GMSValidator.final_record_validation(self, data)
 
     # def create(self, validated_data):
     #     return super(HHAClinicalRecordSerializer, self).create(HHAClinicalRecord.objects.create_or_update(validated_data=validated_data))
@@ -63,7 +63,7 @@ class HHAStudentSerializer(serializers.ModelSerializer):
         model = HHAStudent
 
     def validate(self, data):
-        return GMSValidator.no_duplicate_students(self, data)
+        return GMSValidator.final_student_validation(self, data)
 
     # def create(self, validated_data):
     #     return super(HHAStudentSerializer, self).create(HHAStudent.objects.create_or_update(validated_data=validated_data))
