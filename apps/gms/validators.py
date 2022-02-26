@@ -120,6 +120,7 @@ class GMSValidator:
     # used by RotationSerializers
     @staticmethod
     def ensure_same_school_name(data, request, lvl, partial=False):
+
         err_msg = 'You may only work on your own school\'s resource, please try changing the school name.'
 
         if lvl == 'Rotation':
@@ -133,11 +134,12 @@ class GMSValidator:
             else:
                 raise ValidationError(err_msg)
 
-                str(getattr(instance, reference))
-
         if lvl == 'Student':
-            if partial and not getattr(data.get('rotation'), 'school_name'):
-                return data
+            # student.rotation.school_name
+            if partial:
+                if not data.get('rotation') or \
+                        data.get('rotation') and not getattr(data.get('rotation'), 'school_name'):
+                    return data
 
             if request.user.school_name == getattr(data.get('rotation'), 'school_name') or request.user.is_superuser:
                 return data
@@ -146,8 +148,14 @@ class GMSValidator:
                 raise ValidationError(err_msg)
 
         if lvl == 'Record':
-            if partial and not getattr(getattr(data.get('student'), 'rotation'), 'school_name'):
-                return data
+            # record.student.rotation.school_name
+            if partial:
+                if not data.get('student') or \
+                        data.get('student') and not getattr(data.get('student', 'rotation')) or \
+                        data.get('student') and \
+                        getattr(data.get('student'), 'rotation') and \
+                        not getattr(getattr(data.get('student'), 'rotation'), 'school_name'):
+                    return data
 
             if request.user.school_name == getattr(getattr(data.get('student'), 'rotation'), 'school_name') or request.user.is_superuser:
                 return data
@@ -155,8 +163,7 @@ class GMSValidator:
             else:
                 raise ValidationError(err_msg)
 
-
-    @staticmethod
+    @ staticmethod
     def ensure_no_dup_rot(data, model_name, instance, partial):
         err_msg = 'You are adding/updating a rotation number that already exists, please try again.'
 
@@ -180,7 +187,7 @@ class GMSValidator:
         else:
             raise ValidationError(err_msg)
 
-    @classmethod
+    @ classmethod
     def final_rot_validation(cls, serializer, data):
         request = serializer.context.get('request')
         data = cls.date_checker(data, serializer.instance,
@@ -191,20 +198,20 @@ class GMSValidator:
 
         return cls.ensure_no_dup_rot(same_school_verified, serializer.Meta.model.__name__, serializer.instance, partial=serializer.partial)
 
-
-
-    @classmethod
+    @ classmethod
     def final_student_validation(cls, serializer, data):
         request = serializer.context.get('request')
 
-        same_school_verified_data = cls.ensure_same_school_name(data, request, 'Student', partial=serializer.partial)
+        same_school_verified_data = cls.ensure_same_school_name(
+            data, request, 'Student', partial=serializer.partial)
 
         return cls.no_duplicate_students(serializer, same_school_verified_data)
 
-    @classmethod
+    @ classmethod
     def final_record_validation(cls, serializer, data):
         request = serializer.context.get('request')
 
-        same_school_verified_data = cls.ensure_same_school_name(data, request, 'Record', partial=serializer.partial)
+        same_school_verified_data = cls.ensure_same_school_name(
+            data, request, 'Record', partial=serializer.partial)
 
         return cls.no_duplicate_records(serializer, same_school_verified_data)
