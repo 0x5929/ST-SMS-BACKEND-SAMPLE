@@ -136,7 +136,7 @@ class GMSValidator:
 
         if lvl == 'Student':
             # student.rotation.school_name
-            if partial:
+            if partial: 
                 if not data.get('rotation') or \
                         data.get('rotation') and not getattr(data.get('rotation'), 'school_name'):
                     return data
