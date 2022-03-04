@@ -26,13 +26,15 @@ class CNARotation(BaseRotation):
 
     objects = CNARotationManager()
 
-    @property
-    def id_(self):
-        return f'CNA Rotation #{self.rotation_num}'
+    # @property
+    # def id_(self):
+    #     return f'{self.school_name}: CNA Rotation #{self.rotation_num}'
+
+    # def __str__(self):
+    #     return self.id_
 
     def __str__(self):
-        return self.id_
-
+        return f'{self.school_name}: CNA Rotation #{self.rotation_num}'
 
 class CNAStudent(BaseStudent):
     class Meta:
@@ -48,8 +50,7 @@ class CNAStudent(BaseStudent):
     objects = CNAStudentManager()
 
     def __str__(self):
-        full_name = f'{self.first_name} {self.last_name}'
-        return f'{full_name.capitalize()}'
+        return f'{self.first_name.capitalize()} {self.last_name.capitalize()}'
 
 
 class CNATheoryRecord(BaseRecord):
@@ -75,7 +76,7 @@ class CNATheoryRecord(BaseRecord):
     objects = CNATheoryRecordManager()
 
     def __str__(self):
-        return str(self.cna_theory_record_uuid)
+        return str(self.record_uuid)
 
 
 class CNAClinicalRecord(BaseRecord):
@@ -100,4 +101,4 @@ class CNAClinicalRecord(BaseRecord):
     objects = CNAClinicalRecordManager()
 
     def __str__(self):
-        return str(self.cna_clinical_record_uuid)
+        return str(self.record_uuid)

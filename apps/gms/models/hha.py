@@ -26,13 +26,16 @@ class HHARotation(BaseRotation):
 
     objects = HHARotationManager()
 
-    @property
-    def id_(self):
-        return f'HHA Rotation #{self.rotation_num}'
+    # @property
+    # def id_(self):
+    #     return f'{self.school_name}: HHA Rotation #{self.rotation_num}'
+
+    # def __str__(self):
+    #     return self.id_
+
 
     def __str__(self):
-        return self.id_
-
+        return f'{self.school_name}: HHA Rotation #{self.rotation_num}'
 
 class HHAStudent(BaseStudent):
     class Meta:
@@ -48,8 +51,7 @@ class HHAStudent(BaseStudent):
     objects = HHAStudentManager()
 
     def __str__(self):
-        full_name = f'{self.first_name} {self.last_name}'
-        return f'{full_name.capitalize()}'
+        return f'{self.first_name.capitalize()} {self.last_name.capitalize()}'
 
 
 class HHATheoryRecord(BaseRecord):
@@ -79,7 +81,7 @@ class HHATheoryRecord(BaseRecord):
     objects = HHATheoryRecordManager()
 
     def __str__(self):
-        return str(self.hha_theory_record_uuid)
+        return str(self.record_uuid)
 
 
 class HHAClinicalRecord(BaseRecord):
@@ -111,4 +113,4 @@ class HHAClinicalRecord(BaseRecord):
     objects = HHAClinicalRecordManager()
 
     def __str__(self):
-        return str(self.hha_clinical_record_uuid)
+        return str(self.record_uuid)
