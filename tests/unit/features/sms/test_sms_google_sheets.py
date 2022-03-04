@@ -267,7 +267,7 @@ def get_sheet_data(get_worksheet):
     return getting_sheet_data(get_worksheet)
 
 
-@pytest.mark.current
+
 @pytest.mark.google
 @pytest.mark.usefixtures('get_sheet_data', 'get_worksheet')
 class TestExportHandler:

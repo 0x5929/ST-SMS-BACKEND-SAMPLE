@@ -43,7 +43,6 @@ TEST_PARTTIME_STR = ['LESS THAN 32','UNDER 32 HOURS','P','PARTTIME']
 # sms.google_sheets sms.data_operations testing constants (used some in sms.utils as well)
 TEST_SPREADSHEET_ID = '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU'
 TEST_DB_SHEET_ID = '0'
-TEST_SCHOOL_NAME = 'STI'
 TEST_PROGRAM_NAME = 'CNA'
 TEST_ROT_NUM = '1'
 TEST_KEY = '__TEST_KEY__'

@@ -30,6 +30,8 @@ GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST = '5c75dd4d-8638-47df-afa8-5e1748e19be7
 GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST = '85bf2e7d-a51c-41dd-acea-58a751c39e38'
 
 
+
+
 # this is for filter URLs of the STI HHA student, please change this if test fixture changes
 SMS_FILTER_PARAMS = {
     'school_name': 'STI',
@@ -64,3 +66,8 @@ SMS_FILTER_PARAMS_ST2 = {
     'graduated': 'True',
     'employed': 'True'
 }
+
+
+
+
+TEST_SCHOOL_NAME = 'STI'
