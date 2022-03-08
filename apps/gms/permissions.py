@@ -43,7 +43,7 @@ class IsAuthenticatedCNAInstructor(permissions.BasePermission):
 
 
 class IsAuthenticatedHHAInstructor(permissions.BasePermission):
-    message = 'Please be sure to log in with a CNA intructor account and try again.'
+    message = 'Please be sure to log in with a HHA intructor account and try again.'
 
     def has_permission(self, request, view):
 
@@ -69,7 +69,7 @@ class IsAuthenticatedAdminInstructor(permissions.BasePermission):
 
 
 class IsAuthenticatedCNAStaffInstructor(permissions.BasePermission):
-    message = 'Please be sure to log in with a CNA staff instructor account and try again'
+    message = 'Please be sure to log in with a CNA staff instructor account and try again.'
 
     def has_permission(self, request, view):
         if user_has_program('CNA', request.user) and \
@@ -82,7 +82,7 @@ class IsAuthenticatedCNAStaffInstructor(permissions.BasePermission):
 
 
 class IsAuthenticatedHHAStaffInstructor(permissions.BasePermission):
-    message = 'Please be sure to log in with a HHA staff instructor account and try again'
+    message = 'Please be sure to log in with a HHA staff instructor account and try again.'
 
     def has_permission(self, request, view):
         if user_has_program('HHA', request.user) and \

@@ -24,3 +24,15 @@ TEST_HHA_ROTATION = '__HHA_ROTATIONS__'
 TEST_HHA_STUDENT = '__HHA_STUDENTS__'
 TEST_HHA_THEORY_RECORD = '__HHA_THEORY_RECORD__'
 TEST_HHA_CLINICAL_RECORD = '__HHA_CLINICAL_RECORD__'
+
+
+
+
+
+# used by gms.permissions
+AUTH_REG_HHA_INSTR_MSG = 'Please be sure to log in with a HHA intructor account and try again.'
+AUTH_REG_CNA_INSTR_MSG = 'Please be sure to log in with a CNA intructor account and try again.'
+AUTH_STAFF_HHA_INSTR_MSG = 'Please be sure to log in with a HHA staff instructor account and try again.'
+AUTH_STAFF_CNA_INSTR_MSG = 'Please be sure to log in with a CNA staff instructor account and try again.'
+AUTH_ADMIN_INSTR_MSG = 'Please be sure to log in with an admin instructor account and try again.'
+AUTH_SUPERUSER_MSG = 'Sorry, you must be a superuser to perform this action.'

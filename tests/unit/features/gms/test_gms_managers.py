@@ -38,7 +38,6 @@ class Request:
 
 
 @pytest.mark.gms
-@pytest.mark.current
 class TestGMSManagers:
     
     @pytest.fixture
