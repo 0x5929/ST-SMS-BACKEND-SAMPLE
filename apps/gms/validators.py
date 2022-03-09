@@ -1,6 +1,3 @@
-import re
-import uuid
-
 from django.apps import apps
 from rest_framework.exceptions import ValidationError
 
