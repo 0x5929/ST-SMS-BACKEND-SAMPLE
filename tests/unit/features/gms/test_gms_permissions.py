@@ -39,7 +39,6 @@ class View:
 
 
 @pytest.mark.gms
-@pytest.mark.current
 class TestGMSPermissions:
     @pytest.fixture
     def get_request_obj(self):
@@ -161,7 +160,7 @@ class TestGMSPermissions:
 
 
     def test_IsAuthenticatedHHAStaffInstructor_message(self):
-        assert IsAuthenticatedHHAInstructor.message == AUTH_REG_HHA_INSTR_MSG
+        assert IsAuthenticatedHHAStaffInstructor.message == AUTH_STAFF_HHA_INSTR_MSG
 
     def test_IsAuthenticatedHHAStaffInstructor_has_permission(self, get_request_staff_obj, get_view_obj):
         get_request_staff_obj.user.is_authenticated = True
