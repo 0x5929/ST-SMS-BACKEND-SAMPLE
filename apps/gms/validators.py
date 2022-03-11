@@ -19,6 +19,8 @@ class GMSValidator:
 
     @staticmethod
     def get_current_rot_id(serializer, data):
+        err_msg = 'Cannot find the corresponding student\'s rotation uuid to the school record.'
+
         # get current student obj
         current_student_uuid = data.get('student').student_uuid
 
@@ -27,6 +29,9 @@ class GMSValidator:
 
         elif 'HHA' in serializer.Meta.model.__name__:
             StudentModel = apps.get_model('gms', 'HHAStudent')
+
+        else:
+            raise ValidationError(err_msg)
 
         return StudentModel.objects.get(
             student_uuid__exact=current_student_uuid).rotation.rotation_uuid

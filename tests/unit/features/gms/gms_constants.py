@@ -36,3 +36,10 @@ AUTH_STAFF_HHA_INSTR_MSG = 'Please be sure to log in with a HHA staff instructor
 AUTH_STAFF_CNA_INSTR_MSG = 'Please be sure to log in with a CNA staff instructor account and try again.'
 AUTH_ADMIN_INSTR_MSG = 'Please be sure to log in with an admin instructor account and try again.'
 AUTH_SUPERUSER_MSG = 'Sorry, you must be a superuser to perform this action.'
+
+
+
+
+
+# used by gms.validators
+TEST_STUDENT_UUID = '__TEST_STUDENT_UUID__'

@@ -1,8 +1,30 @@
 import pytest
+from rest_framework.exceptions import ValidationError
 
-from gms.models import CNARotation, HHARotation, CNAStudent, HHAStudent, CNATheoryRecord, CNAClinicalRecord, HHAClinicalRecord, HHATheoryRecord
-from gms.serializers import CNARotationSerializer, HHARotationSerializer, CNAStudentSerializer, HHAStudentSerializer, CNATheoryRecordSerializer, CNAClinicalRecordSerializer, HHATheoryRecordSerializer, HHAClinicalRecordSerializer
+from gms.models import (CNARotation, 
+                        HHARotation, 
+                        CNAStudent, 
+                        HHAStudent, 
+                        CNATheoryRecord, 
+                        CNAClinicalRecord, 
+                        HHAClinicalRecord, 
+                        HHATheoryRecord)
+
+from gms.serializers import (CNARotationSerializer, 
+                            HHARotationSerializer, 
+                            CNAStudentSerializer, 
+                            HHAStudentSerializer, 
+                            CNATheoryRecordSerializer, 
+                            CNAClinicalRecordSerializer, 
+                            HHATheoryRecordSerializer, 
+                            HHAClinicalRecordSerializer)
+
+from sms.serializers import RotationSerializer as IncorrectSerializer
+
 from gms.validators import GMSValidator
+
+from .gms_constants import TEST_STUDENT_UUID
+
 
 class User:
     def __init__(self, superuser=False, admin=False, staff=False):
@@ -123,3 +145,98 @@ class TestGMSValidator:
     def get_hhaClinicalRecord_serializer(self):
         return HHAClinicalRecordSerializer()
     
+    @pytest.fixture
+    def get_incorrect_sms_serializer(self):
+        return IncorrectSerializer()
+
+    def test_reference_does_not_change_on_updates_cna_theory_success(self, get_cnaTheoryRecord_obj):
+        instance = get_cnaTheoryRecord_obj
+        reference = 'student'
+        value = instance.student
+
+        assert GMSValidator.reference_does_not_change_on_updates(
+            value, instance, reference).student_uuid == get_cnaTheoryRecord_obj.student.student_uuid
+
+    def test_reference_does_not_change_on_updates_cna_clinical_success(self, get_cnaClinicalRecord_obj):
+        instance = get_cnaClinicalRecord_obj
+        reference = 'student'
+        value = instance.student
+
+        assert GMSValidator.reference_does_not_change_on_updates(
+            value, instance, reference).student_uuid == get_cnaClinicalRecord_obj.student.student_uuid
+
+
+    def test_reference_does_not_change_on_updates_hha_theory_success(self, get_hhaTheoryRecord_obj):
+        instance = get_hhaTheoryRecord_obj
+        reference = 'student'
+        value = instance.student
+
+        assert GMSValidator.reference_does_not_change_on_updates(
+            value, instance, reference).student_uuid == get_hhaTheoryRecord_obj.student.student_uuid
+
+    def test_reference_does_not_change_on_updates_hha_clinical_success(self, get_hhaClinicalRecord_obj):
+        instance = get_hhaClinicalRecord_obj
+        reference = 'student'
+        value = instance.student
+
+        assert GMSValidator.reference_does_not_change_on_updates(
+            value, instance, reference).student_uuid == get_hhaClinicalRecord_obj.student.student_uuid
+
+
+    def test_reference_does_not_change_on_updates_cna_theory_failure(self, get_cnaTheoryRecord_obj):
+        instance = get_cnaTheoryRecord_obj
+        reference = 'student'
+        value = TEST_STUDENT_UUID
+
+        with pytest.raises(ValidationError):
+            GMSValidator.reference_does_not_change_on_updates(value, instance, reference)
+
+    def test_reference_does_not_change_on_updates_cna_clinical_failure(self, get_cnaClinicalRecord_obj):
+        instance = get_cnaClinicalRecord_obj
+        reference = 'student'
+        value = TEST_STUDENT_UUID
+
+        with pytest.raises(ValidationError):
+            GMSValidator.reference_does_not_change_on_updates(value, instance, reference)
+
+    def test_reference_does_not_change_on_updates_hha_theory_failure(self, get_hhaTheoryRecord_obj):
+        instance = get_hhaTheoryRecord_obj
+        reference = 'student'
+        value = TEST_STUDENT_UUID
+
+        with pytest.raises(ValidationError):
+            GMSValidator.reference_does_not_change_on_updates(value, instance, reference)
+
+    def test_reference_does_not_change_on_updates_hha_clinical_failure(self, get_hhaClinicalRecord_obj):
+        instance = get_hhaClinicalRecord_obj
+        reference = 'student'
+        value = TEST_STUDENT_UUID
+
+        with pytest.raises(ValidationError):
+            GMSValidator.reference_does_not_change_on_updates(value, instance, reference)
+
+
+    def test_get_current_rot_id_cna_success(self, get_cnaTheoryRecord_serializer, get_cnaStudent_obj):
+        data = {'student': get_cnaStudent_obj}
+
+        assert GMSValidator.get_current_rot_id(
+            get_cnaTheoryRecord_serializer, data) == get_cnaStudent_obj.rotation.rotation_uuid
+
+    def test_get_current_id_cna_failure(self, get_incorrect_sms_serializer, get_cnaStudent_obj):
+        data = {'student': get_cnaStudent_obj}
+
+        with pytest.raises(ValidationError):
+            GMSValidator.get_current_rot_id(get_incorrect_sms_serializer, data)
+
+
+    def test_get_current_rot_id_hha_success(self, get_hhaTheoryRecord_serializer, get_hhaStudent_obj):
+        data = {'student': get_hhaStudent_obj}
+
+        assert GMSValidator.get_current_rot_id(
+            get_hhaTheoryRecord_serializer, data) == get_hhaStudent_obj.rotation.rotation_uuid
+
+    def test_get_current_id_hha_failure(self, get_incorrect_sms_serializer, get_hhaStudent_obj):
+        data = {'student': get_hhaStudent_obj}
+
+        with pytest.raises(ValidationError):
+            GMSValidator.get_current_rot_id(get_incorrect_sms_serializer, data)
