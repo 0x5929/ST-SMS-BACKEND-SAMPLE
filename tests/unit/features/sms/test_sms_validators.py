@@ -1,6 +1,8 @@
 import pytest
 import datetime
 
+from rest_framework.exceptions import ValidationError
+
 from sms.models import Student, Rotation, Program, School
 from sms.validators import SMSValidator
 from sms.serializers import StudentSerializer, RotationSerializer, ProgramSerializer
@@ -17,7 +19,7 @@ from .sms_constants import (TEST_PROGRAM_UUID,
                             TEST_SCHOOL_NAME,
                             TEST_DIFF_SCHOOL_NAME,
                             TEST_DIFF_PROG_NAME,
-                            TEST_NON_MATCHING_EMAILS)
+                            TEST_NON_MATCHING_EMAILS, TEST_SCHOOL_UUID)
 
 class User:
     def __init__(self, superuser=False):
@@ -132,9 +134,11 @@ class TestSMSValidator:
     def test_reference_does_not_change_on_updates_failure(self, get_rot_obj):
         instance = get_rot_obj
         reference = 'program'
-        value = TEST_PROGRAM_UUID
+        value = get_rot_obj
+        value.program_uuid = TEST_PROGRAM_UUID
+        value.school_uuid = TEST_SCHOOL_UUID
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             SMSValidator.reference_does_not_change_on_updates(
                 value, instance, reference)
 
@@ -149,7 +153,7 @@ class TestSMSValidator:
 
     def test_no_special_chars_and_captialize_string_failure(self):
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             for string in TEST_NON_MATCHING_STR:
                 SMSValidator.no_special_chars_and_captialize_string(
                     string)
@@ -161,7 +165,7 @@ class TestSMSValidator:
             matching_phone_num) == matching_phone_num
 
     def test_phone_number_format_checker_failure(self):
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             for phone_num in TEST_NON_MATCHING_PHONE:
                 SMSValidator.phone_number_format_checker(phone_num)
 
@@ -171,7 +175,7 @@ class TestSMSValidator:
             assert SMSValidator.student_id_format_checker(id_) == id_
 
     def test_student_id_format_checker_failure(self):
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             for id_ in TEST_NON_MATCHING_STUDENT_ID:
                 SMSValidator.student_id_format_checker(id_)
 
@@ -197,7 +201,7 @@ class TestSMSValidator:
             'completion_date': earlier_date
         }
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             SMSValidator.date_validation(data, partial=False)
 
             # if doing PATCH (partial update), and one of the date is missing, raise exception
@@ -215,7 +219,7 @@ class TestSMSValidator:
 
         monkeypatch.setattr(Rotation.objects, 'filter', does_exist)
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             SMSValidator.ensure_unique_rot(get_rot_reference)
 
     def test_ensure_unique_rot_success(self, get_rot_reference, monkeypatch):
@@ -253,7 +257,7 @@ class TestSMSValidator:
 
         monkeypatch.setattr(Rotation.objects, 'get', output_non_match_res)
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             assert SMSValidator.ensure_program_name(test_data)
 
             del test_data['course']
@@ -290,7 +294,7 @@ class TestSMSValidator:
 
     def test_ensure_same_school_failure(self, get_school_obj, get_prog_obj, get_rot_obj, get_request_obj, get_request_super_obj):
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             get_rot_obj.program.school.school_name = TEST_SCHOOL_NAME
             get_request_obj.user.school_name = TEST_DIFF_SCHOOL_NAME
             data = {
@@ -325,7 +329,7 @@ class TestSMSValidator:
 
     def test_email_format_checker_failure(self):
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValidationError):
             for email in TEST_NON_MATCHING_EMAILS:
                 SMSValidator.email_format_checker(
                     email)

@@ -23,7 +23,7 @@ from sms.serializers import RotationSerializer as IncorrectSerializer
 
 from gms.validators import GMSValidator
 
-from .gms_constants import TEST_STUDENT_UUID
+from .gms_constants import TEST_STUDENT_UUID, TEST_RECORD_TOPIC
 
 
 class User:
@@ -240,3 +240,89 @@ class TestGMSValidator:
 
         with pytest.raises(ValidationError):
             GMSValidator.get_current_rot_id(get_incorrect_sms_serializer, data)
+
+
+    def test_no_duplicate_records_success(self, get_cnaTheoryRecord_serializer, get_cnaTheoryRecord_obj, monkeypatch):
+        def does_not_exist(student__rotation__rotation_uuid__exact, topic__exact):
+            return ExistQuerySet()
+
+        class ExistQuerySet:
+            def exists(self):
+                return False
+
+        def get_rot_id(serializer, data):
+            return get_cnaTheoryRecord_obj.student.rotation.rotation_uuid
+
+        monkeypatch.setattr(CNATheoryRecord.objects, 'filter', does_not_exist)
+        monkeypatch.setattr(GMSValidator, 'get_current_rot_id', get_rot_id)
+        data = {'topic': get_cnaTheoryRecord_obj.topic}
+
+        assert GMSValidator.no_duplicate_records(get_cnaTheoryRecord_serializer, data) == data
+
+    
+    def test_no_duplicate_records_with_partial_success(self, get_cnaTheoryRecord_serializer, get_cnaTheoryRecord_obj, monkeypatch):
+        def does_not_exist(student__rotation__rotation_uuid__exact, topic__exact):
+            return ExistQuerySet()
+
+        class ExistQuerySet:
+            def exists(self):
+                return False
+
+        def get_rot_id(serializer, data):
+            return get_cnaTheoryRecord_obj.student.rotation.rotation_uuid
+
+        monkeypatch.setattr(CNATheoryRecord.objects, 'filter', does_not_exist)
+        monkeypatch.setattr(GMSValidator, 'get_current_rot_id', get_rot_id)
+
+        data = {'topic': get_cnaTheoryRecord_obj.topic}
+        get_cnaTheoryRecord_serializer.partial = True
+
+        assert GMSValidator.no_duplicate_records(get_cnaTheoryRecord_serializer, data) == data
+
+
+
+    def test_no_duplicate_records_POST_failure(self, get_cnaTheoryRecord_serializer, get_cnaTheoryRecord_obj, monkeypatch):
+        def does_exist(student__rotation__rotation_uuid__exact, topic__exact):
+            return ExistQuerySet()
+
+        class ExistQuerySet:
+            def exists(self):
+                return True
+
+        def get_rot_id(serializer, data):
+            return get_cnaTheoryRecord_obj.student.rotation.rotation_uuid
+
+        monkeypatch.setattr(CNATheoryRecord.objects, 'filter', does_exist)
+        monkeypatch.setattr(GMSValidator, 'get_current_rot_id', get_rot_id)
+        data = {'topic': get_cnaTheoryRecord_obj.topic}
+
+        with pytest.raises(ValidationError):
+            GMSValidator.no_duplicate_records(get_cnaTheoryRecord_serializer, data)
+
+
+
+    def test_no_duplicate_records_UPDATE_failure(self, get_cnaTheoryRecord_serializer, get_cnaTheoryRecord_obj, monkeypatch):
+        def does_exist(student__rotation__rotation_uuid__exact, topic__exact):
+            return ExistQuerySet()
+
+        class ExistQuerySet:
+            def exists(self):
+                return True
+
+        def get_rot_id(serializer, data):
+            return get_cnaTheoryRecord_obj.student.rotation.rotation_uuid
+
+        monkeypatch.setattr(CNATheoryRecord.objects, 'filter', does_exist)
+        monkeypatch.setattr(GMSValidator, 'get_current_rot_id', get_rot_id)
+
+        data = {'topic': get_cnaTheoryRecord_obj.topic}
+        get_cnaTheoryRecord_serializer.instance = get_cnaTheoryRecord_obj
+        get_cnaTheoryRecord_serializer.instance.topic = TEST_RECORD_TOPIC
+
+
+        with pytest.raises(ValidationError):
+            GMSValidator.no_duplicate_records(get_cnaTheoryRecord_serializer, data)
+
+
+
+

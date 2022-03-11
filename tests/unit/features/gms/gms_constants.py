@@ -43,3 +43,4 @@ AUTH_SUPERUSER_MSG = 'Sorry, you must be a superuser to perform this action.'
 
 # used by gms.validators
 TEST_STUDENT_UUID = '__TEST_STUDENT_UUID__'
+TEST_RECORD_TOPIC = '__RANDOM_TOPIC__'
