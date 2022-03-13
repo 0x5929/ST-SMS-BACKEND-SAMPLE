@@ -10,12 +10,18 @@ class ClientManager(models.Manager):
         if request.user.is_superuser:
             return super(ClientManager, self).get_queryset().all()
 
-        elif request.user.is_admin:
-            return super(ClientManager, self).get_queryset().all()
+        # elif request.user.is_admin:
+        #     return super(ClientManager, self).get_queryset().all()
 
-        elif request.user.is_staff:
+
+
+        elif request.user.is_admin:
             return super(ClientManager, self).get_queryset().filter(
                 school_name__exact=request.user.school_name)
+
+        # elif request.user.is_staff:
+        #     return super(ClientManager, self).get_queryset().filter(
+        #         school_name__exact=request.user.school_name)
 
         else:
             return super(ClientManager, self).get_queryset.filter(
@@ -30,12 +36,18 @@ class NoteManager(models.Manager):
         if request.user.is_superuser:
             return super(NoteManager, self).get_queryset().all()
 
-        elif request.user.is_admin:
-            return super(NoteManager, self).get_queryset().all()
 
-        elif request.user.is_staff:
+        # elif request.user.is_admin:
+        #     return super(NoteManager, self).get_queryset().all()
+
+
+        elif request.user.is_admin:
             return super(NoteManager, self).get_queryset().filter(
                 client__school_name__exact=request.user.school_name)
+
+        # elif request.user.is_staff:
+        #     return super(NoteManager, self).get_queryset().filter(
+        #         client__school_name__exact=request.user.school_name)
 
         else:
             return super(NoteManager, self).get_queryset().filter(
