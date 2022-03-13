@@ -153,9 +153,7 @@ class GMSValidator:
             # record.student.rotation.school_name
             if partial:
                 if not data.get('student') or \
-                        data.get('student') and not getattr(data.get('student', 'rotation')) or \
                         data.get('student') and \
-                        getattr(data.get('student'), 'rotation') and \
                         not getattr(getattr(data.get('student'), 'rotation'), 'school_name'):
                     return data
 
@@ -165,7 +163,7 @@ class GMSValidator:
             else:
                 raise ValidationError(err_msg)
 
-    @ staticmethod
+    @staticmethod
     def ensure_no_dup_rot(data, model_name, instance, partial):
         err_msg = 'You are adding/updating a rotation number that already exists, please try again.'
 
@@ -189,7 +187,7 @@ class GMSValidator:
         else:
             raise ValidationError(err_msg)
 
-    @ classmethod
+    @classmethod
     def final_rot_validation(cls, serializer, data):
         request = serializer.context.get('request')
         data = cls.date_checker(data, serializer.instance,
@@ -200,7 +198,7 @@ class GMSValidator:
 
         return cls.ensure_no_dup_rot(same_school_verified, serializer.Meta.model.__name__, serializer.instance, partial=serializer.partial)
 
-    @ classmethod
+    @classmethod
     def final_student_validation(cls, serializer, data):
         request = serializer.context.get('request')
 
@@ -209,7 +207,7 @@ class GMSValidator:
 
         return cls.no_duplicate_students(serializer, same_school_verified_data)
 
-    @ classmethod
+    @classmethod
     def final_record_validation(cls, serializer, data):
         request = serializer.context.get('request')
 

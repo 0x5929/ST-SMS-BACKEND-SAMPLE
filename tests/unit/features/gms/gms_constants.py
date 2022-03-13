@@ -27,6 +27,28 @@ TEST_HHA_CLINICAL_RECORD = '__HHA_CLINICAL_RECORD__'
 
 
 
+TEST_GMS_ROTATION_QUERY_PARAMS_SUCCESS = {
+    'start_date': '2021-10-11',
+    'end_date': '2021-10-12',
+    'rotation_num' : 10
+}
+
+TEST_GMS_STUDENT_QUERY_PARAMS_SUCCESS = {
+    'first_name': 'Test',
+    'last_name': 'A',
+    'makeup_student': True
+}
+
+TEST_GMS_RECORD_QUERY_PARAMS_SUCCESS = {
+    'date': '2021-10-11',
+    'completed' : True,
+    'topic' : '__RANDOM__'
+}
+
+TEST_QUERY_PARAMS_FAILURE = {
+    '__INCORRECT_PARAM_NAME__': '__RANDOM_STRING__'
+}
+
 
 
 # used by gms.permissions
