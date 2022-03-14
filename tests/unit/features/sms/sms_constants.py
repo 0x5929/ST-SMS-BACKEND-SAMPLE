@@ -120,12 +120,6 @@ TEST_STUDENT_ALL = '__STUDENT_ALL__'
 
 # used by sms.validators
 TEST_NOCAP_MATCHING_STR = 'matching string'
-TEST_CAP_MATCHING_STR = 'Matching string'
-TEST_MATCHING_PHONE_NO = '123-456-7890'
-TEST_NON_MATCHING_STR = ['_', '\\', '/', '\'', '"', '?', '!', '@',
-                                '$', '%', '^', '&', '(', ')', '[', ']', '{', '}', '>', '<']
-TEST_NON_MATCHING_PHONE = ['1234567890', '1234567890', '12345678',
-                              '(123)456789', '123-456-789', '123-456-78901', '123.456.7890']
 
 TEST_MATCHING_STUDENT_ID = ['RO-CNA-01-0101-JD', 'AL-CNA-01-0101-JD',
                         'RO-HHA-01-0101-JD', 'RO-SG-100-0101-JD']

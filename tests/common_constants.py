@@ -72,3 +72,11 @@ SMS_FILTER_PARAMS_ST2 = {
 
 
 TEST_SCHOOL_NAME = 'STI'
+
+TEST_CAP_MATCHING_STR = 'Matching string'
+TEST_NON_MATCHING_STR = ['_', '\\', '/', '\'', '"', '?', '!', '@',
+                                '$', '%', '^', '&', '(', ')', '[', ']', '{', '}', '>', '<']
+TEST_MATCHING_PHONE_NO = '123-456-7890'
+
+TEST_NON_MATCHING_PHONE = ['1234567890', '1234567890', '12345678',
+                              '(123)456789', '123-456-789', '123-456-78901', '123.456.7890']

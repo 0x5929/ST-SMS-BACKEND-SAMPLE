@@ -13,13 +13,13 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
 
     def validate_client(self, value):
-        return value if not self.instance else CMSValidator.reference_does_not_change_on_updates(value, self.instance, 'client')
+        return CMSValidator.reference_does_not_change_on_updates(value, self.instance, 'client')
 
-    def create(self, validated_data):
-        return super(NoteSerializer, self).create(Note.objects.create_or_update_note(validated_data=validated_data))
+    # def create(self, validated_data):
+    #     return super(NoteSerializer, self).create(Note.objects.create_or_update_note(validated_data=validated_data))
 
-    def update(self, instance, validated_data):
-        return super(NoteSerializer, self).update(*Note.objects.create_or_update_note(validated_data=validated_data, instance=instance))
+    # def update(self, instance, validated_data):
+    #     return super(NoteSerializer, self).update(*Note.objects.create_or_update_note(validated_data=validated_data, instance=instance))
 
 
 class ClientSerializer(serializers.ModelSerializer):

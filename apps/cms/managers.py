@@ -24,7 +24,7 @@ class ClientManager(models.Manager):
         #         school_name__exact=request.user.school_name)
 
         else:
-            return super(ClientManager, self).get_queryset.filter(
+            return super(ClientManager, self).get_queryset().filter(
                 school_name__exact=request.user.school_name,
                 recruit_emails__overlap=[request.user.email])
 
@@ -54,15 +54,15 @@ class NoteManager(models.Manager):
                 client__school_name__exact=request.user.school_name,
                 client__recruit_emails__overlap=[request.user.email])
 
-    def create_or_update_note(self, validated_data, instance=None):
-        # get client ID from request
-        client_id = uuid.UUID(str(validated_data.get('client').client_uuid))
+    # def create_or_update_note(self, validated_data, instance=None):
+    #     # get client ID from request
+    #     client_id = uuid.UUID(str(validated_data.get('client').client_uuid))
 
-        # retrieve client from DB
-        from .models import Client
-        client = Client.objects.get(client_uuid__exact=client_id)
+    #     # retrieve client from DB
+    #     from .models import Client
+    #     client = Client.objects.get(client_uuid__exact=client_id)
 
-        # add client to note object
-        validated_data['client'] = client
+    #     # add client to note object
+    #     validated_data['client'] = client
 
-        return (instance, validated_data) if instance else validated_data
+    #     return (instance, validated_data) if instance else validated_data

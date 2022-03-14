@@ -67,4 +67,4 @@ class TestCMSModelStr:
     def test_note_model_str(self):
         note = Note.objects.get(note_uuid__exact=CMS_NOTE_UUID_TO_TEST)
 
-        assert str(note) == CMS_NOTE_UUID_TO_TEST
+        assert str(note) == NOTE_STR
