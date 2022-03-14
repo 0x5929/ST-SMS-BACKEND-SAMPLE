@@ -41,11 +41,9 @@ class Client(models.Model):
 
     @property
     def full_name(self):
-        # return '%s_%s' % (self.first_name.lower(), self.last_name.lower())
         return f'{self.first_name.lower()}_{self.last_name.lower()}'
 
     def __str__(self):
-        # return '%s %s' % (self.first_name, self.last_name)
         return f'{self.first_name} {self.last_name}'
 
 

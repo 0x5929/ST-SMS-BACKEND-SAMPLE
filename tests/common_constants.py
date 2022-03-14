@@ -29,7 +29,8 @@ GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST = '136fb640-7cd7-4f2e-892f-67b7a2a4b238'
 GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST = '5c75dd4d-8638-47df-afa8-5e1748e19be7'
 GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST = '85bf2e7d-a51c-41dd-acea-58a751c39e38'
 
-
+CMS_CLIENT_UUID_TO_TEST = '1b6f00a6-dec7-4766-be71-2ce630eb2df5'
+CMS_NOTE_UUID_TO_TEST = 'd598af07-bbab-44f0-9ba2-94cd58f4ecdf'
 
 
 # this is for filter URLs of the STI HHA student, please change this if test fixture changes
