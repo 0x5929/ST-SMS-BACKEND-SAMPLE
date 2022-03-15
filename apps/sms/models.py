@@ -19,6 +19,10 @@ PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 
 
 class School(models.Model):
+    class Meta:
+        app_label = 'sms'
+        verbose_name = 'Main/Satellite Schools'
+
     school_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -36,6 +40,10 @@ class School(models.Model):
 
 
 class Program(models.Model):
+    class Meta:
+        app_label = 'sms'
+        verbose_name = 'Education Programs'
+
     program_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -54,6 +62,10 @@ class Program(models.Model):
 
 
 class Rotation(models.Model):
+    class Meta:
+        app_label = 'sms'
+        verbose_name = 'Program Rotations or Classes'
+
     rotation_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -74,6 +86,10 @@ class Rotation(models.Model):
 
 
 class Student(models.Model):
+    class Meta:
+        app_label = 'sms'
+        verbose_name = 'Students and Graduates'
+
     student_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 

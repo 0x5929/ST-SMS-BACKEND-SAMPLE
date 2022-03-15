@@ -65,7 +65,7 @@
     "model": "sms.rotation",
     "pk": "fcd1f629-6449-4672-8dc8-4a2183cc70e9",
     "fields": {
-        "rotation_number": 1,
+        "rotation_number": 99,
         "program": "67301e14-cd3d-493a-a2cf-84d8c490c0ef"
     }
 },
@@ -123,8 +123,45 @@
         "google_sheet_migration_issue": "",
         "rotation": "4481466a-7bb3-4ccc-8a51-52f4a534dd4a"
     }
+}
+,{
+  "model": "sms.student",
+  "pk": "d30d892a-9dba-4f3b-a71c-ba44eaa4deae",
+  "fields": {
+    "student_id": "RO-CNA-99-1019-RS",
+    "first_name": "Ricky",
+    "last_name": "Spanish",
+    "phone_number": "626-589-5984",
+    "email": "ricky.spanish@email.com",
+    "mailing_address": "1020 S. Fake STI CNA Student Ave, TestR, CA 91770",
+    "course": "CNA",
+    "start_date": "2021-10-28",
+    "completion_date": "2021-12-13",
+    "date_enrollment_agreement_signed": "2021-10-06",
+    "third_party_payer_info": "",
+    "course_cost_currency": "USD",
+    "course_cost": "2680.00",
+    "total_charges_charged_currency": "USD",
+    "total_charges_charged": "2680.00",
+    "total_charges_paid_currency": "USD",
+    "total_charges_paid": "2600.00",
+    "paid": false,
+    "graduated": false,
+    "passed_first_exam": true,
+    "passed_second_or_third_exam": false,
+    "employed": false,
+    "place_of_employment": "",
+    "employment_address": "",
+    "position": "",
+    "starting_wage_currency": "USD",
+    "starting_wage": null,
+    "hours_worked_weekly": "",
+    "description_of_attempts_to_contact_student": "",
+    "google_sheet_migrated": false,
+    "google_sheet_migration_issue": "POST",
+    "rotation": "fcd1f629-6449-4672-8dc8-4a2183cc70e9"
+  }
 },
-
 {
     "model": "sms.student",
     "pk": "c7efabb4-890c-48bb-a5f9-854c899496c8",

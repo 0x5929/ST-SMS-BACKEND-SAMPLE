@@ -14,6 +14,10 @@ PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 
 
 class Client(models.Model):
+    class Meta:
+        app_label = 'cms'
+        verbose_name = 'Clientele'
+
     client_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 
@@ -48,6 +52,10 @@ class Client(models.Model):
 
 
 class Note(models.Model):
+    class Meta:
+        app_label = 'cms'
+        verbose_name = 'Client\'s notes'
+
     note_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
 

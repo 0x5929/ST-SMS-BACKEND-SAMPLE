@@ -756,9 +756,16 @@ def specific_student_JSON_data_response(context):
     response = context.response.data
 
     filtered_student_lastname = SMS_FILTER_PARAMS.get('last_name')
+    
+    # context.test().assertEqual(response[0].get('last_name'),
+    #                            filtered_student_lastname)
 
-    context.test().assertEqual(response[0].get('last_name'),
-                               filtered_student_lastname)
+    for indx, data in enumerate(response):
+        if data.get('last_name') == filtered_student_lastname:
+            assert True
+            break
+        if indx == ( len(response) - 1 ) and data.get('last_name') != filtered_student_lastname:
+            assert False
 
 
 @then('server will respond with 405')

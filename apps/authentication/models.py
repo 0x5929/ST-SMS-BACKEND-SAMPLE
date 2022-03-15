@@ -72,6 +72,9 @@ class CustomAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser, PermissionsMixin):
+    class Meta:
+        app_label = 'authentication'
+        verbose_name = 'User Accounts'
 
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=150, unique=True)

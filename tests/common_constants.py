@@ -34,22 +34,41 @@ CMS_NOTE_UUID_TO_TEST = 'd598af07-bbab-44f0-9ba2-94cd58f4ecdf'
 
 
 # this is for filter URLs of the STI HHA student, please change this if test fixture changes
+# SMS_FILTER_PARAMS = {
+#     'school_name': 'STI',
+#     'program_name': 'HHA',
+#     'rotation_num': 1,
+#     'first_name': 'Test',
+#     'last_name': 'B',
+#     'full_name': 'test_b',
+#     'email': 'testb@email.com',
+#     'phone': '626-333-5544',
+#     'id_': 'RO-HHA-01-1006-TB',
+#     'start_date': '2021-12-09',
+#     'completion_date': '2021-12-10',
+#     'paid': 'False',
+#     'graduated': 'False',
+#     'employed': 'False'
+# }
+
+
 SMS_FILTER_PARAMS = {
     'school_name': 'STI',
-    'program_name': 'HHA',
-    'rotation_num': 1,
-    'first_name': 'Test',
-    'last_name': 'B',
-    'full_name': 'test_b',
-    'email': 'testb@email.com',
-    'phone': '626-333-5544',
-    'id_': 'RO-HHA-01-1006-TB',
-    'start_date': '2021-12-09',
-    'completion_date': '2021-12-10',
+    'program_name': 'CNA',
+    'rotation_num': 99,
+    'first_name': 'Ricky',
+    'last_name': 'Spanish',
+    'full_name': 'ricky_spanish',
+    'email': 'ricky.spanish@email.com',
+    'phone': '626-589-5984',
+    'id_': 'RO-CNA-99-1019-RS',
+    'start_date': '2021-10-28',
+    'completion_date': '2021-12-13',
     'paid': 'False',
     'graduated': 'False',
     'employed': 'False'
 }
+
 
 SMS_FILTER_PARAMS_ST2 = {
     'school_name': 'ST2',

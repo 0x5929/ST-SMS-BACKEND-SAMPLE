@@ -3,9 +3,9 @@ from tests.common_constants import *
 # sms.models testing constants
 SCHOOL_STR = 'STI'
 PROGRAM_STR = 'STI: CNA'
-ROTATION_STR = 'STI: CNA Rotation# 1'
+ROTATION_STR = 'STI: CNA Rotation# 99'
 STUDENT_STR = 'test_b'
-TEST_ROTATION_SIZE = 0
+TEST_ROTATION_SIZE = 1
 
 TEST_UNPAID_CHARGES_PAID = '99.00'
 TEST_UNPAID_CHARGES_CHARGED = '100.00'
