@@ -22,7 +22,7 @@ def before_scenario(context, scenario):
 
     context.test = TestCase
     context.test.fixtures = ['test-initial-users.json',
-                             'test-initial-accountEmails.json', 'test-initial-sms-data.json', 'test-initial-gms-data.json']
+                             'test-initial-accountEmails.json', 'test-initial-sms-data.json', 'test-initial-gms-data.json', 'test-initial-cms-data.json']
 
     context.test.setUpClass()
 

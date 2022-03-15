@@ -137,7 +137,13 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_ST2_HHA_ROTATION_POST_SAMPLE_DATA,
                        GMS_ST2_HHA_STUDENT_POST_SAMPLE_DATA,
                        GMS_ST2_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
-                       GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA)
+                       GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
+                       CMS_CLIENTS_API_URL,
+                       CMS_NOTES_API_URL,
+                       CMS_SECOND_CLIENT_UUID,
+                       CMS_SECOND_NOTE_UUID,
+                       CMS_ST2_CLIENT_UUID,
+                       CMS_ST2_NOTE_UUID)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -2456,3 +2462,47 @@ def request_GET_hhaClinicalRecords_by_topic_ST2(context):
 
     context.response = context.test.client.get(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
+
+
+# whens for cms component testing
+@when('request GET to /api/cms/clients/client_uuid')
+def request_GET_clients(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}', headers=headers)
+
+@when('request GET to /api/cms/notes/note_uuid')
+def request_GET_notes(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}', headers=headers)
+
+@when('request GET to second /api/cms/clients/client_uuid')
+def request_GET_second_client(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{CMS_SECOND_CLIENT_UUID}/', headers=headers)
+
+@when('request GET to second /api/cms/notes/note_uuid')
+def request_GET_second_note(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', headers=headers)
+
+@when('request GET to ST2 /api/cms/clients/client_uuid')
+def request_GET_ST2_client(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', headers=headers)
+
+@when('request GET to ST2 /api/cms/notes/note_uuid')
+def request_GET_ST2_client(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', headers=headers)

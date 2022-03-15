@@ -12,7 +12,10 @@ from constants import (TEST_SUPERUSER,
                        TEST_STAFF_HHA_INST_USER,
                        TEST_REG_INST_CNA_USER,
                        TEST_REG_INST_HHA_USER,
-                       TEST_REG_INST_USER)
+                       TEST_REG_INST_USER,
+                       TEST_ADMIN_REC_USER,
+                       TEST_STAFF_REC_USER,
+                       TEST_REG_REC_USER)
 
 LOGIN_PATH = '/auth/login/'
 LOGIN_PW = 'ye_rui_hu_xiao'
@@ -194,6 +197,35 @@ def logged_on_as_reg_is_inst_false(context):
     # POST to login
     auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
                                          'email': f'{TEST_REG_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+# CMS givens:
+@given('logged on as admin recruit user')
+def logged_on_as_admin_recruit(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_ADMIN_REC_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+@given('logged on as staff recruit user')
+def logged_on_as_staff_recruit(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_STAFF_REC_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+@given('logged on as regular recruit user')
+def logged_on_as_reg_recruit(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_REG_REC_USER}@localhost', 'password': LOGIN_PW})
 
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']

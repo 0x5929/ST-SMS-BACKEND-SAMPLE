@@ -24,4 +24,56 @@
         "content": "Tried contacting.",
         "client": "1b6f00a6-dec7-4766-be71-2ce630eb2df5"
     }
+},{
+    "model": "cms.client",
+    "pk": "96896bab-cdd5-4f4c-bbe3-a0aa24a33127",
+    "fields": {
+        "first_name": "Testing",
+        "last_name": "Client",
+        "phone_number": "626-123-5555",
+        "initial_contact": "2021-11-01",
+        "email": "testing.client@email.com",
+        "city": "Alhambra",
+        "success": true,
+        "recruit_emails": "[\"random@localhost\"]",
+        "school_name": "STI"
+    }
+},
+{
+    "model": "cms.note",
+    "pk": "9bb20ac8-dfbd-4aa9-8adc-3294232e671b",
+    "fields": {
+        "date": "2021-11-06",
+        "product": "HHA",
+        "price_currency": "USD",
+        "price": "680.00",
+        "content": "Sample Content",
+        "client": "96896bab-cdd5-4f4c-bbe3-a0aa24a33127"
+    }
+},{
+    "model": "cms.client",
+    "pk": "1d6f6df2-322f-410e-a069-94147142f766",
+    "fields": {
+        "first_name": "Testy",
+        "last_name": "Clientelle",
+        "phone_number": "626-321-5555",
+        "initial_contact": "2021-12-01",
+        "email": "testy.clientelle@email.com",
+        "city": "Temple City",
+        "success": true,
+        "recruit_emails": "[\"random@localhost\"]",
+        "school_name": "ST2"
+    }
+},
+{
+    "model": "cms.note",
+    "pk": "b688b639-73cf-4917-8178-c23425e95f58",
+    "fields": {
+        "date": "2021-12-06",
+        "product": "SG",
+        "price_currency": "USD",
+        "price": "603.00",
+        "content": "Sample Content for this client",
+        "client": "1d6f6df2-322f-410e-a069-94147142f766"
+    }
 }]

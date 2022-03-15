@@ -1094,3 +1094,14 @@ GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS = {
     'completed': 'False',
     'topic': 'Cleaning and Care Tasks in the Home'
 }
+
+
+
+# CMS
+CMS_CLIENTS_API_URL = '/api/cms/clients/'
+CMS_NOTES_API_URL = '/api/cms/notes/'
+
+CMS_SECOND_CLIENT_UUID = '96896bab-cdd5-4f4c-bbe3-a0aa24a33127'
+CMS_SECOND_NOTE_UUID = '9bb20ac8-dfbd-4aa9-8adc-3294232e671b'
+CMS_ST2_CLIENT_UUID = '1d6f6df2-322f-410e-a069-94147142f766'
+CMS_ST2_NOTE_UUID = 'b688b639-73cf-4917-8178-c23425e95f58'
