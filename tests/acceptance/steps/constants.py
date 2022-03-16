@@ -1105,3 +1105,92 @@ CMS_SECOND_CLIENT_UUID = '96896bab-cdd5-4f4c-bbe3-a0aa24a33127'
 CMS_SECOND_NOTE_UUID = '9bb20ac8-dfbd-4aa9-8adc-3294232e671b'
 CMS_ST2_CLIENT_UUID = '1d6f6df2-322f-410e-a069-94147142f766'
 CMS_ST2_NOTE_UUID = 'b688b639-73cf-4917-8178-c23425e95f58'
+
+
+CMS_STI_CLIENT_SAMPLE_POST = {
+    'first_name': 'Sample First',
+    'last_name': 'Sample Last',
+    'phone_number': '123-456-7890',
+    'email': 'testysample@email.com',
+    'city': 'Arcadia',
+    'success': False,
+    'recruit_emails': ['testrecruituser@localhost'],
+    'school_name': 'STI'
+}
+
+CMS_STI_NOTE_SAMPLE_POST = {
+    'client': '96896bab-cdd5-4f4c-bbe3-a0aa24a33127',
+    'product': 'BLS',
+    'price': '100.00',
+    'content': 'Sample content for sample notes'
+}
+
+CMS_STI_CLIENT_SAMPLE_PUT = {
+    'first_name': 'First Sample',
+    'last_name': 'Last Sample',
+    'phone_number': '123-456-7890',
+    'email': 'testysample@email.com',
+    'city': 'Arcadia',
+    'success': False,
+    'recruit_emails': ['testrecruituser@localhost'],
+    'school_name': 'STI'
+}
+
+CMS_STI_NOTE_SAMPLE_PUT = {
+    'client': '96896bab-cdd5-4f4c-bbe3-a0aa24a33127',
+    'product': 'HSFA',
+    'price': '150.00',
+    'content': 'Sample content for sample notes'
+}
+
+CMS_STI_CLIENT_PATCH = {
+    'first_name' : 'Last Sample'
+}
+
+CMS_STI_NOTE_PATCH = {
+    'price' : '160.00' 
+}
+
+CMS_ST2_CLIENT_SAMPLE_POST = {
+    'first_name': 'Samplez',
+    'last_name': 'Lasty',
+    'phone_number': '123-456-7890',
+    'email': 'testyysamplez@email.com',
+    'city': 'Arcadia',
+    'success': False,
+    'recruit_emails': ['random@localhost'],
+    'school_name': 'ST2'
+}
+
+CMS_ST2_NOTE_SAMPLE_POST = {
+    'client': '1d6f6df2-322f-410e-a069-94147142f766',
+    'product': 'ESOL',
+    'price': '100.00',
+    'content': 'Sample content for sample notes  for ST2'
+}
+
+CMS_ST2_CLIENT_SAMPLE_PUT = {
+    'first_name': 'Samplezzz',
+    'last_name': 'Lastyy',
+    'phone_number': '123-456-7800',
+    'email': 'testyysamplezz@email.com',
+    'city': 'Arcadia',
+    'success': False,
+    'recruit_emails': ['random@localhost'],
+    'school_name': 'ST2'
+}
+
+CMS_ST2_NOTE_SAMPLE_PUT = {
+    'client': '1d6f6df2-322f-410e-a069-94147142f766',
+    'product': 'HSFA',
+    'price': '170.00',
+    'content': 'Sample content for sample notes'
+}
+
+CMS_ST2_CLIENT_PATCH = {
+    'first_name' : 'John'
+}
+
+CMS_ST2_NOTE_PATCH = {
+    'price' : '175.00' 
+}
