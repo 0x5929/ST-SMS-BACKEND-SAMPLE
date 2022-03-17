@@ -2,6 +2,8 @@ from django.apps import apps
 from rest_framework.exceptions import ValidationError
 
 
+from core.common import UserEmailValidator
+
 class GMSValidator:
 
     # used by RecordSerializers
@@ -195,6 +197,9 @@ class GMSValidator:
 
         same_school_verified = cls.ensure_same_school_name(
             data, request, 'Rotation', partial=serializer.partial)
+
+        if data.get('instructor_email'):
+            data['instructor_email'] = UserEmailValidator.user_email_checker(data.get('instructor_email'), 'instructor_email', serializer.instance, serializer.partial)
 
         return cls.ensure_no_dup_rot(same_school_verified, serializer.Meta.model.__name__, serializer.instance, partial=serializer.partial)
 

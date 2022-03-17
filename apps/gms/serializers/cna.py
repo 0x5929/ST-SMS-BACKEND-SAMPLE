@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+# from core.common import UserEmailValidator
+
 from ..validators import GMSValidator
 from ..models import CNARotation, CNAStudent, CNATheoryRecord, CNAClinicalRecord
 
@@ -84,6 +86,9 @@ class CNARotationSerializer(serializers.ModelSerializer):
         #exclude = ('rotation_uuid',)
         fields = '__all__'
         model = CNARotation
+
+    # def validate_instructor_email(self, value):
+    #     return UserEmailValidator.user_email_checker(value, 'instructor_email', self.instance, self.partial)
 
     def validate(self, data):
         return GMSValidator.final_rot_validation(self, data)

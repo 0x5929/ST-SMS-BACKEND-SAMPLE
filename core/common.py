@@ -46,7 +46,7 @@ class UserEmailValidator:
         return final_list
 
     @classmethod
-    def _email_filter(lst, raise_=False):
+    def _email_filter(cls, lst, raise_=False):
         list_ = []
 
         # if we are trying to raise a validation error then if any of the email dont match what is available, return None so the validators in each app can raise

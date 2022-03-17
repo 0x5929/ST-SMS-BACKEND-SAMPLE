@@ -35,7 +35,7 @@
         "email": "testing.client@email.com",
         "city": "Alhambra",
         "success": true,
-        "recruit_emails": "[\"random@localhost\"]",
+        "recruit_emails": "[\"testsuper@localhost\"]",
         "school_name": "STI"
     }
 },
@@ -61,7 +61,7 @@
         "email": "testy.clientelle@email.com",
         "city": "Temple City",
         "success": true,
-        "recruit_emails": "[\"random@localhost\"]",
+        "recruit_emails": "[\"testsuper@localhost\"]",
         "school_name": "ST2"
     }
 },
