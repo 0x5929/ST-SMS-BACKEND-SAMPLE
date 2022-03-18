@@ -448,6 +448,7 @@ JSON_PERMISSION_DENIED_RES = {
     'detail': 'You do not have permission to perform this action.'
 }
 
+
 JSON_SUPERUSER_ONLY_RES = {
     'detail': 'Sorry, you must be a superuser to perform this action.'
 }
@@ -1093,6 +1094,55 @@ GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS = {
     'date': '2021-11-09',
     'completed': 'False',
     'topic': 'Cleaning and Care Tasks in the Home'
+}
+
+GMS_CNAROTATION_POST_BAD_EMAIL = {
+    'school_name': 'STI',
+    'start_date': '2021-02-18',
+    'end_date': '2021-10-18',
+    'instructor_email': ['random@localhost'],
+    'rotation_num': 22,
+    'instructor_title': 'LVN',
+    'clinical_site': 'Rowland'
+}
+
+GMS_CNAROTATION_PUT_BAD_EMAIL = {
+    'school_name': 'STI',
+    'start_date': '2021-09-14',
+    'end_date': '2021-10-13',
+    'instructor_email': ['random@localhost'],
+    'rotation_num': 10,
+    'instructor_title': 'LVN',
+    'clinical_site': 'Rowland'
+}
+
+
+GMS_CNAROTATION_PATCH_BAD_EMAIL = {
+    'instructor_email' : ['random@localhost']
+}
+
+GMS_HHAROTATION_POST_BAD_EMAIL = {
+    'school_name': 'STI',
+    'start_date': '2021-09-13',
+    'end_date': '2021-10-13',
+    'instructor_email': ['random@localhost'],
+    'rotation_num': 10,
+    'instructor_title': 'LVN',
+    'clinical_site': 'Rowland'
+}
+
+GMS_HHAROTATION_PUT_BAD_EMAIL = {
+    'school_name': 'STI',
+    'start_date': '2021-09-14',
+    'end_date': '2021-10-13',
+    'instructor_email': ['random@localhost'],
+    'rotation_num': 10,
+    'instructor_title': 'LVN',
+    'clinical_site': 'Rowland'
+}
+
+GMS_HHAROTATION_PATCH_BAD_EMAIL = {
+    'instructor_email' : ['random@localhost']
 }
 
 

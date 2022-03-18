@@ -540,3 +540,56 @@ Feature: Grading management fully EDIT access
         Given logged on as hha instructor user
         When request PUT to ST2 /api/gms/hhaClinicalRecords
         Then server will respond with 404
+
+
+
+
+
+
+    
+    Scenario: superuser requesting to fully update cnaRotations resources with bad email
+        Given logged on as superuser
+        When request PUT to /api/gms/cnaRotations with bad email
+        Then bad request since the email added does not belong to an active user
+
+    
+    Scenario: superuser requesting to fully update hhaRotations resources with bad email
+        Given logged on as superuser
+        When request PUT to /api/gms/hhaRotations with bad email
+        Then bad request since the email added does not belong to an active user
+    
+    
+    Scenario: admin instructor user requesting to fully update cnaRotations resources with bad email
+        Given logged on as admin instructor user
+        When request PUT to /api/gms/cnaRotations with bad email
+        Then bad request since the email added does not belong to an active user
+
+    
+    Scenario: admin instructor user requesting to fully update hhaRotations resources with bad email
+        Given logged on as admin instructor user
+        When request PUT to /api/gms/hhaRotations with bad email
+        Then bad request since the email added does not belong to an active user
+
+    
+    Scenario: staff cna instructor user requesting to fully update cnaRotations resources with bad email
+        Given logged on as staff cna instructor user
+        When request PUT to /api/gms/cnaRotations with bad email
+        Then bad request since the email added does not belong to an active user
+
+    
+    Scenario: staff hha instructor user requesting to fully update hhaRotations resources with bad email
+        Given logged on as staff hha instructor user
+        When request PUT to /api/gms/hhaRotations with bad email
+        Then bad request since the email added does not belong to an active user
+
+    
+    Scenario: cna instructor user requesting to fully update cnaRotations resources with bad email
+        Given logged on as cna instructor user
+        When request PUT to /api/gms/cnaRotations with bad email
+        Then bad request since the email added does not belong to an active user
+
+    
+    Scenario: hha instructor user requesting to fully update hhaRotations resources with bad email
+        Given logged on as hha instructor user
+        When request PUT to /api/gms/hhaRotations with bad email
+        Then bad request since the email added does not belong to an active user

@@ -89,6 +89,12 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS,
                        GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS,
                        GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS,
+                       GMS_CNAROTATION_POST_BAD_EMAIL,
+                       GMS_CNAROTATION_PUT_BAD_EMAIL,
+                       GMS_CNAROTATION_PATCH_BAD_EMAIL,
+                       GMS_HHAROTATION_POST_BAD_EMAIL,
+                       GMS_HHAROTATION_PUT_BAD_EMAIL,
+                       GMS_HHAROTATION_PATCH_BAD_EMAIL,
                        SMS_FILTER_PARAMS_ST2,
                        SMS_STUDENT_UUID_ST2,
                        SMS_SCHOOL_UUID_ST2,
@@ -2463,6 +2469,60 @@ def request_GET_hhaClinicalRecords_by_topic_ST2(context):
     context.response = context.test.client.get(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
 
+
+@when('request POST to /api/gms/cnaRotations with bad email')
+def request_POST_cnaRotation_bad_email(context):
+    post_data = GMS_CNAROTATION_POST_BAD_EMAIL
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_CNA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request POST to /api/gms/hhaRotations with bad email')
+def request_POST_hhaRotation_bad_email(context):
+    post_data = GMS_HHAROTATION_POST_BAD_EMAIL
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{GMS_HHA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
+
+@when('request PUT to /api/gms/cnaRotations with bad email')
+def request_PUT_cnaRotation_bad_email(context):
+    put_data = GMS_CNAROTATION_PUT_BAD_EMAIL
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{GMS_CNA_ROTATIONS_API_URL}{GMS_CNA_ROTATION_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
+@when('request PUT to /api/gms/hhaRotations with bad email')
+def request_PUT_cnaRotation_bad_email(context):
+    put_data = GMS_HHAROTATION_PUT_BAD_EMAIL
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
+@when('request PATCH to /api/gms/cnaRotations with bad email')
+def request_PATCH_cnaRotation_bad_email(context):
+    patch_data = GMS_CNAROTATION_PATCH_BAD_EMAIL
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{GMS_CNA_ROTATIONS_API_URL}{GMS_CNA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
+@when('request PATCH to /api/gms/hhaRotations with bad email')
+def request_PATCH_hhaRotation_bad_email(context):
+    patch_data = GMS_HHAROTATION_PATCH_BAD_EMAIL
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 # whens for cms component testing
 @when('request GET to /api/cms/clients/client_uuid')

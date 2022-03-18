@@ -53,7 +53,7 @@ class UserEmailValidator:
         if raise_:
             for email in lst:
                 if not Account.objects.filter(email__exact=email).exists():
-                    raise ValidationError(f'The user: {email} you are trying to add for access doesn\'t exist.')
+                    raise ValidationError(f'The user with email: {email} you are trying to add for access doesn\'t exist.')
                 else:
                     list_.append(email)
 

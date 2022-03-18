@@ -2476,3 +2476,14 @@ def no_specific_ST2_hhaClinicalRecords_JSON_data_response(context):
             assert False
 
     assert True
+
+
+@then('bad request since the email added does not belong to an active user')
+def bad_request_due_to_bad_user_email_when_adding_access(context):
+    context.test().assertEqual(context.response.status_code, 400)
+    data = context.response.data
+    
+    if 'you are trying to add for access doesn\'t exist.' in data.get('non_field_errors')[0]:
+        assert True
+    else:
+        assert False
