@@ -2,6 +2,7 @@ import re
 
 from rest_framework.exceptions import ValidationError
 
+from core.common import UserEmailValidator
 
 class CMSValidator:
 
@@ -50,3 +51,11 @@ class CMSValidator:
             return data
         else:
             raise ValidationError(err_msg)
+
+    @staticmethod
+    def client_final_validation(serializer, data):
+        if data.get('recruit_emails'):
+            data['recruit_emails'] = UserEmailValidator.user_email_checker(
+                data.get('recruit_emails'), 'recruit_emails', serializer.instance, serializer.partial)
+
+        return data

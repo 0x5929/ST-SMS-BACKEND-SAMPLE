@@ -43,3 +43,6 @@ class ClientSerializer(serializers.ModelSerializer):
 
     def validate_school_name(self, data):
         return CMSValidator.ensure_same_school_name(data, self.context.get('request'))
+
+    def validate(self, data):
+        return CMSValidator.client_final_validation(self, data)

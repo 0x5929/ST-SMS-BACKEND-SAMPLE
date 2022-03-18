@@ -10,6 +10,8 @@ from .cms_constants import (TEST_CAP_MATCHING_STR,
                             TEST_MATCHING_PHONE_NO,
                             TEST_NON_MATCHING_PHONE)
 
+from core.common import UserEmailValidator
+
 class User:
     def __init__(self, superuser=False, admin=False):
         self.school_name = 'STI'
@@ -121,3 +123,28 @@ class TestCMSValidators:
 
         with pytest.raises(ValidationError):
             CMSValidator.ensure_same_school_name(data, get_reg_request_obj)
+
+    def test_final_client_validation_with_emails(self, get_client_serializer, monkeypatch):
+        def return_emails(list_, reference, instance=None, partial=False):
+            return ['__SAMPLE_EMAILS__']
+
+        monkeypatch.setattr(UserEmailValidator, 'user_email_checker', return_emails)
+
+        data = {'recruit_emails' : ['__SAMPLE_EMAILS__']}
+        serializer = get_client_serializer
+        serializer.instance = None
+        serializer.partial = False
+
+        assert CMSValidator.client_final_validation(serializer, data)  == data
+
+
+    def test_final_client_validation_without_recruit_emails(self, get_client_serializer, monkeypatch):
+        def return_emails(list_, reference, instance=None, partial=False):
+            return ['__SAMPLE_EMAILS__']
+            
+        monkeypatch.setattr(UserEmailValidator, 'user_email_checker', return_emails)
+
+        data = {}
+        serializer = get_client_serializer
+
+        assert CMSValidator.client_final_validation(serializer, data)  == data

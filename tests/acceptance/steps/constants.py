@@ -1208,7 +1208,7 @@ CMS_ST2_CLIENT_SAMPLE_POST = {
     'email': 'testyysamplez@email.com',
     'city': 'Arcadia',
     'success': False,
-    'recruit_emails': ['random@localhost'],
+    'recruit_emails': ['testsuper@localhost'],
     'school_name': 'ST2'
 }
 
@@ -1226,7 +1226,7 @@ CMS_ST2_CLIENT_SAMPLE_PUT = {
     'email': 'testyysamplezz@email.com',
     'city': 'Arcadia',
     'success': False,
-    'recruit_emails': ['random@localhost'],
+    'recruit_emails': ['testsuper@localhost'],
     'school_name': 'ST2'
 }
 
