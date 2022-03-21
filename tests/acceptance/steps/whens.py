@@ -2693,3 +2693,71 @@ def request_PUT_bad_email_client(context):
 
     context.response = context.test.client.put(
         f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
+
+@when('request PATCH to /api/cms/clients/client_uuid')
+def request_PATCH_client(context):
+    patch_data = CMS_STI_CLIENT_PATCH
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+@when('request PATCH to /api/cms/notes/note_uuid')
+def request_PATCH_note(context):
+    patch_data = CMS_STI_NOTE_PATCH
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{CMS_NOTES_API_URL}{CMS_NOTE_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+@when('request PATCH to second /api/cms/clients/client_uuid')
+def request_PATCH_to_second_client(context):
+    patch_data = CMS_SECOND_CLIENT_PATCH
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{CMS_CLIENTS_API_URL}{CMS_SECOND_CLIENT_UUID}/', patch_data, format='json', headers=headers)
+
+
+@when('request PATCH to second /api/cms/notes/note_uuid')
+def request_PATCH_to_second_note(context):
+    patch_data = CMS_SECOND_NOTE_PATCH
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', patch_data, format='json', headers=headers)
+
+@when('request PATCH to ST2 /api/cms/clients')
+def request_PATCH_ST2_client(context):
+    patch_data = CMS_ST2_CLIENT_PATCH
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', patch_data, format='json', headers=headers)
+
+@when('request PATCH to ST2 /api/cms/notes')
+def request_PATCH_ST2_note(context):
+    patch_data = CMS_ST2_NOTE_PATCH
+
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.patch(
+        f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', patch_data, format='json', headers=headers)
+
+
+@when('request PATCH to /api/cms/clients with email to a non-existant user')
+def request_PATCH_with_bad_email_client(context):
+    patch_data = CMS_STI_CLIENT_PATCH
+    patch_data['recruit_emails']= ['random@email.com']
+    
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.patch(
+        f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)

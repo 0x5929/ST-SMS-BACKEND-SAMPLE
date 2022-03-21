@@ -127,7 +127,9 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        CMS_ST2_CLIENT_SAMPLE_PUT,
                        CMS_ST2_NOTE_SAMPLE_PUT,
                        CMS_ST2_CLIENT_PATCH,
-                       CMS_ST2_NOTE_PATCH
+                       CMS_ST2_NOTE_PATCH,
+                       CMS_SECOND_NOTE_PATCH,
+                       CMS_SECOND_CLIENT_PATCH
                        )
 
 
@@ -2504,7 +2506,7 @@ def no_specific_ST2_hhaClinicalRecords_JSON_data_response(context):
 def bad_request_due_to_bad_user_email_when_adding_access(context):
     context.test().assertEqual(context.response.status_code, 400)
     data = context.response.data
-    
+    print('DATA: ', data)
     if 'you are trying to add for access doesn\'t exist.' in data.get('non_field_errors')[0]:
         assert True
     else:
@@ -2673,4 +2675,91 @@ def database_will_edit_ST2_note(context):
     Note = apps.get_model('cms', 'Note')
     if not Note.objects.filter(
             content__exact=editted_note_content).exists():
+        assert False
+
+@then('database will partially update the client record')
+def database_will_partially_edit_client(context):
+    response = context.response.data
+
+    editted_first_name = CMS_STI_CLIENT_PATCH.get('first_name')
+
+    context.test().assertEqual(response.get('first_name'), editted_first_name)
+
+    Client = apps.get_model('cms', 'Client')
+    if not Client.objects.filter(
+            first_name__exact=editted_first_name).exists():
+        assert False
+
+
+@then('database will partially update the note record')
+def database_will_partially_edit_note(context):
+    response_data = context.response.data
+
+    editted_price= CMS_STI_NOTE_PATCH.get(
+        'price')
+
+    context.test().assertEqual(response_data.get(
+        'price'), editted_price)
+
+    Note = apps.get_model('cms', 'Note')
+    if not Note.objects.filter(
+            price__exact=editted_price).exists():
+        assert False
+
+
+@then('database will partially update the second client record')
+def database_will_partially_update_second_client(context):
+    response = context.response.data
+
+    editted_first_name = CMS_SECOND_CLIENT_PATCH.get('first_name')
+
+    context.test().assertEqual(response.get('first_name'), editted_first_name)
+
+    Client = apps.get_model('cms', 'Client')
+    if not Client.objects.filter(
+            first_name__exact=editted_first_name).exists():
+        assert False
+
+
+@then('database will partially update the second note record')
+def database_will_partially_update_second_note(context):
+    response_data = context.response.data
+
+    editted_price= CMS_SECOND_NOTE_PATCH.get(
+        'price')
+
+    context.test().assertEqual(response_data.get(
+        'price'), editted_price)
+
+    Note = apps.get_model('cms', 'Note')
+    if not Note.objects.filter(
+            price__exact=editted_price).exists():
+        assert False
+
+@then('database will partially update the ST2 client record')
+def database_will_partially_update_ST2_client(context):
+    response = context.response.data
+
+    editted_first_name = CMS_ST2_CLIENT_PATCH.get('first_name')
+
+    context.test().assertEqual(response.get('first_name'), editted_first_name)
+
+    Client = apps.get_model('cms', 'Client')
+    if not Client.objects.filter(
+            first_name__exact=editted_first_name).exists():
+        assert False
+
+@then('database will partially update the ST2 note record')
+def database_will_partially_update_ST2_note(context):
+    response_data = context.response.data
+
+    editted_price= CMS_ST2_NOTE_PATCH.get(
+        'price')
+
+    context.test().assertEqual(response_data.get(
+        'price'), editted_price)
+
+    Note = apps.get_model('cms', 'Note')
+    if not Note.objects.filter(
+            price__exact=editted_price).exists():
         assert False

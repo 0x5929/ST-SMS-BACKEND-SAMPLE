@@ -166,5 +166,5 @@ class TestCMSValidators:
 
         CMSValidator.note_client_final_validation(get_client_obj, serializer)
 
-        mocked_ensure_same_school_name.assert_called_once_with({'school_name' : get_client_obj.school_name}, get_reg_request_obj)
+        mocked_ensure_same_school_name.assert_called_once_with({'school_name' : get_client_obj.school_name}, get_reg_request_obj, instance=serializer.instance, partial=serializer.partial)
         mocked_reference_doesnt_change.assert_called_once_with(get_client_obj, get_note_obj, 'client')

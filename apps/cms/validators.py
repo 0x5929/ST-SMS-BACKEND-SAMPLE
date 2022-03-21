@@ -41,10 +41,15 @@ class CMSValidator:
 
     # validation used by Client model
     @staticmethod
-    def ensure_same_school_name(data, request):
+    def ensure_same_school_name(data, request, instance=None, partial=False):
         err_msg = 'You may only work on your own school\'s resource, please try changing the school name.'
         request_user_school = request.user.school_name
         school_name = data.get('school_name')
+
+        # if we are PATCh updating, and the data doesnt include school_name, 
+        if instance and partial and not data.get('school_name'):
+            if getattr(instance, 'school_name') == request_user_school:
+                return data
 
         if request.user.is_superuser:
             return data
@@ -56,7 +61,7 @@ class CMSValidator:
     @classmethod
     def client_final_validation(cls, serializer, data):
         req = serializer.context.get('request')
-        validated = cls.ensure_same_school_name(data, req)
+        validated = cls.ensure_same_school_name(data, req, instance=serializer.instance, partial=serializer.partial)
 
         if validated.get('recruit_emails'):
             validated['recruit_emails'] = UserEmailValidator.user_email_checker(
@@ -66,6 +71,7 @@ class CMSValidator:
 
     @classmethod
     def note_client_final_validation(cls, client, serializer):
-        cls.ensure_same_school_name({'school_name' : client.school_name}, serializer.context.get('request'))
+        cls.ensure_same_school_name(
+            {'school_name' : client.school_name}, serializer.context.get('request'), instance=serializer.instance, partial=serializer.partial)
 
         return cls.reference_does_not_change_on_updates(client, serializer.instance, 'client')

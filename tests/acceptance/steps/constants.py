@@ -1194,7 +1194,7 @@ CMS_STI_NOTE_SAMPLE_PUT = {
 }
 
 CMS_STI_CLIENT_PATCH = {
-    'first_name' : 'Last Sample'
+    'first_name' : 'Lastyy'
 }
 
 CMS_STI_NOTE_PATCH = {
