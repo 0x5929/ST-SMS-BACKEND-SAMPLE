@@ -113,7 +113,21 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        GMS_ST2_HHA_THEORY_RECORD_POST_SAMPLE_DATA,
                        GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
                        GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
-                       JSON_400_CROSS_SCHOOL_ADD_ERR_GMS
+                       JSON_400_CROSS_SCHOOL_ADD_ERR,
+                       CMS_STI_CLIENT_SAMPLE_POST,
+                       CMS_STI_NOTE_SAMPLE_POST,
+                       CMS_STI_CLIENT_SAMPLE_PUT,
+                       CMS_STI_NOTE_SAMPLE_PUT,
+                       CMS_SECOND_CLIENT_PUT,
+                       CMS_SECOND_NOTE_PUT,
+                       CMS_STI_CLIENT_PATCH,
+                       CMS_STI_NOTE_PATCH,
+                       CMS_ST2_CLIENT_SAMPLE_POST,
+                       CMS_ST2_NOTE_SAMPLE_POST,
+                       CMS_ST2_CLIENT_SAMPLE_PUT,
+                       CMS_ST2_NOTE_SAMPLE_PUT,
+                       CMS_ST2_CLIENT_PATCH,
+                       CMS_ST2_NOTE_PATCH
                        )
 
 
@@ -1184,7 +1198,15 @@ def database_create_ST2_hhaClinicalRecord(context):
 
 @then("bad request error since we cannot add another school's resource")
 def bad_request_cannot_add_another_school_resource_gms(context):
-    context.test().assertEqual(context.response.data, JSON_400_CROSS_SCHOOL_ADD_ERR_GMS)    
+    err_string =  JSON_400_CROSS_SCHOOL_ADD_ERR.get('non_field_errors')[0]
+    for indx, rd in enumerate(context.response.data.values()):
+        res_string = rd[0]
+        if res_string == err_string:
+            assert True
+        if indx == ( len(context.response.data.values()) - 1 ) and \
+            res_string != err_string:
+            assert False
+
 
 
 
@@ -2486,4 +2508,169 @@ def bad_request_due_to_bad_user_email_when_adding_access(context):
     if 'you are trying to add for access doesn\'t exist.' in data.get('non_field_errors')[0]:
         assert True
     else:
+        assert False
+
+
+# CMS specific thens
+@then('database will create the client record')
+def database_will_create_client(context):
+    response = context.response.data
+
+    posted_email = CMS_STI_CLIENT_SAMPLE_POST.get('email')
+
+    context.test().assertEqual(response.get('email'), posted_email)
+
+    Client = apps.get_model('cms', 'Client')
+
+    if not Client.objects.filter(
+            email__exact=posted_email).exists():
+        assert False
+    else:
+        Client.objects.filter(
+            email__exact=posted_email).delete()
+
+@then('database will create the note record')
+def database_will_create_note(context):
+    response = context.response.data
+
+    posted_content = CMS_STI_NOTE_SAMPLE_POST.get('content')
+
+    context.test().assertEqual(response.get('content'), posted_content)
+
+    Note = apps.get_model('cms', 'Note')
+
+    if not Note.objects.filter(
+            content__exact=posted_content).exists():
+        assert False
+    else:
+        Note.objects.filter(
+            content__exact=posted_content).delete()
+
+
+@then('database will create the ST2 client record')
+def database_will_create_ST2_client(context):
+    response = context.response.data
+
+    posted_email = CMS_ST2_CLIENT_SAMPLE_POST.get('email')
+
+    context.test().assertEqual(response.get('email'), posted_email)
+
+    Client = apps.get_model('cms', 'Client')
+
+    if not Client.objects.filter(
+            email__exact=posted_email).exists():
+        assert False
+    else:
+        Client.objects.filter(
+            email__exact=posted_email).delete()
+
+
+
+@then('database will create the ST2 note record')
+def database_will_create_ST2_note(context):
+    response = context.response.data
+
+    posted_content = CMS_ST2_NOTE_SAMPLE_POST.get('content')
+
+    context.test().assertEqual(response.get('content'), posted_content)
+
+    Note = apps.get_model('cms', 'Note')
+
+    if not Note.objects.filter(
+            content__exact=posted_content).exists():
+        assert False
+    else:
+        Note.objects.filter(
+            content__exact=posted_content).delete()
+
+@then('database will fully update the client record')
+def database_will_edit_client(context):
+    response_data = context.response.data
+
+    editted_client_email = CMS_STI_CLIENT_SAMPLE_PUT.get(
+        'email')
+
+    context.test().assertEqual(response_data.get(
+        'email'), editted_client_email)
+
+    Client = apps.get_model('cms', 'Client')
+    if not Client.objects.filter(
+            email__exact=editted_client_email).exists():
+        assert False
+
+
+@then('database will fully update the note record')
+def database_will_edit_client(context):
+    response_data = context.response.data
+
+    editted_note_content = CMS_STI_NOTE_SAMPLE_PUT.get(
+        'content')
+
+    context.test().assertEqual(response_data.get(
+        'content'), editted_note_content)
+
+    Note = apps.get_model('cms', 'Note')
+    if not Note.objects.filter(
+            content__exact=editted_note_content).exists():
+        assert False
+
+@then('database will fully update the second client record')
+def database_will_edit_second_client(context):
+    response_data = context.response.data
+
+    editted_client_email = CMS_SECOND_CLIENT_PUT.get(
+        'email')
+
+    context.test().assertEqual(response_data.get(
+        'email'), editted_client_email)
+
+    Client = apps.get_model('cms', 'Client')
+    if not Client.objects.filter(
+            email__exact=editted_client_email).exists():
+        assert False
+
+
+@then('database will fully update the second note record')
+def database_will_edit_note(context):
+    response_data = context.response.data
+
+    editted_note_content = CMS_SECOND_NOTE_PUT.get(
+        'content')
+
+    context.test().assertEqual(response_data.get(
+        'content'), editted_note_content)
+
+    Note = apps.get_model('cms', 'Note')
+    if not Note.objects.filter(
+            content__exact=editted_note_content).exists():
+        assert False
+
+@then('database will fully update the ST2 client record')
+def database_will_edit_ST2_client(context):
+    response_data = context.response.data
+
+    editted_client_email = CMS_ST2_CLIENT_SAMPLE_PUT.get(
+        'email')
+
+    context.test().assertEqual(response_data.get(
+        'email'), editted_client_email)
+
+    Client = apps.get_model('cms', 'Client')
+    if not Client.objects.filter(
+            email__exact=editted_client_email).exists():
+        assert False
+
+@then('database will fully update the ST2 note record')
+def database_will_edit_ST2_note(context):
+    response_data = context.response.data
+
+    editted_note_content = CMS_ST2_NOTE_SAMPLE_PUT.get(
+        'content')
+
+    context.test().assertEqual(response_data.get(
+        'content'), editted_note_content)
+
+    Note = apps.get_model('cms', 'Note')
+    if not Note.objects.filter(
+            content__exact=editted_note_content).exists():
         assert False

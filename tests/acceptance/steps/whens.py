@@ -146,10 +146,28 @@ from constants import (SMS_SCHOOLS_API_URL,
                        GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA,
                        CMS_CLIENTS_API_URL,
                        CMS_NOTES_API_URL,
+                       CMS_CLIENT_UUID_TO_TEST,
+                       CMS_NOTE_UUID_TO_TEST,
                        CMS_SECOND_CLIENT_UUID,
                        CMS_SECOND_NOTE_UUID,
                        CMS_ST2_CLIENT_UUID,
-                       CMS_ST2_NOTE_UUID)
+                       CMS_ST2_NOTE_UUID,
+                       CMS_STI_CLIENT_SAMPLE_POST,
+                       CMS_STI_NOTE_SAMPLE_POST,
+                       CMS_STI_CLIENT_SAMPLE_PUT,
+                       CMS_STI_NOTE_SAMPLE_PUT,
+                       CMS_SECOND_CLIENT_PUT,
+                       CMS_SECOND_CLIENT_PATCH,
+                       CMS_SECOND_NOTE_PATCH,
+                       CMS_SECOND_NOTE_PUT,
+                       CMS_STI_CLIENT_PATCH,
+                       CMS_STI_NOTE_PATCH,
+                       CMS_ST2_CLIENT_SAMPLE_POST,
+                       CMS_ST2_NOTE_SAMPLE_POST,
+                       CMS_ST2_CLIENT_SAMPLE_PUT,
+                       CMS_ST2_NOTE_SAMPLE_PUT,
+                       CMS_ST2_CLIENT_PATCH,
+                       CMS_ST2_NOTE_PATCH)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -2566,3 +2584,112 @@ def request_GET_ST2_client(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', headers=headers)
+
+
+@when('request POST to /api/cms/clients')
+def request_POST_to_client(context):
+    post_data = CMS_STI_CLIENT_SAMPLE_POST
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{CMS_CLIENTS_API_URL}', post_data, format='json', headers=headers)
+
+@when('request POST to /api/cms/notes')
+def request_POST_to_note(context):
+    post_data = CMS_STI_NOTE_SAMPLE_POST
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{CMS_NOTES_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request POST to ST2 /api/cms/clients')
+def request_POST_ST2_client(context):
+    post_data = CMS_ST2_CLIENT_SAMPLE_POST
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{CMS_CLIENTS_API_URL}', post_data, format='json', headers=headers)
+
+@when('request POST to ST2 /api/cms/notes')
+def request_POST_ST2_note(context):
+    post_data = CMS_ST2_NOTE_SAMPLE_POST
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{CMS_NOTES_API_URL}', post_data, format='json', headers=headers)
+
+@when('request POST to /api/cms/clients with email to a non-existant user')
+def request_POST_bad_email_client(context):
+    post_data = CMS_STI_CLIENT_SAMPLE_POST
+    post_data.get('recruit_emails')[0] = 'random@email.com'
+    
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.post(
+        f'{CMS_CLIENTS_API_URL}', post_data, format='json', headers=headers)
+
+
+@when('request PUT to /api/cms/clients/client_uuid')
+def request_PUT_client(context):
+    put_data = CMS_STI_CLIENT_SAMPLE_PUT
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
+@when('request PUT to /api/cms/notes/note_uuid')
+def request_PUT_note(context):
+    put_data = CMS_STI_NOTE_SAMPLE_PUT
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{CMS_NOTES_API_URL}{CMS_NOTE_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
+@when('request PUT to second /api/cms/clients/client_uuid')
+def request_PUT_to_second_client(context):
+    put_data = CMS_SECOND_CLIENT_PUT
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{CMS_CLIENTS_API_URL}{CMS_SECOND_CLIENT_UUID}/', put_data, format='json', headers=headers)
+
+@when('request PUT to second /api/cms/notes/note_uuid')
+def request_PUT_to_second_note(context):
+    put_data = CMS_SECOND_NOTE_PUT
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', put_data, format='json', headers=headers)
+
+@when('request PUT to ST2 /api/cms/clients')
+def request_PUT_to_ST2_client(context):
+    put_data = CMS_ST2_CLIENT_SAMPLE_PUT
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', put_data, format='json', headers=headers)
+
+@when('request PUT to ST2 /api/cms/notes')
+def request_PUT_to_ST2_note(context):
+    put_data = CMS_ST2_NOTE_SAMPLE_PUT
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.put(
+        f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', put_data, format='json', headers=headers)
+
+@when('request PUT to /api/cms/clients with email to a non-existant user')
+def request_PUT_bad_email_client(context):
+    put_data = CMS_STI_CLIENT_SAMPLE_PUT
+    put_data.get('recruit_emails')[0] = 'random@email.com'
+    
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.put(
+        f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', put_data, format='json', headers=headers)

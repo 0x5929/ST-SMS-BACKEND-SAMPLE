@@ -167,7 +167,7 @@ class SMSValidator:
 
     @staticmethod
     def ensure_same_school(data, request, entry_pt, partial=False):
-        err_msg = 'You are adding a student record for the wrong school\'s program rotation, please add to your own school\'s program rotation'
+        err_msg = 'You may only work on your own school\'s resource, please try changing the school name.'
 
         if partial:
             return data

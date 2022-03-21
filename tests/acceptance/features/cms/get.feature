@@ -2,7 +2,7 @@ Feature: Client Management READ access
     
     Regular recruit users have read access cms resource assignned to them by email. 
     Admin recruit users have read access to all cms resource within that school.
-    Superusers have read access to all cms resources
+    Superusers have read access to all cms resources.
 
 
     # diff users reading the same client/notes resource that is already assigned to regular user

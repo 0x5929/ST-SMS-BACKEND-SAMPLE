@@ -13,8 +13,7 @@ class NoteSerializer(serializers.ModelSerializer):
         model = Note
 
     def validate_client(self, value):
-        return CMSValidator.reference_does_not_change_on_updates(value, self.instance, 'client')
-
+        return CMSValidator.note_client_final_validation(value, self)
     # def create(self, validated_data):
     #     return super(NoteSerializer, self).create(Note.objects.create_or_update_note(validated_data=validated_data))
 
@@ -40,9 +39,6 @@ class ClientSerializer(serializers.ModelSerializer):
 
     def validate_city(self, value):
         return CMSValidator.no_special_chars_and_captialize_string(value)
-
-    def validate_school_name(self, data):
-        return CMSValidator.ensure_same_school_name(data, self.context.get('request'))
 
     def validate(self, data):
         return CMSValidator.client_final_validation(self, data)

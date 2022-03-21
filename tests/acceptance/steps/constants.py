@@ -459,12 +459,12 @@ JSON_404_NOT_FOUND_RES = {
     'detail': 'Not found.'
 }
 
+# JSON_400_CROSS_SCHOOL_ADD_ERR = {
+#     'non_field_errors' : ["You are adding a student record for the wrong school's program rotation, please add to your own school's program rotation"]
+# }
+
+
 JSON_400_CROSS_SCHOOL_ADD_ERR = {
-    'non_field_errors' : ["You are adding a student record for the wrong school's program rotation, please add to your own school's program rotation"]
-}
-
-
-JSON_400_CROSS_SCHOOL_ADD_ERR_GMS = {
     'non_field_errors' : ["You may only work on your own school's resource, please try changing the school name."]
 }
 
@@ -1169,7 +1169,7 @@ CMS_STI_CLIENT_SAMPLE_POST = {
 }
 
 CMS_STI_NOTE_SAMPLE_POST = {
-    'client': '96896bab-cdd5-4f4c-bbe3-a0aa24a33127',
+    'client': '1b6f00a6-dec7-4766-be71-2ce630eb2df5',
     'product': 'BLS',
     'price': '100.00',
     'content': 'Sample content for sample notes'
@@ -1187,7 +1187,7 @@ CMS_STI_CLIENT_SAMPLE_PUT = {
 }
 
 CMS_STI_NOTE_SAMPLE_PUT = {
-    'client': '96896bab-cdd5-4f4c-bbe3-a0aa24a33127',
+    'client': '1b6f00a6-dec7-4766-be71-2ce630eb2df5',
     'product': 'HSFA',
     'price': '150.00',
     'content': 'Sample content for sample notes'
@@ -1243,4 +1243,30 @@ CMS_ST2_CLIENT_PATCH = {
 
 CMS_ST2_NOTE_PATCH = {
     'price' : '175.00' 
+}
+
+CMS_SECOND_CLIENT_PUT = {
+    'first_name': 'Testing',
+    'last_name': 'Client',
+    'phone_number': '626-123-5555',
+    'email': 'testing.clientz@email.com',
+    'city': 'Alhambra',
+    'success': True,
+    'recruit_emails': ['testsuper@localhost'],
+    'school_name': 'STI'
+}
+
+CMS_SECOND_NOTE_PUT = {
+    'client': '96896bab-cdd5-4f4c-bbe3-a0aa24a33127',
+    'product': 'HHA',
+    'price': '680.00',
+    'content': 'Sample Contents'
+}
+
+CMS_SECOND_CLIENT_PATCH = {
+    'first_name' : 'Johnny'
+}
+
+CMS_SECOND_NOTE_PATCH = {
+    'price' : '178.00' 
 }

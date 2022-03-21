@@ -1,4 +1,5 @@
 import re
+from types import ClassMethodDescriptorType
 
 from rest_framework.exceptions import ValidationError
 
@@ -52,10 +53,19 @@ class CMSValidator:
         else:
             raise ValidationError(err_msg)
 
-    @staticmethod
-    def client_final_validation(serializer, data):
-        if data.get('recruit_emails'):
-            data['recruit_emails'] = UserEmailValidator.user_email_checker(
-                data.get('recruit_emails'), 'recruit_emails', serializer.instance, serializer.partial)
+    @classmethod
+    def client_final_validation(cls, serializer, data):
+        req = serializer.context.get('request')
+        validated = cls.ensure_same_school_name(data, req)
 
-        return data
+        if validated.get('recruit_emails'):
+            validated['recruit_emails'] = UserEmailValidator.user_email_checker(
+                validated.get('recruit_emails'), 'recruit_emails', serializer.instance, serializer.partial)
+
+        return validated
+
+    @classmethod
+    def note_client_final_validation(cls, client, serializer):
+        cls.ensure_same_school_name({'school_name' : client.school_name}, serializer.context.get('request'))
+
+        return cls.reference_does_not_change_on_updates(client, serializer.instance, 'client')

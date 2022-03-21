@@ -1,5 +1,6 @@
 import pytest
 from rest_framework.exceptions import ValidationError
+from cms import serializers
 
 from cms.models import Client, Note
 from cms.serializers import ClientSerializer, NoteSerializer
@@ -124,27 +125,46 @@ class TestCMSValidators:
         with pytest.raises(ValidationError):
             CMSValidator.ensure_same_school_name(data, get_reg_request_obj)
 
-    def test_final_client_validation_with_emails(self, get_client_serializer, monkeypatch):
+    def test_final_client_validation_with_emails(self, get_reg_request_obj, get_client_serializer, monkeypatch, mocker):
         def return_emails(list_, reference, instance=None, partial=False):
             return ['__SAMPLE_EMAILS__']
 
         monkeypatch.setattr(UserEmailValidator, 'user_email_checker', return_emails)
 
-        data = {'recruit_emails' : ['__SAMPLE_EMAILS__']}
+        data = {'recruit_emails' : ['__SAMPLE_EMAILS__'], 'school_name': 'STI'}
         serializer = get_client_serializer
+        serializer.context['request'] = get_reg_request_obj
         serializer.instance = None
         serializer.partial = False
 
-        assert CMSValidator.client_final_validation(serializer, data)  == data
+        assert CMSValidator.client_final_validation(serializer, data)  == data        
+        
+        mocked_ensure_same_school = mocker.patch('cms.validators.CMSValidator.ensure_same_school_name')
+        CMSValidator.client_final_validation(serializer, data)
+        mocked_ensure_same_school.assert_called_once()
 
 
-    def test_final_client_validation_without_recruit_emails(self, get_client_serializer, monkeypatch):
+    def test_final_client_validation_without_recruit_emails(self, get_reg_request_obj, get_client_serializer, monkeypatch):
         def return_emails(list_, reference, instance=None, partial=False):
             return ['__SAMPLE_EMAILS__']
             
         monkeypatch.setattr(UserEmailValidator, 'user_email_checker', return_emails)
 
-        data = {}
+        data = data = {'school_name': 'STI'}
         serializer = get_client_serializer
+        serializer.context['request'] = get_reg_request_obj
 
         assert CMSValidator.client_final_validation(serializer, data)  == data
+
+    def test_client_final_validation(self, get_client_obj,  get_note_obj, get_note_serializer, get_reg_request_obj, mocker):
+        mocked_ensure_same_school_name = mocker.patch('cms.validators.CMSValidator.ensure_same_school_name')
+        mocked_reference_doesnt_change = mocker.patch('cms.validators.CMSValidator.reference_does_not_change_on_updates')
+
+        serializer = get_note_serializer
+        serializer.instance = get_note_obj
+        serializer.context['request'] = get_reg_request_obj
+
+        CMSValidator.note_client_final_validation(get_client_obj, serializer)
+
+        mocked_ensure_same_school_name.assert_called_once_with({'school_name' : get_client_obj.school_name}, get_reg_request_obj)
+        mocked_reference_doesnt_change.assert_called_once_with(get_client_obj, get_note_obj, 'client')
