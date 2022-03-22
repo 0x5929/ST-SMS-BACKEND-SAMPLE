@@ -2763,3 +2763,52 @@ def database_will_partially_update_ST2_note(context):
     if not Note.objects.filter(
             price__exact=editted_price).exists():
         assert False
+
+
+@then('database will delete the client record')
+def database_will_delete_client(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Client = apps.get_model('cms', 'Client')
+    if Client.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+@then('database will delete the note record')
+def database_will_delete_note(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Note = apps.get_model('cms', 'Note')
+    if Note.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+@then('database will delete the second client record')
+def databaew_will_delete_second_client(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Client = apps.get_model('cms', 'Client')
+    if Client.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+@then('database will delete the second note record')
+def database_will_delete_second_note(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Note = apps.get_model('cms', 'Note')
+    if Note.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+@then('database will delete the ST2 client record')
+def database_will_delete_ST2_client(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Client = apps.get_model('cms', 'Client')
+    if Client.objects.filter(pk__exact=context.uuid).exists():
+        assert False
+
+@then('database will delete the ST2 note record')
+def database_will_delete_ST2_note(context):
+    context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
+
+    Note = apps.get_model('cms', 'Note')
+    if Note.objects.filter(pk__exact=context.uuid).exists():
+        assert False

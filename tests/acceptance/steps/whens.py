@@ -2761,3 +2761,53 @@ def request_PATCH_with_bad_email_client(context):
 
     context.response = context.test.client.patch(
         f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
+
+@when('request DELETE to /api/cms/clients/client_uuid')
+def request_DEL_client(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.uuid = CMS_CLIENT_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', headers=headers)
+
+
+@when('request DELETE to /api/cms/notes/note_uuid')
+def request_DEL_note(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.uuid = CMS_NOTE_UUID_TO_TEST
+    context.response = context.test.client.delete(
+        f'{CMS_NOTES_API_URL}{CMS_NOTE_UUID_TO_TEST}/', headers=headers)
+
+@when('request DELETE to second /api/cms/clients/client_uuid')
+def request_DEL_second_client(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.uuid = CMS_SECOND_CLIENT_UUID
+    context.response = context.test.client.delete(
+        f'{CMS_CLIENTS_API_URL}{CMS_SECOND_CLIENT_UUID}/', headers=headers)
+
+@when('request DELETE to second /api/cms/notes/note_uuid')
+def request_DEL_second_note(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.uuid = CMS_SECOND_NOTE_UUID
+    context.response = context.test.client.delete(
+        f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', headers=headers)
+
+@when('request DELETE to ST2 /api/cms/clients')
+def request_DEL_ST2_client(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.uuid = CMS_ST2_CLIENT_UUID
+    context.response = context.test.client.delete(
+        f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', headers=headers)
+
+@when('request DELETE to ST2 /api/cms/notes')
+def request_DEL_ST2_note(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.uuid = CMS_ST2_NOTE_UUID
+    context.response = context.test.client.delete(
+        f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', headers=headers)
