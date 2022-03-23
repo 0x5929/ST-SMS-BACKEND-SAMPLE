@@ -229,3 +229,31 @@ def logged_on_as_reg_recruit(context):
 
     context.access_token = auth_resp.data['access_token']
     context.csrf_token = auth_resp.cookies['csrftoken']
+
+@given('logged on as regular user with is_recruit set to false')
+def logged_on_as_reg_user_is_recruit_false(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_REG_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+
+@given('logged on as staff user with is_recruit set to false')
+def logged_on_as_staff_is_inst_false(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_STAFF_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
+
+@given('logged on as admin user with is_recruit set to false')
+def logged_on_as_admin_is_inst_false(context):
+    # POST to login
+    auth_resp = context.test.client.post(f'{LOGIN_PATH}', {
+                                         'email': f'{TEST_ADMIN_USER}@localhost', 'password': LOGIN_PW})
+
+    context.access_token = auth_resp.data['access_token']
+    context.csrf_token = auth_resp.cookies['csrftoken']
