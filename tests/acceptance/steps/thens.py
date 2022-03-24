@@ -1,4 +1,5 @@
 import json
+from urllib import response
 
 
 from behave import then
@@ -129,7 +130,13 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        CMS_ST2_CLIENT_PATCH,
                        CMS_ST2_NOTE_PATCH,
                        CMS_SECOND_NOTE_PATCH,
-                       CMS_SECOND_CLIENT_PATCH
+                       CMS_SECOND_CLIENT_PATCH,
+                       CMS_CLIENT_FILTER_PARAMS,
+                       CMS_NOTE_FILTER_PARAMS,
+                       CMS_SECOND_CLIENT_FILTER_PARAMS,
+                       CMS_SECOND_NOTE_FILTER_PARAMS,
+                       CMS_ST2_CLIENT_FILTER_PARAMS,
+                       CMS_ST2_NOTE_FILTER_PARAMS
                        )
 
 
@@ -776,6 +783,10 @@ def specific_student_JSON_data_response(context):
     # context.test().assertEqual(response[0].get('last_name'),
     #                            filtered_student_lastname)
 
+
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('last_name') == filtered_student_lastname:
             assert True
@@ -827,6 +838,9 @@ def server_response_with_superuser_only(context):
 @then('the specific ST2 students data will be returned as JSON response')
 def specific_ST2_smsStudent_data_JSON_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('first_name') == SMS_FILTER_PARAMS_ST2.get('first_name') and \
@@ -2024,6 +2038,8 @@ def database_delete_ST2_hhaClinicalRecords(context):
 @then('the specific STI cnaRotations data will be returned as JSON response')
 def specific_cnaRotation_JSON_data_response(context):
     response = context.response.data
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('end_date') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
@@ -2042,6 +2058,8 @@ def specific_cnaRotation_JSON_data_response(context):
 def specific_hhaRotations_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
     for indx, data in enumerate(response):
         if data.get('end_date') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
            data.get('start_date') == GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') and \
@@ -2064,6 +2082,8 @@ def specific_hhaRotations_JSON_data_response(context):
 def specific_cnaRotation_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
     for indx, data in enumerate(response):
         if data.get('end_date') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
            data.get('start_date') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('start_date') and \
@@ -2080,6 +2100,9 @@ def specific_cnaRotation_JSON_data_response(context):
 @then('the specific ST2 hhaRotations data will be returned as JSON response')
 def specific_hhaRotations_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('end_date') == GMS_ST2_CNA_HHA_ROTATION_FILTER_PARAMS.get('end_date') and \
@@ -2098,12 +2121,22 @@ def specific_hhaRotations_JSON_data_response(context):
 def no_json_response(context):
     response_data = context.response.data
 
-    context.test().assertEqual(response_data, [])
+    if len(response_data) == 0:
+        assert True
+    else:
+        for data in response_data:
+            for param in context.test_param:
+                if str(data[param]) == str(context.test_data[param]):
+                    assert False
+
 
 
 @then('the specific STI cnaStudents data will be returned as JSON response')
 def specific_cnaStudents_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_CNA_STUDENT_FILTER_PARAMS.get('last_name') and \
@@ -2123,6 +2156,9 @@ def specific_cnaStudents_JSON_data_response(context):
 def specific_hhaStudents_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_STI_HHA_STUDENT_FILTER_PARAMS.get('first_name') and \
@@ -2139,6 +2175,9 @@ def specific_hhaStudents_JSON_data_response(context):
 @then('the specific ST2 cnaStudents data will be returned as JSON response')
 def specific_cnaStudents_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_ST2_CNA_STUDENT_FILTER_PARAMS.get('last_name') and \
@@ -2157,6 +2196,9 @@ def specific_cnaStudents_JSON_data_response(context):
 def specific_hhaStudents_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_ST2_HHA_STUDENT_FILTER_PARAMS.get('first_name') and \
@@ -2173,6 +2215,9 @@ def specific_hhaStudents_JSON_data_response(context):
 @then('the specific STI second hhaRotations data will be returned as JSON response')
 def specific_second_hhaRotations_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('end_date') == GMS_STI_HHA_ROTATION2_FILTER_PARAMS.get('end_date') and \
@@ -2191,6 +2236,9 @@ def specific_second_hhaRotations_JSON_data_response(context):
 def specific_second_cnaRotations_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('end_date') == GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('end_date') and \
            data.get('start_date') == GMS_STI_CNA_ROTATION2_FILTER_PARAMS.get('start_date') and \
@@ -2207,6 +2255,9 @@ def specific_second_cnaRotations_JSON_data_response(context):
 @then('the specific STI second cnaStudents data will be returned as JSON response')
 def specific_second_cnaStudents_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_CNA_STUDENT2_FILTER_PARAMS.get('last_name') and \
@@ -2225,6 +2276,9 @@ def specific_second_cnaStudents_JSON_data_response(context):
 def specific_second_hhaStudents_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('last_name') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('last_name') and \
            data.get('first_name') == GMS_STI_HHA_STUDENT2_FILTER_PARAMS.get('first_name') and \
@@ -2241,6 +2295,9 @@ def specific_second_hhaStudents_JSON_data_response(context):
 @then('the specific STI cnaTheoryRecords data will be returned as JSON response')
 def specific_cnaTheoryRecords_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_THEORYRECORD_FILTER_PARAMS.get('date') and \
@@ -2259,6 +2316,9 @@ def specific_cnaTheoryRecords_JSON_data_response(context):
 def specific_second_cnaTheoryRecords_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('date') and \
            str(data.get('completed')) == GMS_STI_CNA_THEORYRECORD2_FILTER_PARAMS.get('completed') and \
@@ -2275,6 +2335,9 @@ def specific_second_cnaTheoryRecords_JSON_data_response(context):
 @then('the specific ST2 cnaTheoryRecords data will be returned as JSON response')
 def specific_cnaTheoryRecords_ST2_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_ST2_CNA_THEORYRECORD_FILTER_PARAMS.get('date') and \
@@ -2293,6 +2356,9 @@ def specific_cnaTheoryRecords_ST2_JSON_data_response(context):
 def specific_hhaTheoryRecords_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('date') and \
            str(data.get('completed')) == GMS_STI_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
@@ -2309,6 +2375,9 @@ def specific_hhaTheoryRecords_JSON_data_response(context):
 @then('the specific STI second hhaTheoryRecords data will be returned as JSON response')
 def specific_second_hhaTheoryRecords_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get('date') and \
@@ -2332,6 +2401,9 @@ def specific_second_hhaTheoryRecords_JSON_data_response(context):
 def specific_hhaTheoryRecords_ST2_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('date') == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('date') and \
            str(data.get('completed')) == GMS_ST2_HHA_THEORYRECORD_FILTER_PARAMS.get('completed') and \
@@ -2348,6 +2420,9 @@ def specific_hhaTheoryRecords_ST2_JSON_data_response(context):
 @then('the specific STI cnaClinicalRecords data will be returned as JSON response')
 def specific_cnaClinicalRecords_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
@@ -2366,6 +2441,9 @@ def specific_cnaClinicalRecords_JSON_data_response(context):
 def specific_second_cnaClinicalRecords_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
            str(data.get('completed')) == GMS_STI_CNA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
@@ -2383,6 +2461,9 @@ def specific_second_cnaClinicalRecords_JSON_data_response(context):
 def specific_cnaClinicalRecords_ST2_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('date') == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('date') and \
            str(data.get('completed')) == GMS_ST2_CNA_CLINICALRECORD_FILTER_PARAMS.get('completed') and \
@@ -2399,6 +2480,9 @@ def specific_cnaClinicalRecords_ST2_JSON_data_response(context):
 @then('the specific STI hhaClinicalRecords data will be returned as JSON response')
 def specific_hhaClinicalRecords_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
 
@@ -2418,6 +2502,9 @@ def specific_hhaClinicalRecords_JSON_data_response(context):
 def specific_second_hhaClinicalRecords_JSON_data_response(context):
     response = context.response.data
 
+    if len(response) == 0:
+        assert False
+
     for indx, data in enumerate(response):
         if data.get('date') == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('date') and \
            str(data.get('completed')) == GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get('completed') and \
@@ -2435,6 +2522,9 @@ def specific_second_hhaClinicalRecords_JSON_data_response(context):
 @then('the specific ST2 hhaClinicalRecords data will be returned as JSON response')
 def specific_hhaClinicalRecords_ST2_JSON_data_response(context):
     response = context.response.data
+
+    if len(response) == 0:
+        assert False
 
     for indx, data in enumerate(response):
         if (data.get('date') == GMS_ST2_HHA_CLINICALRECORD_FILTER_PARAMS.get('date') and
@@ -2812,3 +2902,150 @@ def database_will_delete_ST2_note(context):
     Note = apps.get_model('cms', 'Note')
     if Note.objects.filter(pk__exact=context.uuid).exists():
         assert False
+
+@then('the specific clients data will be returned as JSON response')
+def specific_client_data_JSON_response(context):
+    response = context.response.data
+    if len(response) == 0:
+        assert False
+
+    for indx, data in enumerate(response):
+        if data.get('first_name') == CMS_CLIENT_FILTER_PARAMS.get('first_name') and \
+           data.get('last_name') == CMS_CLIENT_FILTER_PARAMS.get('last_name') and \
+           data.get('email') == CMS_CLIENT_FILTER_PARAMS.get('email') and \
+           data.get('city') == CMS_CLIENT_FILTER_PARAMS.get('city') and \
+           data.get('success') == CMS_CLIENT_FILTER_PARAMS.get('success') and \
+           data.get('initial_contact') == CMS_CLIENT_FILTER_PARAMS.get('initial_contact') and \
+           data.get('phone_number') == CMS_CLIENT_FILTER_PARAMS.get('phone_number'):
+            assert True
+            break
+
+        if indx == (len(response) - 1) and \
+           (data.get('first_name') != CMS_CLIENT_FILTER_PARAMS.get('first_name') or
+           data.get('last_name') != CMS_CLIENT_FILTER_PARAMS.get('last_name') or
+           data.get('email') != CMS_CLIENT_FILTER_PARAMS.get('email') or
+           data.get('city') != CMS_CLIENT_FILTER_PARAMS.get('city') or
+           data.get('success') != CMS_CLIENT_FILTER_PARAMS.get('success') or
+           data.get('initial_contact') != CMS_CLIENT_FILTER_PARAMS.get('initial_contact') or
+           data.get('phone_number') != CMS_CLIENT_FILTER_PARAMS.get('phone_number')):
+            assert False
+
+@then('the specific notes data will be returned as JSON response')
+def specific_note_data_JSON_response(context):
+    response = context.response.data
+    if len(response) == 0:
+        assert False
+
+    for indx, data in enumerate(response):
+        if data.get('date') == CMS_NOTE_FILTER_PARAMS.get('date') and \
+           data.get('content') == CMS_NOTE_FILTER_PARAMS.get('content'):
+            assert True
+            break
+
+        if indx == (len(response) - 1) and \
+           (data.get('date') != CMS_NOTE_FILTER_PARAMS.get('date') or
+           data.get('content') != CMS_NOTE_FILTER_PARAMS.get('content')):
+            assert False
+
+
+
+
+
+@then('the specific second clients data will be returned as JSON response')
+def specific_second_client_data_JSON_response(context):
+    response = context.response.data
+
+    if len(response) == 0:
+        assert False
+
+    for indx, data in enumerate(response):
+        if data.get('first_name') == CMS_SECOND_CLIENT_FILTER_PARAMS.get('first_name') and \
+           data.get('last_name') == CMS_SECOND_CLIENT_FILTER_PARAMS.get('last_name') and \
+           data.get('email') == CMS_SECOND_CLIENT_FILTER_PARAMS.get('email') and \
+           data.get('city') == CMS_SECOND_CLIENT_FILTER_PARAMS.get('city') and \
+           data.get('success') == CMS_SECOND_CLIENT_FILTER_PARAMS.get('success') and \
+           data.get('initial_contact') == CMS_SECOND_CLIENT_FILTER_PARAMS.get('initial_contact') and \
+           data.get('phone_number') == CMS_SECOND_CLIENT_FILTER_PARAMS.get('phone_number'):
+            assert True
+            break
+
+        if indx == (len(response) - 1) and \
+           (data.get('first_name') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('first_name') or
+           data.get('last_name') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('last_name') or
+           data.get('email') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('email') or
+           data.get('city') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('city') or
+           data.get('success') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('success') or
+           data.get('initial_contact') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('initial_contact') or
+           data.get('phone_number') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('phone_number')):
+            assert False
+
+@then('the specific second notes data will be returned as JSON response')
+def specific_note_data_JSON_response(context):
+    response = context.response.data
+
+    if len(response) == 0:
+        assert False
+
+    for indx, data in enumerate(response):
+        if data.get('date') == CMS_SECOND_NOTE_FILTER_PARAMS.get('date') and \
+           data.get('content') == CMS_SECOND_NOTE_FILTER_PARAMS.get('content'):
+            assert True
+            break
+
+        if indx == (len(response) - 1) and \
+           (data.get('date') != CMS_SECOND_NOTE_FILTER_PARAMS.get('date') or
+           data.get('content') != CMS_SECOND_NOTE_FILTER_PARAMS.get('content')):
+            assert False
+
+
+
+
+
+
+
+
+@then('the specific ST2 clients data will be returned as JSON response')
+def specific_second_client_data_JSON_response(context):
+    response = context.response.data
+
+    if len(response) == 0:
+        assert False
+
+    for indx, data in enumerate(response):
+        if data.get('first_name') == CMS_ST2_CLIENT_FILTER_PARAMS.get('first_name') and \
+           data.get('last_name') == CMS_ST2_CLIENT_FILTER_PARAMS.get('last_name') and \
+           data.get('email') == CMS_ST2_CLIENT_FILTER_PARAMS.get('email') and \
+           data.get('city') == CMS_ST2_CLIENT_FILTER_PARAMS.get('city') and \
+           data.get('success') == CMS_ST2_CLIENT_FILTER_PARAMS.get('success') and \
+           data.get('initial_contact') == CMS_ST2_CLIENT_FILTER_PARAMS.get('initial_contact') and \
+           data.get('phone_number') == CMS_ST2_CLIENT_FILTER_PARAMS.get('phone_number'):
+            assert True
+            break
+
+        if indx == (len(response) - 1) and \
+           (data.get('first_name') != CMS_ST2_CLIENT_FILTER_PARAMS.get('first_name') or
+           data.get('last_name') != CMS_ST2_CLIENT_FILTER_PARAMS.get('last_name') or
+           data.get('email') != CMS_ST2_CLIENT_FILTER_PARAMS.get('email') or
+           data.get('city') != CMS_ST2_CLIENT_FILTER_PARAMS.get('city') or
+           data.get('success') != CMS_ST2_CLIENT_FILTER_PARAMS.get('success') or
+           data.get('initial_contact') != CMS_ST2_CLIENT_FILTER_PARAMS.get('initial_contact') or
+           data.get('phone_number') != CMS_ST2_CLIENT_FILTER_PARAMS.get('phone_number')):
+            assert False
+
+@then('the specific ST2 notes data will be returned as JSON response')
+def specific_note_data_JSON_response(context):
+    response = context.response.data
+
+    if len(response) == 0:
+        assert False
+
+    for indx, data in enumerate(response):
+        if data.get('date') == CMS_ST2_NOTE_FILTER_PARAMS.get('date') and \
+           data.get('content') == CMS_ST2_NOTE_FILTER_PARAMS.get('content'):
+            assert True
+            break
+
+        if indx == (len(response) - 1) and \
+           (data.get('date') != CMS_ST2_NOTE_FILTER_PARAMS.get('date') or
+           data.get('content') != CMS_ST2_NOTE_FILTER_PARAMS.get('content')):
+            assert False
