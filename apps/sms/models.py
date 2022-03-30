@@ -132,7 +132,7 @@ class Student(models.Model):
     employment_address = models.CharField(max_length=150, blank=True)
     position = models.CharField(max_length=50, blank=True)
     starting_wage = MoneyField(
-        max_digits=10, decimal_places=2, default_currency='USD', null=True, blank=True)
+        max_digits=10, decimal_places=2, default_currency='USD', blank=True, default='0.00')
 
     hours_worked_weekly = models.CharField(
         max_length=1, choices=EMPLOYMENT_STATUS_CHOICES, blank=True)
