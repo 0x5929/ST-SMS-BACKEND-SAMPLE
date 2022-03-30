@@ -257,19 +257,19 @@ class DataHandler:
         return validated_value, new_key
 
     @staticmethod
-    def validate_wage(value, ):
+    def validate_wage(value):
         new_key = 'starting_wage'
 
         if not value:
-            return None, new_key
+            return '0.00', new_key
 
         try:
             pattern = '[0-9]+\.?[0-9]*'
             wage = [float(dig) for dig in re.findall(pattern, value)]
         except:
-            return None, new_key
+            return '0.00', new_key
         if not wage:
-            return None, new_key
+            return '0.00', new_key
 
         return str(wage[0]), new_key
 

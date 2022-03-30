@@ -429,6 +429,12 @@ class TestDataHandler:
         assert DataHandler.validate_currency(
             TEST_INVALID_NUMBER, 'Total Institutional Charges Paid') == ('0.00', 'total_charges_paid')
 
+    def test_validate_wage(self):
+        assert DataHandler.validate_wage(None) == ('0.00', 'starting_wage')
+        assert DataHandler.validate_wage('12') == ('12.0', 'starting_wage')
+        assert DataHandler.validate_wage('12.50') == ('12.5', 'starting_wage')
+        assert DataHandler.validate_wage('__STR__') == ('0.00', 'starting_wage')
+
     def test_validate_bool_success(self):
         assert DataHandler.validate_bool(
             TEST_Y, 'Graduates') == (True, 'graduated')
