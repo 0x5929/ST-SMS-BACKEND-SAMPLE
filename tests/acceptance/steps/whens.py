@@ -167,7 +167,13 @@ from constants import (SMS_SCHOOLS_API_URL,
                        CMS_ST2_CLIENT_SAMPLE_PUT,
                        CMS_ST2_NOTE_SAMPLE_PUT,
                        CMS_ST2_CLIENT_PATCH,
-                       CMS_ST2_NOTE_PATCH)
+                       CMS_ST2_NOTE_PATCH,
+                       CMS_CLIENT_FILTER_PARAMS,
+                       CMS_NOTE_FILTER_PARAMS,
+                       CMS_SECOND_CLIENT_FILTER_PARAMS,
+                       CMS_SECOND_NOTE_FILTER_PARAMS,
+                       CMS_ST2_NOTE_FILTER_PARAMS,
+                       CMS_ST2_CLIENT_FILTER_PARAMS)
 
 
 # NOTE: BELOW ARE SMS RELATED @WHENS
@@ -2124,6 +2130,8 @@ def request_GET_second_hhaStudents_by_makeup_student(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
+    context.test_data = GMS_STI_HHA_STUDENT2_FILTER_PARAMS
+    context.test_param = ['first_name', 'last_name']
     context.response = context.test.client.get(
         f'{GMS_HHA_STUDENTS_API_URL}{parameter}', headers=headers)
 
@@ -2223,7 +2231,7 @@ def request_GET_second_hhaTheoryRecords_by_date(context):
     parameter = f'?date={GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get("date")}'
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
-
+    
     context.response = context.test.client.get(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
 
@@ -2233,6 +2241,9 @@ def request_GET_second_hhaTheoryRecords_by_completed(context):
     parameter = f'?completed={GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get("completed")}'
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
+
+    context.test_data = GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS
+    context.test_param = ['date', 'topic']
 
     context.response = context.test.client.get(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
@@ -2413,6 +2424,9 @@ def request_GET_second_hhaClinicalRecords_by_completed(context):
     parameter = f'?completed={GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS.get("completed")}'
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
+
+    context.test_data = GMS_STI_HHA_CLINICALRECORD2_FILTER_PARAMS
+    context.test_param = ['date', 'topic']
 
     context.response = context.test.client.get(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{parameter}', headers=headers)
@@ -2811,3 +2825,276 @@ def request_DEL_ST2_note(context):
     context.uuid = CMS_ST2_NOTE_UUID
     context.response = context.test.client.delete(
         f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', headers=headers)
+
+@when('request GET to /api/cms/clients with filters by first_name')
+def request_client_filter_by_first_name(context):
+    parameter = f'?first_name={CMS_CLIENT_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to /api/cms/clients with filters by last_name')
+def request_client_filter_by_last_name(context):
+    parameter = f'?last_name={CMS_CLIENT_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/cms/clients with filters by phone_number')
+def request_client_filter_by_phone_number(context):
+    parameter = f'?phone_number={CMS_CLIENT_FILTER_PARAMS.get("phone_number")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to /api/cms/clients with filters by email')
+def request_client_filter_by_email(context):
+    parameter = f'?email={CMS_CLIENT_FILTER_PARAMS.get("email")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/cms/clients with filters by city')
+def request_client_filter_by_city(context):
+    parameter = f'?city={CMS_CLIENT_FILTER_PARAMS.get("city")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/cms/clients with filters by success')
+def request_client_filter_by_success(context):
+    parameter = f'?success={CMS_CLIENT_FILTER_PARAMS.get("success")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to /api/cms/clients with filters by initial_contact')
+def request_client_filter_by_initial_contact_date(context):
+    parameter = f'?initial_contact={CMS_CLIENT_FILTER_PARAMS.get("initial_contact")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to /api/cms/notes with filters by date')
+def request_note_filter_by_date(context):
+    parameter = f'?date={CMS_NOTE_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to /api/cms/notes with filters by content')
+def request_note_filter_by_content(context):
+    parameter = f'?content={CMS_NOTE_FILTER_PARAMS.get("content")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{parameter}', headers=headers)
+
+
+
+
+
+@when('request GET to second /api/cms/clients with filters by first_name')
+def request_client_filter_by_first_name(context):
+    parameter = f'?first_name={CMS_SECOND_CLIENT_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to second /api/cms/clients with filters by last_name')
+def request_client_filter_by_last_name(context):
+    parameter = f'?last_name={CMS_SECOND_CLIENT_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second /api/cms/clients with filters by phone_number')
+def request_client_filter_by_phone_number(context):
+    parameter = f'?phone_number={CMS_SECOND_CLIENT_FILTER_PARAMS.get("phone_number")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to second /api/cms/clients with filters by email')
+def request_client_filter_by_email(context):
+    parameter = f'?email={CMS_SECOND_CLIENT_FILTER_PARAMS.get("email")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second /api/cms/clients with filters by city')
+def request_client_filter_by_city(context):
+    parameter = f'?city={CMS_SECOND_CLIENT_FILTER_PARAMS.get("city")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second /api/cms/clients with filters by success')
+def request_client_filter_by_success(context):
+    parameter = f'?success={CMS_SECOND_CLIENT_FILTER_PARAMS.get("success")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to second /api/cms/clients with filters by initial_contact')
+def request_client_filter_by_initial_contact_date(context):
+    parameter = f'?initial_contact={CMS_SECOND_CLIENT_FILTER_PARAMS.get("initial_contact")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to second /api/cms/notes with filters by date')
+def request_note_filter_by_date(context):
+    parameter = f'?date={CMS_SECOND_NOTE_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to second /api/cms/notes with filters by content')
+def request_note_filter_by_content(context):
+    parameter = f'?content={CMS_SECOND_NOTE_FILTER_PARAMS.get("content")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{parameter}', headers=headers)
+
+
+
+
+
+
+
+
+
+
+
+
+@when('request GET to ST2 /api/cms/clients with filters by first_name')
+def request_client_filter_by_first_name(context):
+    parameter = f'?first_name={CMS_ST2_CLIENT_FILTER_PARAMS.get("first_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to ST2 /api/cms/clients with filters by last_name')
+def request_client_filter_by_last_name(context):
+    parameter = f'?last_name={CMS_ST2_CLIENT_FILTER_PARAMS.get("last_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to ST2 /api/cms/clients with filters by phone_number')
+def request_client_filter_by_phone_number(context):
+    parameter = f'?phone_number={CMS_ST2_CLIENT_FILTER_PARAMS.get("phone_number")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to ST2 /api/cms/clients with filters by email')
+def request_client_filter_by_email(context):
+    parameter = f'?email={CMS_ST2_CLIENT_FILTER_PARAMS.get("email")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to ST2 /api/cms/clients with filters by city')
+def request_client_filter_by_city(context):
+    parameter = f'?city={CMS_ST2_CLIENT_FILTER_PARAMS.get("city")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to ST2 /api/cms/clients with filters by success')
+def request_client_filter_by_success(context):
+    parameter = f'?success={CMS_ST2_CLIENT_FILTER_PARAMS.get("success")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.test_data = CMS_ST2_CLIENT_FILTER_PARAMS
+    context.test_param = ['first_name', 'last_name', 'phone_number','email', 'city', 'initial_contact']
+
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to ST2 /api/cms/clients with filters by initial_contact')
+def request_client_filter_by_initial_contact_date(context):
+    parameter = f'?initial_contact={CMS_ST2_CLIENT_FILTER_PARAMS.get("initial_contact")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
+@when('request GET to ST2 /api/cms/notes with filters by date')
+def request_note_filter_by_date(context):
+    parameter = f'?date={CMS_ST2_NOTE_FILTER_PARAMS.get("date")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{parameter}', headers=headers)
+
+
+@when('request GET to ST2 /api/cms/notes with filters by content')
+def request_note_filter_by_content(context):
+    parameter = f'?content={CMS_ST2_NOTE_FILTER_PARAMS.get("content")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{CMS_NOTES_API_URL}{parameter}', headers=headers)

@@ -1,6 +1,6 @@
 Feature: Student Management filter
 
-    All users can filter student model objects based on student attributes via GET parameters
+    All office users can filter student model objects based on student attributes via GET parameters
 
     Scenario: superuser requesting to filter sms/students resource by school
         Given logged on as superuser

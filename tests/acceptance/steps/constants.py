@@ -1270,3 +1270,50 @@ CMS_SECOND_CLIENT_PATCH = {
 CMS_SECOND_NOTE_PATCH = {
     'price' : '178.00' 
 }
+
+CMS_CLIENT_FILTER_PARAMS = {
+    'first_name': 'Testclient',
+    'last_name': 'A',
+    'phone_number': '626-555-5455',
+    'email': 'testclienta@email.com',
+    'city': 'Rosemead',
+    'success': False,
+    'initial_contact': '2021-10-06'
+}
+
+CMS_NOTE_FILTER_PARAMS = {
+    'date': '2021-10-06',
+    'content': 'Tried contacting.'
+}
+
+
+CMS_SECOND_CLIENT_FILTER_PARAMS = {
+    'first_name': 'Testing',
+    'last_name': 'Client',
+    'phone_number': '626-123-5555',
+    'email': 'testing.client@email.com',
+    'city': 'Alhambra',
+    'success': True,
+    'initial_contact': '2021-11-01'
+}
+
+CMS_SECOND_NOTE_FILTER_PARAMS = {
+    'date': '2021-11-06',
+    'content': 'Sample Content'
+}
+
+
+CMS_ST2_CLIENT_FILTER_PARAMS = {
+    'first_name': 'Testy',
+    'last_name': 'Clientelle',
+    'phone_number': '626-321-5555',
+    'email': 'testy.clientelle@email.com',
+    'city': 'Temple City',
+    'success': True,
+    'initial_contact': '2021-12-01'
+}
+
+CMS_ST2_NOTE_FILTER_PARAMS = {
+    'date': '2021-12-06',
+    'content': 'Sample Content for this client'
+}
