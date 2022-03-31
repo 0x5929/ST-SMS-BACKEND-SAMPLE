@@ -188,6 +188,12 @@ SMS_ST2_STUDENT_SAMPLE_PUT_DATA = {
       'rotation': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
 }
 
+SMS_FILTER_ROATAION_PARAM = {
+    'program_name' : 'HHA',
+    'program_uuid' : '0af7e2ff-1370-43fb-8bd8-6f4623ecc496'
+}
+
+
 SMS_STUDENT_SAMPLE_PATCH_DATA = {
     'last_name': 'D'
 }

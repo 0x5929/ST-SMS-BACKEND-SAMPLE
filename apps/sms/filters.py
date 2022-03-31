@@ -2,7 +2,7 @@ import django_filters
 
 from django.conf import settings
 
-from .models import Student
+from .models import Rotation, Student
 
 PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
 
@@ -102,3 +102,19 @@ class SMSFilter(django_filters.FilterSet):
 
     google_sheet_migrated = django_filters.BooleanFilter(
         field_name='google_sheet_migrated')
+
+
+# this was added later, we could change SMSFIlter to SMSFilterStudent, but not super important atm.
+class SMSFilterRotation(django_filters.FilterSet):
+    strict = True
+    # for any new filters, please add within fields and declare explicit below as well
+
+    class Meta:
+        model = Rotation
+        fields = (
+            'program__program_name',
+        )
+
+    school = django_filters.CharFilter(
+        field_name='program__program_name',
+        lookup_expr='exact')

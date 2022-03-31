@@ -89,7 +89,6 @@ SMS_FILTER_PARAMS_ST2 = {
 
 
 
-
 TEST_SCHOOL_NAME = 'STI'
 
 TEST_CAP_MATCHING_STR = 'Matching string'

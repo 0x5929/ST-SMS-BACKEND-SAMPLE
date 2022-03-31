@@ -16,6 +16,7 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        JSON_PERMISSION_DENIED_RES,
                        JSON_OBJ_NOT_FOUND_RES,
                        SMS_FILTER_PARAMS,
+                       SMS_FILTER_ROATAION_PARAM,
                        SMS_SCHOOL_SAMPLE_PUT_DATA,
                        SMS_PROGRAM_SAMPLE_PUT_DATA,
                        SMS_ROTATION_SAMPLE_PUT_DATA,
@@ -136,11 +137,12 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        CMS_SECOND_CLIENT_FILTER_PARAMS,
                        CMS_SECOND_NOTE_FILTER_PARAMS,
                        CMS_ST2_CLIENT_FILTER_PARAMS,
-                       CMS_ST2_NOTE_FILTER_PARAMS
+                       CMS_ST2_NOTE_FILTER_PARAMS,
                        )
 
 
 from django.apps import apps
+
 
 
 
@@ -793,6 +795,25 @@ def specific_student_JSON_data_response(context):
             break
         if indx == ( len(response) - 1 ) and data.get('last_name') != filtered_student_lastname:
             assert False
+
+
+@then('the specific rotation data will be returned as JSON response')
+def specific_rotation_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_rotation_program_uuid = SMS_FILTER_ROATAION_PARAM.get('program_uuid')
+
+
+    if len(response) == 0:
+        assert False
+
+    for indx, data in enumerate(response):
+        if str(data.get('program')) == filtered_rotation_program_uuid:
+            assert True
+            break
+        if indx == ( len(response) - 1 ) and data.get('program') != filtered_rotation_program_uuid:
+            assert False
+
 
 
 @then('server will respond with 405')
