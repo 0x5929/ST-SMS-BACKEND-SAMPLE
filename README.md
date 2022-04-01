@@ -88,6 +88,7 @@ _Note:_ If having trouble to pull/clone, please see : [clone using personal toke
 
 _Note:_ If having trouble to install postgres db connector, try: `$ PATH="<postgres-installation-path>/bin/:$PATH" pip install -r requirements.txt`
 
+for my fedora system, the path is : `/usr/pgsql-12/bin/`
 ---
 
 ### **Edit `core/settings/.env-template` file**
