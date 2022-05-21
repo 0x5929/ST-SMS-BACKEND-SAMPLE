@@ -330,6 +330,7 @@ def request_PUT_to_ST2_school(context):
     context.response = context.test.client.put(
         f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_ST2}/', put_data, format='json', headers=headers)
 
+
 @when('request PUT to ST2 /api/sms/programs/program_uuid')
 def request_PUT_to_ST2_program(context):
     put_data = SMS_ST2_PROGRAM_SAMPLE_PUT_DATA
@@ -339,7 +340,6 @@ def request_PUT_to_ST2_program(context):
 
     context.response = context.test.client.put(
         f'{SMS_PROGRAMS_API_URL}{SMS_PROGRAM_UUID_ST2}/', put_data, format='json', headers=headers)
-
 
 
 @when('request PUT to ST2 /api/sms/rotations/rotation_uuid')
@@ -353,7 +353,6 @@ def request_PUT_to_ST2_rotation(context):
         f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', put_data, format='json', headers=headers)
 
 
-
 @when('request PUT to ST2 /api/sms/students/student_uuid')
 def request_PUT_to_ST2_student(context):
     put_data = SMS_ST2_STUDENT_SAMPLE_PUT_DATA
@@ -363,6 +362,7 @@ def request_PUT_to_ST2_student(context):
 
     context.response = context.test.client.put(
         f'{SMS_STUDENTS_API_URL}{SMS_STUDENT_UUID_ST2}/', put_data, format='json', headers=headers)
+
 
 @when('request PATCH to /api/sms/schools/school_uuid')
 def request_PATCH_to_school(context):
@@ -392,7 +392,8 @@ def request_DEL_to_ST2_student(context):
     context.uuid = SMS_STUDENT_UUID_ST2
     context.response = context.test.client.delete(
         f'{SMS_STUDENTS_API_URL}{SMS_STUDENT_UUID_ST2}/', headers=headers)
-  
+
+
 @when('request DELETE to ST2 /api/sms/schools/school_uuid')
 def request_DEL_to_ST2_school(context):
     headers = {'csrftoken': context.csrf_token,
@@ -401,6 +402,7 @@ def request_DEL_to_ST2_school(context):
     context.uuid = SMS_SCHOOL_UUID_ST2
     context.response = context.test.client.delete(
         f'{SMS_SCHOOLS_API_URL}{SMS_SCHOOL_UUID_ST2}/', headers=headers)
+
 
 @when('request DELETE to ST2 /api/sms/programs/program_uuid')
 def request_DEL_to_ST2_program(context):
@@ -420,7 +422,6 @@ def request_DEL_to_ST2_rotation(context):
     context.uuid = SMS_ROTATION_UUID_ST2
     context.response = context.test.client.delete(
         f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', headers=headers)
-
 
 
 @when('request POST to /api/sms/programs')
@@ -833,6 +834,7 @@ def request_GET_to_smsStudents_by_ST2_school_name(context):
     context.response = context.test.client.get(
         f'{SMS_STUDENTS_API_URL}{parameter}', headers=headers)
 
+
 @when('request GET to /api/sms/rotations with filters by program name')
 def request_GET_to_smsRotations_by_program_name(context):
     parameter = f'?program__program_name={SMS_FILTER_ROATAION_PARAM.get("program_name")}'
@@ -879,7 +881,6 @@ def request_GET_ST2_rotation(context):
         f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', headers=headers)
 
 
-
 @when('request PATCH to ST2 /api/sms/students/student_uuid')
 def request_PATCH_ST2_students(context):
     patch_data = SMS_ST2_STUDENT_SAMPLE_PATCH_DATA
@@ -910,7 +911,6 @@ def request_PATCH_ST2_programs(context):
         f'{SMS_PROGRAMS_API_URL}{SMS_PROGRAM_UUID_ST2}/', patch_data, format='json', headers=headers)
 
 
-
 @when('request PATCH to ST2 /api/sms/rotations/rotation_uuid')
 def request_PATCH_ST2_rotations(context):
     patch_data = SMS_ST2_ROTATION_SAMPLE_PATCH_DATA
@@ -919,6 +919,15 @@ def request_PATCH_ST2_rotations(context):
 
     context.response = context.test.client.patch(
         f'{SMS_ROTATIONS_API_URL}{SMS_ROTATION_UUID_ST2}/', patch_data, format='json', headers=headers)
+
+
+@when('request GET to /api/sms/students/student_statistics')
+def request_GET_student_statistics(context):
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+    context.response = context.test.client.get(
+        f'/api/sms/student_statistics/', headers=headers)
+
 
 # NOTE: BELOW ARE GMS RELATED @WHENS
 
@@ -953,14 +962,14 @@ def request_GET_to_cnaStudent_uuid(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{GMS_CNA_STUDENTS_API_URL}{GMS_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)
-  
+
 
 @when('request GET to ST2 /api/gms/cnaStudents/cnaStudent_uuid')
 def request_GET_to_ST2_cnaStudent_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)    
+        f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid')
@@ -969,7 +978,6 @@ def request_GET_to_cnaTheoryRecord_uuid(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
-      
 
 
 @when('request GET to ST2 /api/gms/cnaTheoryRecords/cnaTheoryRecord_uuid')
@@ -977,21 +985,23 @@ def request_GET_to_ST2_cnaTheoryRecord_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers) 
+        f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
+
 
 @when('request GET to /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid')
 def request_GET_to_cnaClinicalRecord_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)   
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
+
 
 @when('request GET to ST2 /api/gms/cnaClinicalRecords/cnaClinicalRecord_uuid')
 def request_GET_to_ST2_cnaClinicalRecord_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)   
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to /api/gms/hhaRotations/hhaRotation_uuid')
@@ -999,14 +1009,15 @@ def request_GET_to_hhaRotation_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)   
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)
+
 
 @when('request GET to ST2 /api/gms/hhaRotations/hhaRotation_uuid')
 def request_GET_to_ST2_hhaRotation_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)   
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to /api/gms/hhaStudents/hhaStudent_uuid')
@@ -1014,7 +1025,7 @@ def request_GET_to_hhaStudent_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)   
+        f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to ST2 /api/gms/hhaStudents/hhaStudent_uuid')
@@ -1022,8 +1033,7 @@ def request_GET_to_ST2_hhaStudent_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_HHA_STUDENTS_API_URL}{GMS_ST2_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)   
-
+        f'{GMS_HHA_STUDENTS_API_URL}{GMS_ST2_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid')
@@ -1031,7 +1041,7 @@ def request_GET_to_hhaTheoryRecord_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)  
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to ST2 /api/gms/hhaTheoryRecords/hhaTheoryRecord_uuid')
@@ -1039,8 +1049,7 @@ def request_GET_to_ST2_hhaTheoryRecord_uuid(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)  
-
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request GET to /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid')
@@ -1057,6 +1066,7 @@ def request_GET_to_ST2_hhaClinicalRecord_uuid(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_ST2_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
+
 
 @when('request GET to /api/gms/cnaStudents')
 def request_GET_cnaStudents(context):
@@ -1134,7 +1144,6 @@ def request_POST_ST2_cnaRotations(context):
         f'{GMS_CNA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
 
 
-
 @when('request POST to /api/gms/cnaStudents')
 def request_POST_cnaStudents(context):
     post_data = GMS_CNA_STUDENT_POST_SAMPLE_DATA
@@ -1155,7 +1164,6 @@ def request_POST_ST2_cnaStudents(context):
         f'{GMS_CNA_STUDENTS_API_URL}', post_data, format='json', headers=headers)
 
 
-
 @when('request POST to /api/gms/cnaTheoryRecords')
 def request_POST_cnaTheoryRecords(context):
     post_data = GMS_CNA_THEORY_RECORD_POST_SAMPLE_DATA
@@ -1164,7 +1172,6 @@ def request_POST_cnaTheoryRecords(context):
 
     context.response = context.test.client.post(
         f'{GMS_CNA_THEORY_RECORDS_API_URL}', post_data, format='json', headers=headers)
-
 
 
 @when('request POST to ST2 /api/gms/cnaTheoryRecords')
@@ -1177,7 +1184,6 @@ def request_POST_ST2_cnaTheoryRecords(context):
         f'{GMS_CNA_THEORY_RECORDS_API_URL}', post_data, format='json', headers=headers)
 
 
-
 @when('request POST to /api/gms/cnaClinicalRecords')
 def request_POST_cnaClinicalRecords(context):
     post_data = GMS_CNA_CLINICAL_RECORD_POST_SAMPLE_DATA
@@ -1186,7 +1192,6 @@ def request_POST_cnaClinicalRecords(context):
 
     context.response = context.test.client.post(
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
-
 
 
 @when('request POST to ST2 /api/gms/cnaClinicalRecords')
@@ -1199,7 +1204,6 @@ def request_POST_ST2_cnaClinicalRecords(context):
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
 
 
-
 @when('request POST to /api/gms/hhaRotations')
 def request_POST_hhaRotations(context):
     post_data = GMS_HHA_ROTATION_POST_SAMPLE_DATA
@@ -1208,7 +1212,6 @@ def request_POST_hhaRotations(context):
 
     context.response = context.test.client.post(
         f'{GMS_HHA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
-
 
 
 @when('request POST to ST2 /api/gms/hhaRotations')
@@ -1231,7 +1234,6 @@ def request_POST_hhaStudents(context):
         f'{GMS_HHA_STUDENTS_API_URL}', post_data, format='json', headers=headers)
 
 
-
 @when('request POST to ST2 /api/gms/hhaStudents')
 def request_POST_ST2_hhaStudents(context):
     post_data = GMS_ST2_HHA_STUDENT_POST_SAMPLE_DATA
@@ -1250,7 +1252,6 @@ def request_POST_hhaTheoryRecords(context):
 
     context.response = context.test.client.post(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}', post_data, format='json', headers=headers)
-
 
 
 @when('request POST to ST2 /api/gms/hhaTheoryRecords')
@@ -1273,7 +1274,6 @@ def request_POST_hhaClinicalRecords(context):
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
 
 
-
 @when('request POST to ST2 /api/gms/hhaClinicalRecords')
 def request_POST_hhaClinicalRecords(context):
     post_data = GMS_ST2_HHA_CLINICAL_RECORD_POST_SAMPLE_DATA
@@ -1282,7 +1282,6 @@ def request_POST_hhaClinicalRecords(context):
 
     context.response = context.test.client.post(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}', post_data, format='json', headers=headers)
-
 
 
 @when('request PUT to /api/gms/cnaRotations')
@@ -1305,8 +1304,6 @@ def request_PUT_ST2_cnaRotations(context):
         f'{GMS_CNA_ROTATIONS_API_URL}{GMS_ST2_CNA_ROTATION_UUID_TO_TEST}/', put_data, format='json', headers=headers)
 
 
-
-
 @when('request PUT to /api/gms/cnaStudents')
 def request_PUT_cnaStudents(context):
     put_data = GMS_CNA_STUDENT_PUT_SAMPLE_DATA
@@ -1317,8 +1314,6 @@ def request_PUT_cnaStudents(context):
         f'{GMS_CNA_STUDENTS_API_URL}{GMS_CNA_STUDENT_UUID_TO_TEST}/', put_data, format='json', headers=headers)
 
 
-
-
 @when('request PUT to ST2 /api/gms/cnaStudents')
 def request_PUT_ST2_cnaStudents(context):
     put_data = GMS_ST2_CNA_STUDENT_PUT_SAMPLE_DATA
@@ -1327,7 +1322,6 @@ def request_PUT_ST2_cnaStudents(context):
 
     context.response = context.test.client.put(
         f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', put_data, format='json', headers=headers)
-
 
 
 @when('request PUT to /api/gms/cnaTheoryRecords')
@@ -1350,7 +1344,6 @@ def request_PUT_ST2_cnaTheoryRecords(context):
         f'{GMS_CNA_THEORY_RECORDS_API_URL}{GMS_ST2_CNA_THEORY_RECORD_UUID_TO_TEST}/', put_data, format='json', headers=headers)
 
 
-
 @when('request PUT to /api/gms/cnaClinicalRecords')
 def request_PUT_cnaClinicalRecords(context):
     put_data = GMS_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA
@@ -1368,7 +1361,7 @@ def request_PUT_ST2_cnaClinicalRecords(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.put(
-        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', put_data, format='json', headers=headers)    
+        f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', put_data, format='json', headers=headers)
 
 
 @when('request PUT to /api/gms/hhaRotations')
@@ -1379,6 +1372,7 @@ def request_PUT_hhaRotations(context):
 
     context.response = context.test.client.put(
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
 
 @when('request PUT to ST2 /api/gms/hhaRotations')
 def request_PUT_ST2_hhaRotations(context):
@@ -1428,7 +1422,6 @@ def request_PUT_ST2_hhaTheoryRecords(context):
 
     context.response = context.test.client.put(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', put_data, format='json', headers=headers)
-
 
 
 @when('request PUT to /api/gms/hhaClinicalRecords')
@@ -1488,7 +1481,8 @@ def request_PATCH_ST2_cnaStudents(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.patch(
-        f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)  
+        f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
 
 @when('request PATCH to /api/gms/cnaTheoryRecords')
 def request_PATCH_cnaTheoryRecords(context):
@@ -1540,7 +1534,6 @@ def request_PATCH_hhaRotations(context):
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
-
 @when('request PATCH to ST2 /api/gms/hhaRotations/hhaRotation_uuid')
 def request_PATCH_ST2_hhaRotations(context):
     patch_data = GMS_ST2_HHA_ROTATION_PATCH_SAMPLE_DATA
@@ -1549,7 +1542,6 @@ def request_PATCH_ST2_hhaRotations(context):
 
     context.response = context.test.client.patch(
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
-   
 
 
 @when('request PATCH to /api/gms/hhaStudents')
@@ -1560,7 +1552,6 @@ def request_PATCH_hhaStudents(context):
 
     context.response = context.test.client.patch(
         f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
-
 
 
 @when('request PATCH to ST2 /api/gms/hhaStudents/hhaStudent_uuid')
@@ -1590,7 +1581,7 @@ def request_PATCH_ST2_hhaTheoryRecords(context):
                'sms-auth': context.access_token}
 
     context.response = context.test.client.patch(
-        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)  
+        f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_ST2_HHA_THEORY_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 
 @when('request PATCH to /api/gms/hhaClinicalRecords')
@@ -1601,7 +1592,6 @@ def request_PATCH_hhaClinicalRecords(context):
 
     context.response = context.test.client.patch(
         f'{GMS_HHA_CLINICAL_RECORDS_API_URL}{GMS_HHA_CLINICAL_RECORD_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
-
 
 
 @when('request PATCH to ST2 /api/gms/hhaClinicalRecords/hhaClinicalRecord_uuid')
@@ -1633,6 +1623,7 @@ def request_DELETE_ST2_cnaRotations(context):
     context.response = context.test.client.delete(
         f'{GMS_CNA_ROTATIONS_API_URL}{GMS_ST2_CNA_ROTATION_UUID_TO_TEST}/', headers=headers)
 
+
 @when('request DELETE to /api/gms/cnaStudents')
 def request_DELETE_cnaStudents(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1651,7 +1642,6 @@ def request_DELETE_ST2_cnaStudents(context):
     context.uuid = GMS_ST2_CNA_STUDENT_UUID_TO_TEST
     context.response = context.test.client.delete(
         f'{GMS_CNA_STUDENTS_API_URL}{GMS_ST2_CNA_STUDENT_UUID_TO_TEST}/', headers=headers)
-
 
 
 @when('request DELETE to /api/gms/cnaTheoryRecords')
@@ -1685,7 +1675,6 @@ def request_DELETE_cnaClinicalRecords(context):
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
 
 
-
 @when('request DELETE to ST2 /api/gms/cnaClinicalRecords')
 def request_DELETE_ST2_cnaClinicalRecords(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1695,8 +1684,6 @@ def request_DELETE_ST2_cnaClinicalRecords(context):
 
     context.response = context.test.client.delete(
         f'{GMS_CNA_CLINICAL_RECORDS_API_URL}{GMS_ST2_CNA_CLINICAL_RECORD_UUID_TO_TEST}/', headers=headers)
-
-
 
 
 @when('request DELETE to /api/gms/hhaRotations')
@@ -1716,7 +1703,7 @@ def request_DELETE_hhaRotations(context):
 
     context.uuid = GMS_ST2_HHA_ROTATION_UUID_TO_TEST
     context.response = context.test.client.delete(
-        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)    
+        f'{GMS_HHA_ROTATIONS_API_URL}{GMS_ST2_HHA_ROTATION_UUID_TO_TEST}/', headers=headers)
 
 
 @when('request DELETE to /api/gms/hhaStudents')
@@ -1729,7 +1716,6 @@ def request_DELETE_hhaStudents(context):
         f'{GMS_HHA_STUDENTS_API_URL}{GMS_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)
 
 
-
 @when('request DELETE to ST2 /api/gms/hhaStudents')
 def request_DELETE_ST2_hhaStudents(context):
     headers = {'csrftoken': context.csrf_token,
@@ -1738,7 +1724,6 @@ def request_DELETE_ST2_hhaStudents(context):
     context.uuid = GMS_ST2_HHA_STUDENT_UUID_TO_TEST
     context.response = context.test.client.delete(
         f'{GMS_HHA_STUDENTS_API_URL}{GMS_ST2_HHA_STUDENT_UUID_TO_TEST}/', headers=headers)
-
 
 
 @when('request DELETE to /api/gms/hhaTheoryRecords')
@@ -1750,7 +1735,6 @@ def request_DELETE_hhaTheoryRecords(context):
 
     context.response = context.test.client.delete(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{GMS_HHA_THEORY_RECORD_UUID_TO_TEST}/', headers=headers)
-
 
 
 @when('request DELETE to ST2 /api/gms/hhaTheoryRecords')
@@ -2241,7 +2225,7 @@ def request_GET_second_hhaTheoryRecords_by_date(context):
     parameter = f'?date={GMS_STI_HHA_THEORYRECORD2_FILTER_PARAMS.get("date")}'
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
-    
+
     context.response = context.test.client.get(
         f'{GMS_HHA_THEORY_RECORDS_API_URL}{parameter}', headers=headers)
 
@@ -2531,6 +2515,7 @@ def request_POST_hhaRotation_bad_email(context):
     context.response = context.test.client.post(
         f'{GMS_HHA_ROTATIONS_API_URL}', post_data, format='json', headers=headers)
 
+
 @when('request PUT to /api/gms/cnaRotations with bad email')
 def request_PUT_cnaRotation_bad_email(context):
     put_data = GMS_CNAROTATION_PUT_BAD_EMAIL
@@ -2539,6 +2524,7 @@ def request_PUT_cnaRotation_bad_email(context):
     context.response = context.test.client.put(
         f'{GMS_CNA_ROTATIONS_API_URL}{GMS_CNA_ROTATION_UUID_TO_TEST}/', put_data, format='json', headers=headers)
 
+
 @when('request PUT to /api/gms/hhaRotations with bad email')
 def request_PUT_cnaRotation_bad_email(context):
     put_data = GMS_HHAROTATION_PUT_BAD_EMAIL
@@ -2546,6 +2532,7 @@ def request_PUT_cnaRotation_bad_email(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.put(
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
 
 @when('request PATCH to /api/gms/cnaRotations with bad email')
 def request_PATCH_cnaRotation_bad_email(context):
@@ -2567,12 +2554,15 @@ def request_PATCH_hhaRotation_bad_email(context):
         f'{GMS_HHA_ROTATIONS_API_URL}{GMS_HHA_ROTATION_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
 # whens for cms component testing
+
+
 @when('request GET to /api/cms/clients/client_uuid')
 def request_GET_clients(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}', headers=headers)
+
 
 @when('request GET to /api/cms/notes/note_uuid')
 def request_GET_notes(context):
@@ -2581,12 +2571,14 @@ def request_GET_notes(context):
     context.response = context.test.client.get(
         f'{CMS_NOTES_API_URL}', headers=headers)
 
+
 @when('request GET to second /api/cms/clients/client_uuid')
 def request_GET_second_client(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{CMS_SECOND_CLIENT_UUID}/', headers=headers)
+
 
 @when('request GET to second /api/cms/notes/note_uuid')
 def request_GET_second_note(context):
@@ -2595,12 +2587,14 @@ def request_GET_second_note(context):
     context.response = context.test.client.get(
         f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', headers=headers)
 
+
 @when('request GET to ST2 /api/cms/clients/client_uuid')
 def request_GET_ST2_client(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', headers=headers)
+
 
 @when('request GET to ST2 /api/cms/notes/note_uuid')
 def request_GET_ST2_client(context):
@@ -2618,6 +2612,7 @@ def request_POST_to_client(context):
 
     context.response = context.test.client.post(
         f'{CMS_CLIENTS_API_URL}', post_data, format='json', headers=headers)
+
 
 @when('request POST to /api/cms/notes')
 def request_POST_to_note(context):
@@ -2638,6 +2633,7 @@ def request_POST_ST2_client(context):
     context.response = context.test.client.post(
         f'{CMS_CLIENTS_API_URL}', post_data, format='json', headers=headers)
 
+
 @when('request POST to ST2 /api/cms/notes')
 def request_POST_ST2_note(context):
     post_data = CMS_ST2_NOTE_SAMPLE_POST
@@ -2647,11 +2643,12 @@ def request_POST_ST2_note(context):
     context.response = context.test.client.post(
         f'{CMS_NOTES_API_URL}', post_data, format='json', headers=headers)
 
+
 @when('request POST to /api/cms/clients with email to a non-existant user')
 def request_POST_bad_email_client(context):
     post_data = CMS_STI_CLIENT_SAMPLE_POST
     post_data.get('recruit_emails')[0] = 'random@email.com'
-    
+
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -2667,6 +2664,7 @@ def request_PUT_client(context):
     context.response = context.test.client.put(
         f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', put_data, format='json', headers=headers)
 
+
 @when('request PUT to /api/cms/notes/note_uuid')
 def request_PUT_note(context):
     put_data = CMS_STI_NOTE_SAMPLE_PUT
@@ -2674,6 +2672,7 @@ def request_PUT_note(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.put(
         f'{CMS_NOTES_API_URL}{CMS_NOTE_UUID_TO_TEST}/', put_data, format='json', headers=headers)
+
 
 @when('request PUT to second /api/cms/clients/client_uuid')
 def request_PUT_to_second_client(context):
@@ -2683,6 +2682,7 @@ def request_PUT_to_second_client(context):
     context.response = context.test.client.put(
         f'{CMS_CLIENTS_API_URL}{CMS_SECOND_CLIENT_UUID}/', put_data, format='json', headers=headers)
 
+
 @when('request PUT to second /api/cms/notes/note_uuid')
 def request_PUT_to_second_note(context):
     put_data = CMS_SECOND_NOTE_PUT
@@ -2690,6 +2690,7 @@ def request_PUT_to_second_note(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.put(
         f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', put_data, format='json', headers=headers)
+
 
 @when('request PUT to ST2 /api/cms/clients')
 def request_PUT_to_ST2_client(context):
@@ -2699,6 +2700,7 @@ def request_PUT_to_ST2_client(context):
     context.response = context.test.client.put(
         f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', put_data, format='json', headers=headers)
 
+
 @when('request PUT to ST2 /api/cms/notes')
 def request_PUT_to_ST2_note(context):
     put_data = CMS_ST2_NOTE_SAMPLE_PUT
@@ -2707,11 +2709,12 @@ def request_PUT_to_ST2_note(context):
     context.response = context.test.client.put(
         f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', put_data, format='json', headers=headers)
 
+
 @when('request PUT to /api/cms/clients with email to a non-existant user')
 def request_PUT_bad_email_client(context):
     put_data = CMS_STI_CLIENT_SAMPLE_PUT
     put_data.get('recruit_emails')[0] = 'random@email.com'
-    
+
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -2728,6 +2731,7 @@ def request_PATCH_client(context):
     context.response = context.test.client.patch(
         f'{CMS_CLIENTS_API_URL}{CMS_CLIENT_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
 
+
 @when('request PATCH to /api/cms/notes/note_uuid')
 def request_PATCH_note(context):
     patch_data = CMS_STI_NOTE_PATCH
@@ -2736,6 +2740,7 @@ def request_PATCH_note(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.patch(
         f'{CMS_NOTES_API_URL}{CMS_NOTE_UUID_TO_TEST}/', patch_data, format='json', headers=headers)
+
 
 @when('request PATCH to second /api/cms/clients/client_uuid')
 def request_PATCH_to_second_client(context):
@@ -2756,6 +2761,7 @@ def request_PATCH_to_second_note(context):
     context.response = context.test.client.patch(
         f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', patch_data, format='json', headers=headers)
 
+
 @when('request PATCH to ST2 /api/cms/clients')
 def request_PATCH_ST2_client(context):
     patch_data = CMS_ST2_CLIENT_PATCH
@@ -2764,6 +2770,7 @@ def request_PATCH_ST2_client(context):
                'sms-auth': context.access_token}
     context.response = context.test.client.patch(
         f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', patch_data, format='json', headers=headers)
+
 
 @when('request PATCH to ST2 /api/cms/notes')
 def request_PATCH_ST2_note(context):
@@ -2778,8 +2785,8 @@ def request_PATCH_ST2_note(context):
 @when('request PATCH to /api/cms/clients with email to a non-existant user')
 def request_PATCH_with_bad_email_client(context):
     patch_data = CMS_STI_CLIENT_PATCH
-    patch_data['recruit_emails']= ['random@email.com']
-    
+    patch_data['recruit_emails'] = ['random@email.com']
+
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
 
@@ -2804,6 +2811,7 @@ def request_DEL_note(context):
     context.response = context.test.client.delete(
         f'{CMS_NOTES_API_URL}{CMS_NOTE_UUID_TO_TEST}/', headers=headers)
 
+
 @when('request DELETE to second /api/cms/clients/client_uuid')
 def request_DEL_second_client(context):
     headers = {'csrftoken': context.csrf_token,
@@ -2811,6 +2819,7 @@ def request_DEL_second_client(context):
     context.uuid = CMS_SECOND_CLIENT_UUID
     context.response = context.test.client.delete(
         f'{CMS_CLIENTS_API_URL}{CMS_SECOND_CLIENT_UUID}/', headers=headers)
+
 
 @when('request DELETE to second /api/cms/notes/note_uuid')
 def request_DEL_second_note(context):
@@ -2820,6 +2829,7 @@ def request_DEL_second_note(context):
     context.response = context.test.client.delete(
         f'{CMS_NOTES_API_URL}{CMS_SECOND_NOTE_UUID}/', headers=headers)
 
+
 @when('request DELETE to ST2 /api/cms/clients')
 def request_DEL_ST2_client(context):
     headers = {'csrftoken': context.csrf_token,
@@ -2827,6 +2837,7 @@ def request_DEL_ST2_client(context):
     context.uuid = CMS_ST2_CLIENT_UUID
     context.response = context.test.client.delete(
         f'{CMS_CLIENTS_API_URL}{CMS_ST2_CLIENT_UUID}/', headers=headers)
+
 
 @when('request DELETE to ST2 /api/cms/notes')
 def request_DEL_ST2_note(context):
@@ -2836,6 +2847,7 @@ def request_DEL_ST2_note(context):
     context.response = context.test.client.delete(
         f'{CMS_NOTES_API_URL}{CMS_ST2_NOTE_UUID}/', headers=headers)
 
+
 @when('request GET to /api/cms/clients with filters by first_name')
 def request_client_filter_by_first_name(context):
     parameter = f'?first_name={CMS_CLIENT_FILTER_PARAMS.get("first_name")}'
@@ -2844,6 +2856,7 @@ def request_client_filter_by_first_name(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to /api/cms/clients with filters by last_name')
 def request_client_filter_by_last_name(context):
@@ -2863,6 +2876,7 @@ def request_client_filter_by_phone_number(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to /api/cms/clients with filters by email')
 def request_client_filter_by_email(context):
@@ -2893,6 +2907,7 @@ def request_client_filter_by_success(context):
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
 
+
 @when('request GET to /api/cms/clients with filters by initial_contact')
 def request_client_filter_by_initial_contact_date(context):
     parameter = f'?initial_contact={CMS_CLIENT_FILTER_PARAMS.get("initial_contact")}'
@@ -2901,6 +2916,7 @@ def request_client_filter_by_initial_contact_date(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to /api/cms/notes with filters by date')
 def request_note_filter_by_date(context):
@@ -2922,9 +2938,6 @@ def request_note_filter_by_content(context):
         f'{CMS_NOTES_API_URL}{parameter}', headers=headers)
 
 
-
-
-
 @when('request GET to second /api/cms/clients with filters by first_name')
 def request_client_filter_by_first_name(context):
     parameter = f'?first_name={CMS_SECOND_CLIENT_FILTER_PARAMS.get("first_name")}'
@@ -2933,6 +2946,7 @@ def request_client_filter_by_first_name(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to second /api/cms/clients with filters by last_name')
 def request_client_filter_by_last_name(context):
@@ -2952,6 +2966,7 @@ def request_client_filter_by_phone_number(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to second /api/cms/clients with filters by email')
 def request_client_filter_by_email(context):
@@ -2982,6 +2997,7 @@ def request_client_filter_by_success(context):
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
 
+
 @when('request GET to second /api/cms/clients with filters by initial_contact')
 def request_client_filter_by_initial_contact_date(context):
     parameter = f'?initial_contact={CMS_SECOND_CLIENT_FILTER_PARAMS.get("initial_contact")}'
@@ -2990,6 +3006,7 @@ def request_client_filter_by_initial_contact_date(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to second /api/cms/notes with filters by date')
 def request_note_filter_by_date(context):
@@ -3011,16 +3028,6 @@ def request_note_filter_by_content(context):
         f'{CMS_NOTES_API_URL}{parameter}', headers=headers)
 
 
-
-
-
-
-
-
-
-
-
-
 @when('request GET to ST2 /api/cms/clients with filters by first_name')
 def request_client_filter_by_first_name(context):
     parameter = f'?first_name={CMS_ST2_CLIENT_FILTER_PARAMS.get("first_name")}'
@@ -3029,6 +3036,7 @@ def request_client_filter_by_first_name(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to ST2 /api/cms/clients with filters by last_name')
 def request_client_filter_by_last_name(context):
@@ -3048,6 +3056,7 @@ def request_client_filter_by_phone_number(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to ST2 /api/cms/clients with filters by email')
 def request_client_filter_by_email(context):
@@ -3075,11 +3084,12 @@ def request_client_filter_by_success(context):
     headers = {'csrftoken': context.csrf_token,
                'sms-auth': context.access_token}
     context.test_data = CMS_ST2_CLIENT_FILTER_PARAMS
-    context.test_param = ['first_name', 'last_name', 'phone_number','email', 'city', 'initial_contact']
-
+    context.test_param = ['first_name', 'last_name',
+                          'phone_number', 'email', 'city', 'initial_contact']
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to ST2 /api/cms/clients with filters by initial_contact')
 def request_client_filter_by_initial_contact_date(context):
@@ -3089,6 +3099,7 @@ def request_client_filter_by_initial_contact_date(context):
 
     context.response = context.test.client.get(
         f'{CMS_CLIENTS_API_URL}{parameter}', headers=headers)
+
 
 @when('request GET to ST2 /api/cms/notes with filters by date')
 def request_note_filter_by_date(context):

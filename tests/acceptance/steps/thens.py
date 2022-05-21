@@ -28,6 +28,7 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        SMS_GOOGLE_EDIT_CHECK_DATA,
                        SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA,
                        SMS_ST2_ROTATION_SAMPLE_PATCH_DATA,
+                       SMS_STUDENT_STATISTIC_SAMPLE_DATA,
                        JSON_SUPERUSER_ONLY_RES,
                        GMS_CNA_ROTATION_POST_SAMPLE_DATA,
                        GMS_CNA_STUDENT_POST_SAMPLE_DATA,
@@ -144,8 +145,6 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
 from django.apps import apps
 
 
-
-
 # NOTE: BELOW ARE SMS RELATED @THENS
 
 def google_sheet_del(context, student_id, school_name):
@@ -197,7 +196,7 @@ def receive_JSON_data(context):
 
     context.test().assertJSONNotEqual(
         json.dumps(str(response)), json.dumps(no_json_res))
-    
+
     context.test().assertEqual(context.response.status_code, 200)
 
 
@@ -257,7 +256,6 @@ def database_create_ST2_student(context):
     # assert response
     context.test().assertEqual(response.get('last_name'), posted_student_last_name)
 
-
     # assert DB
     Student = apps.get_model('sms', 'Student')
 
@@ -270,6 +268,7 @@ def database_create_ST2_student(context):
     # we need to test google sheet migration, and delete student!
     # the student's school that we are testing with
     google_sheet_del(context, response.get('student_id'), 'ST2')
+
 
 @then('database will not create the student record')
 def database_will_not_create_student(context):
@@ -334,14 +333,14 @@ def database_will_partially_edit_ST2_student(context):
 
     context.test().assertEqual(response.get('last_name'), editted_last_name)
 
-
     Student = apps.get_model('sms', 'Student')
     if not Student.objects.filter(
             last_name__exact=editted_last_name).exists():
         assert False
 
     student_id = response.get('student_id')
-    google_sheet_check_edit(context, student_id, SMS_ST2_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'), 'ST2')
+    google_sheet_check_edit(
+        context, student_id, SMS_ST2_GOOGLE_EDIT_CHECK_DATA.get('PATCH_DATA'), 'ST2')
 
     Student = apps.get_model('sms', 'Student')
     if not Student.objects.filter(
@@ -426,6 +425,7 @@ def database_will_edit_school(context):
             school_code__exact=editted_school_code).exists():
         assert False
 
+
 @then('database will edit the ST2 school record')
 def database_will_edit_ST2_school(context):
     response = context.response.data
@@ -438,6 +438,7 @@ def database_will_edit_ST2_school(context):
     if not School.objects.filter(
             school_code__exact=editted_school_code).exists():
         assert False
+
 
 @then('database will edit the ST2 program record')
 def database_will_edit_ST2_program(context):
@@ -452,13 +453,12 @@ def database_will_edit_ST2_program(context):
         assert False
 
 
-
-
 @then('database will edit the ST2 rotation record')
 def database_will_edit_ST2_rotation(context):
     response = context.response.data
 
-    editted_rotation_num = SMS_ST2_ROTATION_SAMPLE_PUT_DATA.get('rotation_number')
+    editted_rotation_num = SMS_ST2_ROTATION_SAMPLE_PUT_DATA.get(
+        'rotation_number')
 
     context.test().assertEqual(response.get(
         'rotation_number'), editted_rotation_num)
@@ -468,7 +468,6 @@ def database_will_edit_ST2_rotation(context):
     if not Rotation.objects.filter(
             rotation_number__exact=editted_rotation_num).exists():
         assert False
-
 
 
 @then('database will edit the ST2 student record')
@@ -504,6 +503,7 @@ def database_will_partially_edit_school(context):
             school_code__exact=editted_school_code).exists():
         assert False
 
+
 @then('database will partially edit the ST2 school record')
 def database_will_partially_edit_ST2_school(context):
     response = context.response.data
@@ -516,6 +516,7 @@ def database_will_partially_edit_ST2_school(context):
     if not School.objects.filter(
             school_code__exact=editted_school_code).exists():
         assert False
+
 
 @then('database will delete the school record')
 def database_will_delete_school(context):
@@ -533,7 +534,6 @@ def database_will_delete_ST2_school(context):
     School = apps.get_model('sms', 'School')
     if School.objects.filter(pk__exact=context.uuid).exists():
         assert False
-
 
 
 @then('database will not create the school record')
@@ -615,7 +615,8 @@ def database_will_partially_edit_program(context):
 def database_will_partially_edit_ST2_program(context):
     response = context.response.data
 
-    editted_program_name = SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA.get('program_name')
+    editted_program_name = SMS_ST2_PROGRAM_SAMPLE_PATCH_DATA.get(
+        'program_name')
 
     context.test().assertEqual(response.get(
         'program_name'), editted_program_name)
@@ -635,6 +636,7 @@ def database_will_delete_program(context):
             program_uuid__exact=context.uuid).exists():
         assert False
 
+
 @then('database will delete the ST2 program record')
 def database_will_delete_ST2_program(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -643,6 +645,7 @@ def database_will_delete_ST2_program(context):
     if Program.objects.filter(
             program_uuid__exact=context.uuid).exists():
         assert False
+
 
 @then('database will not create the program record')
 def database_will_not_create_program(context):
@@ -674,11 +677,13 @@ def database_will_create_rotation(context):
         Rotation.objects.filter(
             rotation_number__exact=posted_rotation_num).delete()
 
+
 @then('database will create the ST2 rotation record')
 def database_will_create_ST2_rotation(context):
     response = context.response.data
 
-    posted_rotation_num = SMS_ST2_ROTATION_SAMPLE_POST_DATA.get('rotation_number')
+    posted_rotation_num = SMS_ST2_ROTATION_SAMPLE_POST_DATA.get(
+        'rotation_number')
 
     context.test().assertEqual(response.get(
         'rotation_number'), posted_rotation_num)
@@ -691,6 +696,7 @@ def database_will_create_ST2_rotation(context):
     else:
         Rotation.objects.filter(
             rotation_number__exact=posted_rotation_num).delete()
+
 
 @then('database will edit the rotation record')
 def database_will_edit_rotation(context):
@@ -781,10 +787,9 @@ def specific_student_JSON_data_response(context):
     response = context.response.data
 
     filtered_student_lastname = SMS_FILTER_PARAMS.get('last_name')
-    
+
     # context.test().assertEqual(response[0].get('last_name'),
     #                            filtered_student_lastname)
-
 
     if len(response) == 0:
         assert False
@@ -793,7 +798,7 @@ def specific_student_JSON_data_response(context):
         if data.get('last_name') == filtered_student_lastname:
             assert True
             break
-        if indx == ( len(response) - 1 ) and data.get('last_name') != filtered_student_lastname:
+        if indx == (len(response) - 1) and data.get('last_name') != filtered_student_lastname:
             assert False
 
 
@@ -801,8 +806,8 @@ def specific_student_JSON_data_response(context):
 def specific_rotation_JSON_data_response(context):
     response = context.response.data
 
-    filtered_rotation_program_uuid = SMS_FILTER_ROATAION_PARAM.get('program_uuid')
-
+    filtered_rotation_program_uuid = SMS_FILTER_ROATAION_PARAM.get(
+        'program_uuid')
 
     if len(response) == 0:
         assert False
@@ -811,9 +816,15 @@ def specific_rotation_JSON_data_response(context):
         if str(data.get('program')) == filtered_rotation_program_uuid:
             assert True
             break
-        if indx == ( len(response) - 1 ) and data.get('program') != filtered_rotation_program_uuid:
+        if indx == (len(response) - 1) and data.get('program') != filtered_rotation_program_uuid:
             assert False
 
+
+@then('will receive statistics JSON response')
+def specific_statistics_response(context):
+    response = context.response.data
+
+    assert response == SMS_STUDENT_STATISTIC_SAMPLE_DATA
 
 
 @then('server will respond with 405')
@@ -901,6 +912,7 @@ def server_responds_with_400_cross_school_additions(context):
 
 # NOTE: BELOW ARE GMS RELATED @THENS
 
+
 @then('will be permission denied')
 def permission_denied(context):
     context.test().assertEqual(context.response.data, JSON_PERMISSION_DENIED_RES)
@@ -926,7 +938,6 @@ def database_create_cnaRotation_record(context):
             start_date__exact=posted_rotation_start_date).delete()
 
 
-
 @then('database will create the ST2 cna rotation record')
 def database_create_ST2_cnaRotation(context):
     response_data = context.response.data
@@ -945,7 +956,6 @@ def database_create_ST2_cnaRotation(context):
     else:
         CNARotation.objects.filter(
             start_date__exact=posted_rotation_start_date).delete()
-
 
 
 @then('database will create the cna student record')
@@ -988,7 +998,6 @@ def database_create_ST2_cnaStudent_record(context):
             last_name__exact=posted_student_last_name).delete()
 
 
-
 @then('database will create the cna theory record')
 def database_create_cnaTheory_record(context):
     response_data = context.response.data
@@ -1007,7 +1016,6 @@ def database_create_cnaTheory_record(context):
     else:
         CNATheoryRecord.objects.filter(
             hours_spent__exact=posted_cnaTheory_hrs_spent).delete()
-
 
 
 @then('database will create the ST2 cna theory record')
@@ -1108,7 +1116,6 @@ def database_create_ST2_hhaRotation_record(context):
             start_date__exact=posted_rotation_start_date).delete()
 
 
-
 @then('database will create the hha student record')
 def database_create_hhaStudent_record(context):
     response_data = context.response.data
@@ -1129,7 +1136,6 @@ def database_create_hhaStudent_record(context):
             last_name__exact=posted_student_last_name).delete()
 
 
-
 @then('database will create the ST2 hha student record')
 def database_create_ST2_hhaStudent(context):
     response_data = context.response.data
@@ -1148,8 +1154,6 @@ def database_create_ST2_hhaStudent(context):
     else:
         HHAStudent.objects.filter(
             last_name__exact=posted_student_last_name).delete()
-
-
 
 
 @then('database will create the hha theory record')
@@ -1192,7 +1196,6 @@ def database_create_ST2_hhaTheoryRecord(context):
             hours_spent__exact=posted_hhaTheory_hrs_spent).delete()
 
 
-
 @then('database will create the hha clinical record')
 def database_create_hhaClinical_record(context):
     response_data = context.response.data
@@ -1210,7 +1213,6 @@ def database_create_hhaClinical_record(context):
     else:
         HHAClinicalRecord.objects.filter(
             date__exact=posted_hhaClinical_date).delete()
-
 
 
 @then('database will create the ST2 hha clinical record')
@@ -1232,19 +1234,16 @@ def database_create_ST2_hhaClinicalRecord(context):
             date__exact=posted_hhaClinical_date).delete()
 
 
-
 @then("bad request error since we cannot add another school's resource")
 def bad_request_cannot_add_another_school_resource_gms(context):
-    err_string =  JSON_400_CROSS_SCHOOL_ADD_ERR.get('non_field_errors')[0]
+    err_string = JSON_400_CROSS_SCHOOL_ADD_ERR.get('non_field_errors')[0]
     for indx, rd in enumerate(context.response.data.values()):
         res_string = rd[0]
         if res_string == err_string:
             assert True
-        if indx == ( len(context.response.data.values()) - 1 ) and \
-            res_string != err_string:
+        if indx == (len(context.response.data.values()) - 1) and \
+                res_string != err_string:
             assert False
-
-
 
 
 @then('database will not create the cna rotation record')
@@ -1426,7 +1425,6 @@ def database_edit_cnaStudent_record(context):
         assert False
 
 
-
 @then('database will fully update the ST2 cna student record')
 def database_edit_ST2_cnaStudent(context):
     response_data = context.response.data
@@ -1443,7 +1441,6 @@ def database_edit_ST2_cnaStudent(context):
         assert False
 
 
-
 @then('database will fully update the cna theory record')
 def database_edit_cnaTheory_record(context):
     response_data = context.response.data
@@ -1458,7 +1455,6 @@ def database_edit_cnaTheory_record(context):
     if not CNATheoryRecord.objects.filter(
             hours_spent__exact=editted_cnaTheory_hrs_spent).exists():
         assert False
-
 
 
 @then('database will fully update the ST2 cna theory record')
@@ -1492,7 +1488,6 @@ def database_edit_cnaClinical_record(context):
         assert False
 
 
-
 @then('database will fully update the ST2 cna clinical record')
 def database_edit_ST2_cnaClinicalRecords(context):
     response_data = context.response.data
@@ -1506,7 +1501,6 @@ def database_edit_ST2_cnaClinicalRecords(context):
     if not CNAClinicalRecord.objects.filter(
             date__exact=editted_cnaClinical_date).exists():
         assert False
-
 
 
 @then('database will fully update the hha rotation record')
@@ -1539,8 +1533,6 @@ def database_edit_ST2_hhaRotations(context):
     if not HHARotation.objects.filter(
             start_date__exact=editted_rotation_start_date).exists():
         assert False
-
-
 
 
 @then('database will fully update the hha student record')
@@ -1605,7 +1597,6 @@ def database_edit_ST2_hhaTheory(context):
     if not HHATheoryRecord.objects.filter(
             hours_spent__exact=editted_hhaTheory_hrs_spent).exists():
         assert False
-
 
 
 @then('database will fully update the hha clinical record')
@@ -1702,7 +1693,6 @@ def database_partially_edit_ST2_cnaStudent_record(context):
         assert False
 
 
-
 @then('database will partially update the cna theory record')
 def database_partially_edit_cnaTheory_record(context):
     response_data = context.response.data
@@ -1751,7 +1741,6 @@ def database_partially_edit_cnaClinical_record(context):
         assert False
 
 
-
 @then('database will partially update the ST2 cna clinical record')
 def database_partially_edit_ST2_cnaClinical_record(context):
     response_data = context.response.data
@@ -1766,8 +1755,6 @@ def database_partially_edit_ST2_cnaClinical_record(context):
     if not CNAClinicalRecord.objects.filter(
             date__exact=partially_editted_cnaClinical_date).exists():
         assert False
-
-
 
 
 @then('database will partially update the hha rotation record')
@@ -1818,7 +1805,6 @@ def database_partially_edit_hhaStudent_record(context):
         assert False
 
 
-
 @then('database will partially update the ST2 hha student record')
 def database_partially_edit_ST2_hhaStudent_record(context):
     response_data = context.response.data
@@ -1867,8 +1853,6 @@ def database_partially_edit_ST2_hhaTheory_record(context):
         assert False
 
 
-
-
 @then('database will partially update the hha clinical record')
 def database_partially_edit_hhaClinical_record(context):
     response_data = context.response.data
@@ -1883,7 +1867,6 @@ def database_partially_edit_hhaClinical_record(context):
     if not HHAClinicalRecord.objects.filter(
             end_date__exact=partially_editted_hhaClinical_date).exists():
         assert False
-
 
 
 @then('database will partially update the ST2 hha clinical record')
@@ -1902,8 +1885,6 @@ def database_partially_edit_ST2_hhaClinical_record(context):
         assert False
 
 
-
-
 @then('database will delete the cna rotation record')
 def database_delete_cnaRotation_record(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -1920,8 +1901,6 @@ def database_delete_ST2_cnaRotation(context):
     CNARotation = apps.get_model('gms', 'CNARotation')
     if CNARotation.objects.filter(pk__exact=context.uuid).exists():
         assert False
-
-  
 
 
 @then('database will delete the cna student record')
@@ -1960,8 +1939,6 @@ def database_delete_ST2_cnaTheory(context):
         assert False
 
 
-
-
 @then('database will delete the cna clinical record')
 def database_delete_cnaClinical_record(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -1978,8 +1955,6 @@ def database_delete_cnaClinicalRecord(context):
     CNAClinicalRecord = apps.get_model('gms', 'CNAClinicalRecord')
     if CNAClinicalRecord.objects.filter(pk__exact=context.uuid).exists():
         assert False
-
-
 
 
 @then('database will delete the hha rotation record')
@@ -2018,7 +1993,6 @@ def database_delete_ST2_hhaStudent(context):
         assert False
 
 
-
 @then('database will delete the hha theory record')
 def database_delete_hhaTheory_record(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -2026,7 +2000,6 @@ def database_delete_hhaTheory_record(context):
     HHATheoryRecord = apps.get_model('gms', 'HHATheoryRecord')
     if HHATheoryRecord.objects.filter(pk__exact=context.uuid).exists():
         assert False
-
 
 
 @then('database will delete the ST2 hha theory record')
@@ -2149,7 +2122,6 @@ def no_json_response(context):
             for param in context.test_param:
                 if str(data[param]) == str(context.test_data[param]):
                     assert False
-
 
 
 @then('the specific STI cnaStudents data will be returned as JSON response')
@@ -2642,6 +2614,7 @@ def database_will_create_client(context):
         Client.objects.filter(
             email__exact=posted_email).delete()
 
+
 @then('database will create the note record')
 def database_will_create_note(context):
     response = context.response.data
@@ -2678,7 +2651,6 @@ def database_will_create_ST2_client(context):
             email__exact=posted_email).delete()
 
 
-
 @then('database will create the ST2 note record')
 def database_will_create_ST2_note(context):
     response = context.response.data
@@ -2695,6 +2667,7 @@ def database_will_create_ST2_note(context):
     else:
         Note.objects.filter(
             content__exact=posted_content).delete()
+
 
 @then('database will fully update the client record')
 def database_will_edit_client(context):
@@ -2727,6 +2700,7 @@ def database_will_edit_client(context):
             content__exact=editted_note_content).exists():
         assert False
 
+
 @then('database will fully update the second client record')
 def database_will_edit_second_client(context):
     response_data = context.response.data
@@ -2758,6 +2732,7 @@ def database_will_edit_note(context):
             content__exact=editted_note_content).exists():
         assert False
 
+
 @then('database will fully update the ST2 client record')
 def database_will_edit_ST2_client(context):
     response_data = context.response.data
@@ -2773,6 +2748,7 @@ def database_will_edit_ST2_client(context):
             email__exact=editted_client_email).exists():
         assert False
 
+
 @then('database will fully update the ST2 note record')
 def database_will_edit_ST2_note(context):
     response_data = context.response.data
@@ -2787,6 +2763,7 @@ def database_will_edit_ST2_note(context):
     if not Note.objects.filter(
             content__exact=editted_note_content).exists():
         assert False
+
 
 @then('database will partially update the client record')
 def database_will_partially_edit_client(context):
@@ -2806,7 +2783,7 @@ def database_will_partially_edit_client(context):
 def database_will_partially_edit_note(context):
     response_data = context.response.data
 
-    editted_price= CMS_STI_NOTE_PATCH.get(
+    editted_price = CMS_STI_NOTE_PATCH.get(
         'price')
 
     context.test().assertEqual(response_data.get(
@@ -2836,7 +2813,7 @@ def database_will_partially_update_second_client(context):
 def database_will_partially_update_second_note(context):
     response_data = context.response.data
 
-    editted_price= CMS_SECOND_NOTE_PATCH.get(
+    editted_price = CMS_SECOND_NOTE_PATCH.get(
         'price')
 
     context.test().assertEqual(response_data.get(
@@ -2846,6 +2823,7 @@ def database_will_partially_update_second_note(context):
     if not Note.objects.filter(
             price__exact=editted_price).exists():
         assert False
+
 
 @then('database will partially update the ST2 client record')
 def database_will_partially_update_ST2_client(context):
@@ -2860,11 +2838,12 @@ def database_will_partially_update_ST2_client(context):
             first_name__exact=editted_first_name).exists():
         assert False
 
+
 @then('database will partially update the ST2 note record')
 def database_will_partially_update_ST2_note(context):
     response_data = context.response.data
 
-    editted_price= CMS_ST2_NOTE_PATCH.get(
+    editted_price = CMS_ST2_NOTE_PATCH.get(
         'price')
 
     context.test().assertEqual(response_data.get(
@@ -2884,6 +2863,7 @@ def database_will_delete_client(context):
     if Client.objects.filter(pk__exact=context.uuid).exists():
         assert False
 
+
 @then('database will delete the note record')
 def database_will_delete_note(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -2891,6 +2871,7 @@ def database_will_delete_note(context):
     Note = apps.get_model('cms', 'Note')
     if Note.objects.filter(pk__exact=context.uuid).exists():
         assert False
+
 
 @then('database will delete the second client record')
 def databaew_will_delete_second_client(context):
@@ -2900,6 +2881,7 @@ def databaew_will_delete_second_client(context):
     if Client.objects.filter(pk__exact=context.uuid).exists():
         assert False
 
+
 @then('database will delete the second note record')
 def database_will_delete_second_note(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -2907,6 +2889,7 @@ def database_will_delete_second_note(context):
     Note = apps.get_model('cms', 'Note')
     if Note.objects.filter(pk__exact=context.uuid).exists():
         assert False
+
 
 @then('database will delete the ST2 client record')
 def database_will_delete_ST2_client(context):
@@ -2916,6 +2899,7 @@ def database_will_delete_ST2_client(context):
     if Client.objects.filter(pk__exact=context.uuid).exists():
         assert False
 
+
 @then('database will delete the ST2 note record')
 def database_will_delete_ST2_note(context):
     context.test().assertEqual(context.response.data, JSON_OBJ_NOT_FOUND_RES)
@@ -2923,6 +2907,7 @@ def database_will_delete_ST2_note(context):
     Note = apps.get_model('cms', 'Note')
     if Note.objects.filter(pk__exact=context.uuid).exists():
         assert False
+
 
 @then('the specific clients data will be returned as JSON response')
 def specific_client_data_JSON_response(context):
@@ -2951,6 +2936,7 @@ def specific_client_data_JSON_response(context):
            data.get('phone_number') != CMS_CLIENT_FILTER_PARAMS.get('phone_number')):
             assert False
 
+
 @then('the specific notes data will be returned as JSON response')
 def specific_note_data_JSON_response(context):
     response = context.response.data
@@ -2967,9 +2953,6 @@ def specific_note_data_JSON_response(context):
            (data.get('date') != CMS_NOTE_FILTER_PARAMS.get('date') or
            data.get('content') != CMS_NOTE_FILTER_PARAMS.get('content')):
             assert False
-
-
-
 
 
 @then('the specific second clients data will be returned as JSON response')
@@ -3000,6 +2983,7 @@ def specific_second_client_data_JSON_response(context):
            data.get('phone_number') != CMS_SECOND_CLIENT_FILTER_PARAMS.get('phone_number')):
             assert False
 
+
 @then('the specific second notes data will be returned as JSON response')
 def specific_note_data_JSON_response(context):
     response = context.response.data
@@ -3017,12 +3001,6 @@ def specific_note_data_JSON_response(context):
            (data.get('date') != CMS_SECOND_NOTE_FILTER_PARAMS.get('date') or
            data.get('content') != CMS_SECOND_NOTE_FILTER_PARAMS.get('content')):
             assert False
-
-
-
-
-
-
 
 
 @then('the specific ST2 clients data will be returned as JSON response')
@@ -3052,6 +3030,7 @@ def specific_second_client_data_JSON_response(context):
            data.get('initial_contact') != CMS_ST2_CLIENT_FILTER_PARAMS.get('initial_contact') or
            data.get('phone_number') != CMS_ST2_CLIENT_FILTER_PARAMS.get('phone_number')):
             assert False
+
 
 @then('the specific ST2 notes data will be returned as JSON response')
 def specific_note_data_JSON_response(context):

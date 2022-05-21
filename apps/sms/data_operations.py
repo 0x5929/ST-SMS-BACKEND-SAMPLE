@@ -1,8 +1,11 @@
 from .constants import SHEET_CONSTANTS
 
 import time
+from datetime import date
+from django.db.models import Q
 
 
+# tested by intergration/acceptance, no unit tests written for this class
 class GoogleSheetDataOps:
 
     @staticmethod
@@ -156,3 +159,75 @@ class GoogleSheetDataOps:
             else:
                 time.sleep(SHEET_CONSTANTS.get('MAX_DATAOP_WAIT'))
                 return GoogleSheetDataOps.refresh_database(spreadsheet, recurse_counter)
+
+
+# tested by intergration, some units tests are written for some methods in this class
+class StudentDataStatistics:
+
+    @staticmethod
+    def get_years():
+        current_year = date.today().year  # 2022
+        first_year = '2013'
+
+        return [str(year) for year in range(int(first_year), current_year + 1)]
+
+    @classmethod
+    def get_date_ranges(cls):
+        return [[f'{year}-01-01', f'{year}-12-31'] for year in cls.get_years()]
+
+    @classmethod
+    def fetch_enrollment_stats(cls, StudentModel):
+        stats = []
+
+        for range_ in cls.get_date_ranges():
+            year_count = StudentModel.objects.filter(
+                date_enrollment_agreement_signed__range=range_).count()
+
+            stats.append(year_count)
+
+        return stats
+
+    @classmethod
+    def fetch_employment_stats(cls, StudentModel):
+        stats = []
+
+        for range_ in cls.get_date_ranges():
+            year_count = StudentModel.objects.filter(employed=True,
+                                                     date_enrollment_agreement_signed__range=range_).count()
+
+            stats.append(year_count)
+
+        return stats
+
+    @classmethod
+    def fetch_graduates_stats(cls, StudentModel):
+        stats = []
+
+        for range_ in cls.get_date_ranges():
+            year_count = StudentModel.objects.filter(graduated=True,
+                                                     date_enrollment_agreement_signed__range=range_).count()
+
+            stats.append(year_count)
+
+        return stats
+
+    @classmethod
+    def fetch_exam_stats(cls, StudentModel):
+        stats = []
+
+        for range_ in cls.get_date_ranges():
+            year_count = StudentModel.objects.filter(Q(passed_first_exam=True) | Q(passed_second_or_third_exam=True),
+                                                     date_enrollment_agreement_signed__range=range_).count()
+
+            stats.append(year_count)
+
+        return stats
+
+    @classmethod
+    def fetch_statistics(cls, StudentModel):
+        return [{
+            'enrollment': cls.fetch_enrollment_stats(StudentModel),
+            'employment': cls.fetch_employment_stats(StudentModel),
+            'graduates': cls.fetch_graduates_stats(StudentModel),
+            'exam': cls.fetch_exam_stats(StudentModel)
+        }]

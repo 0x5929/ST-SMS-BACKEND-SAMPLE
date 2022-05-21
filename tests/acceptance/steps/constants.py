@@ -83,38 +83,38 @@ SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA = {
 
 
 SMS_ST2_STUDENT_SAMPLE_POST_DATA = {
-      'student_id': 'AL-HHA-01-1019-AD',
-      'first_name': 'Alvinia',
-      'last_name': 'Dipmonks',
-      'phone_number': '626-555-3345',
-      'email': 'alvinia@email.com',
-      'mailing_address': '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
-      'course': 'HHA',
-      'start_date': '2021-10-06',
-      'completion_date': '2021-12-11',
-      'date_enrollment_agreement_signed': '2021-10-06',
-      'third_party_payer_info': '',
-      'course_cost_currency': 'USD',
-      'course_cost': '680.00',
-      'total_charges_charged_currency': 'USD',
-      'total_charges_charged': '680.00',
-      'total_charges_paid_currency': 'USD',
-      'total_charges_paid': '680.00',
-      'paid': True,
-      'graduated': True,
-      'passed_first_exam': True,
-      'passed_second_or_third_exam': False,
-      'employed': True,
-      'place_of_employment': '',
-      'employment_address': '',
-      'position': '',
-      'starting_wage_currency': 'USD',
-      'starting_wage': '0.00',
-      'hours_worked_weekly': '',
-      'description_of_attempts_to_contact_student': '',
-      'google_sheet_migrated': False,
-      'google_sheet_migration_issue': '',
-      'rotation': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
+    'student_id': 'AL-HHA-01-1019-AD',
+    'first_name': 'Alvinia',
+    'last_name': 'Dipmonks',
+    'phone_number': '626-555-3345',
+    'email': 'alvinia@email.com',
+    'mailing_address': '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
+    'course': 'HHA',
+    'start_date': '2021-10-06',
+    'completion_date': '2021-12-11',
+    'date_enrollment_agreement_signed': '2021-10-06',
+    'third_party_payer_info': '',
+    'course_cost_currency': 'USD',
+    'course_cost': '680.00',
+    'total_charges_charged_currency': 'USD',
+    'total_charges_charged': '680.00',
+    'total_charges_paid_currency': 'USD',
+    'total_charges_paid': '680.00',
+    'paid': True,
+    'graduated': True,
+    'passed_first_exam': True,
+    'passed_second_or_third_exam': False,
+    'employed': True,
+    'place_of_employment': '',
+    'employment_address': '',
+    'position': '',
+    'starting_wage_currency': 'USD',
+    'starting_wage': '0.00',
+    'hours_worked_weekly': '',
+    'description_of_attempts_to_contact_student': '',
+    'google_sheet_migrated': False,
+    'google_sheet_migration_issue': '',
+    'rotation': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
 }
 
 SMS_STUDENT_SAMPLE_PUT_DATA = {
@@ -154,43 +154,43 @@ SMS_STUDENT_SAMPLE_PUT_DATA = {
 }
 
 SMS_ST2_STUDENT_SAMPLE_PUT_DATA = {
-      'student_id': 'AL-HHA-01-1019-AC',
-      'first_name': 'Alvinia',
-      'last_name': 'Chipmonks',
-      'phone_number': '626-555-3345',
-      'email': 'alvinia@email.com',
-      'mailing_address': '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
-      'course': 'HHA',
-      'start_date': '2021-10-06',
-      'completion_date': '2021-12-11',
-      'date_enrollment_agreement_signed': '2021-10-06',
-      'third_party_payer_info': '',
-      'course_cost_currency': 'USD',
-      'course_cost': '680.00',
-      'total_charges_charged_currency': 'USD',
-      'total_charges_charged': '680.00',
-      'total_charges_paid_currency': 'USD',
-      'total_charges_paid': '680.00',
-      'paid': True,
-      'graduated': True,
-      'passed_first_exam': True,
-      'passed_second_or_third_exam': False,
-      'employed': True,
-      'place_of_employment': '',
-      'employment_address': '',
-      'position': '',
-      'starting_wage_currency': 'USD',
-      'starting_wage': '0.00',
-      'hours_worked_weekly': '',
-      'description_of_attempts_to_contact_student': '',
-      'google_sheet_migrated': False,
-      'google_sheet_migration_issue': '',
-      'rotation': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
+    'student_id': 'AL-HHA-01-1019-AC',
+    'first_name': 'Alvinia',
+    'last_name': 'Chipmonks',
+    'phone_number': '626-555-3345',
+    'email': 'alvinia@email.com',
+    'mailing_address': '1020 S. Fake STI2 HHA Student Ave, Alvina, CA 91770',
+    'course': 'HHA',
+    'start_date': '2021-10-06',
+    'completion_date': '2021-12-11',
+    'date_enrollment_agreement_signed': '2021-10-06',
+    'third_party_payer_info': '',
+    'course_cost_currency': 'USD',
+    'course_cost': '680.00',
+    'total_charges_charged_currency': 'USD',
+    'total_charges_charged': '680.00',
+    'total_charges_paid_currency': 'USD',
+    'total_charges_paid': '680.00',
+    'paid': True,
+    'graduated': True,
+    'passed_first_exam': True,
+    'passed_second_or_third_exam': False,
+    'employed': True,
+    'place_of_employment': '',
+    'employment_address': '',
+    'position': '',
+    'starting_wage_currency': 'USD',
+    'starting_wage': '0.00',
+    'hours_worked_weekly': '',
+    'description_of_attempts_to_contact_student': '',
+    'google_sheet_migrated': False,
+    'google_sheet_migration_issue': '',
+    'rotation': '37b61d4e-ab68-4f49-ae8c-d742da756fcc'
 }
 
 SMS_FILTER_ROATAION_PARAM = {
-    'program_name' : 'HHA',
-    'program_uuid' : '0af7e2ff-1370-43fb-8bd8-6f4623ecc496'
+    'program_name': 'HHA',
+    'program_uuid': '0af7e2ff-1370-43fb-8bd8-6f4623ecc496'
 }
 
 
@@ -199,7 +199,7 @@ SMS_STUDENT_SAMPLE_PATCH_DATA = {
 }
 
 SMS_ST2_STUDENT_SAMPLE_PATCH_DATA = {
-    'last_name' : 'Mctest'
+    'last_name': 'Mctest'
 }
 
 SMS_GOOGLE_POST_DATA = [
@@ -277,7 +277,7 @@ SMS_GOOGLE_EDIT_CHECK_DATA = {
         '$680',
         '$680',
         '$600',
-        
+
     ],
 
     'PATCH_DATA': [
@@ -325,7 +325,7 @@ SMS_ST2_GOOGLE_EDIT_CHECK_DATA = {
         'Y'
     ],
 
-    'PATCH_DATA':[
+    'PATCH_DATA': [
 
         'AL-HHA-01-1019-TB',
         'alvin_mctest',
@@ -469,9 +469,61 @@ JSON_404_NOT_FOUND_RES = {
 #     'non_field_errors' : ["You are adding a student record for the wrong school's program rotation, please add to your own school's program rotation"]
 # }
 
+SMS_STUDENT_STATISTIC_SAMPLE_DATA = [
+    {
+        'enrollment': [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            3,
+            0
+        ],
+        'employment': [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+        ],
+        'graduates': [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+        ],
+        'exam': [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            2,
+            0
+        ]
+    }
+]
 
 JSON_400_CROSS_SCHOOL_ADD_ERR = {
-    'non_field_errors' : ["You may only work on your own school's resource, please try changing the school name."]
+    'non_field_errors': ["You may only work on your own school's resource, please try changing the school name."]
 }
 
 TEST_SUPERUSER = 'testsuper'
@@ -626,8 +678,8 @@ GMS_HHA_ROTATION_POST_SAMPLE_DATA = {
     'clinical_site': 'Rowland'
 }
 
-#NOTE: REMEMBER that PUT and PATCH and DELETE data is for changing the data we already have installed in DB as fixtures, POST is completely new data we are testing to install
-#NOTE: but also I would try not to interfere with filter params of ST2 too, for all POST PUT PATCH and DELETE, so the other tests with gms.filter wouldnt break. hopefully lol
+# NOTE: REMEMBER that PUT and PATCH and DELETE data is for changing the data we already have installed in DB as fixtures, POST is completely new data we are testing to install
+# NOTE: but also I would try not to interfere with filter params of ST2 too, for all POST PUT PATCH and DELETE, so the other tests with gms.filter wouldnt break. hopefully lol
 
 GMS_ST2_HHA_ROTATION_POST_SAMPLE_DATA = {
     'school_name': 'ST2',
@@ -884,7 +936,6 @@ GMS_ST2_CNA_CLINICAL_RECORD_PUT_SAMPLE_DATA = {
 }
 
 
-
 GMS_CNA_CLINICAL_RECORD_PATCH_SAMPLE_DATA = {
     'date': '2021-09-03'
 }
@@ -960,7 +1011,6 @@ GMS_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA = {
 GMS_ST2_HHA_CLINICAL_RECORD_PATCH_SAMPLE_DATA = {
     'end_date': '2021-12-03'
 }
-
 
 
 GMS_STI_CNA_HHA_ROTATION_FILTER_PARAMS = {
@@ -1124,7 +1174,7 @@ GMS_CNAROTATION_PUT_BAD_EMAIL = {
 
 
 GMS_CNAROTATION_PATCH_BAD_EMAIL = {
-    'instructor_email' : ['random@localhost']
+    'instructor_email': ['random@localhost']
 }
 
 GMS_HHAROTATION_POST_BAD_EMAIL = {
@@ -1148,9 +1198,8 @@ GMS_HHAROTATION_PUT_BAD_EMAIL = {
 }
 
 GMS_HHAROTATION_PATCH_BAD_EMAIL = {
-    'instructor_email' : ['random@localhost']
+    'instructor_email': ['random@localhost']
 }
-
 
 
 # CMS
@@ -1200,11 +1249,11 @@ CMS_STI_NOTE_SAMPLE_PUT = {
 }
 
 CMS_STI_CLIENT_PATCH = {
-    'first_name' : 'Lastyy'
+    'first_name': 'Lastyy'
 }
 
 CMS_STI_NOTE_PATCH = {
-    'price' : '160.00' 
+    'price': '160.00'
 }
 
 CMS_ST2_CLIENT_SAMPLE_POST = {
@@ -1244,11 +1293,11 @@ CMS_ST2_NOTE_SAMPLE_PUT = {
 }
 
 CMS_ST2_CLIENT_PATCH = {
-    'first_name' : 'John'
+    'first_name': 'John'
 }
 
 CMS_ST2_NOTE_PATCH = {
-    'price' : '175.00' 
+    'price': '175.00'
 }
 
 CMS_SECOND_CLIENT_PUT = {
@@ -1270,11 +1319,11 @@ CMS_SECOND_NOTE_PUT = {
 }
 
 CMS_SECOND_CLIENT_PATCH = {
-    'first_name' : 'Johnny'
+    'first_name': 'Johnny'
 }
 
 CMS_SECOND_NOTE_PATCH = {
-    'price' : '178.00' 
+    'price': '178.00'
 }
 
 CMS_CLIENT_FILTER_PARAMS = {

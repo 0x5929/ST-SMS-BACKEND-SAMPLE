@@ -10,6 +10,7 @@ from .models import School, Program, Rotation, Student
 from .serializers import SchoolSerializer, ProgramSerializer, RotationSerializer, StudentSerializer
 from .utils import FilterHandler
 from .google_sheets import ExportHandler
+from .data_operations import StudentDataStatistics
 
 
 SCHOOL_NAMES = getattr(settings, 'SCHOOL_NAMES')
@@ -84,7 +85,7 @@ class GoogleSheetDataDumpView(APIView):
 
                 data_dump = ExportHandler.run(
                     sheet, school_name)
-                    
+
                 return Response(data_dump.get_data(), status=status.HTTP_200_OK)
             else:
                 err_data = {
@@ -96,3 +97,17 @@ class GoogleSheetDataDumpView(APIView):
                 'error':  repr(e)}
 
             return Response(err_data, status=status.HTTP_400_BAD_REQUEST)
+
+
+class StudentStatisticsView(APIView):
+    """
+    StudentStatisticsView
+
+    Uses the most basic class based view and
+    edit only field we need
+
+    """
+    permission_classes = [IsSuperuser | IsAuthenticatedOfficeUserToReadOnly]
+
+    def get(self, request):
+        return Response(StudentDataStatistics.fetch_statistics(Student), status=status.HTTP_200_OK)

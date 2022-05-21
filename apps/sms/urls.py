@@ -1,4 +1,4 @@
-from .views import SchoolView, ProgramView, RotationView, StudentView, GoogleSheetDataDumpView
+from .views import SchoolView, ProgramView, RotationView, StudentView, GoogleSheetDataDumpView, StudentStatisticsView
 
 from rest_framework.routers import DefaultRouter
 from django.urls import path
@@ -15,6 +15,7 @@ router.register('students', StudentView, basename='students')
 
 urlpatterns = [
     path('google_sheet_datadump/', GoogleSheetDataDumpView.as_view()),
+    path('student_statistics/', StudentStatisticsView.as_view()),
 ]
 
 urlpatterns += router.urls
