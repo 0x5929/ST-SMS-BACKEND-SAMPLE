@@ -1,0 +1,9 @@
+1. kill server process, kill -9 <process id>
+2. launch pgadmin
+3. drop/delete dev-sms database
+4. create dev-sms database
+5. python manage.py migrate
+6. python manage.py createsuperuser
+7. python manage.py  loaddata fixtures/all-initial-data.json 
+8. python manage.py loaddata st-sms-googlesheet-datadump052222.json
+* note if there is a unique constraint issue , check what uuid is causing and search and delete (probably some test data left in the dev googlesheet database for some reason, only "RO-HHA-01-1006-TB" so far date: 05 22 2022.
