@@ -180,10 +180,11 @@ class StudentDataStatistics:
         stats = []
 
         for range_ in cls.get_date_ranges():
+            year = int(range_[0][0:4])
             year_count = StudentModel.objects.filter(
                 date_enrollment_agreement_signed__range=range_).count()
 
-            stats.append(year_count)
+            stats.append({'year': year, 'count': year_count})
 
         return stats
 
@@ -192,10 +193,11 @@ class StudentDataStatistics:
         stats = []
 
         for range_ in cls.get_date_ranges():
+            year = int(range_[0][0:4])
             year_count = StudentModel.objects.filter(employed=True,
                                                      date_enrollment_agreement_signed__range=range_).count()
 
-            stats.append(year_count)
+            stats.append({'year': year, 'count': year_count})
 
         return stats
 
@@ -204,10 +206,11 @@ class StudentDataStatistics:
         stats = []
 
         for range_ in cls.get_date_ranges():
+            year = int(range_[0][0:4])
             year_count = StudentModel.objects.filter(graduated=True,
                                                      date_enrollment_agreement_signed__range=range_).count()
 
-            stats.append(year_count)
+            stats.append({'year': year, 'count': year_count})
 
         return stats
 
@@ -216,10 +219,11 @@ class StudentDataStatistics:
         stats = []
 
         for range_ in cls.get_date_ranges():
+            year = int(range_[0][0:4])
             year_count = StudentModel.objects.filter(Q(passed_first_exam=True) | Q(passed_second_or_third_exam=True),
                                                      date_enrollment_agreement_signed__range=range_).count()
 
-            stats.append(year_count)
+            stats.append({'year': year, 'count': year_count})
 
         return stats
 
