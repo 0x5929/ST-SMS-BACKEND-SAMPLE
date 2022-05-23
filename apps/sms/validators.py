@@ -60,7 +60,7 @@ class SMSValidator:
         pattern = '[^A-Za-z0-9#*,.\s-]{1,150}'
 
         if not re.match(pattern, value) and capitalize:
-            return value.strip().capitalize()
+            return value.strip().title()
         elif not re.match(pattern, value) and not capitalize:
             return value.strip()
         else:

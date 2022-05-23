@@ -25,7 +25,7 @@ class CMSValidator:
         pattern = '[A-Za-z0-9,.#\s]{1,150}'
 
         if bool(re.match(pattern, value)):
-            return value.strip().capitalize()
+            return value.strip().title()
         else:
             raise ValidationError(err_msg)
 
