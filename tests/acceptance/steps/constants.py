@@ -495,7 +495,7 @@ SMS_STUDENT_STATISTIC_SAMPLE_DATA = [
             {'year': 2021, 'count': 1},
             {'year': 2022, 'count': 0},
         ],
-        'graduates': [
+        'graduate': [
             {'year': 2013, 'count': 0},
             {'year': 2014, 'count': 0},
             {'year': 2015, 'count': 0},

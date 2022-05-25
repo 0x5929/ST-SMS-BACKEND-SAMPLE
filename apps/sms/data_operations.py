@@ -232,6 +232,6 @@ class StudentDataStatistics:
         return [{
             'enrollment': cls.fetch_enrollment_stats(StudentModel),
             'employment': cls.fetch_employment_stats(StudentModel),
-            'graduates': cls.fetch_graduates_stats(StudentModel),
+            'graduate': cls.fetch_graduates_stats(StudentModel),
             'exam': cls.fetch_exam_stats(StudentModel)
         }]
