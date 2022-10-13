@@ -1,5 +1,7 @@
 import sys
 import os
+
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -139,6 +141,10 @@ SITE_ID = 1
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'sms-auth'
 JWT_AUTH_REFRESH_COOKIE = 'sms-refresh-token'
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=15),
+}
 
 # custom REST_AUTH serializers
 REST_AUTH_REGISTER_SERIALIZERS = {
