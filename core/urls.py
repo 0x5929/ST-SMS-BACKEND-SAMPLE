@@ -5,7 +5,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # http://127.0.0.1:8000/auth/login/     BODY: {"email":"testsuper@localhost", "password": "xxxxx"}
+    # POST http://127.0.0.1:8000/auth/login/     BODY: {"email":"testsuper@localhost", "password": "xxxxx"}
     path('auth/', include('authentication.urls')),
 
     path('api/sms/', include('sms.urls', namespace='sms')),
