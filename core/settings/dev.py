@@ -1,6 +1,7 @@
 from .common import *
 import environ
 
+from corsheaders.defaults import default_headers
 env = environ.Env()
 
 # Take environment variables from .env file
@@ -53,5 +54,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000'
 ]
+
+# added
+# CORS_ALLOW_HEADERS = list(default_headers) + ['Set-Cookie']
 
 ENV = 'DEV'
