@@ -3,7 +3,6 @@ import os
 
 from datetime import timedelta
 from pathlib import Path
-# from corsheaders.defaults import default_headers
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -158,36 +157,6 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'authentication.serializers.LoginSerializer',
 }
-
-
-# allowing for crosssite requests
-# CSRF_USE_SESSIONS = False
-# SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SECURE = False
-# CSRF_COOKIE_SAMESITE = None
-# SESSION_COOKIE_SAMESITE = None
-
-# CORS_ALLOW_HEADERS = list(default_headers) + [
-#     'X-Amz-Date',
-#     'Access-Control-Request-Headers',
-#     'Access-Control-Allow-Headers',
-#     'Access-Control-Allow-Origin',
-#     'XMLHttpRequest',
-# ]
-# CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
-# CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_CREDENTIALS = True
-
-# CSRF_USE_SESSIONS = False
-# CSRF_COOKIE_HTTPONLY = True
-# CSRF_COOKIE_SAMESITE = None
-
-# SESSION_COOKIE_HTTPONLY = True 
-# SESSION_COOKIE_SAMESITE = None
-
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-
 
 
 # SHARED APP CONSTANT SETTINGS:
