@@ -11,6 +11,7 @@ router.register('schools', SchoolView, basename='schools')
 router.register('programs', ProgramView, basename='programs')
 router.register('rotations', RotationView, basename='rotations')
 router.register('students', StudentView, basename='students')
+# query usage: http://127.0.0.1:8000/api/sms/students/?<filter1_param>=<filter1_value>&<filter2_param>=<filter2_value>
 
 
 urlpatterns = [
