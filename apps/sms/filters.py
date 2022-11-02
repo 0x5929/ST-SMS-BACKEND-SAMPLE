@@ -115,6 +115,7 @@ class SMSFilterRotation(django_filters.FilterSet):
             'program__program_name',
         )
 
-    school = django_filters.CharFilter(
+    program = django_filters.ChoiceFilter(
         field_name='program__program_name',
-        lookup_expr='exact')
+        lookup_expr='exact',
+        choices=PROGRAM_NAMES)

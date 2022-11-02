@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
-from .filters import SMSFilter
+from .filters import SMSFilter, SMSFilterRotation
 from .permissions import IsAuthenticatedOfficeUserToReadOnly, IsAuthenticatedOfficeUserButCannotDelete, IsAuthenticatedOfficeStaff, IsAuthenticatedOfficeAdmin, IsSuperuser
 from .models import School, Program, Rotation, Student
 from .serializers import SchoolSerializer, ProgramSerializer, RotationSerializer, StudentSerializer
@@ -36,11 +36,21 @@ class ProgramView(viewsets.ModelViewSet):
 
 class RotationView(viewsets.ModelViewSet):
     serializer_class = RotationSerializer
+
     permission_classes = [
         IsSuperuser | IsAuthenticatedOfficeAdmin | IsAuthenticatedOfficeStaff | IsAuthenticatedOfficeUserToReadOnly]
 
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = SMSFilterRotation
+
     def get_queryset(self):
         return Rotation.objects.get_query(self.request)
+
+    # to ensure query parameters are done correctly
+    def list(self, request, *args, **kwargs):
+        if not FilterHandler.is_valid_query_params(request.query_params, SMSFilterRotation.Meta.fields):
+            return Response([])
+        return super(RotationView, self).list(request, *args, **kwargs)
 
 
 class StudentView(viewsets.ModelViewSet):
