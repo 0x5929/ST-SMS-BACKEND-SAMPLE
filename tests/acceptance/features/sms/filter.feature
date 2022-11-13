@@ -675,3 +675,60 @@ Feature: Student Management filter
         Given logged on as regular office user
         When request GET to /api/sms/rotations with filters by program name
         Then the specific rotation data will be returned as JSON response
+
+
+
+
+
+    @current
+    Scenario: superuser requesting to filter sms/rotations resource by school name
+        Given logged on as superuser
+        When request GET to /api/sms/rotations with filters by school name
+        Then the specific rotation data will be returned as JSON response
+
+    @current
+    Scenario: admin office user requesting to filter sms/rotations resource by school name
+        Given logged on as admin office user
+        When request GET to /api/sms/rotations with filters by school name
+        Then the specific rotation data will be returned as JSON response
+
+    @current
+    Scenario: staff office user requesting to filter sms/rotations resource by school name
+        Given logged on as staff office user
+        When request GET to /api/sms/rotations with filters by school name
+        Then the specific rotation data will be returned as JSON response
+
+    @current
+    Scenario: regular office user requesting to filter sms/rotations resource by school name
+        Given logged on as regular office user
+        When request GET to /api/sms/rotations with filters by school name
+        Then the specific rotation data will be returned as JSON response
+
+
+
+
+
+    @current
+    Scenario: superuser requesting to filter sms/programs resource by school name
+        Given logged on as superuser
+        When request GET to /api/sms/programs with filters by school name
+        Then the specific program data will be returned as JSON response
+
+    @current
+    Scenario: admin office user requesting to filter sms/programs resource by school name
+        Given logged on as admin office user
+        When request GET to /api/sms/programs with filters by school name
+        Then the specific program data will be returned as JSON response
+
+    @current
+    Scenario: staff office user requesting to filter sms/programs resource by school name
+        Given logged on as staff office user
+        When request GET to /api/sms/programs with filters by school name
+        Then the specific program data will be returned as JSON response
+
+    @current
+    Scenario: regular office user requesting to filter sms/programs resource by school name
+        Given logged on as regular office user
+        When request GET to /api/sms/programs with filters by school name
+        Then the specific program data will be returned as JSON response
+

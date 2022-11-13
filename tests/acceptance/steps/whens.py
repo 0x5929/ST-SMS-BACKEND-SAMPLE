@@ -16,6 +16,7 @@ from constants import (SMS_SCHOOLS_API_URL,
                        SMS_STUDENT_SAMPLE_PUT_DATA,
                        SMS_FILTER_PARAMS,
                        SMS_FILTER_ROATAION_PARAM,
+                       SMS_FILTER_PROGRAM_PARAM,
                        SMS_STUDENT_SAMPLE_PATCH_DATA,
                        DATADUMP_API_URL,
                        TEST_SPREADSHEET_ID,
@@ -844,6 +845,29 @@ def request_GET_to_smsRotations_by_program_name(context):
     context.response = context.test.client.get(
         f'{SMS_ROTATIONS_API_URL}{parameter}', headers=headers)
 
+
+
+@when('request GET to /api/sms/rotations with filters by school name')
+def request_GET_to_smsRotations_by_school_name(context):
+    parameter = f'?program__school__school_name={SMS_FILTER_ROATAION_PARAM.get("school_name")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+  
+
+@when('request GET to /api/sms/programs with filters by school name')
+def request_GET_to_smsPrograms_by_school_name(context):
+    parameter = f'?school__school_name={SMS_FILTER_PROGRAM_PARAM.get("school_name")}'
+    
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_PROGRAMS_API_URL}{parameter}', headers=headers)
+  
 
 @when('request GET to ST2 /api/sms/students/student_uuid')
 def request_GET_ST2_student(context):

@@ -2,12 +2,12 @@ import django_filters
 
 from django.conf import settings
 
-from .models import Rotation, Student
+from .models import Program, Rotation, Student
 
 PROGRAM_NAMES = getattr(settings, 'PROGRAM_NAMES')
+SCHOOL_NAMES = getattr(settings, 'SCHOOL_NAMES')
 
-
-class SMSFilter(django_filters.FilterSet):
+class SMSFilterStudent(django_filters.FilterSet):
     strict = True
     # for any new filters, please add within fields and declare explicit below as well
 
@@ -113,9 +113,32 @@ class SMSFilterRotation(django_filters.FilterSet):
         model = Rotation
         fields = (
             'program__program_name',
+            'program__school__school_name'
         )
 
     program = django_filters.ChoiceFilter(
         field_name='program__program_name',
         lookup_expr='exact',
         choices=PROGRAM_NAMES)
+    
+    school = django_filters.ChoiceFilter(
+        field_name='program__school__school_name',
+        lookup_expr='exact',
+        choices=SCHOOL_NAMES)
+
+
+class SMSFilterProgram(django_filters.FilterSet):
+    strict = True
+
+    # for any new filters, please add within fields and declare explicit below as well
+    class Meta: 
+        model = Program
+        fields = (
+            'school__school_name',
+        )
+
+    
+    school = django_filters.ChoiceFilter(
+        field_name='school__school_name',
+        lookup_expr='exact',
+        choices=SCHOOL_NAMES)

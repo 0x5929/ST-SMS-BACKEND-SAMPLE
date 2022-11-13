@@ -17,6 +17,7 @@ from constants import (SMS_STUDENT_SAMPLE_SAME_SCHOOL_POST_DATA,
                        JSON_OBJ_NOT_FOUND_RES,
                        SMS_FILTER_PARAMS,
                        SMS_FILTER_ROATAION_PARAM,
+                       SMS_FILTER_PROGRAM_PARAM,
                        SMS_SCHOOL_SAMPLE_PUT_DATA,
                        SMS_PROGRAM_SAMPLE_PUT_DATA,
                        SMS_ROTATION_SAMPLE_PUT_DATA,
@@ -817,6 +818,25 @@ def specific_rotation_JSON_data_response(context):
             assert True
             break
         if indx == (len(response) - 1) and data.get('program') != filtered_rotation_program_uuid:
+            assert False
+
+
+
+@then('the specific program data will be returned as JSON response')
+def specific_program_JSON_data_response(context):
+    response = context.response.data
+
+    filtered_school_school_uuid = SMS_FILTER_PROGRAM_PARAM.get('school_uuid')
+
+    if len(response) == 0:
+        assert False
+        
+    for indx, data in enumerate(response):
+        if str(data.get('school')) == filtered_school_school_uuid:
+            assert True
+            break
+
+        if indx == (len(response) - 1) and data.get('school') != filtered_school_school_uuid:
             assert False
 
 

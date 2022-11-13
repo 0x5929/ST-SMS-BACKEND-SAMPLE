@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
-from .filters import SMSFilter, SMSFilterRotation
+from .filters import SMSFilterStudent, SMSFilterRotation, SMSFilterProgram
 from .permissions import IsAuthenticatedOfficeUserToReadOnly, IsAuthenticatedOfficeUserButCannotDelete, IsAuthenticatedOfficeStaff, IsAuthenticatedOfficeAdmin, IsSuperuser
 from .models import School, Program, Rotation, Student
 from .serializers import SchoolSerializer, ProgramSerializer, RotationSerializer, StudentSerializer
@@ -30,9 +30,17 @@ class ProgramView(viewsets.ModelViewSet):
     permission_classes = [
         IsSuperuser | IsAuthenticatedOfficeAdmin | IsAuthenticatedOfficeUserToReadOnly]
 
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = SMSFilterProgram
+
     def get_queryset(self):
         return Program.objects.get_query(self.request)
 
+    # to ensure query parameters are done correctly
+    def list(self, request, *args, **kwargs):
+        if not FilterHandler.is_valid_query_params(request.query_params, SMSFilterProgram.Meta.fields):
+            return Response([])
+        return super(ProgramView, self).list(request, *args, **kwargs)
 
 class RotationView(viewsets.ModelViewSet):
     serializer_class = RotationSerializer
@@ -60,14 +68,14 @@ class StudentView(viewsets.ModelViewSet):
         IsSuperuser | IsAuthenticatedOfficeAdmin | IsAuthenticatedOfficeStaff | IsAuthenticatedOfficeUserButCannotDelete]
 
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = SMSFilter
+    filterset_class = SMSFilterStudent
 
     def get_queryset(self):
         return Student.objects.get_query(self.request)
 
     # to ensure query parameters are done correctly
     def list(self, request, *args, **kwargs):
-        if not FilterHandler.is_valid_query_params(request.query_params, SMSFilter.Meta.fields):
+        if not FilterHandler.is_valid_query_params(request.query_params, SMSFilterStudent.Meta.fields):
             return Response([])
         return super(StudentView, self).list(request, *args, **kwargs)
 
