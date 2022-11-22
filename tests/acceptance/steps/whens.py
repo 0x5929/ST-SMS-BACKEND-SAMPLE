@@ -858,6 +858,17 @@ def request_GET_to_smsRotations_by_school_name(context):
 
   
 
+
+@when('request GET to /api/sms/rotations with filters by rotation number')
+def request_GET_to_smsRotations_by_rotation_number(context): 
+    parameter = f'?rotation_number={SMS_FILTER_ROATAION_PARAM.get("rotation_number")}'
+    headers = {'csrftoken': context.csrf_token,
+               'sms-auth': context.access_token}
+
+    context.response = context.test.client.get(
+        f'{SMS_ROTATIONS_API_URL}{parameter}', headers=headers)
+
+
 @when('request GET to /api/sms/programs with filters by school name')
 def request_GET_to_smsPrograms_by_school_name(context):
     parameter = f'?school__school_name={SMS_FILTER_PROGRAM_PARAM.get("school_name")}'

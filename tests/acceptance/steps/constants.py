@@ -191,7 +191,8 @@ SMS_ST2_STUDENT_SAMPLE_PUT_DATA = {
 SMS_FILTER_ROATAION_PARAM = {
     'school_name' : 'STI',
     'program_name': 'HHA',
-    'program_uuid': '0af7e2ff-1370-43fb-8bd8-6f4623ecc496'
+    'program_uuid': '0af7e2ff-1370-43fb-8bd8-6f4623ecc496',
+    'rotation_number' : 1
 }
 
 SMS_FILTER_PROGRAM_PARAM = {

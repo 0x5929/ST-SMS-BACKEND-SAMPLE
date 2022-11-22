@@ -112,9 +112,14 @@ class SMSFilterRotation(django_filters.FilterSet):
     class Meta:
         model = Rotation
         fields = (
+            'rotation_number',
             'program__program_name',
             'program__school__school_name'
         )
+
+    rotation = django_filters.CharFilter(
+        field_name='rotation_number',
+        lookup_expr='exact')
 
     program = django_filters.ChoiceFilter(
         field_name='program__program_name',
