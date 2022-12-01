@@ -36,7 +36,7 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
-LOGIN_URL = 'http://localhost:8000/auth/login'
+LOGIN_URL = 'http://localhost:8000/auth/login' # needs to be changed
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
@@ -50,10 +50,12 @@ MIGRATE_GOOGLE_SHEET = True
 
 
 # cors settings, ie for react apps
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000'
-]
-
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000', # needs to be changed 
+    'http://127.0.0.1:3000', # needs to be changed
+]
 
 ENV = 'PROD'
