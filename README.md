@@ -145,10 +145,13 @@ _Note:_ If encountered errors where library images not found. You may need to sy
 3. `$ python manage.py loaddata <dump-file.json>`
 4.  `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
 
-### **Initial production push: export database from localhost (dev machine) into a `pgsql` file, then import the database to cloud database**
+---
 
-1. `$ psql -U postgres <database-name-matching-your-.env-file> < <exported-prod-ready-db-from-local>.pgsql `
-2. `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
+### **Initial production push**
+1. Once loaded with initial data and Google Sheet data, export database from localhost (dev machine) into a `pgsql` file
+2. Then import the database to cloud database
+ - `$ psql -U postgres <database-name-matching-your-.env-file> < <exported-prod-ready-db-from-local>.pgsql `
+ - `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
 
 ---
 
