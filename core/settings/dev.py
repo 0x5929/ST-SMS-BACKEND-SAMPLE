@@ -55,7 +55,4 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000'
 ]
 
-# added
-# CORS_ALLOW_HEADERS = list(default_headers) + ['Set-Cookie']
-
 ENV = 'DEV'
