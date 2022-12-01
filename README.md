@@ -91,10 +91,19 @@ _Note:_ If having trouble to install postgres db connector, try: `$ PATH="<postg
 for my fedora system, the path is : `/usr/pgsql-12/bin/`
 ---
 
+### **Add in the st-sms-creds.json file**
+1. This file is used for Google API access, needs to be there or SMS endpoints will fail
+2. This file is only stored locally in repo owner's drive, for security reasons
+3. For a new project, one can create such file by following the first eight steps in this [guide](https://robocorp.com/docs/development-guide/google-sheets/interacting-with-google-sheets)
+4. *Explanation* To elaborate on point 1, this file is used to access Google API, more specifically to mirror data from postgres db to Google Sheets (For school, BPPE compliance reasons)
+
+
 ### **Edit `core/settings/.env-template` file**
 
 1. Using your fav text editor to edit `/ST-SMS-Backend/core/settings/.env-template` file
-2. Rename the file to `.env` so it can be picked up by django
+2. Rename the file to `.<dev|test|prod>-env` so it can be picked up by django
+  - In dev environment, `manage.py` picks up the settings config
+  - In prod environment, `wgsi.py` or `agsi.py` will point towards the setting file desired. 
 
 _Note:_ To generate a new secret key: `$ python manage.py shell`
 
@@ -116,18 +125,32 @@ _Note:_ To generate a new secret key: `$ python manage.py shell`
 2. `$ python manage.py makemigrations`
 3. `$ python manage.py migrate`
 4. `$ python manage.py createsuperuser`
-5. `$ python manage.py runserver`
+5. `$ python manage.py loaddata fixtures/all-inital-data.json`
+6. `$ python manage.py runserver`
 
 _Note:_ If encountered errors where library images not found. You may need to symbolic link libraries from `/postgresql/installation/path/lib/<lib-missing>` to `/usr/local/lib`. More info, see: [psycopg2-image-not-found](https://stackoverflow.com/questions/16407995/psycopg2-image-not-found)
 
 ---
 
-### **Import existing database; check migrations and start server (if devdb.pgsql is available)**
 
-1. `$ psql -U postgres dev-sms < dev-sms.pgsql `
+### **Import existing data from Google Sheets**
+1. dump data from google using by calling the following API (needs to have superuser access)
+
+  - `curl -X POST -H "Content-Type: application/json"  -d "{\"email\": \"root@localhost\", \"password\": \"you-password\"}" http://127.0.0.1:8000/auth/login/`
+
+  - Remember to add the authentication token from the response in the next request
+  - `curl -H "Authorization Bearer {access_token}" http://127.0.0.1:8000/api/sms/google_sheet_datadump/?ssid=<spreadsheet id>&sid=<sheet id>&school_name=<school name value, ie: STI>`
+
+2. Save the JSON response into a file
+3. `$ python manage.py loaddata <dump-file.json>`
+4.  `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
+
+### **Initial production push: export database from localhost (dev machine) into a `pgsql` file, then import the database to cloud database**
+
+1. `$ psql -U postgres <database-name-matching-your-.env-file> < <exported-prod-ready-db-from-local>.pgsql `
 2. `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
-3. `$ python manage.py runserver`
 
 ---
 
-**Server should be alive on http://localhost:8000**
+*If server started in dev by `$ python manage.py runserver, it will live on http://localhost:8000*
+*If server started in prod, make sure check `wsgi.py` file so it points to prod settings
