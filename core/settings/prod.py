@@ -15,6 +15,12 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+
+# Static dir where basic API and admin files are served
+# NOTE: before deployment, remember to execute : $ python manage.py collectstatic  
+# this will create the static directory
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # dev database
 DATABASES = {
     'default': {
@@ -50,7 +56,7 @@ MIGRATE_GOOGLE_SHEET = True
 
 
 # cors settings, ie for react apps
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '0x5929.pythonanywhere.com']
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
