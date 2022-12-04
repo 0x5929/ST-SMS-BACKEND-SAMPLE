@@ -7,7 +7,6 @@ virtual-env/
 virtual-env/*
 
 # Environment settings
-.env
 .*env
 
 
