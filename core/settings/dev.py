@@ -5,7 +5,7 @@ from corsheaders.defaults import default_headers
 env = environ.Env()
 
 # Take environment variables from .env file
-environ.Env.read_env('core/settings/.dev-env')
+environ.Env.read_env('core/settings/.env')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')

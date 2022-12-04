@@ -7,7 +7,7 @@ import environ
 env = environ.Env()
 
 # Take environment variables from .env file
-environ.Env.read_env('.prod-env', recurse=False)
+environ.Env.read_env('.env', recurse=False)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
