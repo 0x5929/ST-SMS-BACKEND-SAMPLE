@@ -17,9 +17,9 @@ DEBUG = True
 # dev database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'),
-        'USER': 'postgres',
+        'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
         'HOST': env('DATABASE_HOST'),
         'PORT': env('DATABASE_PORT'),
@@ -43,14 +43,13 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
 
-# Google Sheet Migration (SWITCH TO TRUE AFTER TESTING, AND IN PRODUCTION)
+# Google Sheet Migration (can be False for dev and debug purpose)
 MIGRATE_GOOGLE_SHEET = True
 
-# cors settings, ie for react apps
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ]
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
 
-ENV = 'TEST'
+ENV = env('ENV')

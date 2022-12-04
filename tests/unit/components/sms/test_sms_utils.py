@@ -4,7 +4,7 @@ import datetime
 from sms.utils import DataHandler, FilterHandler
 from sms.models import Student
 from sms.validators import SMSValidator
-from sms.filters import SMSFilter
+from sms.filters import SMSFilterStudent
 
 from .sms_constants import (TEST_DICT_DATA, 
                             TEST_KEY, 
@@ -510,7 +510,7 @@ class TestFilterHandler:
 
     def test_is_valid_query_params(self):
         assert FilterHandler.is_valid_query_params(
-            TEST_QUERY_PARAMS_SUCCESS, SMSFilter.Meta.fields) == True
+            TEST_QUERY_PARAMS_SUCCESS, SMSFilterStudent.Meta.fields) == True
 
         assert FilterHandler.is_valid_query_params(
-            TEST_QUERY_PARAMS_FAILURE, SMSFilter.Meta.fields) == False
+            TEST_QUERY_PARAMS_FAILURE, SMSFilterStudent.Meta.fields) == False

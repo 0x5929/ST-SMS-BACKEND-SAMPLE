@@ -24,9 +24,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # dev database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'),
-        'USER': 'postgres',
+        'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
         'HOST': env('DATABASE_HOST'),
         'PORT': env('DATABASE_PORT'),
@@ -51,7 +51,7 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
 
-# Google Sheet Migration (SWITCH TO TRUE AFTER TESTING, AND IN PRODUCTION)
+# Google Sheet Migration (can be False for dev and debug purpose)
 MIGRATE_GOOGLE_SHEET = True
 
 
@@ -64,4 +64,4 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000', # needs to be changed
 ]
 
-ENV = 'PROD'
+ENV = env('ENV')

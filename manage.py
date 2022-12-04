@@ -3,11 +3,22 @@
 import os
 import sys
 
+import environ
+
+
+env = environ.Env()
+
+# Take environment variables from .env file
+environ.Env.read_env('core/settings/.env')
+env = env('ENV')
+
+if env == 'TEST': sys.exit('[!] TEST ENV should not run from manage.py')
+settings_module = 'core.settings.dev' if env == 'DEV' else 'core.settings.prod'
 
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                          'core.settings.dev')
+                          settings_module)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

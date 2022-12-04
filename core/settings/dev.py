@@ -1,7 +1,7 @@
 from .common import *
 import environ
 
-from corsheaders.defaults import default_headers
+
 env = environ.Env()
 
 # Take environment variables from .env file
@@ -17,9 +17,9 @@ DEBUG = True
 # dev database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'),
-        'USER': 'postgres',
+        'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
         'HOST': env('DATABASE_HOST'),
         'PORT': env('DATABASE_PORT'),
@@ -43,7 +43,7 @@ EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 
 
-# Google Sheet Migration (SWITCH TO TRUE AFTER TESTING, AND IN PRODUCTION)
+# Google Sheet Migration (can be False for dev and debug purpose)
 MIGRATE_GOOGLE_SHEET = True
 
 # cors settings, ie for react apps
@@ -54,5 +54,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000'
 ]
-
-ENV = 'DEV'
+#from corsheaders.defaults import default_headers
+# CORS_ALLOW_HEADERS = list(default_headers) + ['Set-Cookie']
+ENV = env('ENV')
