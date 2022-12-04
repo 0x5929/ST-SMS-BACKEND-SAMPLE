@@ -54,7 +54,7 @@ class Client(models.Model):
 class Note(models.Model):
     class Meta:
         app_label = 'cms'
-        verbose_name = 'Client\'s notes'
+        verbose_name = 'Client\'s note'
 
     note_uuid = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)

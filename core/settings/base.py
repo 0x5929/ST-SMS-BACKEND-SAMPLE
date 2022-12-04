@@ -1,8 +1,14 @@
 import sys
 import os
+import environ
 
 from datetime import timedelta
 from pathlib import Path
+
+
+# Take environment variables from .env file
+env = environ.Env()
+environ.Env.read_env('core/settings/.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -55,8 +61,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
 ]
 
-ROOT_URLCONF = 'core.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -73,10 +77,29 @@ TEMPLATES = [
     },
 ]
 
+DATABASES = {
+    'default': {
+        'ENGINE': env('DATABASE_ENGINE'),
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'HOST': env('DATABASE_HOST'),
+        'PORT': env('DATABASE_PORT'),
+    }
+}
+
 FIXTURE_DIRS = [os.path.join(BASE_DIR, '../fixtures')]
+
+ROOT_URLCONF = 'core.urls'
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+SECRET_KEY = env('SECRET_KEY')
+
+DEBUG = True
+
+# contrib.sites settings
+SITE_ID = 1
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -124,6 +147,23 @@ AUTHENTICATION_BACKENDS = [
     'core.auth.EmailOrUsernameBackend',
 ]
 
+
+# email verification settings
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+LOGIN_URL = 'http://localhost:8000/auth/login'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = int(env('EMAIL_PORT'))
+
+
 # rest framework settings
 REST_FRAMEWORK = {
 
@@ -136,9 +176,6 @@ REST_FRAMEWORK = {
     ],
 
 }
-
-# contrib.sites settings
-SITE_ID = 1
 
 # JWT settings
 REST_USE_JWT = True
@@ -159,10 +196,22 @@ REST_AUTH_SERIALIZERS = {
 }
 
 
-# CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOW_CREDENTIALS = True
+# Google Sheet Migration (can be False for dev and debug purpose)
+MIGRATE_GOOGLE_SHEET = True
+
+# cors settings, ie for react apps
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000'
+]
+#from corsheaders.defaults import default_headers
+# CORS_ALLOW_HEADERS = list(default_headers) + ['Set-Cookie']
+
+
 # CSRF_COOKIE_SECURE = False
-# CSRF_USE_SESSIONS = False
 # CSRF_COOKIE_HTTPONLY = True
 # CSRF_COOKIE_SAMESITE = None
 
