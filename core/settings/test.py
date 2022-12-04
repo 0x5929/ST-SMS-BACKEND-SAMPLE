@@ -24,4 +24,5 @@ DATABASES = {
     }
 }
 
+
 ENV = env('ENV')
