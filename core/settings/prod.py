@@ -15,7 +15,7 @@ LOGIN_URL = 'https://0x5929.pythonanywhere.com/auth/login' # needs to be changed
 
 
 # cors settings, ie for react apps
-ALLOWED_HOSTS = ALLOWED_HOSTS + ['api.st-inst.com', '0x5929.pythonanywhere.com']
+ALLOWED_HOSTS = ['api.st-inst.com', '0x5929.pythonanywhere.com']
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000', # needs to be changed 
     'http://127.0.0.1:3000', # needs to be changed
