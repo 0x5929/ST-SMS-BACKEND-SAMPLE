@@ -11,7 +11,7 @@ DEBUG = False
 STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 
 # email verification settings
-LOGIN_URL = 'https://0x5929.pythonanywhere.com/auth/login' # needs to be changed
+LOGIN_URL = 'https://api.st-inst.com/auth/login' # needs to be changed
 
 
 # cors settings, ie for react apps
