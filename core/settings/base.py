@@ -8,7 +8,7 @@ from pathlib import Path
 
 # Take environment variables from .env file
 env = environ.Env()
-environ.Env.read_env('core/settings/.env')
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
