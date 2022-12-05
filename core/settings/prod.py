@@ -8,7 +8,7 @@ DEBUG = False
 # Static dir where basic API and admin files are served
 # NOTE: before deployment, remember to execute : $ python manage.py collectstatic  
 # this will create the static directory in project dir (BASE_DIR)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 
 # email verification settings
 # LOGIN_URL = 'http://localhost:8000/auth/login' # needs to be changed
