@@ -16,5 +16,9 @@ dev-sms-backup.pgsql
 dev-sms.pgsql
 
 
+# static files
+static/
+
+
 # sensitive files
 st-sms-*.json
