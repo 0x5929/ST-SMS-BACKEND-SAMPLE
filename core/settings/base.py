@@ -95,6 +95,7 @@ ROOT_URLCONF = 'core.urls'
 WSGI_APPLICATION = 'core.wsgi.application'
 
 SECRET_KEY = env('SECRET_KEY')
+GITHOOK_SECRET = env('SECRET_TOKEN')
 
 DEBUG = True
 
