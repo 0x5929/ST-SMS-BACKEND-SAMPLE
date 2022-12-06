@@ -10,6 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.conf import settings
+from django.utils.encoding import force_bytes
 
 BASE_DIR = getattr(settings, 'BASE_DIR')
 GITHOOK_SECRET = getattr(settings, 'GITHOOK_SECRET')
