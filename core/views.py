@@ -3,6 +3,8 @@ import os
 
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from django.conf import settings
 
 BASE_DIR = getattr(settings, 'BASE_DIR')
@@ -28,4 +30,4 @@ class GitPullView(APIView):
         repo = git.Repo(os.path.join(BASE_DIR, '../.git'))
         repo.remotes.origin.pull()
 
-        Response({"status" : "ok"}, status=status.HTTP_200_OK)
+        return Response([{"status" : "ok"}], status=status.HTTP_200_OK)
