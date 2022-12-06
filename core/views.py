@@ -56,7 +56,7 @@ class GitPullView(APIView):
         forwarded_for_list = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR')).split(', ')
 
         # https://stackoverflow.com/questions/753645/how-do-i-get-the-correct-ip-from-http-x-forwarded-for-if-it-contains-multiple-ip
-        fowarded_for = forwarded_for_list[0]
+        forwarded_for = forwarded_for_list[0]
 
         client_ip_address = ip_address(forwarded_for)
         whitelist = requests.get('https://api.github.com/meta').json()['hooks']
