@@ -53,8 +53,11 @@ class GitPullView(APIView):
 
     def is_github(self, request):
         # https://simpleisbetterthancomplex.com/tutorial/2016/10/31/how-to-handle-github-webhooks-using-django.html
-        print("request.META.get('HTTP_X_FORWARDED_FOR'): ", request.META.get('HTTP_X_FORWARDED_FOR'))
-        forwarded_for = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR'))
+        forwarded_for_list = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR')).split(', ')
+
+        # https://stackoverflow.com/questions/753645/how-do-i-get-the-correct-ip-from-http-x-forwarded-for-if-it-contains-multiple-ip
+        fowarded_for = forwarded_for_list[0]
+
         client_ip_address = ip_address(forwarded_for)
         whitelist = requests.get('https://api.github.com/meta').json()['hooks']
 
