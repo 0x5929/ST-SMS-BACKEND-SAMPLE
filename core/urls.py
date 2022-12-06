@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.urls import path, include
 
+from .views import GitPullView
+
 
 env = getattr(settings, 'ENV')
 
@@ -19,7 +21,9 @@ urlpatterns = [
     path('api/cms/', include('cms.urls', namespace='cms')),
     path('api/gms/', include('gms.urls', namespace='gms')),
 
+    # CI/CD
+    path('git_pull_main/', GitPullView.as_view()),
 ]
 
-handler404 = 'core.views.page_not_found_view'
-handler500 = 'core.views.server_error_view'
+handler404 = 'core.errors.page_not_found_view'
+handler500 = 'core.errors.server_error_view'

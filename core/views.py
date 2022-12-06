@@ -1,42 +1,31 @@
-from django.http import HttpResponse
+import git
+import os
 
+from rest_framework import status
+from rest_framework.views import APIView
+from django.conf import settings
 
-"""
-    This file is used for customizing the default error pages.
-    Since its an API server, 
-    instead of working with templates and static files,
-    we will just output a simple ASCII Art string.
-     
+BASE_DIR = getattr(settings, 'BASE_DIR')
 
-"""
+class GitPullView(APIView):
+    """
+    GitPullView
 
+    For CI/CD purpose
+    called when remote main/master is updated 
+    via merge or push
 
+    """
 
-error_404 = """
+    def get(self, request):
+        """
+        This route is only hit by githooks
 
-  _ _      __   _ _              ___          __ _                 _  _           _               ___                          _   
- | | |    /  \ | | |     o O O  | _ \ __ _   / _` |  ___     o O O| \| |   ___   | |_     o O O  | __|  ___   _  _   _ _    __| |  
- |_  _|  | () ||_  _|   o       |  _// _` |  \__, | / -_)   o     | .` |  / _ \  |  _|   o       | _|  / _ \ | +| | | ' \  / _` |  
-  _|_|_  _\__/  _|_|_  TS__[O] _|_|_ \__,_|  |___/  \___|  TS__[O]|_|\_|  \___/  _\__|  TS__[O] _|_|_  \___/  \_,_| |_||_| \__,_|  
-_|'''''_|'''''_|'''''|{======_| ''' _|'''''_|'''''_|'''''|{======_|'''''_|'''''_|'''''|{======_| ''' _|'''''_|'''''_|'''''_|'''''| 
-"`-0-0-"`-0-0-"`-0-0-./o--000"`-0-0-"`-0-0-"`-0-0-"`-0-0-./o--000"`-0-0-"`-0-0-"`-0-0-./o--000"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-' 
+        using default APIView permissions classes [AllowAny]
 
+        """
 
-"""
+        repo = git.Repo(os.path.join(BASE_DIR, '../.git'))
+        repo.remotes.origin.pull()
 
-error_500 = """
-   ___     __     __            ___                                               ___                               
-  | __|   /  \   /  \    o O O / __|   ___     _ _  __ __   ___     _ _    o O O | __|    _ _    _ _   ___     _ _  
-  |__ \  | () | | () |  o      \__ \  / -_)   | '_| \ V /  / -_)   | '_|  o      | _|    | '_|  | '_| / _ \   | '_| 
-  |___/  _\__/  _\__/  TS__[O] |___/  \___|  _|_|_  _\_/_  \___|  _|_|_  TS__[O] |___|  _|_|_  _|_|_  \___/  _|_|_  
-_|'''''_|'''''_|'''''|{======_|'''''_|'''''_|'''''_|'''''_|'''''_|'''''|{======_|'''''_|'''''_|'''''_|'''''_|'''''| 
-"`-0-0-"`-0-0-"`-0-0-./o--000"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-./o--000"`-0-0-"`-0-0-"`-0-0-"`-0-0-"`-0-0-' 
-
-"""
-
-def page_not_found_view(request, exception):
-    return HttpResponse(f"<pre>{ error_404 }</pre>", status=404)
-
-
-def server_error_view(request, *args, **argv): 
-    return HttpResponse(f"<pre>{ error_500 }</pre>", status=500)
+        Response({"status" : "ok"}, status=status.HTTP_200_OK)
