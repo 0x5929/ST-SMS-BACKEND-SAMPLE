@@ -39,15 +39,24 @@ class GitPullView(APIView):
         """
 
         # Verify if request came from GitHub
-        if self.is_github(request) == True:
+        if self.is_github(request):
             
             # match secret signature
-            if self.verified_signature(request) == True:
+            if self.verified_signature(request):
 
                 repo = git.Repo(os.path.join(BASE_DIR, '../.git'))
                 repo.remotes.origin.pull()
 
                 return Response({"status" : "git pull success"}, status=status.HTTP_200_OK)
+
+            else: 
+                return Response({ "error" : "incorrect secret" }, status=status.HTTP_403_FORBIDDEN)
+            
+        else:
+            return Response({ "error" : "only github is allowed at this endpoint" }, status=status.HTTP_403_FORBIDDEN)
+
+
+
 
 
 
@@ -65,7 +74,7 @@ class GitPullView(APIView):
             if client_ip_address in ip_network(valid_ip):
                 break
             else:
-                return Response({ "error" : "Only github is allowed at this endpoint." }, status=status.HTTP_403_FORBIDDEN)
+                return False
 
         return True
 
@@ -73,16 +82,16 @@ class GitPullView(APIView):
         # grab singature
         header_signature = request.META.get('HTTP_X_HUB_SIGNATURE')
         if header_signature is None:
-            return Response({ "error" : "No secret available" }, status=status.HTTP_403_FORBIDDEN)
+            return False
 
         sha_name, signature = header_signature.split('=')
         if sha_name != 'sha1':
-            return Response({ "error" : "Hash not SHA1, not implemented" }, status=status.HTTP_501_NOT_IMPLEMENTED)
+            return False
 
         mac = hmac.new(force_bytes(GITHOOK_SECRET), msg=force_bytes(request.body), digestmod=sha1)
         
         # compare signatures
         if not hmac.compare_digest(force_bytes(mac.hexdigest()), force_bytes(signature)):
-            return Response({ "error" : "Incorrect Secret" }, status=status.HTTP_403_FORBIDDEN)
+            return False
 
         return True
