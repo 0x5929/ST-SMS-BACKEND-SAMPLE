@@ -13,7 +13,7 @@ colorama==0.4.4
 cryptography==3.4.8
 defusedxml==0.7.1
 dj-rest-auth==2.1.11
-Django==3.2.7
+Django==3.2.16
 django-allauth==0.45.0
 django-cors-headers==3.13.0
 django-countries==7.2.1
@@ -44,7 +44,7 @@ parse==1.19.0
 parse-type==0.5.2
 phonenumbers==8.12.31
 pluggy==1.0.0
-protobuf==3.18.0
+protobuf==3.18.3
 psycopg2==2.9.1
 py==1.11.0
 py-moneyed==1.2
@@ -52,7 +52,7 @@ pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycodestyle==2.7.0
 pycparser==2.20
-PyJWT==2.1.0
+PyJWT==2.4.0
 pyparsing==2.4.7
 pytest==6.2.5
 pytest-django==4.4.0
