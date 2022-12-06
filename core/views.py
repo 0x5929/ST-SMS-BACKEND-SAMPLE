@@ -58,9 +58,6 @@ class GitPullView(APIView):
 
 
 
-
-
-
     def is_github(self, request):
         # https://simpleisbetterthancomplex.com/tutorial/2016/10/31/how-to-handle-github-webhooks-using-django.html
         forwarded_for_list = u'{}'.format(request.META.get('HTTP_X_FORWARDED_FOR')).split(', ')
@@ -71,17 +68,13 @@ class GitPullView(APIView):
         client_ip_address = ip_address(forwarded_for)
         whitelist = requests.get('https://api.github.com/meta').json()['hooks']
 
-
-        print('forwarded_for: ', forwarded_for)
-        print('whitelist: ', whitelist)
-
         for valid_ip in whitelist:
             if client_ip_address in ip_network(valid_ip):
-                break
+                return True
             else:
-                return False
+                continue
 
-        return True
+        return False
 
     def verified_signature(self, request):
         # grab singature
