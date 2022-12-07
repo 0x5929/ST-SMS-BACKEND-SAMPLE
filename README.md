@@ -2,6 +2,8 @@
 
 Django REST Framework for Select Therapy Institute Student Management System
 
+Remember that if any new changes to the old repo, also needs to be applied here. Since this is not a fork, nor branch, we cannot pull request and merge/sync the two codebases
+
 **To clone the repo for dev purpose, please do the following (with empty database, sometime down the line, I will also export the db data file to be imported):**
 
 ## Requirements:
