@@ -153,3 +153,29 @@ _Note:_ If encountered errors where library images not found. You may need to sy
 *If server started in dev by `$ python manage.py runserver`, it will live on http://localhost:8000*
 
 *If server started in prod, make sure check `wsgi.py` file so it points to prod settings, refer to hosting agent.*
+
+
+---
+
+### **CI/CD workflow with pythonanywhere**
+
+- Once there is a push action to the origin main (this) branch, it will trigger webhook
+  - webhook will call an endpoint https://api.domain.com/git_pull_main/
+    - this webhook is protected by github IP, and its webhook secret
+- webhook will do a git pull action
+- git pull will trigger a git hook (post-merge) inside the production server's `.git/hooks` directory
+  - remember that every pull action will include merge, so this hook is valid.
+  - post-merge hook will re-touch the `wsgi.py` file (the server's file) ie `/var/www/username_appname_wsgi.py`
+  - post-merge hook will have at least user permission to execute!
+  - sample `post-merge`: 
+
+  ```sh
+
+  #!/bin/sh
+
+  touch <server-wsgi-file>.py
+
+
+  ```
+
+  `chmod u+x post-merge`
