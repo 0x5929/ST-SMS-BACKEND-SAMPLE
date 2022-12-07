@@ -153,5 +153,3 @@ _Note:_ If encountered errors where library images not found. You may need to sy
 *If server started in dev by `$ python manage.py runserver`, it will live on http://localhost:8000*
 
 *If server started in prod, make sure check `wsgi.py` file so it points to prod settings, refer to hosting agent.*
-
-Change 11
