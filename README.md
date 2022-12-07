@@ -1,4 +1,4 @@
-# ST-SMS-Backend using Django REST API
+# ST-SMS-Backend using Django REST API (sample backend for portfolio purpose, for main repo, please see [ST-SMS-BACKEND](https://github.com/0x5929/ST-SMS-BACKEND)
 
 Django REST Framework for Select Therapy Institute Student Management System
 
