@@ -55,9 +55,9 @@ SHEET_CONSTANTS = {
 
     'SPREADSHEET_ID': {
         'STI': {
-            'dev':  '1PxgtH1vT3VpeLJhMKjBWmo4Qq29M_RudfRywzQAP3-U',
-            'test': '1R0G-gByZYrDkf6Va1X3ywRA-A51nNVp_z51moOxe-VU',
-            'prod': '1lniXCNcKlzKqpVmPjRPiKPOly1prOODzaVM_f-UPWoM'
+            'dev':  '1A2pQH-V6JyzPl6fS-4lbqhkUoBoeDHUQZQeE8DVRdK0',
+            'test': '1TV7kBQi8AGIXI16TL0zwoGHLfQrSAnz7MrArnVegbXE',
+            'prod': '18d2sVVM8C4qPR0jS5-TrKifZ5-LXzjzBkCgsJYoMkeE'
         },
 
         # second location, mainly for testing purpose, until there is an actual second school loc
