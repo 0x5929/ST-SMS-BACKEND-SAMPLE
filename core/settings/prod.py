@@ -29,7 +29,7 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 # already in place by cloudflare, this if set to true will cause infinite redirects
 # caused by flexible SSL connection between cloudflare and server
 # as well as this setting below, thus commented out
-#SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = True
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
