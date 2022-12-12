@@ -11,6 +11,14 @@ class RefreshTokenView(get_refresh_view()):
 
 class AccountLogoutView(LogoutView):
     def post(self, request):
-        print('####################### request.data["refresh"]: ', request.data['refresh'])
+        response = super().post(request)
 
-        return super().post(request)
+        # set cookies to be samesite and secure
+        response.cookies['sms-auth']['samesite'] = 'None'
+        response.cookies['sms-auth']['secure'] = True
+        response.cookies['sms-auth']['httponly'] = True
+
+        response.cookies['sms-refresh-token']['samesite'] = 'None'
+        response.cookies['sms-refresh-token']['secure'] = True
+        response.cookies['sms-refresh-token']['httponly'] = True
+        return 
