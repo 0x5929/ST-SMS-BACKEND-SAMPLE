@@ -1,11 +1,11 @@
 from django.urls import path, re_path, include
 from dj_rest_auth.registration.views import RegisterView, VerifyEmailView, ConfirmEmailView
-from dj_rest_auth.views import LoginView, LogoutView, PasswordResetView, PasswordResetConfirmView
+from dj_rest_auth.views import LoginView, PasswordResetView, PasswordResetConfirmView
 from dj_rest_auth.jwt_auth import get_refresh_view
 
 from rest_framework_simplejwt.views import TokenVerifyView
 
-from .views import RefreshTokenView, LogOutView
+from .views import RefreshTokenView, LogoutView
 
 # setting app_name and namespace in core/urls.py will cause a ReverseMatch Exception,
 # django_rest_auth source needs to be altered to add a reverse match app name like so: auth:account_confirmation_email in order to work
