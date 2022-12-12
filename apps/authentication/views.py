@@ -21,4 +21,4 @@ class AccountLogoutView(LogoutView):
         response.cookies['sms-refresh-token']['samesite'] = 'None'
         response.cookies['sms-refresh-token']['secure'] = True
         response.cookies['sms-refresh-token']['httponly'] = True
-        return 
+        return response
