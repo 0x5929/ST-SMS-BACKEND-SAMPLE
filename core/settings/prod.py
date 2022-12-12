@@ -25,11 +25,13 @@ CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS + [
 # production security settings
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+JWT_AUTH_SECURE = True
 
 # due to the way we deploy, this is set to None for now. 
 # for future client facing builds think about how to get cross domain sessions
 SESSION_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SAMESITE = 'None'
+JWT_AUTH_SAMESITE = 'None'
 
 # already in place by cloudflare, this if set to true will cause infinite redirects
 # caused by flexible SSL connection between cloudflare and server
