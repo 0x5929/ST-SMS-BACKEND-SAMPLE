@@ -23,12 +23,15 @@ CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS + [
 
 
 # production security settings
+
+# since the way the backend and frontend is deployed
+# all cookies needs to be secure, but samesite=None
+# if not our cookies will not be set in the frontend
+# not an issue if front and backend coming from same domain(from subdomains)
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 JWT_AUTH_SECURE = True
 
-# due to the way we deploy, this is set to None for now. 
-# for future client facing builds think about how to get cross domain sessions
 SESSION_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_SAMESITE = 'None'
 JWT_AUTH_SAMESITE = 'None'
