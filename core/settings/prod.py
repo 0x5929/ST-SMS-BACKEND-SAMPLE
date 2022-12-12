@@ -24,7 +24,7 @@ CORS_ALLOWED_ORIGINS = [
 
 # production security settings
 SESSION_COOKIE_SECURE = True
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'False'
 
 # already in place by cloudflare, this if set to true will cause infinite redirects
 # caused by flexible SSL connection between cloudflare and server
