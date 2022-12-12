@@ -17,7 +17,8 @@ LOGIN_URL = env('LOGIN_URL')
 # cors settings, ie for react apps
 ALLOWED_HOSTS = ALLOWED_HOSTS + [ env('SERVER_HOST'), ]
 CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS + [
-    env('CORS_ALLOWED_HOST'), 
+    env('CORS_ALLOWED_HOST_1'), 
+    env('CORS_ALLOWED_HOST_2'), 
 ]
 
 
