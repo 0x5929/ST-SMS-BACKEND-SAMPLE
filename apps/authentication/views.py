@@ -11,7 +11,6 @@ class RefreshTokenView(get_refresh_view()):
 
 class AccountLogoutView(LogoutView):
     def post(self, request):
-        print('####################### request.user.access_token: ', request.user.access_token)
-        print('####################### request.user.refresh_token: ', request.user.refresh_token)
+        print('####################### request.data["refresh"]: ', request.data['refresh'])
 
         return super().post(request)
