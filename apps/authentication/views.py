@@ -9,7 +9,7 @@ class RefreshTokenView(get_refresh_view()):
         return super().post(request)
 
 
-class AccountLogoutView(LogoutView):
+class LogoutView(LogoutView):
     def post(self, request):
         response = super().post(request)
 

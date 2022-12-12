@@ -5,7 +5,7 @@ from dj_rest_auth.jwt_auth import get_refresh_view
 
 from rest_framework_simplejwt.views import TokenVerifyView
 
-from .views import RefreshTokenView, AccountLogoutView
+from .views import RefreshTokenView, LogOutView
 
 # setting app_name and namespace in core/urls.py will cause a ReverseMatch Exception,
 # django_rest_auth source needs to be altered to add a reverse match app name like so: auth:account_confirmation_email in order to work
@@ -19,7 +19,7 @@ urlpatterns = [
      path('account-confirm-email/<str:key>/', ConfirmEmailView.as_view()),
      path('register/', RegisterView.as_view()),
      path('login/', LoginView.as_view()),
-     path('logout/', AccountLogoutView.as_view()),
+     path('logout/', LogoutView.as_view()),
 
      path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
      path('token/refresh/', RefreshTokenView.as_view(), name='token_refresh'),
