@@ -11,14 +11,13 @@ DEBUG = False
 STATIC_ROOT = os.path.join(BASE_DIR, '../static')
 
 # email verification settings
-LOGIN_URL = 'https://0x5929.pythonanywhere.com/auth/login' 
+LOGIN_URL = env('LOGIN_URL')
 
 
 # cors settings, ie for react apps
-ALLOWED_HOSTS = ALLOWED_HOSTS + ['0x5929.pythonanywhere.com']
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000', # needs to be changed 
-    'http://127.0.0.1:3000', # needs to be changed
+ALLOWED_HOSTS = ALLOWED_HOSTS + [ env('SERVER_HOST'), ]
+CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS + [
+    env('CORS_ALLOWED_HOST'), 
 ]
 
 
