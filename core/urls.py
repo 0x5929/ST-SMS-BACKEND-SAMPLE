@@ -7,7 +7,7 @@ from .views import GitPullView
 
 env = getattr(settings, 'ENV')
 
-admin_urls = 'dallas_cowboys_really_sucked_this_year_fkurwordl!st/' if env == 'prod' else 'admin/'
+admin_urls = 'dallas_cowboys_really_sucked_this_year_fkurwordl!st/' if env == 'PROD' else 'admin/'
 
 
 urlpatterns = [
