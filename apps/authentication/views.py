@@ -9,6 +9,9 @@ class RefreshTokenView(get_refresh_view()):
         return super().post(request)
 
 
+# NOTE: below is only needed for the sample site since its front and back ends are different domains
+# and the lib code is buggy that samesite, secure and httponly is not altered in logout endpoint
+# so we have to manually input them here
 class LogoutView(LogoutView):
     def post(self, request):
         response = super().post(request)
