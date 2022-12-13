@@ -210,8 +210,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:3000'
 ]
 
-from corsheaders.defaults import default_headers
-CORS_ALLOW_HEADERS = list(default_headers) + ['Set-Cookie']
+# from corsheaders.defaults import default_headers
+# CORS_ALLOW_HEADERS = list(default_headers) + ['Set-Cookie']
 
 
 # CSRF_COOKIE_SECURE = False
