@@ -1,6 +1,6 @@
 # ST-SMS-Backend using Django REST API (sample backend for portfolio purpose, for main repo, please see [ST-SMS-BACKEND](https://github.com/0x5929/ST-SMS-BACKEND)
 
-Django REST Framework for Select Therapy Institute Student Management System. (Backend UI)[https://0x5929.pythonanywhere.com/auth/login/], please DM project owner for credentials.
+Django REST Framework for Select Therapy Institute Student Management System. [Backend UI](https://0x5929.pythonanywhere.com/auth/login/), please DM project owner for credentials.
 
 Remember that if any new changes to the old repo, also needs to be applied here. Since this is not a fork, nor branch, we cannot pull request and merge/sync the two codebases
 
