@@ -1,6 +1,6 @@
 # ST-SMS-Backend using Django REST API (sample backend for portfolio purpose, for main repo, please see [ST-SMS-BACKEND](https://github.com/0x5929/ST-SMS-BACKEND)
 
-Django REST Framework for Select Therapy Institute Student Management System
+Django REST Framework for Select Therapy Institute Student Management System. (Backend UI)[https://0x5929.pythonanywhere.com/auth/login/], please DM project owner for credentials.
 
 Remember that if any new changes to the old repo, also needs to be applied here. Since this is not a fork, nor branch, we cannot pull request and merge/sync the two codebases
 
@@ -90,22 +90,22 @@ _Note:_ If having trouble to pull/clone, please see : [clone using personal toke
 
 _Note:_ If having trouble to install postgres db connector, try: `$ PATH="<postgres-installation-path>/bin/:$PATH" pip install -r requirements.txt`
 
-for my fedora system, the path is : `/usr/pgsql-12/bin/`
----
+## for my fedora system, the path is : `/usr/pgsql-12/bin/`
 
 ### **Add in the st-sms-creds.json file**
+
 1. This file is used for Google API access, needs to be there or SMS endpoints will fail
 2. This file is only stored locally in repo owner's drive, for security reasons
 3. For a new project, one can create such file by following the first eight steps in this [guide](https://robocorp.com/docs/development-guide/google-sheets/interacting-with-google-sheets)
-4. *Explanation* To elaborate on point 1, this file is used to access Google API, more specifically to mirror data from postgres db to Google Sheets (For school, BPPE compliance reasons)
-
+4. _Explanation_ To elaborate on point 1, this file is used to access Google API, more specifically to mirror data from postgres db to Google Sheets (For school, BPPE compliance reasons)
 
 ### **Edit `core/settings/.env-template` file**
 
 1. Using your fav text editor to edit `/ST-SMS-Backend/core/settings/.env-template` file
 2. Rename the file to `.<dev|test|prod>-env` so it can be picked up by django
-  - In dev environment, `manage.py` picks up the settings config
-  - In prod environment, `wgsi.py` or `agsi.py` will point towards the setting file desired. 
+
+- In dev environment, `manage.py` picks up the settings config
+- In prod environment, `wgsi.py` or `agsi.py` will point towards the setting file desired.
 
 _Note:_ To generate a new secret key: `$ python manage.py shell`
 
@@ -134,28 +134,26 @@ _Note:_ If encountered errors where library images not found. You may need to sy
 
 ---
 
-
 ### **Import existing data from Google Sheets**
+
 1. dump data from google using by calling the following API (needs to have superuser access)
 
-  - `curl -X POST -H "Content-Type: application/json"  -d "{\"email\": \"root@localhost\", \"password\": \"you-password\"}" http://127.0.0.1:8000/auth/login/`
+- `curl -X POST -H "Content-Type: application/json"  -d "{\"email\": \"root@localhost\", \"password\": \"you-password\"}" http://127.0.0.1:8000/auth/login/`
 
-  - Remember to add the authentication token from the response in the next request
-  - `curl -H "Authorization Bearer {access_token}" http://127.0.0.1:8000/api/sms/google_sheet_datadump/?ssid=<spreadsheet id>&sid=<sheet id>&school_name=<school name value, ie: STI>`
+- Remember to add the authentication token from the response in the next request
+- `curl -H "Authorization Bearer {access_token}" http://127.0.0.1:8000/api/sms/google_sheet_datadump/?ssid=<spreadsheet id>&sid=<sheet id>&school_name=<school name value, ie: STI>`
 
 2. Save the JSON response into a file
 3. `$ python manage.py loaddata <dump-file.json>`
-4.  `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
+4. `$ python manage.py makemigrations --dry-run` under normal circumstances, there are no migration changes
 
 **note that these steps should be done in both dev and prod environments to have a ready Database**
 
 ---
 
+_If server started in dev by `$ python manage.py runserver`, it will live on http://localhost:8000_
 
-*If server started in dev by `$ python manage.py runserver`, it will live on http://localhost:8000*
-
-*If server started in prod, make sure check `wsgi.py` file so it points to prod settings, refer to hosting agent.*
-
+_If server started in prod, make sure check `wsgi.py` file so it points to prod settings, refer to hosting agent._
 
 ---
 
@@ -166,10 +164,11 @@ _Note:_ If encountered errors where library images not found. You may need to sy
     - this webhook is protected by github IP, and its webhook secret
 - webhook will do a git pull action
 - git pull will trigger a git hook (post-merge) inside the production server's `.git/hooks` directory
+
   - remember that every pull action will include merge, so this hook is valid.
   - post-merge hook will re-touch the `wsgi.py` file (the server's file) ie `/var/www/username_appname_wsgi.py`
   - post-merge hook will have at least user permission to execute!
-  - sample `post-merge`: 
+  - sample `post-merge`:
 
   ```sh
 
